@@ -6,7 +6,7 @@ import logo from '../../assets/img/logo.png'
 const Navbar = () => {
     return (
         <div>
-            <nav className="navbar navbar-expand-lg navbar-light " style={{ background: '#FAF1EA' }}>
+            <nav className="navbar navbar-expand-lg navbar-light navbar-all-components " style={{ background: '#FAF1EA' }}>
                 <a className="navbar-brand" href="#"> <img src={logo} height={54} width={72} alt="" />  </a>
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
@@ -58,8 +58,10 @@ const Navbar = () => {
                             </div>
                         </li>
                     </ul>
-
                 </div>
+                <button className='btn btn-dark '>  
+                 Login </button>  &nbsp;
+                <button className='btn btn-dark' > Signup </button>
             </nav>
         </div>
     )

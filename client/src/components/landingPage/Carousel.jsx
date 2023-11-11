@@ -6,7 +6,7 @@ import banner3 from '../../assets/img/banner3_.png'
 const Carousel = () => {
     return (
         <>
-            <div id="carouselExampleControls" className="carousel slide" data-ride="carousel">
+            <div id="carouselExampleControls" className="carousel slide mt-2" data-ride="carousel">
                 <div className="carousel-inner">
                     <div className="carousel-item active">
                         <img className="d-block w-100" src={banner} alt="First slide" />
