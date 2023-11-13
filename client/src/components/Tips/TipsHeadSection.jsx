@@ -6,7 +6,7 @@ const TipsHeadSection = () => {
   return (
     <div className='container mt-2'>
         <div className='row' > 
-            <div className='col' style={{marginTop: '9vw'}}>}
+            <div className='col' style={{marginTop: '9vw'}}>
                     <h1 style={{fontWeight:'700'}}> Welcome to my Tips  &nbsp; Section !   </h1>
                     <p className='mt-4' style={{fontSize:'larger',fontWeight:400}}> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nisi molestiae minima iure perspiciatis ad iusto saepe harum nihil. Nihil, sequi mollitia fugiat maxime eum repellat provident modi libero recusandae repellendus qui aliquid exercitationem quisquam est officiis debitis illo earum ducimus aliquam ut. Labore commodi tenetur facere quibusdam repellat asperiores velit?</p>
                     <button className='btn btn-dark mt-3'> Check Tips  </button>

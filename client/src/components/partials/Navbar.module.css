@@ -1,0 +1,20 @@
+.header_nav_links{
+    text-decoration: none;
+    color: #3a3a3a;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-left: 10px;
+    transition: 0.2s;
+}
+
+
+.header_nav_links:hover{
+    color: #E4B49D;
+    text-decoration: none;
+}
+
+.navbar_all_components{
+    background: #FAF1EA;
+    box-shadow: 0px 4px 20px rgba(87, 42, 6, 0.5);
+}
