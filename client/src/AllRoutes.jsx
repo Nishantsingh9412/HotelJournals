@@ -7,6 +7,7 @@ import Tips from './components/Tips/Tips';
 import JournalsPage from './components/Journals/JournalsPage';
 import Signup from './components/Authentication/Signup';
 import Login from './components/Authentication/Login';
+import UserProfile from './components/User_profile/UserProfile';
 
 const AllRoutes = () => {
   return (
@@ -17,6 +18,7 @@ const AllRoutes = () => {
             <Route path='/journals' element={<JournalsPage />} > </Route>
             <Route path='/signUp' element={<Signup />} > </Route>
             <Route path='/login' element={<Login/>} > </Route>
+            <Route path='/profile' element={<UserProfile/>} > </Route>
         </Routes>
     )
 }

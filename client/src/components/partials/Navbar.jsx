@@ -1,10 +1,37 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { NavLink } from 'react-router-dom'
-
+import { useDispatch, useSelector } from 'react-redux'
+import decode from 'jwt-decode'  
+import { useNavigate } from 'react-router-dom'
 // import './Navbar.css'
 import NavCSS from './Navbar.module.css'
 import logo from '../../assets/img/logo.png'
+import { setCurrentUser } from '../../actions/CurrentUser'
 const Navbar = () => {
+    const dispatch = useDispatch();  
+    const navigate = useNavigate();
+    var User = useSelector((state) => (state.currentUserReducer));  // Profile Data of the user
+
+
+    const handleLogout = () => {
+        dispatch({type:'LOGOUT'});
+        navigate('/login');
+        dispatch(setCurrentUser(null));
+    }
+
+    useEffect(() => {
+
+        const token = User?.token;
+        if(token){
+            const decodeToken = decode(token);
+
+            if(decodeToken.exp * 1000 < new Date().getTime()){
+             handleLogout();
+            }    
+        }
+        dispatch(setCurrentUser(JSON.parse(localStorage.getItem('Profile'))));
+    },[dispatch])
+
     return (
         <div>
             <nav className={`navbar navbar-expand-lg navbar-light ${NavCSS.navbar_all_components}`}  >
@@ -71,6 +98,11 @@ const Navbar = () => {
                                 <NavLink to='/signUp' className={NavCSS.header_nav_links} >
                                     SignUp
                                 </NavLink>
+                            </div>  
+                            <div className='nav-link' >
+                                <button onClick={handleLogout} className='btn btn-danger' >
+                                    Logout
+                                </button>
                             </div>  
 
             </nav>
