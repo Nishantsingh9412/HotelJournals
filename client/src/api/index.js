@@ -14,5 +14,12 @@ export const signUp = (authData) => API.post('/user/signup',authData)
 
 export const Login = (authData) => API.post('/user/login',authData)
 
+// Getting all users data from database
+export const Profile = () => API.get('/user/profile')
 
+// Tips Admin (Blog creation)
+export const TipsAdminData = (tipsData) => API.post('/admin/tips',tipsData)
+
+// Tips Data (Blog fetching)
+export const TipsData = () => API.get('/admin/tips')
 

@@ -1,4 +1,4 @@
-import * as api from '../api'
+import * as api from '../../api/index.js'
 import { setCurrentUser } from './CurrentUser';
 
 // export const signup = (authData,navigate) => async (dispatch) => {
@@ -38,7 +38,8 @@ export const login = (authData,navigate) => async(dispatch) => {
         dispatch({type:'AUTH',data});
         dispatch(setCurrentUser(JSON.parse(localStorage.getItem('Profile'))));
         dispatch({type:'CLEAR_MESSAGE',payload:null})
-        navigate('/profile');
+        
+        // navigate('/profile');
     }catch(error){
         console.log(error.message + error.response.data.message);
         dispatch({type:'AUTH_ERROR',payload:error.response.data.message});

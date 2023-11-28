@@ -4,6 +4,7 @@ import cors from 'cors';
 import dotenv from 'dotenv'
 
 import userRoutes from './routes/users.js'
+import adminRoutes from './routes/admin.js'
 
 
 const app = express()
@@ -15,9 +16,12 @@ const port = 5000
 app.use(express.json({limit:'30mb',extended:true}));
 app.use(express.urlencoded({limit:'30mb',extended:'true'}))
 app.use(cors())
+// For image upload
+app.use('/uploads',express.static('uploads'))
 
 
 app.use('/user',userRoutes)
+app.use('/admin',adminRoutes)
 
 
 app.get('/', (req, res) => {

@@ -31,7 +31,7 @@ const MidSection = () => {
         // </div>
 
 
-        <div className='container-fluid mt-5 mb-5 text-center ' >
+        <div className='container mt-5 mb-5 text-center ' >
             <div className='text-dark ' >
                 {/* <div className='text-dark' style={{background:'#ffffff'}}> */}
                 <h2 className='text-dark' >  Welcome to  <span className='h2 p-0 m-0' style={{ color: '#C97172' }}> Hotel Journals</span>  </h2>
@@ -108,20 +108,20 @@ const MidSection = () => {
                 </div> */}
 
                 <div className='container'>
-                    <div class="row row-cols-1 row-cols-md-2">
-                        <div class="col mt-3 animate__animated animate__fadeInLeft" >
+                    <div class="row row-cols-1  row-cols-md-3">
+                        <div class="col mt-3" style={{marginLeft:'8vw'}} >
                             <div class="card border border-secondary rounded">
                                 <img src={AboutMe} className="card-img-top w-100 img-responsive" alt="..." />
                                 <div class="card-body">
-                                    <h5 class="card-title font-bold">Find Jobs </h5>
+                                    <h5 class="card-title font-bold">Check Tips </h5>
                                     <p class="card-text">Hotel Journals is your go-to job search website, offering a vast database of job listings across diverse industries. Our intuitive platform simplifies the search process, helping you find the right career opportunity.  </p>
                                     <button className='btn btn-dark w-75'> Find Jobs  </button>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="col ">
-                            <div class="card mt-3 border-secondary rounded">
+                        <div class="col " style={{marginLeft:'5vw'}}>
+                            <div class="card mt-3 border-secondary rounded" >
                                 <img src={BlogPost} className="card-img-top w-100 img-responsive" alt="..." />
                                 <div class="card-body">
                                     <h5 class="card-title"> Journals </h5>

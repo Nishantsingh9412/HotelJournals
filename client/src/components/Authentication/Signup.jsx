@@ -4,7 +4,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import { Navigate, useLinkClickHandler, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-import { signup } from '../../actions/auth';
+import { signup } from '../../redux/actions/auth';
 
 
 // const notify = () => toast.error('Some Error is there ');

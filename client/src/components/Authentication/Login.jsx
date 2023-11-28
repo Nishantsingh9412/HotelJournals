@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 
-import { login } from '../../actions/auth';
+import { login } from '../../redux/actions/auth';
 
 const Login = () => {
 
