@@ -20,6 +20,13 @@ export const Profile = () => API.get('/user/profile')
 // Tips Admin (Blog creation)
 export const TipsAdminData = (tipsData) => API.post('/admin/tips',tipsData)
 
-// Tips Data (Blog fetching)
+// Tips Data (Blog fetching)  For All Blogs 
 export const TipsData = () => API.get('/admin/tips')
+
+// Tips Data for single Blog 
+export const TipsDataSingle = (id) => API.get(`/admin/tips/${id}`)
+
+// Deleting a Blog
+export const DeleteTip = (id) => API.delete(`/admin/tips/${id}`)
+
 

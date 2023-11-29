@@ -9,6 +9,8 @@ import Signup from './components/Authentication/Signup';
 import Login from './components/Authentication/Login';
 import UserProfile from './components/User_profile/UserProfile';
 import AdminTips from './components/admin/AdminTips/AdminTips';
+import SingleTip from './components/Tips/SingleTip';
+import Dashboard from './components/admin/Dashboard/Dashboard';
 
 
 
@@ -25,9 +27,12 @@ const AllRoutes = () => {
             <Route path='/profile' element={<UserProfile/>} > </Route>
             <Route path='/admintips' element={<AdminTips/>} > </Route>
 
+            <Route path='/dashboard' element={<Dashboard />}>  </Route>
+
+
             {/* // Temporary Route for testing */}
 
-            {/* <Route path='/test' element={<ShowTips /> } > </Route> */}
+            <Route path='/test/:id' element={<SingleTip /> } > </Route>
         </Routes>
     )
 }

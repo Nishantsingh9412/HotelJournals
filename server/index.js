@@ -4,7 +4,7 @@ import cors from 'cors';
 import dotenv from 'dotenv'
 
 import userRoutes from './routes/users.js'
-import adminRoutes from './routes/admin.js'
+import tipsAdminRoutes from './routes/Tips.js'
 
 
 const app = express()
@@ -21,7 +21,7 @@ app.use('/uploads',express.static('uploads'))
 
 
 app.use('/user',userRoutes)
-app.use('/admin',adminRoutes)
+app.use('/admin',tipsAdminRoutes)
 
 
 app.get('/', (req, res) => {

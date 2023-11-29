@@ -6,6 +6,7 @@ import Footer from '../partials/Footer.jsx'
 import FindJobs from '../landingPage/FindJobs.jsx';
 import Courses from '../landingPage/Courses.jsx';
 import Journals from '../landingPage/Journals.jsx';
+import Testimonials from '../landingPage/Testimonials.jsx';
 
 const Home = () => {
   return (
@@ -13,8 +14,9 @@ const Home = () => {
         <Carousel />
         <Midsection />
         <FindJobs /> 
+        <Testimonials />
         <Courses />
-        <Journals />
+        {/* <Journals /> */}
         <Footer />
     </div>
   )

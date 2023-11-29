@@ -20,3 +20,23 @@ export const GetTips = () => async (dispatch) => {
         console.log(":Error from TipsAdmin Action: " + error.message)
     }
 }
+
+export const GetSingleTips = (id) => async(dispatch) => {
+    try{
+        const {data} = await api.TipsDataSingle(id);
+        dispatch({type:'GET_SINGLE_TIPS',data})
+        console.log("Single Tips Action : " , data);
+    }catch(err){
+        console.log("Error from GetSingleTips Action : " + err.message);
+    }
+}
+
+export const DeleteATip = (id) => async(dispatch) => {
+    try{
+        const {data} = await api.DeleteTip(id);
+        dispatch(GetTips());
+    }catch(err){
+        console.log("Error from DeleteTips Action : " + err.message);
+    }
+} 
+

@@ -91,11 +91,11 @@ const Navbar = () => {
                             </div>
                         </li>
 
-
+                        
                         <li className="nav-item active">
                             <div className='nav-link' >
-                                <NavLink to='/admintips' className={NavCSS.header_nav_links} >
-                                   AdminTips
+                                <NavLink to='/dashboard' className={NavCSS.header_nav_links} >
+                                   Admin Panel
                                 </NavLink>
                             </div>
                         </li>
