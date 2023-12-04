@@ -11,7 +11,7 @@ import UserProfile from './components/User_profile/UserProfile';
 import AdminTips from './components/admin/AdminTips/AdminTips';
 import SingleTip from './components/Tips/SingleTip';
 import Dashboard from './components/admin/Dashboard/Dashboard';
-
+import UpdateTips from './components/admin/AdminTips/UpdateTips';
 
 
 
@@ -27,7 +27,9 @@ const AllRoutes = () => {
             <Route path='/profile' element={<UserProfile/>} > </Route>
             <Route path='/admintips' element={<AdminTips/>} > </Route>
 
+            {/* Admin Routes  */}
             <Route path='/dashboard' element={<Dashboard />}>  </Route>
+            <Route path='/dashboard/updateTips/:id' element={<UpdateTips />}>  </Route>
 
 
             {/* // Temporary Route for testing */}

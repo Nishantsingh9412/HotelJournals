@@ -1,0 +1,61 @@
+* {
+    /* background-color: brown; */
+}
+
+.svgComponent {
+    margin-left: 43vw;
+    width: 35vw;
+    height: 25vw;
+}
+
+.MainHeading {
+    /* width: 585px; */
+    width: 40vw;
+    color: #334047;
+    font-family: "Poppins";
+    /* font-size: 54px; */
+    font-size: 3vw;
+    font-style: normal;
+    font-weight: 600;
+    /* line-height: 64px; */
+    line-height: 4vw;
+    letter-spacing: 0.1vw;
+
+}
+
+.mainContainer {
+    border-radius: 0vw 5vw 0vw 3vw;
+    padding-top: 5vw;
+    background-image: url('./hi.svg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: bottom;
+}
+
+.subH {
+    padding-top: 2vw;
+    color: #45565F;
+    font-family: "Poppins";
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 28px;
+    /* 155.556% */
+}
+
+.btnP{
+    /* width: 215px; */
+    /* height: 70px; */
+    /* width: 12vw;
+    height: 4vw;
+    border-radius:4vw;
+    background-color: #FFBA18; */
+    margin-top: 2vw;
+    margin-bottom: 4vw;
+    font-weight: 600;
+    background-color: #FFBA18;
+    border-radius: 20vw;
+    width: 15vw;
+    height: 4vw;
+}
+

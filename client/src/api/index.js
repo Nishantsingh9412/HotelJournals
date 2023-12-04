@@ -29,4 +29,6 @@ export const TipsDataSingle = (id) => API.get(`/admin/tips/${id}`)
 // Deleting a Blog
 export const DeleteTip = (id) => API.delete(`/admin/tips/${id}`)
 
+// For Updating a Tip
+export const UpdateTip = (id,tipsdata) => API.patch(`/admin/tips/${id}`,tipsdata)
 

@@ -1,7 +1,7 @@
 import express from "express";
 import multer from "multer";
 
-import { TipsAdmin, TipsData , SingleTipData , DeleteTip } from "../controllers/tips.js";
+import { TipsAdmin, TipsData , SingleTipData , DeleteTip ,  editTip } from "../controllers/tips.js";
 
 const router = express.Router();
 
@@ -46,6 +46,8 @@ router.post('/tips',upload.single('image'),TipsAdmin)
 router.get('/tips',TipsData)
 router.get('/tips/:id',SingleTipData)
 router.delete('/tips/:id',DeleteTip);
+
+router.patch('/tips/:id',upload.single('image'),editTip);
 
 // router.post('/tips',TipsAdmin)
 

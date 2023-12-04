@@ -95,7 +95,7 @@ const Dashboard = () => {
             <div className='container'>
                 <h2 className='pt-4 mb-4'> Admin Dashboard  </h2>
                 <button className='btn btn-primary text-white'>
-                    <NavLink to='/admintips'  >
+                    <NavLink to='/admintips'  style={{textDecoration:'none',color:'white'}} >
                         Add a new Tip
                     </NavLink>
                 </button>
@@ -115,13 +115,13 @@ const Dashboard = () => {
                                 <button className='mt-3 btn btn-dark'> Read More  </button>
                             </NavLink> */}
                                 <button className='btn btn-danger' onClick={() => handleDelete(tip._id)}> 
-                                    <NavLink to={`/dashboard/${tip._id}`}>
+                                    <NavLink to={`/dashboard/${tip._id}`} style={{textDecoration:'none',color:'white',padding:'4px'}}>
                                         Delete 
                                     </NavLink>  
                                         <IoTrashBin /> 
                                     </button>
                                  
-                                <button className='btn btn-info ml-4'> Edit <FaPencil /> </button>
+                                <button className='btn btn-info ml-4'> <NavLink style={{textDecoration:'none',color:'white',padding:'4px'}} to={`/dashboard/updateTips/${tip._id}`}> Edit  </NavLink>  <FaPencil /> </button>
                             </div>
                         </div>
                     ))}

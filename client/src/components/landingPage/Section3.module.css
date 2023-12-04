@@ -1,0 +1,190 @@
+.TheyS {
+    /* width: 586px; */
+    width: 40vw;
+    color: #334047;
+    font-size: 3.5vw;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 4vw;
+    letter-spacing: 0.1vw;
+}
+
+.TestimonialsText {
+    font-size: 2.5vw;
+    font-style: normal;
+    line-height: 2.5vw;
+    letter-spacing: 0.1vw;
+}
+
+.Box {
+    width: 380px;
+    height: 313px;
+    /* border-radius: 32px; */
+    border-radius: 2vw;
+    background: #F4F6FB;
+    
+    flex-shrink: 0;
+    margin:0.5vw ;
+
+}
+
+
+
+
+.AllContent {
+    margin-top: 3vw;
+}
+
+.testImg {
+    margin-left: 2vw;
+    width: 100px;
+    height: 100px;
+    flex-shrink: 0;
+    /* 
+    margin-left: 6vw;
+    margin-top: 1.4vw; */
+}
+
+.testDesc {
+    /* padding-top: 2vw; */
+    padding-left: 1.5vw;
+    padding-top: 1vw;
+    color: #333539;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 26px;
+    /* 162.5% */
+    letter-spacing: 0.3px;
+    opacity: 0.7;
+
+}
+
+.iconHeading {
+    padding-top: 1vw;
+    padding-left: 0.9vw;
+    color: #343434;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.iconSubH {
+    /* padding-top: 2vw; */
+    padding-left: 1.9vw;
+    color: #333539;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 26px;
+    /* 162.5% */
+    letter-spacing: 0.3px;
+}
+
+
+
+/* Section3.module.css */
+
+/* ... existing styles ... */
+
+/* For devices smaller than 1200px */
+@media (max-width: 1200px) {
+    .TheyS {
+      font-size: 2.5vw;
+      line-height: 3vw;
+    }
+  
+    .TestimonialsText {
+      font-size: 2vw;
+      line-height: 2vw;
+    }
+  
+    .Box {
+      width: 90vw;
+      height: auto;
+      border-radius: 1vw;
+    }
+  
+    .testImg {
+      width: 50px;
+      height: 50px;
+    }
+  
+    .iconHeading {
+      font-size: 16px;
+    }
+  
+    .iconSubH {
+      font-size: 14px;
+    }
+  }
+  
+  /* For devices smaller than 768px */
+  @media (max-width: 768px) {
+    .TheyS {
+      font-size: 2vw;
+      line-height: 2.5vw;
+    }
+  
+    .TestimonialsText {
+      font-size: 1.5vw;
+      line-height: 1.5vw;
+    }
+  
+    .Box {
+      width: 85vw;
+      height: auto;
+      border-radius: 1vw;
+    }
+  
+    .testImg {
+      width: 40px;
+      height: 40px;
+    }
+  
+    .iconHeading {
+      font-size: 14px;
+    }
+  
+    .iconSubH {
+      font-size: 12px;
+    }
+  }
+
+/* Section3.module.css */
+
+/* ... existing styles ... */
+
+/* For devices smaller than 600px */
+@media (max-width: 600px) {
+    .TheyS {
+      font-size: 1.5vw;
+      line-height: 2vw;
+    }
+  
+    .TestimonialsText {
+      font-size: 1.2vw;
+      line-height: 1.2vw;
+    }
+  
+    .Box {
+      width: 80vw;
+      height: auto;
+      border-radius: 1vw;
+    }
+  
+    .testImg {
+      width: 30px;
+      height: 30px;
+    }
+  
+    .iconHeading {
+      font-size: 12px;
+    }
+  
+    .iconSubH {
+      font-size: 10px;
+    }
+  }
+/*  */

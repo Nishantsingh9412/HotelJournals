@@ -95,7 +95,6 @@ const AdminTips = () => {
                 <button className='btn btn-dark w-100' > Post  </button>
                 <Toaster />
             </form>
-            {content}
         </div>
 
 

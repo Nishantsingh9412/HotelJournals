@@ -55,3 +55,21 @@ export const DeleteTip = async (req, res) => {
         res.status(401).json({ message: err.message })
     }
 }
+
+export const editTip = async(req,res) => {
+    const {id: _id} = req.params;
+    const {title,description,shortDescription} = req.body;
+    const { path } = req.file;
+
+    if(!mongoose.Types.ObjectId.isValid(_id)){
+        return res.status(401).send('No post with that id');
+    }
+
+    try {
+        const updateProfile = await Tips.findByIdAndUpdate(_id,{$set:{'title':title,'description':description,'shortDescription':shortDescription,'image':path}},{new:true});
+        res.status(200).json({message:'Tip Updated Successfully',result:updateProfile})
+    } catch (err) {
+        res.status(401).json({message:err.message})
+    }
+
+}
