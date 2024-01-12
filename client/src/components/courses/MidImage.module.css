@@ -1,0 +1,22 @@
+
+.mainClassContainer{
+    margin-left: 12rem;
+    margin-top: 2.5rem;
+}
+
+
+.sidebar{
+    width: 20rem;
+    height: fit-content;
+    padding: 2%;  
+    /* background-color:#E4B49D; */
+    /* background-color: crimson; */
+}
+
+.imageClass{
+    /* overflow:hidden; */
+    margin-left: 1.15rem;
+    width: 62.5rem;
+    height: fit-content;
+    background-color: crimson;
+}

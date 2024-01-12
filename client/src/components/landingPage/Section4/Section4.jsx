@@ -16,7 +16,7 @@ const Section4 = () => {
                         {/* <Hi className={CSS.svgComponent} /> */}
                     </div>
                 </div>
-        <button className={ ` btn ${CSS.btnP}`} > Check Jobs  </button>
+                <button className={ ` btn ${CSS.btnP}`} > Check Jobs  </button>
             </div>
 
         </div>

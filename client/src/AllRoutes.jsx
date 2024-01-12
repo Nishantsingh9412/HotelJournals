@@ -12,6 +12,7 @@ import AdminTips from './components/admin/AdminTips/AdminTips';
 import SingleTip from './components/Tips/SingleTip';
 import Dashboard from './components/admin/Dashboard/Dashboard';
 import UpdateTips from './components/admin/AdminTips/UpdateTips';
+import Courses from './components/courses/Courses';
 
 
 
@@ -26,6 +27,7 @@ const AllRoutes = () => {
             <Route path='/login' element={<Login/>} > </Route>
             <Route path='/profile' element={<UserProfile/>} > </Route>
             <Route path='/admintips' element={<AdminTips/>} > </Route>
+            <Route path='/courses' element= {<Courses /> } > </Route>
 
             {/* Admin Routes  */}
             <Route path='/dashboard' element={<Dashboard />}>  </Route>

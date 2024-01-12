@@ -38,21 +38,21 @@ export const SingleTipData = async (req, res) => {
         const singleTip = await Tips.findById(id);
         res.status(200).json({ message: 'single tip mil giyo', result: singleTip })
     } catch (error) {
-        res.status(401).json({ message: error.message });
+        res.status(500).json({ message: error.message });
     }
 }
 
 export const DeleteTip = async (req, res) => {
     const { id: _id } = req.params;  // Renaming id to _id
         if (!mongoose.Types.ObjectId.isValid(_id)) {
-            return res.status(404).send('No post with that id');
+            return res.status(500).send('No post with that id');
         }
     try {
         await Tips.findByIdAndDelete(_id);
 
         res.status(200).json({ message: 'Tip Deleted Successfully' })
     }catch(err){
-        res.status(401).json({ message: err.message })
+        res.status(500).json({ message: err.message })
     }
 }
 
@@ -62,14 +62,14 @@ export const editTip = async(req,res) => {
     const { path } = req.file;
 
     if(!mongoose.Types.ObjectId.isValid(_id)){
-        return res.status(401).send('No post with that id');
+        return res.status(501).send('No post with that id');
     }
 
     try {
         const updateProfile = await Tips.findByIdAndUpdate(_id,{$set:{'title':title,'description':description,'shortDescription':shortDescription,'image':path}},{new:true});
         res.status(200).json({message:'Tip Updated Successfully',result:updateProfile})
     } catch (err) {
-        res.status(401).json({message:err.message})
+        res.status(500).json({message:err.message})
     }
 
 }
