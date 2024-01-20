@@ -5,6 +5,7 @@ import dotenv from 'dotenv'
 
 import userRoutes from './routes/users.js'
 import tipsAdminRoutes from './routes/Tips.js'
+import coursesRoutes from './routes/Courses.js' 
 
 
 const app = express()
@@ -22,6 +23,7 @@ app.use('/uploads',express.static('uploads'))
 
 app.use('/user',userRoutes)
 app.use('/admin',tipsAdminRoutes)
+app.use('/courses',coursesRoutes)
 
 
 app.get('/', (req, res) => {

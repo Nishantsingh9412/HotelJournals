@@ -1,0 +1,11 @@
+.aboutMeBtn{
+    /* background-color: aqua; */
+    height: 45px;
+    width: 200px;
+    border-radius: 50px;
+}
+
+.aboutMeBtn:hover{
+    background-color: #161515;
+    color: white;
+}

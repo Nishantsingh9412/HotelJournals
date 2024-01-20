@@ -1,0 +1,25 @@
+.smallHeading{
+    margin-top: 6rem;
+    font-size: 1.5rem;
+    font-weight: lighter;
+    font-family:system-ui;
+    text-align: center;
+    width: 100%;
+}
+
+.bigHeading{
+    font-size: 4rem;
+    font-weight: lighter;
+    font-family:system-ui;
+    text-align: center;
+    width: 100%;
+
+}
+
+.blackbgHeading{
+    font-size: 4rem;
+    font-weight: lighter;
+    font-family:system-ui;
+    text-align: right;
+    width: 100%;
+}
