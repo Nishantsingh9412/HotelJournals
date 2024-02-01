@@ -8,11 +8,12 @@
 }
 
 .bigHeading{
-    font-size: 4rem;
+    font-size: 3.35rem;
     font-weight: lighter;
     font-family:system-ui;
     text-align: center;
     width: 100%;
+    text-transform: uppercase;
 
 }
 

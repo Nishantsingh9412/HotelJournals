@@ -13,7 +13,8 @@ import SingleTip from './components/Tips/SingleTip';
 import Dashboard from './components/admin/Dashboard/Dashboard';
 import UpdateTips from './components/admin/AdminTips/UpdateTips';
 import Courses from './components/courses/Courses';
-
+import CreateCourse from './components/admin/AdminCourses/CreateCourse';
+import CourseDescription from './components/courses/CourseDescription';
 
 
 const AllRoutes = () => {
@@ -30,8 +31,16 @@ const AllRoutes = () => {
             <Route path='/courses' element= {<Courses /> } > </Route>
 
             {/* Admin Routes  */}
+                    {/*  For Tips */}
             <Route path='/dashboard' element={<Dashboard />}>  </Route>
             <Route path='/dashboard/updateTips/:id' element={<UpdateTips />}>  </Route>
+
+                    {/* For Courses */}
+                            {/* Create Course */}
+            <Route path='/admin/courses' element = {<CreateCourse /> } >  </Route>
+                            {/* Get Single Course */}
+            <Route path='courses/:id' element={ <CourseDescription /> } > </Route>
+            
 
 
             {/* // Temporary Route for testing */}

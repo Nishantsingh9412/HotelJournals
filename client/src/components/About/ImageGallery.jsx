@@ -1,17 +1,32 @@
 import React from 'react'
-
 import AliceCarousel from 'react-alice-carousel';
 import 'react-alice-carousel/lib/alice-carousel.css';
+
+import image1 from '../../assets/img/hj-1.jpg'
+import image2 from '../../assets/img/hj-2.jpg'
+import image3 from '../../assets/img/hj-3.jpg'
+import image4 from '../../assets/img/hj-4.jpg'
+import image5 from '../../assets/img/hj-5.jpg'
+import image6 from '../../assets/img/hj-6.jpg'
+
+const imageStyle = {
+  width: '210px',
+  height: '200px',
+  objectFit: 'cover',
+  objectPosition: 'center',
+  borderRadius: '10px',
+  cursor: 'pointer',
+}
 
 const handleDragStart = (e) => e.preventDefault();
 
 const items = [
-    <img src="https://picsum.photos/1200/300/?blur=2" onDragStart={handleDragStart} role="presentation" />,
-    <img src="https://picsum.photos/1200/300/?blur=4" onDragStart={handleDragStart} role="presentation" />,
-    <img src="https://picsum.photos/1200/300/?blur=1" onDragStart={handleDragStart} role="presentation" />,
-    <img src="https://picsum.photos/1200/300/?blur=9" onDragStart={handleDragStart} role="presentation" />,
-    <img src="https://picsum.photos/seed/picsum/1200/300" onDragStart={handleDragStart} role="presentation" />,
-    <img src="https://picsum.photos/400/300/?blur=2" onDragStart={handleDragStart} role="presentation" />,
+    <img src={image1} onDragStart={handleDragStart} role="presentation"  style={imageStyle}/>,
+    <img src={image2} onDragStart={handleDragStart} role="presentation" style={imageStyle} />,
+    <img src={image3} onDragStart={handleDragStart} role="presentation" style={imageStyle} />,
+    <img src={image4} onDragStart={handleDragStart} role="presentation" style={imageStyle} />,
+    <img src={image5} onDragStart={handleDragStart} role="presentation" style={imageStyle} />,
+    <img src={image6} onDragStart={handleDragStart} role="presentation" style={imageStyle} />,
   ];
 
   const responsive = {
@@ -23,7 +38,7 @@ const items = [
 const ImageGallery = () => {
   return (
     <div className='container mt-2'>
-          <AliceCarousel mouseTracking items={items}  responsive={responsive} />
+          <AliceCarousel mouseTracking items={items}  responsive={responsive}  />
     </div>
   )
 }

@@ -17,11 +17,11 @@ const About = () => {
               <div className='col'>
               <div className='row'>
                     <div className={CSS.smallHeading}>
-                            YOUR HEADING 
+                      SE EL CAMBIO
                     </div>
                 </div>
                 <div className={`row mt-4  ${CSS.bigHeading} `}>
-                  CADA DÍA PERCIBIMOS MÁS DE 6000 MARCAS, EL OBJETIVO ES QUE ELIJAN LA TUYA.
+                  Presumir de tu trabajo crea un camino de éxito que inspira a otros a seguir tus pasos
                 </div>
               </div>
               
@@ -58,34 +58,34 @@ const About = () => {
 
 
                 {/* Section 4 Start */}
-                {/* <div className='container-fluid mt-5 mb-2 text-white' style={{background:'#363434',paddingTop:'5rem',paddingBottom:'4rem'}}>
+                <div className='container-fluid mt-5 mb-2 text-white' style={{background:'#363434',paddingTop:'5rem',paddingBottom:'4rem'}}>
                   <div className='row'>
                       <div className='col '>
-                        <p className={`${CSS.blackbgHeading} `}>  Lo que me mueve   </p>
+                        <p className={`${CSS.blackbgHeading} `}>  Lo que busco   </p>
                       </div>
                       
 
                       <div className='col'>
                         <div className='row '>
                         <ul style={{ listStyleType: 'none', paddingLeft:'3rem' }} >
-                          <li> Lorem Ipsum </li>
-                          <li> Dolor Sit  </li>
-                          <li> Amet It </li>
-                          <li> Should be </li>
+                          <li> Un sector más justo </li>
+                          <li> Mejora de las condiciones  </li>
+                          <li> Cambios en el sector </li>
+                          <li> Oportunidades de estudio  </li>
                         </ul>
 
                         <ul style={{ listStyleType: 'none', paddingLeft:'7rem' }} >
-                          <li> Lorem Ipsum </li>
-                          <li> Dolor Sit  </li>
-                          <li> Amet It </li>
-                          <li> Should be </li>
+                          <li> Un sector más unido </li>
+                          <li> Igualdad   </li>
+                          <li> Equilibrio  </li>
+                          <li> Orgullo  </li>
                         </ul>
                         </div>
 
                       </div>
                   </div>
 
-                </div> */}
+                </div>
                 {/* Section 4 End */}
 
 

@@ -70,6 +70,13 @@ const Navbar = () => {
                         </li>
                         <li className="nav-item active">
                             <div className='nav-link' >
+                                <NavLink to='/admin/courses' className={NavCSS.header_nav_links} >
+                                    Add new Course
+                                </NavLink>
+                            </div>
+                        </li>
+                        <li className="nav-item active">
+                            <div className='nav-link' >
                                 <NavLink to='/journals' className={NavCSS.header_nav_links} >
                                     Journals
                                 </NavLink>

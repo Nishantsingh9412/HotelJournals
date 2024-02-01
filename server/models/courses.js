@@ -1,17 +1,18 @@
 import mongoose from "mongoose";
 
 const courseSchema = mongoose.Schema({
-    title: {type:String,require:true},
-    description : {type:String,require:true},
-    company_name : {type:String,require:true},
-    price: { type: Number, require: true },
-    isFree : {type:Boolean, default:false},
-    course_link : {type:String,require:true},
-    format: {type:String,require:true},
-    languages : {type:[String],require:true},
-    duration : {type:String,require:true},
-    banner_image:{type:String,require:true},
-    brand_image : {type:String,require:true}
+    title: {type:String,required:true},
+    description : {type:String,required:true},
+    company_name : {type:String,required:true},
+    price: { type: String, required: false},
+    isFree : {type:Boolean, default:false , required:true},
+    difficulty : {type:String,required:true},
+    course_link : {type:String,required:true},
+    format: {type:String,required:true},
+    languages : {type:[String],required:true},
+    duration : {type:String,required:true},
+    banner_image:{type:String,required:true},
+    brand_image : {type:String,required:true}
 });
 
 export default mongoose.model('Courses',courseSchema);

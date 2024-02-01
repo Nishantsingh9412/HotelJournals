@@ -32,3 +32,20 @@ export const DeleteTip = (id) => API.delete(`/admin/tips/${id}`)
 // For Updating a Tip
 export const UpdateTip = (id,tipsdata) => API.patch(`/admin/tips/${id}`,tipsdata)
 
+//  ----------------------------  For Creating a Course---------------
+
+// Course Admin (Course creation)
+export const CourseAdminData = (courseData) => API.post('/courses/newCourse',courseData)
+
+// Course Data (Course fetching)  For All Courses
+
+export const getCourseData = () => API.get('/courses/allCourses')
+
+// Course Data for single Course
+
+export const getCourseDataSingle = (id) => API.get(`/courses/singleCourse/${id}`)
+
+
+
+
+
