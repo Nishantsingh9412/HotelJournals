@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import decode from 'jwt-decode'
 import { useNavigate } from 'react-router-dom'
 // import './Navbar.css'
+
 import NavCSS from './Navbar.module.css'
 import logo from '../../assets/img/logo.png'
 import { setCurrentUser } from '../../redux/actions/CurrentUser'
@@ -11,9 +12,16 @@ import { setCurrentUser } from '../../redux/actions/CurrentUser'
 const Navbar = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    dispatch({type:'FETCH_ALL_USERS'})
-    var User = useSelector((state) => (state.currentUserReducer));  // Profile Data of the user
+    // dispatch({type:'FETCH_ALL_USERS'})
+    // dispatch(setCurrentUser(JSON.parse(localStorage.getItem('Profile'))));
+    
+    var User = useSelector((state) => (state.currentuserReducer));  // Profile Data of the user
     console.log(User);
+    // var User = "Hi";
+    // var state = useSelector(state => state);
+    // console.log("hello \n")
+    // console.log(state);
+    
 
     const handleLogout = () => {
         dispatch({ type: 'LOGOUT' });
@@ -35,7 +43,7 @@ const Navbar = () => {
     }, [dispatch])
 
 
-    console.log("From Navbar: "+ User);
+    // console.log("From Navbar: "+ User);
 
     return (
         <div>
@@ -110,7 +118,7 @@ const Navbar = () => {
                 </div>
                 {/* <button className='btn btn-dark '> */}
                 {
-                    User === null ?
+                    (!User) ?
                             <>
                                 <div className='nav-link' >
                                     <NavLink to='/login' className={NavCSS.header_nav_links} >
@@ -126,11 +134,11 @@ const Navbar = () => {
                             </> :
                         (<>
 
-                            <Link to={`/profile/${User?.result?._id}`} style={{color:"white",textDecoration:"none"}}> {User?.result?.name.charAt(0).toUpperCase()} </Link> &nbsp;
                             <div className='nav-link' >
                                 <button onClick={handleLogout} className='btn btn-danger' >
                                     Logout
                                 </button>
+                            <Link to={`/profile/${User?.result?._id}`} style={{color:"white",textDecoration:"none",paddingLeft:'5px'}}> Hola  {User?.result?.fname}  </Link> &nbsp;
                             </div>
                         </>)
                 }

@@ -26,7 +26,7 @@ const AllRoutes = () => {
             <Route path='/journals' element={<JournalsPage />} > </Route>
             <Route path='/signUp' element={<Signup />} > </Route>
             <Route path='/login' element={<Login/>} > </Route>
-            <Route path='/profile' element={<UserProfile/>} > </Route>
+            <Route path='/profile/:id' element={<UserProfile/>} > </Route>
             <Route path='/admintips' element={<AdminTips/>} > </Route>
             <Route path='/courses' element= {<Courses /> } > </Route>
 

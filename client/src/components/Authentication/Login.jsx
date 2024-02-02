@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import toast, { Toaster } from 'react-hot-toast';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
@@ -14,19 +15,38 @@ const Login = () => {
     const dispatch = useDispatch();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [loading, setLoading] = useState(false);
+
 
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        dispatch(login({email,password},navigate));     // login action
+        setLoading(true);
+        
+        if(!email || !password){
+            toast.error('Please fill all the fields');
+            setLoading(false);
+            return false;   
+        }
+        console.log(email, password);
+        dispatch(login({email,password},navigate));    
+        
+        // setLoading(false);
+
+        if(!loading && messagebackend){
+            setLoading(true);
+            setTimeout(() => {
+                toast.error(messagebackend);
+            }, 1000); // Wait for 1 second
+        }
+        setLoading(false);
     }
 
-    const validate = () => {
-        if(messagebackend){
-            toast.error(messagebackend);
-            console.log("from Validate" +  messagebackend);
-        }
-    }
+    // useEffect(() => {
+    //     if (!loading && messagebackend) {
+    //         toast.error(messagebackend);
+    //     }
+    // },[messagebackend,loading])
 
 
 
@@ -34,7 +54,7 @@ const Login = () => {
     return (
 
         <div className='container mt-4' style={{ marginLeft: '25%' }}>
-            <form onSubmit={handleSubmit}>
+            <form >
                 {/* {messagebackend ? (
                     <div className='alert alert-info w-50' >
                         {messagebackend} 
@@ -52,8 +72,8 @@ const Login = () => {
                         <input type="password" className="form-control" onChange={(e) => { setPassword(e.target.value) }} id="inputPassword4" placeholder="Enter password" />
                     </div>
                 </div>
-                <button className='btn btn-primary' type='submit'  onClick={validate}  > Login  </button>
-                <Toaster />
+                <button className='btn btn-primary w-50' type='submit'  onClick={handleSubmit}  > {loading ? "Loading ... " : "Login"}  </button>
+                <ToastContainer />
             </form>
         </div>
     )

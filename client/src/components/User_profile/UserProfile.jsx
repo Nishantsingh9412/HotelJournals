@@ -1,22 +1,30 @@
 import React, { useEffect } from 'react'
-
-import PrCss from './userProfile.module.css';
-import ProfilePic from './ProfilePic';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+
+import ProfilePic from './ProfilePic';
+import PrCss from './userProfile.module.css';
 import {fetchAllUsers} from '../../redux/actions/users'
 
 const UserProfile = () => {
   
   const dispatch = useDispatch();
+  
+  const navigate = useNavigate();
 
-  // const {id} = useParams();
-  const id = "6478414164141264"
+  const {id} = useParams();
   const users = useSelector((state) => state.usersReducer)
-  // const currentProfile = users?.filter((user) => user._id === id)[0]
-  // const currentUser = useSelector((state) => state.currentUserReducer)
+  const currentUser = users?.allUserDetails?.filter((user) => user._id === id)[0];
+  console.log(currentUser);
 
   useEffect(() => {
+    const storedProfile = JSON.parse(localStorage.getItem('Profile'));
+    console.log("Stored profile : " , storedProfile);
+    
+    if(!storedProfile || storedProfile?.result?._id !== id || !storedProfile?.result){
+      navigate('/login'); 
+    }
+
     dispatch(fetchAllUsers());
   },[dispatch])
 
@@ -49,13 +57,13 @@ const UserProfile = () => {
               <div class="card-body">
                 <i class="fa-solid fa-at"></i> &nbsp;
                 <span>
-                  nishantsingh9412ns@gmail.com
+                  {currentUser?.email}
                 </span>
               </div>
               <div class="card-body">
                 <i class="fa-solid fa-phone"></i>&nbsp;
                 <span>
-                  +12 - 11111 - 11111
+                   {currentUser?.country_code} - {currentUser?.phone}
                 </span>
               </div>
             </div>

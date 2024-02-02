@@ -20,9 +20,10 @@ export const signup = (authData,navigate) => async (dispatch) => {
     try{
         const {data} = await api.signUp(authData)
         dispatch({type:'AUTH',data});
+        console.log(data);
         dispatch(setCurrentUser(JSON.parse(localStorage.getItem('Profile'))));
         dispatch({type:'CLEAR_MESSAGE',payload:null})
-        navigate('/profile');
+        navigate(`/profile/${data?.result?._id}`);
     }catch(error){  
         console.log(error.response.data.message); // Log the error message
         dispatch({type:'AUTH_ERROR',payload:error.response.data.message}); // Dispatch the SIGNUP_ERROR action with the error message
@@ -38,8 +39,7 @@ export const login = (authData,navigate) => async(dispatch) => {
         dispatch({type:'AUTH',data});
         dispatch(setCurrentUser(JSON.parse(localStorage.getItem('Profile'))));
         dispatch({type:'CLEAR_MESSAGE',payload:null})
-        
-        // navigate('/profile');
+        navigate(`/profile/${data?.result?._id}`);
     }catch(error){
         console.log(error.message + error.response.data.message);
         dispatch({type:'AUTH_ERROR',payload:error.response.data.message});

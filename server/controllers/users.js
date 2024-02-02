@@ -7,7 +7,10 @@ export const getProfile = async(req,res) => {
         const allUsers = await users.find();
         const allUserDetails = [];
         allUsers.forEach(singleUser => {
-            allUserDetails.push({_id:singleUser._id,fname:singleUser.fname,lname:singleUser.lname,email:singleUser.email,joinedOn:singleUser.joinedOn});
+            allUserDetails.push({_id:singleUser._id,fname:singleUser.fname,
+                lname:singleUser.lname,email:singleUser.email,userType:singleUser.userType,
+                phone:singleUser.phone,country_code:singleUser.country_code,
+                joinedOn:singleUser.joinedOn});
         });
         res.status(200).json({success:true,allUserDetails});
     } catch (error) {

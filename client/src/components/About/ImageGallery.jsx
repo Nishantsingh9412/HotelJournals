@@ -21,12 +21,12 @@ const imageStyle = {
 const handleDragStart = (e) => e.preventDefault();
 
 const items = [
-    <img src={image1} onDragStart={handleDragStart} role="presentation"  style={imageStyle}/>,
-    <img src={image2} onDragStart={handleDragStart} role="presentation" style={imageStyle} />,
-    <img src={image3} onDragStart={handleDragStart} role="presentation" style={imageStyle} />,
-    <img src={image4} onDragStart={handleDragStart} role="presentation" style={imageStyle} />,
-    <img src={image5} onDragStart={handleDragStart} role="presentation" style={imageStyle} />,
-    <img src={image6} onDragStart={handleDragStart} role="presentation" style={imageStyle} />,
+    <img src={image1} alt='author_image1' onDragStart={handleDragStart} role="presentation"  style={imageStyle}/>,
+    <img src={image2} alt='author_image2' onDragStart={handleDragStart} role="presentation" style={imageStyle} />,
+    <img src={image3} alt='author_image3' onDragStart={handleDragStart} role="presentation" style={imageStyle} />,
+    <img src={image4} alt='author_image4' onDragStart={handleDragStart} role="presentation" style={imageStyle} />,
+    <img src={image5} alt='author_image5' onDragStart={handleDragStart} role="presentation" style={imageStyle} />,
+    <img src={image6} alt='author_image6' onDragStart={handleDragStart} role="presentation" style={imageStyle} />,
   ];
 
   const responsive = {
@@ -37,7 +37,7 @@ const items = [
 
 const ImageGallery = () => {
   return (
-    <div className='container mt-2'>
+    <div className='container mt-5'>
           <AliceCarousel mouseTracking items={items}  responsive={responsive}  />
     </div>
   )
