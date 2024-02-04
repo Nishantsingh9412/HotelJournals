@@ -13,18 +13,18 @@ import BlogPost from '../../assets/img/Blog_post.gif'
 const MidSection = () => {
     return (
         // <div className='pt-4'>   
-        //     <div class="card text-center">
-        //         <div class="card-header">
+        //     <div className="card text-center">
+        //         <div className="card-header">
         //                 <h1>
         //                     Welcome to Hotel Journals 
         //                 </h1>
         //         </div>
-        //         <div class="card-body">
-        //             <h5 class="card-title">Special title treatment</h5>
-        //             <p class="card-text">Empowering Hotel Careers: Where Education Meets Employment. Explore hotel-focused courses and secure your dream job. We connect aspiring hotel professionals with employers, offering the perfect blend of education and career opportunities in the world of hospitality.</p>
-        //             {/* <a href="#" class="btn btn-primary">Go somewhere</a> */}
+        //         <div className="card-body">
+        //             <h5 className="card-title">Special title treatment</h5>
+        //             <p className="card-text">Empowering Hotel Careers: Where Education Meets Employment. Explore hotel-focused courses and secure your dream job. We connect aspiring hotel professionals with employers, offering the perfect blend of education and career opportunities in the world of hospitality.</p>
+        //             {/* <a href="#" className="btn btn-primary">Go somewhere</a> */}
         //         </div>
-        //         <div class="card-footer text-muted">
+        //         <div className="card-footer text-muted">
         //             2 days ago
         //         </div>
         //     </div>
@@ -43,36 +43,38 @@ const MidSection = () => {
 
                 {/* Cards */}
                 <a href="https://storyset.com/education">Education illustrations by Storyset</a>
-                <div class="row row-cols-1 row-cols-md-3 g-4 m-0 pt-4 pb-4 ">
-                    <div class="col mt-3 animate__animated animate__fadeInLeft" >
-                        <div class="card border border-secondary rounded">
+
+                
+                <div className="row row-cols-1 row-cols-md-3 g-4 m-0 pt-4 pb-4 ">
+                    <div className="col mt-3 animate__animated animate__fadeInLeft" >
+                        <div className="card border border-secondary rounded">
                             <img src={Jobs} className="card-img-top w-100 img-responsive" alt="..." />
-                            <div class="card-body">
-                                <h5 class="card-title font-bold">Find Jobs </h5>
-                                <p class="card-text">Hotel Journals is your go-to job search website, offering a vast database of job listings across diverse industries. Our intuitive platform simplifies the search process, helping you find the right career opportunity.  </p>
+                            <div className="card-body">
+                                <h5 className="card-title font-bold">Find Jobs </h5>
+                                <p className="card-text">Hotel Journals is your go-to job search website, offering a vast database of job listings across diverse industries. Our intuitive platform simplifies the search process, helping you find the right career opportunity.  </p>
                                 <button className='btn btn-dark w-75'> Find Jobs  </button>
                             </div>
                         </div>
                     </div>
 
-                    <div class="col mt-3">
-                        <div class="card border-secondary rounded">
+                    <div className="col mt-3">
+                        <div className="card border-secondary rounded">
                             <img src={Courses} className="card-img-top w-100 img-responsive" alt="..." />
-                            <div class="card-body">
-                                <h5 class="card-title">Check Courses</h5>
-                                <p class="card-text">Hotel Journals is your online destination for education and skill enhancement. Our website offers a wide range of courses across various disciplines, from business to technology, arts to sciences.</p>
+                            <div className="card-body">
+                                <h5 className="card-title">Check Courses</h5>
+                                <p className="card-text">Hotel Journals is your online destination for education and skill enhancement. Our website offers a wide range of courses across various disciplines, from business to technology, arts to sciences.</p>
                                 <button className='btn btn-dark w-75'> Check Courses </button>
 
                             </div>
                         </div>
                     </div>
 
-                    <div class="col mt-3">
-                        <div class="card border-secondary rounded">
+                    <div className="col mt-3">
+                        <div className="card border-secondary rounded">
                             <img src={Journals} className="card-img-top w-100 img-responsive" alt="..." />
-                            <div class="card-body">
-                                <h5 class="card-title"> Journals </h5>
-                                <p class="card-text"> A personal repository of the author's research, thoughts, and writings. Explore a curated collection of articles and publications directly from the website's author. Thay 're the best journals in the market </p>
+                            <div className="card-body">
+                                <h5 className="card-title"> Journals </h5>
+                                <p className="card-text"> A personal repository of the author's research, thoughts, and writings. Explore a curated collection of articles and publications directly from the website's author. Thay 're the best journals in the market </p>
                                 <button className='btn btn-dark w-75'> Check Journals </button>
                             </div>
                         </div>
@@ -85,22 +87,22 @@ const MidSection = () => {
 
                 {/* <div className="row row-cols-1 row-cols-md-2  m-2">
                     <div className='col'>
-                        <div class="card border-secondary rounded w-50">
+                        <div className="card border-secondary rounded w-50">
                             <img src={AboutMe} className="card-img-top w-100 img-responsive" alt="..." />
-                            <div class="card-body">
-                                <h5 class="card-title"> About Me </h5>
-                                <p class="card-text"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed eius magni totam ipsam maiores doloribus quidem, repellat nesciunt delectus quam dolorum mollitia quis detectus petectus titectus lorem ipsum  </p>
+                            <div className="card-body">
+                                <h5 className="card-title"> About Me </h5>
+                                <p className="card-text"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed eius magni totam ipsam maiores doloribus quidem, repellat nesciunt delectus quam dolorum mollitia quis detectus petectus titectus lorem ipsum  </p>
                                 <button className='btn btn-dark w-75'> <NavLink to='/about' className='nav-link-header'>  About Me  </NavLink> </button>
                             </div>
                         </div>
                     </div>
 
                     <div className='col w-50'>
-                        <div class="card  border-secondary rounded ">
+                        <div className="card  border-secondary rounded ">
                             <img src={Journals} className="card-img-top w-100 img-responsive" alt="..." />
-                            <div class="card-body">
-                                <h5 class="card-title"> Tips </h5>
-                                <p class="card-text"> Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nihil fuga quam voluptates eius animi et, nemo possimus a ducimus aut fugit recusandae, commodi consequuntur dolores unde officiis, deleniti vel earum!</p>
+                            <div className="card-body">
+                                <h5 className="card-title"> Tips </h5>
+                                <p className="card-text"> Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nihil fuga quam voluptates eius animi et, nemo possimus a ducimus aut fugit recusandae, commodi consequuntur dolores unde officiis, deleniti vel earum!</p>
                                 <button className='btn btn-dark w-75'> See Tips </button>
                             </div>
                         </div>
@@ -108,24 +110,24 @@ const MidSection = () => {
                 </div> */}
 
                 <div className='container'>
-                    <div class="row row-cols-1  row-cols-md-3">
-                        <div class="col mt-3" style={{marginLeft:'8vw'}} >
-                            <div class="card border border-secondary rounded">
+                    <div className="row row-cols-1  row-cols-md-3">
+                        <div className="col mt-3" style={{marginLeft:'8vw'}} >
+                            <div className="card border border-secondary rounded">
                                 <img src={AboutMe} className="card-img-top w-100 img-responsive" alt="..." />
-                                <div class="card-body">
-                                    <h5 class="card-title font-bold">Check Tips </h5>
-                                    <p class="card-text">Hotel Journals is your go-to job search website, offering a vast database of job listings across diverse industries. Our intuitive platform simplifies the search process, helping you find the right career opportunity.  </p>
+                                <div className="card-body">
+                                    <h5 className="card-title font-bold">Check Tips </h5>
+                                    <p className="card-text">Hotel Journals is your go-to job search website, offering a vast database of job listings across diverse industries. Our intuitive platform simplifies the search process, helping you find the right career opportunity.  </p>
                                     <button className='btn btn-dark w-75'> Find Jobs  </button>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="col " style={{marginLeft:'5vw'}}>
-                            <div class="card mt-3 border-secondary rounded" >
+                        <div className="col " style={{marginLeft:'5vw'}}>
+                            <div className="card mt-3 border-secondary rounded" >
                                 <img src={BlogPost} className="card-img-top w-100 img-responsive" alt="..." />
-                                <div class="card-body">
-                                    <h5 class="card-title"> Journals </h5>
-                                    <p class="card-text"> A personal repository of the author's research, thoughts, and writings. Explore a curated collection of articles and publications directly from the website's author. Thay 're the best journals in the market </p>
+                                <div className="card-body">
+                                    <h5 className="card-title"> Journals </h5>
+                                    <p className="card-text"> A personal repository of the author's research, thoughts, and writings. Explore a curated collection of articles and publications directly from the website's author. Thay 're the best journals in the market </p>
                                     <button className='btn btn-dark w-75'> Check Journals </button>
                                 </div>
                             </div>

@@ -7,7 +7,7 @@ import Cards from './Cards'
 const Courses = () => {
   return (
     <div>
-        <SearchBar /> 
+        {/* <SearchBar />  */}
         <MidImage />
         {/* <LeftSidebar /> */}
     </div>

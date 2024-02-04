@@ -3,219 +3,219 @@ import React from 'react'
 const Testimonials = () => {
   return (
     <div className='mt-5 mb-5'>
-<div id="carouselMultiItemExample" class="carousel slide carousel-dark text-center" data-mdb-ride="carousel">
-  <div class="d-flex justify-content-center mb-4">
+<div id="carouselMultiItemExample" className="carousel slide carousel-dark text-center" data-mdb-ride="carousel">
+  <div className="d-flex justify-content-center mb-4">
   
-    <button class="carousel-control-prev position-relative" type="button"
+    <button className="carousel-control-prev position-relative" type="button"
       data-mdb-target="#carouselMultiItemExample" data-mdb-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Previous</span>
+      <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span className="visually-hidden">Previous</span>
     </button>
-    <button class="carousel-control-next position-relative" type="button"
+    <button className="carousel-control-next position-relative" type="button"
       data-mdb-target="#carouselMultiItemExample" data-mdb-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Next</span>
+      <span className="carousel-control-next-icon" aria-hidden="true"></span>
+      <span className="visually-hidden">Next</span>
     </button>
   </div>
-  <div class="carousel-inner py-4">
-    <div class="carousel-item active">
-      <div class="container " >
-        <div class="row" >
-          <div class="col-lg-4"  style={{borderRadius:'3rem',boxShadow:"0px -10px 0px rgb(151, 248, 6)"}}>
-            <img class="rounded-circle shadow-1-strong mb-4"
+  <div className="carousel-inner py-4">
+    <div className="carousel-item active">
+      <div className="container " >
+        <div className="row" >
+          <div className="col-lg-4"  style={{borderRadius:'3rem',boxShadow:"0px -10px 0px rgb(151, 248, 6)"}}>
+            <img className="rounded-circle shadow-1-strong mb-4"
               src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(1).webp" alt="avatar"
               style={{width:'150px'}} />
-            <h5 class="mb-3">Anna Deynah</h5>
+            <h5 className="mb-3">Anna Deynah</h5>
             <p>UX Designer</p>
-            <p class="text-muted">
-              <i class="fas fa-quote-left pe-2"></i>
+            <p className="text-muted">
+              <i className="fas fa-quote-left pe-2"></i>
               Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod eos id
               officiis hic tenetur quae quaerat ad velit ab hic tenetur.
             </p>
-            <ul class="list-unstyled d-flex justify-content-center text-warning mb-0">
-              <li><i class="fas fa-star fa-sm"></i></li>
-              <li><i class="fas fa-star fa-sm"></i></li>
-              <li><i class="fas fa-star fa-sm"></i></li>
-              <li><i class="fas fa-star fa-sm"></i></li>
-              <li><i class="fas fa-star fa-sm"></i></li>
+            <ul className="list-unstyled d-flex justify-content-center text-warning mb-0">
+              <li><i className="fas fa-star fa-sm"></i></li>
+              <li><i className="fas fa-star fa-sm"></i></li>
+              <li><i className="fas fa-star fa-sm"></i></li>
+              <li><i className="fas fa-star fa-sm"></i></li>
+              <li><i className="fas fa-star fa-sm"></i></li>
             </ul>
           </div>
 
-          <div class="col-lg-4 d-none d-lg-block "  style={{borderRadius:'3rem',boxShadow:"0px -10px 0px rgb(151, 248, 6)"}}>
-            <img class="rounded-circle shadow-1-strong mb-4"
+          <div className="col-lg-4 d-none d-lg-block "  style={{borderRadius:'3rem',boxShadow:"0px -10px 0px rgb(151, 248, 6)"}}>
+            <img className="rounded-circle shadow-1-strong mb-4"
               src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(32).webp" alt="avatar"
               style={{width:'150px'}} />
-            <h5 class="mb-3">John Doe</h5>
+            <h5 className="mb-3">John Doe</h5>
             <p>Web Developer</p>
-            <p class="text-muted">
-              <i class="fas fa-quote-left pe-2"></i>
+            <p className="text-muted">
+              <i className="fas fa-quote-left pe-2"></i>
               Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis
               suscipit laboriosam, nisi ut aliquid commodi.
             </p>
-            <ul class="list-unstyled d-flex justify-content-center text-warning mb-0">
-              <li><i class="fas fa-star fa-sm"></i></li>
-              <li><i class="fas fa-star fa-sm"></i></li>
-              <li><i class="fas fa-star fa-sm"></i></li>
-              <li><i class="fas fa-star fa-sm"></i></li>
+            <ul className="list-unstyled d-flex justify-content-center text-warning mb-0">
+              <li><i className="fas fa-star fa-sm"></i></li>
+              <li><i className="fas fa-star fa-sm"></i></li>
+              <li><i className="fas fa-star fa-sm"></i></li>
+              <li><i className="fas fa-star fa-sm"></i></li>
               <li>
-                <i class="fas fa-star-half-alt fa-sm"></i>
+                <i className="fas fa-star-half-alt fa-sm"></i>
               </li>
             </ul>
           </div>
 
-          <div class="col-lg-4 d-none d-lg-block"  style={{borderRadius:'3rem',boxShadow:"0px -10px 0px rgb(151, 248, 6)"}}>
-            <img class="rounded-circle shadow-1-strong mb-4"
+          <div className="col-lg-4 d-none d-lg-block"  style={{borderRadius:'3rem',boxShadow:"0px -10px 0px rgb(151, 248, 6)"}}>
+            <img className="rounded-circle shadow-1-strong mb-4"
               src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(10).webp" alt="avatar"
               style={{width:'150px'}} />
-            <h5 class="mb-3">Maria Kate</h5>
+            <h5 className="mb-3">Maria Kate</h5>
             <p>Photographer</p>
-            <p class="text-muted">
-              <i class="fas fa-quote-left pe-2"></i>
+            <p className="text-muted">
+              <i className="fas fa-quote-left pe-2"></i>
               At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis
               praesentium voluptatum deleniti atque corrupti.
             </p>
-            <ul class="list-unstyled d-flex justify-content-center text-warning mb-0">
-              <li><i class="fas fa-star fa-sm"></i></li>
-              <li><i class="fas fa-star fa-sm"></i></li>
-              <li><i class="fas fa-star fa-sm"></i></li>
-              <li><i class="fas fa-star fa-sm"></i></li>
-              <li><i class="far fa-star fa-sm"></i></li>
+            <ul className="list-unstyled d-flex justify-content-center text-warning mb-0">
+              <li><i className="fas fa-star fa-sm"></i></li>
+              <li><i className="fas fa-star fa-sm"></i></li>
+              <li><i className="fas fa-star fa-sm"></i></li>
+              <li><i className="fas fa-star fa-sm"></i></li>
+              <li><i className="far fa-star fa-sm"></i></li>
             </ul>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="carousel-item">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-4">
-            <img class="rounded-circle shadow-1-strong mb-4"
+    <div className="carousel-item">
+      <div className="container">
+        <div className="row">
+          <div className="col-lg-4">
+            <img className="rounded-circle shadow-1-strong mb-4"
               src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(3).webp" alt="avatar"
               style={{width:'150px'}} />
-            <h5 class="mb-3">John Doe</h5>
+            <h5 className="mb-3">John Doe</h5>
             <p>UX Designer</p>
-            <p class="text-muted">
-              <i class="fas fa-quote-left pe-2"></i>
+            <p className="text-muted">
+              <i className="fas fa-quote-left pe-2"></i>
               Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod eos id
               officiis hic tenetur quae quaerat ad velit ab hic tenetur.
             </p>
-            <ul class="list-unstyled d-flex justify-content-center text-warning mb-0">
-              <li><i class="fas fa-star fa-sm"></i></li>
-              <li><i class="fas fa-star fa-sm"></i></li>
-              <li><i class="fas fa-star fa-sm"></i></li>
-              <li><i class="fas fa-star fa-sm"></i></li>
-              <li><i class="fas fa-star fa-sm"></i></li>
+            <ul className="list-unstyled d-flex justify-content-center text-warning mb-0">
+              <li><i className="fas fa-star fa-sm"></i></li>
+              <li><i className="fas fa-star fa-sm"></i></li>
+              <li><i className="fas fa-star fa-sm"></i></li>
+              <li><i className="fas fa-star fa-sm"></i></li>
+              <li><i className="fas fa-star fa-sm"></i></li>
             </ul>
           </div>
 
-          <div class="col-lg-4 d-none d-lg-block">
-            <img class="rounded-circle shadow-1-strong mb-4"
+          <div className="col-lg-4 d-none d-lg-block">
+            <img className="rounded-circle shadow-1-strong mb-4"
               src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(4).webp" alt="avatar"
               style={{width:'150px'}} />
-            <h5 class="mb-3">Alex Rey</h5>
+            <h5 className="mb-3">Alex Rey</h5>
             <p>Web Developer</p>
-            <p class="text-muted">
-              <i class="fas fa-quote-left pe-2"></i>
+            <p className="text-muted">
+              <i className="fas fa-quote-left pe-2"></i>
               Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis
               suscipit laboriosam, nisi ut aliquid commodi.
             </p>
-            <ul class="list-unstyled d-flex justify-content-center text-warning mb-0">
-              <li><i class="fas fa-star fa-sm"></i></li>
-              <li><i class="fas fa-star fa-sm"></i></li>
-              <li><i class="fas fa-star fa-sm"></i></li>
-              <li><i class="fas fa-star fa-sm"></i></li>
+            <ul className="list-unstyled d-flex justify-content-center text-warning mb-0">
+              <li><i className="fas fa-star fa-sm"></i></li>
+              <li><i className="fas fa-star fa-sm"></i></li>
+              <li><i className="fas fa-star fa-sm"></i></li>
+              <li><i className="fas fa-star fa-sm"></i></li>
               <li>
-                <i class="fas fa-star-half-alt fa-sm"></i>
+                <i className="fas fa-star-half-alt fa-sm"></i>
               </li>
             </ul>
           </div>
 
-          <div class="col-lg-4 d-none d-lg-block">
-            <img class="rounded-circle shadow-1-strong mb-4"
+          <div className="col-lg-4 d-none d-lg-block">
+            <img className="rounded-circle shadow-1-strong mb-4"
               src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(5).webp" alt="avatar"
               style={{width:'150px'}} />
-            <h5 class="mb-3">Maria Kate</h5>
+            <h5 className="mb-3">Maria Kate</h5>
             <p>Photographer</p>
-            <p class="text-muted">
-              <i class="fas fa-quote-left pe-2"></i>
+            <p className="text-muted">
+              <i className="fas fa-quote-left pe-2"></i>
               At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis
               praesentium voluptatum deleniti atque corrupti.
             </p>
-            <ul class="list-unstyled d-flex justify-content-center text-warning mb-0">
-              <li><i class="fas fa-star fa-sm"></i></li>
-              <li><i class="fas fa-star fa-sm"></i></li>
-              <li><i class="fas fa-star fa-sm"></i></li>
-              <li><i class="fas fa-star fa-sm"></i></li>
-              <li><i class="far fa-star fa-sm"></i></li>
+            <ul className="list-unstyled d-flex justify-content-center text-warning mb-0">
+              <li><i className="fas fa-star fa-sm"></i></li>
+              <li><i className="fas fa-star fa-sm"></i></li>
+              <li><i className="fas fa-star fa-sm"></i></li>
+              <li><i className="fas fa-star fa-sm"></i></li>
+              <li><i className="far fa-star fa-sm"></i></li>
             </ul>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="carousel-item">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-4">
-            <img class="rounded-circle shadow-1-strong mb-4"
+    <div className="carousel-item">
+      <div className="container">
+        <div className="row">
+          <div className="col-lg-4">
+            <img className="rounded-circle shadow-1-strong mb-4"
               src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(6).webp" alt="avatar"
               style={{width:'150px'}} />
-            <h5 class="mb-3">Anna Deynah</h5>
+            <h5 className="mb-3">Anna Deynah</h5>
             <p>UX Designer</p>
-            <p class="text-muted">
-              <i class="fas fa-quote-left pe-2"></i>
+            <p className="text-muted">
+              <i className="fas fa-quote-left pe-2"></i>
               Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod eos id
               officiis hic tenetur quae quaerat ad velit ab hic tenetur.
             </p>
-            <ul class="list-unstyled d-flex justify-content-center text-warning mb-0">
-              <li><i class="fas fa-star fa-sm"></i></li>
-              <li><i class="fas fa-star fa-sm"></i></li>
-              <li><i class="fas fa-star fa-sm"></i></li>
-              <li><i class="fas fa-star fa-sm"></i></li>
-              <li><i class="fas fa-star fa-sm"></i></li>
+            <ul className="list-unstyled d-flex justify-content-center text-warning mb-0">
+              <li><i className="fas fa-star fa-sm"></i></li>
+              <li><i className="fas fa-star fa-sm"></i></li>
+              <li><i className="fas fa-star fa-sm"></i></li>
+              <li><i className="fas fa-star fa-sm"></i></li>
+              <li><i className="fas fa-star fa-sm"></i></li>
             </ul>
           </div>
 
-          <div class="col-lg-4 d-none d-lg-block">
-            <img class="rounded-circle shadow-1-strong mb-4"
+          <div className="col-lg-4 d-none d-lg-block">
+            <img className="rounded-circle shadow-1-strong mb-4"
               src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(8).webp" alt="avatar"
               style={{width:'150px'}} />
-            <h5 class="mb-3">John Doe</h5>
+            <h5 className="mb-3">John Doe</h5>
             <p>Web Developer</p>
-            <p class="text-muted">
-              <i class="fas fa-quote-left pe-2"></i>
+            <p className="text-muted">
+              <i className="fas fa-quote-left pe-2"></i>
               Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis
               suscipit laboriosam, nisi ut aliquid commodi.
             </p>
-            <ul class="list-unstyled d-flex justify-content-center text-warning mb-0">
-              <li><i class="fas fa-star fa-sm"></i></li>
-              <li><i class="fas fa-star fa-sm"></i></li>
-              <li><i class="fas fa-star fa-sm"></i></li>
-              <li><i class="fas fa-star fa-sm"></i></li>
+            <ul className="list-unstyled d-flex justify-content-center text-warning mb-0">
+              <li><i className="fas fa-star fa-sm"></i></li>
+              <li><i className="fas fa-star fa-sm"></i></li>
+              <li><i className="fas fa-star fa-sm"></i></li>
+              <li><i className="fas fa-star fa-sm"></i></li>
               <li>
-                <i class="fas fa-star-half-alt fa-sm"></i>
+                <i className="fas fa-star-half-alt fa-sm"></i>
               </li>
             </ul>
           </div>
 
-          <div class="col-lg-4 d-none d-lg-block">
-            <img class="rounded-circle shadow-1-strong mb-4"
+          <div className="col-lg-4 d-none d-lg-block">
+            <img className="rounded-circle shadow-1-strong mb-4"
               src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(7).webp" alt="avatar"
               style={{width:'150px'}}/>
-            <h5 class="mb-3">Maria Kate</h5>
+            <h5 className="mb-3">Maria Kate</h5>
             <p>Photographer</p>
-            <p class="text-muted">
-              <i class="fas fa-quote-left pe-2"></i>
+            <p className="text-muted">
+              <i className="fas fa-quote-left pe-2"></i>
               At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis
               praesentium voluptatum deleniti atque corrupti.
             </p>
-            <ul class="list-unstyled d-flex justify-content-center text-warning mb-0">
-              <li><i class="fas fa-star fa-sm"></i></li>
-              <li><i class="fas fa-star fa-sm"></i></li>
-              <li><i class="fas fa-star fa-sm"></i></li>
-              <li><i class="fas fa-star fa-sm"></i></li>
-              <li><i class="far fa-star fa-sm"></i></li>
+            <ul className="list-unstyled d-flex justify-content-center text-warning mb-0">
+              <li><i className="fas fa-star fa-sm"></i></li>
+              <li><i className="fas fa-star fa-sm"></i></li>
+              <li><i className="fas fa-star fa-sm"></i></li>
+              <li><i className="fas fa-star fa-sm"></i></li>
+              <li><i className="far fa-star fa-sm"></i></li>
             </ul>
           </div>
         </div>

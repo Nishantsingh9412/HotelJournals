@@ -103,9 +103,9 @@ const Dashboard = () => {
 
 
             <div className='container flex flex-wrap justify-center gap-4 mb-4 mt-5 pt-3'>
-                <div className="card-deck d-flex flex-wrap justify-content-start">
+                <div className="card-deck d-flex flex-wrap justify-content-start justify-content-md-start justify-content-sm-center w-100">
                     {AllTips?.result?.map((tip, index) => (
-                        <div className="card m-2 " style={{ flex: '0 0 30%', border: '1px solid #E4B49D', }} key={tip._id}>
+                        <div className="card m-2 " style={{ flex: '0 0 30%', border: '1px solid #E4B49D', minWidth:'350px' }} key={tip._id}>
                             <img className="card-img-top " src={`${serverURL + tip.image}`} alt="Card image cap" style={imgStyleTipsSection} />
                             <div className="card-body">
                                 <h5 className="card-title text-center">{tip.title}</h5>
@@ -114,14 +114,18 @@ const Dashboard = () => {
                                 {/* <NavLink to={`${baseURL}test/${tip._id}`} >  
                                 <button className='mt-3 btn btn-dark'> Read More  </button>
                             </NavLink> */}
-                                <button className='btn btn-danger' onClick={() => handleDelete(tip._id)}> 
-                                    <NavLink to={`/dashboard/${tip._id}`} style={{textDecoration:'none',color:'white',padding:'4px'}}>
-                                        Delete 
-                                    </NavLink>  
-                                        <IoTrashBin /> 
-                                    </button>
+
+
                                  
-                                <button className='btn btn-info ml-4'> <NavLink style={{textDecoration:'none',color:'white',padding:'4px'}} to={`/dashboard/updateTips/${tip._id}`}> Edit  </NavLink>  <FaPencil /> </button>
+                                    <NavLink to={`/dashboard/${tip._id}`} style={{textDecoration:'none',color:'white' }}>
+                                        <button className='btn btn-danger '  style={{width:"40%"}} onClick={() => handleDelete(tip._id)}><span style={{ display: 'inline-block', marginRight: '5px' }}><IoTrashBin /></span> Delete </button>
+                                    </NavLink>  
+                                        
+
+                                    <NavLink style={{textDecoration:'none',color:'white'}} to={`/dashboard/updateTips/${tip._id}`}> 
+                                    
+                                        <button className='btn btn-info ml-4 ' style={{width:"40%"}}><span style={{ display: 'inline-block', marginRight: '5px' }}> <FaPencil /></span> Edit </button> 
+                                     </NavLink>      
                             </div>
                         </div>
                     ))}

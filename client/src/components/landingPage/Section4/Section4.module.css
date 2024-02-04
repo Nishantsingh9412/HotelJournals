@@ -50,12 +50,12 @@
     height: 4vw;
     border-radius:4vw;
     background-color: #FFBA18; */
-    margin-top: 2vw;
-    margin-bottom: 4vw;
+    margin-top: 2rem;
+    margin-bottom: 4rem;
     font-weight: 600;
-    background-color: #FFBA18;
+    background: linear-gradient(90deg, rgb(229, 244, 255) 30%, rgba(96,189,255,1) 100%);
     border-radius: 20vw;
-    width: 15vw;
-    height: 4vw;
+    width: 15rem;
+    height: 4rem;
 }
 

@@ -4,51 +4,51 @@ const Footer = () => {
   return (
     <>
     {/* <!-- Remove the container if you want to extend the Footer to full width. --> */}
-<div class="container-fluid my-3 m-0" >
+<div className="container-fluid my-3 m-0" >
   {/* <!-- Footer --> */}
-  <footer class="text-center text-dark" style={{background:'#e4b49d'}}>
+  <footer className="text-center text-dark" style={{background:'#e4b49d'}}>
     {/* <!-- Grid container --> */}
-    <div class="container">
+    <div className="container">
       {/* <!-- Section: Links --> */}
-      <section class="mt-5">
+      <section className="mt-5">
         {/* <!-- Grid row--> */}
-        <div class="row text-center d-flex justify-content-center pt-5">
+        <div className="row text-center d-flex justify-content-center pt-5">
           {/* <!-- Grid column --> */}
-          <div class="col-md-2">
-            <h6 class="text-uppercase font-weight-bold">
-              <a href="#!" class="text-dark">About us</a>
+          <div className="col-md-2">
+            <h6 className="text-uppercase font-weight-bold">
+              <a href="#!" className="text-dark">About us</a>
             </h6>
           </div>
           {/* <!-- Grid column --> */}
 
           {/* <!-- Grid column --> */}
-          <div class="col-md-2">
-            <h6 class="text-uppercase font-weight-bold">
-              <a href="#!" class="text-dark">Products</a>
+          <div className="col-md-2">
+            <h6 className="text-uppercase font-weight-bold">
+              <a href="#!" className="text-dark">Products</a>
             </h6>
           </div>
           {/* <!-- Grid column --> */}
 
           {/* <!-- Grid column --> */}
-          <div class="col-md-2">
-            <h6 class="text-uppercase font-weight-bold">
-              <a href="#!" class="text-dark">Awards</a>
+          <div className="col-md-2">
+            <h6 className="text-uppercase font-weight-bold">
+              <a href="#!" className="text-dark">Awards</a>
             </h6>
           </div>
           {/* <!-- Grid column --> */}
 
           {/* <!-- Grid column --> */}
-          <div class="col-md-2">
-            <h6 class="text-uppercase font-weight-bold">
-              <a href="#!" class="text-dark">Help</a>
+          <div className="col-md-2">
+            <h6 className="text-uppercase font-weight-bold">
+              <a href="#!" className="text-dark">Help</a>
             </h6>
           </div>
           {/* <!-- Grid column --> */}
 
           {/* <!-- Grid column --> */}
-          <div class="col-md-2">
-            <h6 class="text-uppercase font-weight-bold">
-              <a href="#!" class="text-dark">Contact</a>
+          <div className="col-md-2">
+            <h6 className="text-uppercase font-weight-bold">
+              <a href="#!" className="text-dark">Contact</a>
             </h6>
           </div>
           {/* <!-- Grid column --> */}
@@ -57,12 +57,12 @@ const Footer = () => {
       </section>
       {/* <!-- Section: Links --> */}
 
-      <hr class="my-5" />
+      <hr className="my-5" />
 
       {/* <!-- Section: Text --> */}
-      <section class="mb-5">
-        <div class="row d-flex justify-content-center">
-          <div class="col-lg-8">
+      <section className="mb-5">
+        <div className="row d-flex justify-content-center">
+          <div className="col-lg-8">
             <p>
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt
               distinctio earum repellat quaerat voluptatibus placeat nam,
@@ -75,24 +75,24 @@ const Footer = () => {
       {/* <!-- Section: Text --> */}
 
       {/* <!-- Section: Social --> */}
-      <section class="text-center mb-5">
-        <a href="" class="text-dark m-4">
-          <i class="fab fa-facebook-f fa-2x" ></i>
+      <section className="text-center mb-5">
+        <a href="" className="text-dark m-4">
+          <i className="fab fa-facebook-f fa-2x" ></i>
         </a>
-        <a href="" class="text-dark m-4">
-          <i class="fab fa-twitter fa-2x"></i>
+        <a href="" className="text-dark m-4">
+          <i className="fab fa-twitter fa-2x"></i>
         </a>
-        <a href="" class="text-dark m-4">
-          <i class="fab fa-google fa-2x"></i>
+        <a href="" className="text-dark m-4">
+          <i className="fab fa-google fa-2x"></i>
         </a>
-        <a href="" class="text-dark m-4">
-          <i class="fab fa-instagram fa-2x"></i>
+        <a href="" className="text-dark m-4">
+          <i className="fab fa-instagram fa-2x"></i>
         </a>
-        <a href="" class="text-dark m-4">
-          <i class="fab fa-linkedin fa-2x"></i>
+        <a href="" className="text-dark m-4">
+          <i className="fab fa-linkedin fa-2x"></i>
         </a>
-        <a href="" class="text-dark m-4">
-          <i class="fab fa-github fa-2x"></i>
+        <a href="" className="text-dark m-4">
+          <i className="fab fa-github fa-2x"></i>
         </a>
       </section>
       {/* <!-- Section: Social --> */}

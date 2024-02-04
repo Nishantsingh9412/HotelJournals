@@ -1,144 +1,83 @@
-import React from 'react'
+import React from "react";
+import {
+  Container,
+  SimpleGrid,
+  Box,
+  Image,
+  Stack,
+  Heading,
+  Text,
+} from "@chakra-ui/react";
 
-import book4 from '../../assets/img/book4.jpg'
-import book5 from '../../assets/img/book5.jpg'
-import book6 from '../../assets/img/book6.jpg'
-import book7 from '../../assets/img/book7.jpg'
-import book8 from '../../assets/img/book8.jpg'
-import bookLarge from '../../assets/img/book_large.png'
-
-const bookStyleTopBooks = {
-    height: '16vw',
-    boxShadow: "rgb(22, 27, 27) 2px 4px 10px",
-    borderRadius: '2%',
-}
-
+import book4 from "../../assets/img/book4.jpg";
+import book5 from "../../assets/img/book5.jpg";
+import book6 from "../../assets/img/book6.jpg";
+import book7 from "../../assets/img/book7.jpg";
+import bookLarge from "../../assets/img/book_large.png";
 
 const FeaturedBooks = () => {
-    return (
-        <div className='container-fluid'>
-            <div className='pt-4 ml-5 pl-4'>
-                <h3> Featured Books </h3>
-                <hr className='' style={{ border: '2px solid black', width: '10vw', }} />
-                <span className='p-0 m-0'> Handpicks need just for you   </span>
+  const bookStyleTopBooks = {
+    boxShadow: "rgb(22, 27, 27) 2px 4px 10px",
+    borderRadius: "2%",
+  };
 
-                <div className='row pt-5'>
-                    <div className='col'>
-                        <div style={{ display:"flex"}}>
-                            <img src={book4} className='img-responsive' alt="book1" style={bookStyleTopBooks} />
-                            <div className='pt-4' style={{ textAlign: 'left',  paddingLeft:'1vw'}}>
-                                <h5>Creador</h5>
-                                <div>
-                                    <i className="fa-regular fa-star" ></i>
-                                    <i className="fa-regular fa-star"></i>
-                                    <i className="fa-regular fa-star"></i>
-                                    <i className="fa-regular fa-star"></i>
-                                    <i className="fa-regular fa-star"></i>
-                                </div>
-                                <div className='mt-1'>
-                                    In Stock
-                                </div>
-                                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Adipisci, deserunt?</p>
+  const books = [
+    {
+      title: "Creador",
+      image: book4,
+      description: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Adipisci, deserunt?",
+    },
+    {
+      title: "Front Office Agenda",
+      image: book5,
+      description: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Adipisci, deserunt?",
+    },
+    {
+      title: "Front Office Agenda",
+      image: book6,
+      description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci, deserunt?",
+    },
+    {
+      title: "Front Office Agenda",
+      image: book7,
+      description: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Adipisci, deserunt?",
+    },
+  ];
 
-                            </div>
-                        </div>
+  return (
+    <Container maxW="container.lg" py={4}>
+      <Box mb={4}>
+        <Heading as="h3" size="lg">
+          Featured Books
+        </Heading>
+        <hr style={{ border: "2px solid black", width: "10vw" }} />
+        <Text pt={2} fontSize="md">
+          Handpicks just for you
+        </Text>
+      </Box>
 
-                        <div style={{ display:"flex",marginTop:'10vw'}}>
-                            <img src={book5} className='img-responsive' alt="book1" style={bookStyleTopBooks} />
-                            <div  className='pt-4' style={{ textAlign: 'left', paddingLeft:'1vw' }}>
-                                <h5>Front Office Agenda</h5>
-                                <div>
-                                    <i className="fa-regular fa-star" ></i>
-                                    <i className="fa-regular fa-star"></i>
-                                    <i className="fa-regular fa-star"></i>
-                                    <i className="fa-regular fa-star"></i>
-                                    <i className="fa-regular fa-star"></i>
-                                </div>
-                                <div className='mt-1'>
-                                    In Stock
-                                </div>
-                                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Adipisci, deserunt?</p>
+      <SimpleGrid columns={{ base: 1, sm: 2, md: 2, lg: 3 }} spacing={4}>
+        {books.map((book, index) => (
+          <Box key={index}>
+            <Stack spacing={4}>
+              <Image src={book.image} alt={book.title} style={{ ...bookStyleTopBooks, maxWidth: "100%" }} />
+              <div>
+                <Heading size="md">{book.title}</Heading>
+                <Stack direction="row" align="center">
+                  <Box as="span" color="gold">
+                    {Array.from({ length: 5 }).map((_, i) => (
+                      <i key={i} className="fa-regular fa-star"></i>
+                    ))}
+                  </Box>
+                </Stack>
+                <Text>{book.description}</Text>
+              </div>
+            </Stack>
+          </Box>
+        ))}
+      </SimpleGrid>
+    </Container>
+  );
+};
 
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className='col'>
-                        <div style={{ display:"flex"}}>
-                            <img src={book6} className='img-responsive' alt="book1" style={bookStyleTopBooks} />
-                            <div  className='pt-4' style={{ textAlign: 'left', paddingLeft:'1vw'}}>
-                                <h5>Front Office Agenda</h5>
-                                <div>
-                                    <i className="fa-regular fa-star" ></i>
-                                    <i className="fa-regular fa-star"></i>
-                                    <i className="fa-regular fa-star"></i>
-                                    <i className="fa-regular fa-star"></i>
-                                    <i className="fa-regular fa-star"></i>
-                                </div>
-                                <div className='mt-1'>
-                                    In Stock
-                                </div>
-                                <p>ipsum dolor sit amet consectetur adipisicing elit. Adipisci, deserunt?</p>
-
-                            </div>
-                        </div>
-
-                        <div style={{ display:"flex",marginTop:'10vw'}}>
-                            <img src={book7} className='img-responsive' alt="book1" style={bookStyleTopBooks} />
-                            <div  className='pt-4' style={{ textAlign: 'left',  paddingLeft:'1vw' }}>
-                                <h5>Front Office Agenda</h5>
-                                <div>
-                                    <i className="fa-regular fa-star" ></i>
-                                    <i className="fa-regular fa-star"></i>
-                                    <i className="fa-regular fa-star"></i>
-                                    <i className="fa-regular fa-star"></i>
-                                    <i className="fa-regular fa-star"></i>
-                                </div>
-                                <div className='mt-1'>
-                                    In Stock
-                                </div>
-                                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Adipisci, deserunt?</p>
-
-                            </div>
-                        </div>
-                    </div>
-                    
-
-                    <div className='col mr-4'>
-                        <div style={{ display:"flex",justifyContent: "flex-start",flexWrap: 'wrap'}}>
-                            <img src={bookLarge} className='img-responsive' alt="book1" style={{ boxShadow: "rgb(22, 27, 27) 2px 4px 10px",borderRadius: '2%',}} />
-                            <div  className='pt-4' style={{ textAlign: 'left', }}>
-                                <h5>Front Office Agenda</h5>
-                                <div>
-                                    <i className="fa-regular fa-star" ></i>
-                                    <i className="fa-regular fa-star"></i>
-                                    <i className="fa-regular fa-star"></i>
-                                    <i className="fa-regular fa-star"></i>
-                                    <i className="fa-regular fa-star"></i>
-                                </div>
-                                <div className='mt-1'>
-                                    In Stock
-                                </div>
-                                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Adipisci, deserunt?</p>
-
-                            </div>
-                        </div>
-                    </div>            
-                
-
-                    
-                    
-
-
-                </div>
-
-                {/* <div className='row pt-2'>
-                    hi
-                </div> */}
-            </div>
-
-        </div>
-    )
-}
-
-export default FeaturedBooks
+export default FeaturedBooks;

@@ -77,11 +77,11 @@ const UpdateTips = () => {
 
               <div className="form-group">
                   <label for="shortDesc">ShortDesc</label>
-                  <textarea class="form-control" value={shortDescription} onChange={(e) => setShortDescription(e.target.value)} name="postBody" rows="5" cols="30" placeholder='Enter Short Description in 150 words' ></textarea>
+                  <textarea className="form-control" value={shortDescription} onChange={(e) => setShortDescription(e.target.value)} name="postBody" rows="5" cols="30" placeholder='Enter Short Description in 150 words' ></textarea>
               </div>
               <div className="form-group">
                   <label for="formGroupExampleInput2" value={content}> Description</label>
-                  {/* <textarea class="form-control" onChange={(e) => setDescription(e.target.value)} name="postBody" rows="5" cols="30" placeholder='Enter Post Description' ></textarea> */}
+                  {/* <textarea className="form-control" onChange={(e) => setDescription(e.target.value)} name="postBody" rows="5" cols="30" placeholder='Enter Post Description' ></textarea> */}
                   <JoditEditor 
                       ref={editor}
                       value={content}

@@ -8,6 +8,7 @@ import Courses from '../landingPage/Courses.jsx';
 import Journals from '../landingPage/Journals.jsx';
 import Testimonials from '../landingPage/Testimonials.jsx';
 import Section4 from '../landingPage/Section4/Section4.jsx';
+import Testimonialscopy from '../landingPage/Testimonialscopy.jsx';
 // import Section3 from '../landingPage/Section3.jsx';
 
 const Home = () => {
@@ -17,6 +18,7 @@ const Home = () => {
         <Midsection />
         {/* <Section3 /> */}
         <Testimonials />
+        <Testimonialscopy/>
         <Section4 />
         {/* <FindJobs />  */}
         {/* <Courses /> */}

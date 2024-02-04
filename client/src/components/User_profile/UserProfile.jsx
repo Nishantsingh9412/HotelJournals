@@ -38,8 +38,8 @@ const UserProfile = () => {
 
             <div className='card w-75'>
               <div className='card mt-5'>
-                <div class="card-body ">
-                  <i class="fa-solid fa-user fa-3x"></i> &nbsp;
+                <div className="card-body ">
+                  <i className="fa-solid fa-user fa-3x"></i> &nbsp;
                   <span>
                     Profile at 60% Completion
                   </span>
@@ -47,21 +47,21 @@ const UserProfile = () => {
               </div>
             </div>
 
-            <div class="card" style={{ width: '23vw' }}>
-              <div class="card-body text-center">
-                <i class="fa-solid fa-envelope"></i> &nbsp;
+            <div className="card" style={{ width: '23vw' }}>
+              <div className="card-body text-center">
+                <i className="fa-solid fa-envelope"></i> &nbsp;
                 <span>
                   Contact
                 </span>
               </div>
-              <div class="card-body">
-                <i class="fa-solid fa-at"></i> &nbsp;
+              <div className="card-body">
+                <i className="fa-solid fa-at"></i> &nbsp;
                 <span>
                   {currentUser?.email}
                 </span>
               </div>
-              <div class="card-body">
-                <i class="fa-solid fa-phone"></i>&nbsp;
+              <div className="card-body">
+                <i className="fa-solid fa-phone"></i>&nbsp;
                 <span>
                    {currentUser?.country_code} - {currentUser?.phone}
                 </span>

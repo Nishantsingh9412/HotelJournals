@@ -1,13 +1,13 @@
-import React from 'react'
+import React from 'react';
 import AliceCarousel from 'react-alice-carousel';
 import 'react-alice-carousel/lib/alice-carousel.css';
 
-import image1 from '../../assets/img/hj-1.jpg'
-import image2 from '../../assets/img/hj-2.jpg'
-import image3 from '../../assets/img/hj-3.jpg'
-import image4 from '../../assets/img/hj-4.jpg'
-import image5 from '../../assets/img/hj-5.jpg'
-import image6 from '../../assets/img/hj-6.jpg'
+import image1 from '../../assets/img/hj-1.jpg';
+import image2 from '../../assets/img/hj-2.jpg';
+import image3 from '../../assets/img/hj-3.jpg';
+import image4 from '../../assets/img/hj-4.jpg';
+import image5 from '../../assets/img/hj-5.jpg';
+import image6 from '../../assets/img/hj-6.jpg';
 
 const imageStyle = {
   width: '210px',
@@ -16,7 +16,7 @@ const imageStyle = {
   objectPosition: 'center',
   borderRadius: '10px',
   cursor: 'pointer',
-}
+};
 
 const handleDragStart = (e) => e.preventDefault();
 
@@ -29,18 +29,18 @@ const items = [
     <img src={image6} alt='author_image6' onDragStart={handleDragStart} role="presentation" style={imageStyle} />,
   ];
 
-  const responsive = {
-    0: { items: 4 },
-    568: { items: 4 },
-    1024: { items: 4 },
-  }
+const responsive = {
+  0: { items: 4 },
+  568: { items: 4 },
+  1024: { items: 4 },
+};
 
 const ImageGallery = () => {
   return (
     <div className='container mt-5'>
           <AliceCarousel mouseTracking items={items}  responsive={responsive}  />
     </div>
-  )
-}
+  );
+};
 
-export default ImageGallery
+export default ImageGallery;

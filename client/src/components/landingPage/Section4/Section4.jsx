@@ -6,7 +6,7 @@ const Section4 = () => {
     return (<>
 
         <div className={` container-fluid ${CSS.mainContainer} `} >
-            <div className=''>
+            <div className='d-flex justify-content-center align-items-center'>
                 <div className='d-flex flex-column'>
                     <div className={CSS.MainHeading}>
                         <p>  Are You Ready To Work With Us Now? </p>

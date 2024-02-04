@@ -63,12 +63,12 @@ const Journals = () => {
 
         </div>
 
-        // <div class="bg-image" style={{ maxWidth: '322rem' }}>
-        //     <img src={journalImage} class="w-75" />
-        //     <div class="mask text-light d-flex justify-content-center flex-column text-center" style={{ backgroundColor: "rgba(0, 0, 0, 0.5)" }}>
+        // <div className="bg-image" style={{ maxWidth: '322rem' }}>
+        //     <img src={journalImage} className="w-75" />
+        //     <div className="mask text-light d-flex justify-content-center flex-column text-center" style={{ backgroundColor: "rgba(0, 0, 0, 0.5)" }}>
         //         <button className='btn btn-primary'> HEllo </button>
         //         <h4>Custom heading</h4>
-        //         <p class="m-0">paragraph</p>
+        //         <p className="m-0">paragraph</p>
         //     </div>
         // </div>
     )

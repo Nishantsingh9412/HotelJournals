@@ -2,13 +2,14 @@ import { CiSearch } from "react-icons/ci";
 import React from 'react'
 
 import CSS from './SearchBar.module.css'
+import { Flex } from "@chakra-ui/react";
 
 const SearchBar = () => {
     return (
         <div>
-            <div className={`${CSS.mainContainer}  d-flex`}>
-                <div className='ml-5'>
-                    <label  className="ml-2" htmlFor="courseProvider"> Course Provider </label>
+            <div className={`${CSS.mainContainer} container  `}>
+                <div className='ml-3'>
+                    <label  className="mt-2 ml-2" htmlFor="courseProvider"> Course Provider </label>
                     <select  className='form-control' name="" id="">
                         <option value=""> Select course provider </option>
                         <option value=""> Udemy </option>
@@ -26,21 +27,23 @@ const SearchBar = () => {
                 </div>
                 {/* keyword */}
                 <div className='ml-3'>
-                    <label  className="ml-2"htmlFor="keyword"> KeyWord </label>
+                    <label  className="mt-2 ml-2"htmlFor="keyword"> KeyWord </label>
                     <input className='form-control'  type="text" />
                 </div>
 
                 {/* Where  */}
 
                 <div className='ml-3'>
-                    <label className="ml-2" htmlFor="where">Where</label>
+                    <label className="mt-2 ml-2" htmlFor="where">Where</label>
                     <input className='form-control' type="text" />
                 </div>
 
                 {/* Search button  */}
-                <div className='mt-4 ml-4'>
-                    <button className={ `${CSS.btnP}`} > <CiSearch size={25} /> Check Jobs  </button>
+                <Flex>
+                <div className='mt-4 ml-3'>
+                    <button className={ `${CSS.btnP}`} ><Flex align="center"  justify="center"><CiSearch size={25} />Find Jobs</Flex>  </button>
                 </div>
+                </Flex>
             </div>
         </div>
     )

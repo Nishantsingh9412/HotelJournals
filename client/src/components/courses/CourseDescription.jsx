@@ -54,15 +54,15 @@ const CourseDescription = () => {
         <div className='container mt-3' >
           <div className="card mb-3" style={{ boxShadow: '0px 0px 15px rgba(0, 0, 0, 0.5)' }}>
             <div className="row g-0">
-              <div className="col-md-4">
-                <img className='img-fluid rounded-start p-2' src={course?.result?.banner_image} alt="" />
+              <div className="col-md-4 col-sm-12">
+                <img className='img-fluid rounded-start p-2 d-block mx-auto' src={course?.result?.banner_image} alt="" />
               </div>
               <div className="col-md-8">
                 <div className="card-body">
                   <h3 className="card-title">
                     {course?.result?.title}
                   </h3>
-                  <p className="card-text w-75">
+                  <p className="card-text w-100">
                     {/* lorem25 */}
                     {course?.result?.description.substring(0, 98)}...
                   </p>
@@ -74,23 +74,23 @@ const CourseDescription = () => {
                     </button>
                   </NavLink>
                 </div>
-                <div className="row ml-2 mt-2 mb-3">
-                  <div className="col-md-2 text-center border border-dark rounded p-2 ml-3" style={{ background: '#F5F6FB' }}>
+                <div className="row mt-2 mb-3 justify-content-around p-4">
+                  <div className="col-md-2 text-center border border-dark rounded p-2 " style={{ background: '#F5F6FB', minWidth:'140px', height:'fit-content' }}>
                     <div className="col" style={{ opacity: 0.7 }}><TbLanguageHiragana size={20} alignmentBaseline='' /> </div>
                     <div className="col" style={{ opacity: 0.7, fontSize: '15px' }}> <small> Languages </small> </div>
-                    <div className="col"> <small> {course?.result?.languages}   </small> </div>
+                    <div className="col" > <small> {course?.result?.languages}   </small> </div>
                   </div>
-                  <div className="col-md-2 text-center border border-dark rounded p-2 ml-2" style={{ background: '#F5F6FB' }}>
+                  <div className="col-md-2 text-center border border-dark rounded p-2 " style={{ background: '#F5F6FB' , minWidth:'140px', height:'fit-content'  }}>
                     <div className="col" style={{ opacity: 0.7 }}><CgSandClock size={20} alignmentBaseline='' /> </div>
                     <div className="col" style={{ opacity: 0.7, fontSize: '15px' }}> <small> Duration </small> </div>
                     <div className="col"><small> {course?.result?.duration} </small> </div>
                   </div>
-                  <div className="col-md-2 text-center border border-dark rounded p-2 ml-2" style={{ background: '#F5F6FB' }}>
+                  <div className="col-md-2 text-center border border-dark rounded p-2 " style={{ background: '#F5F6FB' , minWidth:'140px', height:'fit-content'  }}>
                     <div className="col" style={{ opacity: 0.7 }}><FaArrowUpRightDots size={20} alignmentBaseline='' /> </div>
                     <div className="col" style={{ opacity: 0.7, fontSize: '15px' }}> <small> Difficulty </small> </div>
                     <div className="col"><small> {course?.result?.difficulty} </small> </div>
                   </div>
-                  <div className="col-md-2 text-center border border-dark rounded p-2 ml-2" style={{ background: '#F5F6FB' }}>
+                  <div className="col-md-2 text-center border border-dark rounded p-2 " style={{ background: '#F5F6FB' , minWidth:'140px', height:'fit-content' }}>
                     <div className="col" style={{ opacity: 0.7 }}><IoIosRocket size={20} alignmentBaseline='' /> </div>
                     <div className="col" style={{ opacity: 0.7, fontSize: '15px' }}> <small> Format </small> </div>
                     <div className="col"><small> {course?.result?.format} </small> </div>

@@ -18,20 +18,20 @@ const FindJobs = () => {
         </div> */}
 
 
-            <div class="row row-cols-2 row-cols-md-2 m-0 pt-4 pb-4 " style={{ background: '#EBECE6' }}>
-                <div class="col" >
-                    <div class="card w-75 ml-5">
-                        <img src={GirlImg} className=" img-responsive" alt="job_man"  />
-                        {/* <div class="card-body mr-5">
-                            <h5 class="card-title font-bold">Find Jobs </h5>
-                            <p class="card-text ">Hotel Journals is your go-to job search website, offering a vast database of job listings across diverse industries. Our intuitive platform simplifies the search process, helping you find the right career opportunity.  </p>
+            <div className="row m-0 pt-4 pb-4  w-100 justify-content-sm-center" style={{ background: '#EBECE6' }}>
+                <div className="col-md-6 col-sm-12" style={{minWidth:"50%"}} >
+                    <div className="card">
+                        <img src={GirlImg} className=" img-responsive" alt="job_man"  style={{minWidth:"100%"}} />
+                        {/* <div className="card-body mr-5">
+                            <h5 className="card-title font-bold">Find Jobs </h5>
+                            <p className="card-text ">Hotel Journals is your go-to job search website, offering a vast database of job listings across diverse industries. Our intuitive platform simplifies the search process, helping you find the right career opportunity.  </p>
                         </div> */}
                     </div>
                 </div>
-                <div className='col pt-5 pl-5 pr-5 '>
+                <div className='col-md-6 col-sm-12 pt-5 pl-5 pr-5 ' style={{minWidth:"500px"}}>
                     <p> CONOCEME  </p>
                     <h1 className="card-title text-dark" >  De turismóloga a fundadora de una marca para profesionales del turismo  </h1>
-                    <p className='mt-4' style={{ textAlign:'justify' }} >
+                    <p className='mt-4' style={{ textAlign:'justify',  }} >
                         Llevo en el mundo del turismo desde los 19 años. Pasando por puestos como Animación, Recepción, Guest Experience Manager y Dirección. 
                         Estudié la carrera de Turismo y tras finalizar realicé un MBA en Hospitality & Tourism Management.  
                     <p className='mt-4'>
@@ -47,7 +47,7 @@ const FindJobs = () => {
                         En poco tiempo somos una comunidad que se apoya, comparte tips y nos reímos juntos/as. Algo que necesitan todas las personas, una comunidad donde sentirse identificado.
                     </p>
                     </p>
-                    {/* <div class="text-center "> */}
+                    {/* <div className="text-center "> */}
                         {/* <button className={` mt-3 ${CSS.aboutMeBtn}`} > Explore</button> */}
                     {/* </div> */}
                 </div>
