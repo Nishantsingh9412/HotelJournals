@@ -1,0 +1,878 @@
+.jobcontainer{
+    background-color: #FAF1EA;
+    width: 100%;
+    height: auto;
+    padding: 70px;
+    display: flex;
+}
+
+
+.leftContainer{
+    /* background-color: green; */
+    width: 65%;
+    height: auto;
+}
+.company{
+    background-color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    width: 100%;
+    height: auto;
+    margin-bottom:20px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 15px;
+    padding-bottom: 10px;
+}
+
+.companydescription{
+    padding: 10px;
+    height: 70%;
+    width: 100%;
+    /* background-color: brown; */
+    display: flex;
+
+}
+.leftcompanydescripton{
+    height: 100%;
+    width: 60%;
+    /* background-color: honeydew; */
+    display: flex;
+    flex-direction: column;
+    gap:20px;
+
+}
+.leftcompanydescripton>h1{
+    font-size: 16px;
+    font-weight: 900;
+}
+.dreview{
+    height: 20px;
+    width: 20px;
+    display: flex;
+    /* align-items: center; */
+    justify-content: center;
+    color: yellow;
+    font-size: 15px;
+    /* background-color: aqua; */
+}
+.ownername{
+    display: flex;
+    /* justify-content: center; */
+    /* align-items: center; */
+    /* background-color: chartreuse; */
+    width: 200px;
+    height: auto;
+    gap: 5px;
+    /* font-size: small; */
+}
+.ownername>h1{
+font-size: 14px;
+font-weight: 900;
+}
+.ownername>p{
+    font-size: 12px;
+}
+.yearname{
+    display: flex;
+    width: 200px;
+    font-size: small;
+    justify-content: space-between;
+/* background-color: darkorange; */
+}
+.companylocation{
+    display: flex;
+    width: 180px;
+    height: 25px;
+   /* align-items: center; */
+    gap: 3px;
+    /* justify-content: center; */
+    /* background-color: aqua; */
+}
+.companylocation>p{
+    font-size: 10px;
+}
+.locationlogo{
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* background-color: black; */
+    font-size: 12px;
+}
+.btn:hover{
+    color: #275DF5;
+    border: 1px solid #275DF5;
+
+}
+
+
+/*  rightcompanydescripton  */
+.rightcompanydescripton{
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap:15px;
+  align-items: center;
+    height: 100%;
+    width: 40%;
+    /* background-color: hotpink; */
+}
+.rightcompanydescriptonlogo{
+    height: 80px;
+    width: 80px;
+    border-radius: 4px;
+    /* background-color: aqua; */
+}
+.rightcompanydescriptonlogo>img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+}
+.rightcompanydescripton>a{
+  font-size: 15px;
+}
+
+/*  company details button  */
+.details{
+    height: 30%;
+    width: 100%;
+    /* background-color: darkslategrey; */
+    display: flex;
+    align-items: center;
+}
+.openinginformation{
+    display: flex;
+    width: 60%;
+    height: 100%;
+    padding-left: 10px;
+    justify-content: space-around;
+    /* background-color: rgb(128, 0, 90); */
+   align-items: center;
+   /* justify-content: center; */
+}
+
+.openinginformation span {
+    font-size: 12px;
+    font-weight: 900;
+}
+.openinginformation p{
+font-size: 12px;
+
+}
+.detailbutton{
+    display: flex;
+    /* justify-content: space-between; */
+    align-items: center;
+    /* background-color: yellow; */
+    width: 50%;
+    height: 100%;
+    padding: 0 10px;
+    gap: 3px;
+}
+.detailbutton>button{
+    width: 130px;
+    height: 40px;
+    /* background-color: blue; */
+    /* color: white; */
+    padding: 10px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.btn1{
+    background-color: white;
+    border: 1px solid rgb(56, 55, 55);
+    color: #275DF5;
+}
+.btn1:hover{
+    color: #ffff;
+    background-color: #275DF5;
+}
+.btn2{
+    background-color: #275DF5;
+    border: 1px solid rgb(56, 55, 55);
+    color: #ffff;
+}
+.btn2:hover{
+    color: #275DF5;
+    background-color: #ffff;
+}
+
+
+
+
+.jobdescription{
+    background-color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    width: 100%;
+    height: auto;
+    border-radius: 15px;
+    margin-bottom:20px;
+    padding: 20px;
+}
+
+.jobdescription>h1{
+    font-weight: 600;
+    font-size: 18px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+.jobdescription>ul{
+    /* list-style-type: disc; */
+    list-style-type: disc;
+    /* background-color: #275DF5; */
+    padding-left: 20px;
+}
+.jobdescription>ul>h1{
+    font-weight: 700;
+    font-size: 16px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+.rolecatagory>h1{
+font-size: 15px;
+font-weight: 700;
+margin-top: 10px;
+}
+
+.education>h1{
+font-size: 15px;
+font-weight: 700;
+margin-top: 10px;
+}
+
+.KeySkills>h1{
+    font-size: 15px;
+    font-weight: 700;
+    margin-top: 10px;
+    margin-bottom: 8px;
+}
+.KeySkills>p{
+    font-size: 13px;
+}
+span{
+    font-size: 15px;
+    font-weight: normal;
+    
+}
+
+.keyskillsButton{
+    /* background-color: yellow; */
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 10px;
+    gap: 15px;
+    margin-top: 10px;
+   
+}
+.preferedbutton{
+    padding-left: 10px;
+}
+.preferedbutton>button{
+    margin-top: 20px;
+    width: 130px;
+    height: 40px;
+    /* background-color: blue; */
+    padding: 10px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    border: 1px solid rgb(49, 48, 48);
+}
+.keyskillsButton>button{
+    width: 130px;
+    height: 40px;
+    /* background-color: blue; */
+    padding: 10px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    border: 1px solid rgb(49, 48, 48);
+    /* font-weight: 700; */
+
+}
+
+.iconcontainer{
+    /* background-color: grey; */
+    height: 90px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.iconcontainer>.icons{
+    display: flex;
+    
+    align-items: center;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    font-size: 40px;
+    justify-content: center;
+    /* background-color: green; */
+}
+/* .facebook{
+    color: blue;
+}
+
+.youtube{
+    color: red;
+} */
+
+.aboutcompany{
+    background-color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    width: 100%;
+    height: auto;
+    border-radius: 15px;
+    margin-bottom:20px;
+    padding: 20px;
+}
+.aboutcompany>h1{
+    font-weight: 700;
+    font-size: 15px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+.aboutcompany>p{
+    font-size: 12px;
+    margin-top: 10px;
+}
+
+/* right start  */
+.rightContainer{
+   width: 35%;
+   /* background-color: blueviolet; */
+   height: auto;
+   padding: 0 20px 20px 20px;
+}
+   
+
+
+.recommendedjobs{
+    padding: 10px;
+    width: 100%;
+    height: 450px;
+    background-color: white;
+    /* background-color: #275DF5; */
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    margin-bottom:20px;
+    border-radius: 15px;
+}
+.recommendedjobsdetail{
+    height: 35%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+    /* background-color: chocolate; */
+}
+.recommendedjobsdetail>h1{
+  font-size: 15px;
+  font-weight: 800;
+}
+.recommendedjobsdetail :nth-child(3){
+    font-weight: 600;
+}
+.recommendedjobsdetail>p{
+    font-size: 12px;
+}
+/* .recommendedjobsdetail :nth-child(3){
+    font-size: small;
+} */
+.recommendedjobslocation{
+    display: flex;
+    justify-content: space-between;
+    /* align-items: center; */
+    
+}
+.recommendedjobslocation>p{
+    font-size: 12px;
+}
+.joblocation{
+    height: 25px;
+    /* align-items: center; */
+    justify-content: center;
+    display: flex;
+    width: 70px;
+    /* background-color: chartreuse; */
+    justify-content: space-between;
+}
+.joblocation>p{
+    font-size: 12px;
+}
+.jobicon{
+    height: 20px;
+    width: 20px;
+    border-radius: 4px;
+    /* background-color: black; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.shalesjobsdetail{
+    height: 25%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    /* background-color: rgb(60, 210, 30); */
+}
+
+.shalesjobsdetail>h1{
+  font-size: 15px;
+  font-weight: 800;
+}
+.shalesjobsdetail>p{
+    font-size: 12px;
+}
+/* .shalesjobsdetail :nth-child(2){
+    font-size: small;
+} */
+.shalesjobslocation{
+    display: flex;
+    justify-content: space-between;
+    /* align-items: center; */
+    
+}
+.shalesjobslocation>p{
+    font-size: 12px;
+}
+.shaleslocation{
+    height: 25px;
+    /* align-items: center; */
+    justify-content: center;
+    display: flex;
+    width: 50px;
+    /* background-color: chartreuse; */
+    justify-content: space-between;
+}
+.shaleslocation>p{
+    font-size: 10px;
+}
+.shalejobicon{
+    height: 20px;
+    width: 20px;
+    border-radius: 4px;
+    /* background-color: black; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.marketingdetail{
+    height: 30%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    /* background-color: aliceblue; */
+     gap: 20px;
+     padding-top: 10px;
+}
+.marketingdetailleft{
+    height: 100%;
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+   gap: 1px;
+}
+.marketingdetailleft>h1{
+    font-size: 15px;
+    font-weight: 800;
+}
+.marketingdetailleft>p{
+    font-size: 12px;
+}
+.marketingreview{
+    height: 20px;
+    width: 150px;
+    /* background-color: chartreuse; */
+    display: flex;
+    gap: 1px;
+    /* justify-content: space-between; */
+    font-size: 13px;
+}
+.marketingicon{
+    height: 20px;
+    width: 20px;
+    /* background-color: black; */
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    color: yellow;
+}
+.markeinglocation{
+    display: flex;
+    height: 25px;
+    width: 130px;
+    justify-content: space-between;
+}
+.markeinglocation>p{
+    font-size: 12px;
+}
+.markeinglocation p span{
+    font-size: x-small;
+    font-weight: 700;
+}
+.marketinglocationicon{
+    height: 20px;
+    width: 20px;
+    /* background-color: rgb(0, 0, 0); */
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.marketingdetailright{
+    height: 100%;
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    
+}
+
+.marketinglogo{
+    height: 65px;
+    width: 65px;
+    background-color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 50px;
+}
+.marketingdetailright a{
+    font-size: 12px;
+}
+.marketingbutton{
+    height: 10%;
+    width: 100%;
+    background-color:white ;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: rgb(88, 85, 85);
+}
+.marketingbutton>button{
+    height: 35px;
+    width: 100px;
+    border-radius: 20px;
+    background-color: #fff;
+    border: 1px solid black;
+}
+  
+/* 2nd right section   */
+
+
+
+
+
+.reviews{
+    width: 100%;
+    height: 300px;
+    background-color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    margin-bottom:20px;
+    border-radius: 15px;
+    padding: 10px;
+}
+.reviewsheading{
+    height: auto;
+    display: flex;
+    /* align-items: center; */
+    /* gap: 5px; */
+    width: 100%;
+    /* background-color: #275DF5; */
+    justify-content: space-between;
+    font-weight: 900;
+}
+.reviewsheading>h1{
+    font-size: 16px;
+    font-weight: 900;
+}
+.reviewsheading>a{
+    font-size: 12px;
+}
+.reviewsdetail{
+    height: 50%;
+    width: 100%;
+    /* background-color: crimson; */
+    margin-top: 15px;
+}
+.reviewsdetail>p{
+    font-size: 12px;
+}
+.reviewsdetail>h1{
+    font-size: 15px;
+    font-weight: 900;
+}
+.reviewsdate{
+    display: flex;
+    width: 200px;
+    height: auto;
+    font-size: small;
+
+}
+.reviewsdetail>a{
+    font-weight: 700;
+}
+.reviewpost{
+    display: flex;
+    height: 30%;
+    align-items: center;
+    /* background-color: #FFF3DD; */
+
+}
+.reviewpostleft{
+    height: 100%;
+    width: 60%;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    /* background-color: rgb(165, 143, 19); */
+}
+.reviewpostright{
+    height: 100%;
+    width: 40%;
+    /* background-color: rgb(255, 0, 64); */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.reviewpostright>button {
+    padding: 8px 16px; 
+    font-size: 14px; 
+    height: 40px;
+    width: 80px;
+    border: 1px solid #275DF5;
+    background-color: #f0f0f0; /* Background color */
+    color: #275DF5; /* Text color */
+    border-radius: 4px; /* Rounded corners */
+    cursor: pointer; /* Change cursor on hover */
+    transition: background-color 0.3s ease; /* Smooth transition on hover */
+}
+.reviewpostrigh>button:hover {
+    background-color: #592dbe; 
+}
+.reviewpostright>p{
+    font-size: x-small;
+}
+
+   /*    3rd section    */
+
+.banefitsection{
+    height: auto;
+    width: 100%;
+    padding: 10px;
+    background-color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    margin-bottom:20px;
+}
+.banefitperk{
+    height: 20%;
+    width: 100%;
+    /* background-color: brown; */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* justify-content: center; */
+}
+.banefitperk>h1{
+    font-size: 16px;
+    font-weight: 900;
+}
+/* .banefitperk>p{
+    font-size: 15px;
+    font-weight: 900;
+} */
+.perks{
+    height: 70%;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 10px;
+align-items: center;
+justify-content: center;
+    gap: 10px;
+    /* background-color: rgb(255, 242, 127); */
+}
+.perklogosection{
+    height: 70px;
+    width: 75px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    /* background-color: #f0f0f0; */
+    gap: 10px;
+    /* justify-content: center; */
+}
+.perkimage{
+    height: 50%;
+    width: 50%;
+    /* background-color: aqua; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 35px;
+}
+.perklogosection>p{
+    font-size: 10px;
+    align-self: center;
+}
+
+/* 4th section  right */
+
+.servicesection{
+    height: 250px;
+    width: 100%;
+    background-color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 20px;
+    padding: 10px;
+}
+.servicedetail{
+    height: 70%;
+    width: 100%;
+    /* background-color: #a36045; */
+
+}
+.servicelink{
+    height: 20%;
+    width: 100%;
+    /* background-color: #592dbe; */
+    display: flex;
+    justify-content: center;
+    justify-content: space-between;
+    align-items: center;
+}
+.servicelink>p{
+    font-size: small;
+    font-weight: 700;
+}
+.servicelink>a{
+    font-weight: 700;
+}
+
+.servicedetail>p{
+    margin-top: 20px;
+    font-size: 14px;
+
+}
+.servicedetail>p>span{
+    font-weight: 800;
+    font-size: 12px;
+}
+
+.serviceBottom{
+    /* background-color: grey; */
+    height: 30%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logoService{
+   overflow: hidden;
+   width: 60px;
+   height: 60px;
+   border-radius: 50%;
+   /* background-color: green; */
+}
+.logoService>img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+.serviceBottom>h1{
+    font-size: 15px;
+    font-weight: 800;
+}
+
+
+
+@media screen and (max-width: 640px){
+   
+    .jobcontainer{
+        /* background-color: yellow; */
+        flex-direction: column;
+        padding: 10px;
+    }
+    .leftContainer{
+        /* background-color: green; */
+        width: 100%;
+        height: auto;
+    }
+    .rightContainer{
+        width: 100%;
+        padding: 5px;
+    }
+    .rightcompanydescripton>a{
+        font-size: 10px;
+      }
+      .openinginformation{
+        width: 100%;
+      }
+      .details{
+        flex-direction: column;
+      }
+    .detailbutton{
+        /* flex-direction: column; */
+        width: 100%;
+        gap: 5px;
+    }
+    .recommendedjobsdetail{
+        height: 40%;
+    }
+    .recommendedjobs{
+        height: auto;
+    }
+    
+}
+
+
+@media  (min-width: 640px) and (max-width: 850px){
+    .jobcontainer{
+        /* background-color: palegoldenrod; */
+        padding: 10px;
+    }    
+    .rightContainer{
+        padding: 5px;
+    }
+    .recommendedjobs{
+        height: auto;
+    }
+    .detailbutton{
+        flex-direction: column;
+        gap: 5px;
+        width: 40%;
+    }
+    .servicesection{
+        height: 300px;
+    }
+
+}

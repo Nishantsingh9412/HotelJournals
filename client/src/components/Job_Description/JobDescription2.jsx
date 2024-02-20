@@ -1,145 +1,20 @@
-import React, { useState } from 'react'
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
-import PuffLoader from "react-spinners/PuffLoader";
-// Library for date and time
-import { formatDistanceToNow } from 'date-fns';
-// React toast 
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-// Icons
+import React from 'react'
+// import './responsivejob.css'
 import { FaStar } from "react-icons/fa";
-import { TbBriefcase2 } from "react-icons/tb";
-
-import {
-    FaFacebook,
-    FaLinkedin,
-    FaLocationDot,
-    FaTwitter,
-    FaYoutube,
-    FaWallet,
-} from "react-icons/fa6";
+import { FaFacebook, FaLinkedin, FaLocationDot, FaTwitter, FaYoutube } from "react-icons/fa6";
 import { FaHouseChimneyCrack } from "react-icons/fa6";
 import { FaFirstAid } from "react-icons/fa";
 import { FaBagShopping } from "react-icons/fa6";
 import { FaCar } from "react-icons/fa";
 import { FaUserTie } from "react-icons/fa";
 import { FaCoffee } from "react-icons/fa";
-// CSS 
-import jobdescriptionCSS from './particularjob.module.css';
-// Images 
+
 import companyimage from "../../assets/JobImage/companyimage.jpg";
 import img2 from "../../assets/JobImage/img2.gif";
 import img3 from "../../assets/JobImage/img3.gif";
+import jobdescriptionCSS from './jobdescription.module.css'
 
-
-import { ApplyJobAction, getJobSingleAction } from '../../redux/actions/jobsAdmin.js';
-
-const ParticularJob = () => {
-    const dispatch = useDispatch();
-    const { id } = useParams();
-    const localUser = JSON.parse(localStorage.getItem('Profile'));
-    const userId = localUser?.result?._id;
-    const [appliedToJob, setAppliedToJob] = useState(false);
-    const [loading, setLoading] = useState(false);
-
-    useEffect(() => {
-        dispatch(getJobSingleAction(id))
-    }, [dispatch]);
-
-    const handleJobApply = async (jobId) => {
-        setLoading(true);
-        // console.log(`Job Applied with id : ${jobId}`);
-        // console.log(`User Applied with id : ${userId}`);
-        const jobApplicants = {
-            jobId: jobId,
-            userId: userId
-        }
-        const response = await dispatch(ApplyJobAction(jobApplicants))
-        if (response.success) {
-            toast.success(response.message);
-
-        } else {
-            toast.error(response.message);
-        }
-        setLoading(false);
-    }
-
-
-
-
-    const singleJobsData = useSelector((state) => state?.getSingleJobReducer);
-    console.log("Single Job Data \n");
-    const posted_at = new Date(singleJobsData?.result?.created_at);
-    console.log(singleJobsData);
-    // if(singleJobsData?.result?.applicants?.includes(userId)){
-    //     toast.info('You have already applied for this job');
-    // }
-    const applicantsSet = new Set(singleJobsData?.result?.applicants);
-    // if (applicantsSet.has(userId)) {
-    //     toast.info('You have already applied for this job');
-    // }
-
-    // useEffect(() => {
-    //     setAppliedToJob(applicantsSet.has(userId));
-    // },[appliedToJob,applicantsSet,userId,singleJobsData?.result?.applicants])
-
-
-    useEffect(() => {
-        if (applicantsSet?.has(userId)) {
-            setAppliedToJob(true);
-        }
-    }, [id, singleJobsData?.result?.applicants])
-
-
-    // return (
-    //     <div className='container mt-4'>
-    //         <ToastContainer />
-    //         <div class="card text-center">
-    //             <div class="card-header">
-    //                 {singleJobsData?.result?.jobTitle}
-    //             </div>
-    //             <div class="card-body">
-    //                 <h5 class="card-title">Extra Benifits</h5>
-    //                 {singleJobsData?.result?.extraBenifits?.map((benifits, index) => (
-    //                     <span className='rounded' key={index} style={{ marginRight: '10px', border: '20% ' }}>
-    //                         {benifits}
-    //                     </span>
-    //                 ))}
-    //             </div>
-
-    //             <center>
-    //                 {!appliedToJob ?
-    //                     <button className='btn btn-info mt-2 mb-2 w-25 ' onClick={() => {
-    //                         handleJobApply(singleJobsData?.result?._id);
-    //                         setAppliedToJob(true);
-    //                     }}>
-    //                         {loading ?
-    //                             <>
-    //                                 <div className='d-flex'>
-    //                                     <PuffLoader
-    //                                         size={25}
-    //                                         color="#ffffff"
-    //                                     />
-    //                                     <span className='pl-2 text'> Applying  ... </span>
-    //                                 </div>
-    //                             </> :
-    //                             'Apply'
-    //                         }
-    //                     </button> :
-    //                     <button className='btn btn-success mt-2 mb-2 w-25 ' disabled>
-    //                         Applied
-    //                     </button>
-    //                 }
-    //             </center>
-    //             <div class="card-footer text-muted">
-    //                 {singleJobsData?.result?.created_at &&
-    //                     `posted ${formatDistanceToNow(posted_at)} ago`}
-    //             </div>
-    //         </div>
-    //     </div>
-    // )
+const JobDescription = () => {
 
     return (
         <>
@@ -148,39 +23,26 @@ const ParticularJob = () => {
                 <div className={jobdescriptionCSS.leftContainer}>
 
 
-                    <div className={jobdescriptionCSS.company}>
+                    <div className={jobdescriptionCSS.company }>
                         <div className={jobdescriptionCSS.companydescription}>
                             <div className={jobdescriptionCSS.leftcompanydescripton}>
-                                <h1> {singleJobsData?.result?.jobTitle} </h1>
+                                <h1>Marketing Coordung Executive "(on 3rd party patroll)" </h1>
 
                                 <div className={jobdescriptionCSS.ownername}>
                                     <h1>Saint Gobain </h1>
-                                    <div className={jobdescriptionCSS.dreview}> <FaStar />
+                                    <div className={jobdescriptionCSS.dreview}> <FaStar/>
                                     </div>
                                     <p>1238 Reviews</p>
                                 </div>
                                 <div className={jobdescriptionCSS.yearname}>
                                     <div>
-                                        <p>
-                                            <TbBriefcase2 size={20} />&nbsp;
-                                            {singleJobsData?.result?.workExperienceMin} -
-                                            {singleJobsData?.result?.workExperienceMax}
-                                            &nbsp;Years
-                                        </p>
+                                        <p>0-2years</p>
                                     </div>
-                                    <p>
-                                        <FaWallet /> &nbsp;
-                                        {singleJobsData?.result?.salaryStart}
-                                        - {singleJobsData?.result?.salaryEnd}
-                                        &nbsp; {singleJobsData?.result?.salarySpecification}
-
-                                    </p>
+                                    <p>#50,000-3 lacs P.A</p>
                                 </div>
                                 <div className={jobdescriptionCSS.companylocation}>
-                                    <div className={jobdescriptionCSS.locationlogo}><FaLocationDot /></div>
-                                    <p>{singleJobsData?.result?.jobLocation?.map((location) => (
-                                        <span key={location.id}> {location} </span>
-                                    ))}</p>
+                                    <div className={jobdescriptionCSS.locationlogo}><FaLocationDot/></div>
+                                    <p>pune ,bangluru Mumbaie</p>
                                 </div>
                             </div>
                             {/* rightcompanydescription section  */}
@@ -188,36 +50,33 @@ const ParticularJob = () => {
                                 <div className={jobdescriptionCSS.rightcompanydescriptonlogo}>
                                     <img src={companyimage} alt="img" />
                                 </div>
+                                <a href="">Send me job like this</a>
                             </div>
                         </div>
 
-                        <hr style={{ width: '100%' , marginTop:'25px',marginBottom:'25px'}} />
                         <div className={jobdescriptionCSS.details}>
                             <div className={jobdescriptionCSS.openinginformation}>
                                 {/* <div className={jobdescriptionCSS.opening"></div>
-                <div className={jobdescriptionCSS.opening"></div>
-                <div className={jobdescriptionCSS.opening"></div> */}
+                    <div className={jobdescriptionCSS.opening"></div>
+                    <div className={jobdescriptionCSS.opening"></div> */}
 
-                                <p>Posted: <span>{singleJobsData?.result?.created_at &&
-                                        `${formatDistanceToNow(posted_at)} ago`} </span> </p>
-
-                                <p>Openings: <span>{singleJobsData?.result?.no_of_openings} </span></p>
-                                <p>Applicants: <span>{singleJobsData?.result?.applicants?.length}</span></p>
+                     
+                                <p>Posted: <span>2</span> days ago</p>
+                                <p>Openings: <span>40</span></p>
+                                <p>Applicants: <span>41</span></p>
                             </div>
                             <div className={jobdescriptionCSS.detailbutton}>
                                 <button type="button" className={jobdescriptionCSS.btn1}>Register To Apply</button>
-                                <button type="button" className={jobdescriptionCSS.btn2}>Apply</button>
+                                <button type="button" className={jobdescriptionCSS.btn2}>Login To Apply</button>
                             </div>
                         </div>
+
 
                     </div>
 
                     <div className={jobdescriptionCSS.jobdescription}>
                         <h1>Job description</h1>
-                        <div className={jobdescriptionCSS.JDHTML}>
-                            <div dangerouslySetInnerHTML={{__html:singleJobsData?.result?.jobDescription}}></div>
-                        </div>
-                        {/* <p>Job Description and Key Responsibilities: <br />
+                        <p>Job Description and Key Responsibilities: <br />
                             Responsible for developing the portfolio of Adhesives and Sealants products for construction, industrial and automotive markets. The person should have in-depth understanding of adhesives and sealants, their applications, key customers and their expectations.
                             The person should be able to define a go-to market strategy with the appropriate marketing mix.
                             He/she needs to have a strong performance record with the mindset of a start-up business and be able to multitask.</p>
@@ -264,12 +123,12 @@ const ParticularJob = () => {
                                 <button className={jobdescriptionCSS.btn}>Sales Executive</button>
                             </div>
                         </div>
-                        <div className={jobdescriptionCSS.iconcontainer}>
-                            <div className={jobdescriptionCSS.icons}> <a href=""><FaLinkedin /></a></div>
-                            <div className={jobdescriptionCSS.icons}> <a href=""><FaFacebook /></a></div>
-                            <div className={jobdescriptionCSS.icons}> <a href=""><FaTwitter /></a></div>
-                            <div className={jobdescriptionCSS.icons}> <a href=""><FaYoutube /></a></div>
-                        </div> */}
+                        <div className={jobdescriptionCSS.iconcontainer }>
+                            <div className={jobdescriptionCSS.icons  }> <a href=""><FaLinkedin/></a></div>
+                            <div className={jobdescriptionCSS.icons  }> <a href=""><FaFacebook/></a></div>
+                            <div className={jobdescriptionCSS.icons  }> <a href=""><FaTwitter/></a></div>
+                            <div className={jobdescriptionCSS.icons  }> <a href=""><FaYoutube/></a></div>
+                        </div>
                     </div>
 
                     <div className={jobdescriptionCSS.aboutcompany}>
@@ -290,74 +149,74 @@ const ParticularJob = () => {
                             <h1>Jobs you might be interested in</h1>
                             <div className={jobdescriptionCSS.jobDetailsection}>
                                 <div className={jobdescriptionCSS.jobDetailsectionleft}>
-                                    <h1> Sales Marketing Executive / Back Office</h1>
-                                    <p>urja sealants pvt ltd</p>
-                                    <div className={jobdescriptionCSS.marketingreview}>
-                                        <div className={jobdescriptionCSS.marketingicon}>
-                                            <FaStar />
-                                        </div>
-                                        <p>87, review</p>
+                            <h1> Sales Marketing Executive / Back Office</h1>
+                            <p>urja sealants pvt ltd</p>
+                            <div className={jobdescriptionCSS.marketingreview}>
+                                    <div className={jobdescriptionCSS.marketingicon}>
+                                    <FaStar  />
                                     </div>
-                                    <div className={jobdescriptionCSS.joblocation}>
-                                        <div className={jobdescriptionCSS.jobicon}><FaLocationDot /></div>
-                                        <p>pune</p>
-                                    </div>
+                                    <p>87, review</p>
                                 </div>
-                                <div className={jobdescriptionCSS.jobDetailsectionright}>
-                                    <div className={jobdescriptionCSS.jobDetailsectionrightlogo}>
-                                        <img src={companyimage} alt="" />
-                                    </div>
-                                    <p>posted 8 days</p>
+                                <div className={jobdescriptionCSS.joblocation}>
+                            <div className={jobdescriptionCSS.jobicon}><FaLocationDot /></div>
+                                    <p>pune</p>
+                                   </div>
+                            </div>
+                            <div className={jobdescriptionCSS.jobDetailsectionright}>
+                                <div className={jobdescriptionCSS.jobDetailsectionrightlogo}>
+                                    <img src={companyimage} alt="" />
                                 </div>
+                                <p>posted 8 days</p>
+                            </div>
                             </div>
                             <div className={jobdescriptionCSS.jobDetailsection}>
                                 <div className={jobdescriptionCSS.jobDetailsectionleft}>
-                                    <h1> Digital marketing Executive immediate joing </h1>
-                                    <p>net Lynax Solution</p>
-                                    <div className={jobdescriptionCSS.marketingreview}>
-                                        <div className={jobdescriptionCSS.marketingicon}>
-                                            <FaStar />
-                                        </div>
-                                        <p>87, review</p>
+                            <h1> Digital marketing Executive immediate joing </h1>
+                            <p>net Lynax Solution</p>
+                            <div className={jobdescriptionCSS.marketingreview}>
+                                    <div className={jobdescriptionCSS.marketingicon}>
+                                    <FaStar  />
                                     </div>
-                                    <div className={jobdescriptionCSS.joblocation}>
-                                        <div className={jobdescriptionCSS.jobicon}><FaLocationDot /></div>
-                                        <p>pune</p>
-                                    </div>
+                                    <p>87, review</p>
                                 </div>
-                                <div className={jobdescriptionCSS.jobDetailsectionright}>
-                                    <div className={jobdescriptionCSS.jobDetailsectionrightlogo}>
-                                        <img src={img2} alt="" />
-                                    </div>
-                                    <p>posted 8 days</p>
+                                <div className={jobdescriptionCSS.joblocation}>
+                            <div className={jobdescriptionCSS.jobicon}><FaLocationDot /></div>
+                                    <p>pune</p>
+                                   </div>
+                            </div>
+                            <div className={jobdescriptionCSS.jobDetailsectionright}>
+                                <div className={jobdescriptionCSS.jobDetailsectionrightlogo}>
+                                    <img src={img2} alt="" />
                                 </div>
+                                <p>posted 8 days</p>
+                            </div>
                             </div>
                             <div className={jobdescriptionCSS.jobDetailsection}>
                                 <div className={jobdescriptionCSS.jobDetailsectionleft}>
-                                    <h1> SEO Executive / Back Office</h1>
-                                    <p>urja sealants pvt ltd</p>
-                                    <div className={jobdescriptionCSS.marketingreview}>
-                                        <div className={jobdescriptionCSS.marketingicon}>
-                                            <FaStar />
-                                        </div>
-                                        <p>87, review</p>
+                            <h1> SEO Executive / Back Office</h1>
+                            <p>urja sealants pvt ltd</p>
+                            <div className={jobdescriptionCSS.marketingreview}>
+                                    <div className={jobdescriptionCSS.marketingicon}>
+                                    <FaStar  />
                                     </div>
-                                    <div className={jobdescriptionCSS.joblocation}>
-                                        <div className={jobdescriptionCSS.jobicon}><FaLocationDot /></div>
-                                        <p>pune</p>
-                                    </div>
+                                    <p>87, review</p>
                                 </div>
-                                <div className={jobdescriptionCSS.jobDetailsectionright}>
-                                    <div className={jobdescriptionCSS.jobDetailsectionrightlogo}>
-                                        <img src={img3} alt="" />
-                                    </div>
-                                    <p>posted 8 days</p>
+                                <div className={jobdescriptionCSS.joblocation}>
+                            <div className={jobdescriptionCSS.jobicon}><FaLocationDot /></div>
+                                    <p>pune</p>
+                                   </div>
+                            </div>
+                            <div className={jobdescriptionCSS.jobDetailsectionright}>
+                                <div className={jobdescriptionCSS.jobDetailsectionrightlogo}>
+                                    <img src={img3} alt="" />
                                 </div>
+                                <p>posted 8 days</p>
+                            </div>
                             </div>
                         </div>
-
+                        
                         <div className={jobdescriptionCSS.jobdetailsButton}>
-                            <button>View All</button>
+                          <button>View All</button>
                         </div>
                     </div>
                     {/* reviews section start  */}
@@ -387,46 +246,46 @@ const ParticularJob = () => {
                     </div>
                     <div className={jobdescriptionCSS.banefitsection}>
                         <div className={jobdescriptionCSS.banefitperk}>
+                           
+                                <h1>Benefits & Perks <br /><span>Benefits & Perks</span> </h1>
 
-                            <h1>Benefits & Perks <br /><span>Benefits & Perks</span> </h1>
-
-
+                           
                             <a href="">view all</a>
                         </div>
                         <div className={jobdescriptionCSS.perks}>
                             <div className={jobdescriptionCSS.perklogosection}>
                                 <div className={jobdescriptionCSS.perkimage}>
-                                    <FaFirstAid />
+                                <FaFirstAid />
                                 </div>
                                 <p>Health </p>
                             </div>
                             <div className={jobdescriptionCSS.perklogosection}>
                                 <div className={jobdescriptionCSS.perkimage}>
-                                    <FaBagShopping />
+                                <FaBagShopping />
                                 </div>
                                 <p>Job Training</p>
                             </div>
                             <div className={jobdescriptionCSS.perklogosection}>
                                 <div className={jobdescriptionCSS.perkimage}>
-                                    <FaCar />
+                                <FaCar />
                                 </div>
                                 <p>Transport</p>
                             </div>
                             <div className={jobdescriptionCSS.perklogosection}>
                                 <div className={jobdescriptionCSS.perkimage}>
-                                    <FaUserTie />
+                                <FaUserTie />
                                 </div>
                                 <p>Soft Training</p>
                             </div>
                             <div className={jobdescriptionCSS.perklogosection}>
                                 <div className={jobdescriptionCSS.perkimage}>
-                                    <FaHouseChimneyCrack />
+                                <FaHouseChimneyCrack />
                                 </div>
                                 <p>House</p>
                             </div>
                             <div className={jobdescriptionCSS.perklogosection}>
                                 <div className={jobdescriptionCSS.perkimage}>
-                                    <FaCoffee />
+                                <FaCoffee/>
                                 </div>
                                 <p>Coffetery</p>
                             </div>
@@ -447,12 +306,12 @@ const ParticularJob = () => {
                                 Get a Featured Profile, Stand out and get noticed in recruiter eyes.
                             </p>
                         </div>
-                        <div className={jobdescriptionCSS.serviceBottom}>
-                            <div className={jobdescriptionCSS.logoService}>
-                                <img src={companyimage} alt="" />
-                            </div>
-                            <h1>Company Name</h1>
-                        </div>
+                       <div className={jobdescriptionCSS.serviceBottom}>
+                         <div className={jobdescriptionCSS.logoService}>
+                            <img src={companyimage} alt="" />
+                         </div>
+                         <h1>Company Name</h1>
+                       </div>
 
                     </div>
 
@@ -462,7 +321,6 @@ const ParticularJob = () => {
 
         </>
     )
-
 }
 
-export default ParticularJob
+export default JobDescription

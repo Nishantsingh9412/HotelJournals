@@ -8,6 +8,7 @@ import tipsAdminRoutes from './routes/Tips.js'
 import coursesRoutes from './routes/Courses.js' 
 import jobsRoutes from './routes/Jobs.js'
 import userProfileRoutes from './routes/userProfile.js'
+import { mailFunction } from "./controllers/mail.js";
 
 
 const app = express()
@@ -28,6 +29,7 @@ app.use('/admin',tipsAdminRoutes)
 app.use('/courses',coursesRoutes)
 app.use('/jobs',jobsRoutes)
 app.use('/user/profile',userProfileRoutes)
+app.post('/mail',mailFunction)
 
 app.get('/', (req, res) => {
   res.send(' This is Hotel Journals ')

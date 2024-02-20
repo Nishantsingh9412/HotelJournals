@@ -25,6 +25,10 @@ import UpdateJobs from './components/admin/AdminJobs/UpdateJobs';
 import AllJobs from './components/Jobs/AllJobs';
 import ParticularJob from './components/Jobs/ParticularJob';
 import ManageParticularJob from './components/Jobs/ManageParticularJob';
+import FinalizeCandidates from './components/Jobs/FinalizeCandidates';
+import HotelLandingpage from './components/Hotel_Journals_Landing_page/HotelLandingpage';
+import JobDescription from './components/Job_Description/JobDescription2';
+
 
 
 const AllRoutes = () => {
@@ -49,7 +53,7 @@ const AllRoutes = () => {
                     {/*  For Tips */}
             <Route path='/dashboard' element={<Dashboard />}>  </Route>
             <Route path='/dashboard/updateTips/:id' element={<UpdateTips />}>  </Route>
-
+            
                     {/* For Courses */}
                             {/* Create Course */}
             <Route path='/admin/courses' element = {<CreateCourse /> } >  </Route>
@@ -63,11 +67,13 @@ const AllRoutes = () => {
             <Route path='/jobs/post' element={<CreateJobs />} ></Route>
             <Route path='/jobs/dashboard' element={<RecruiterDashboard />} > </Route>
             <Route path='/jobs/dashboard/:id/job/manage/' element={<ManageParticularJob />} > </Route> 
+            <Route path='/jobs/dashboard/:id/job/manage/finalize' element={<FinalizeCandidates />} > </Route> 
             <Route path='/jobs/dashboard/update/:id' element={<UpdateJobs />}></Route>
 
 
             {/* // Temporary Route for testing */}
-
+            <Route path='/HotelLandingpage' element={<HotelLandingpage /> } > </Route>
+            <Route path='/JobDescription' element={<JobDescription /> } > </Route>
             <Route path='/test/:id' element={<SingleTip /> } > </Route>
         </Routes>
     )

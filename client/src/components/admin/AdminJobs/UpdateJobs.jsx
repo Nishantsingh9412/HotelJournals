@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { ToastContainer, toast } from 'react-toastify';
+import DOMPurify from 'dompurify';
 import Select from 'react-select'
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css'; // import styles
@@ -180,6 +181,8 @@ const UpdateJobs = () => {
         return toast.error('Please select Joining Date');
       }
 
+      const sanitizedJD = DOMPurify.sanitize(jobDecription);
+
       const jobsData = {
         job_title: jobTitle,
         job_category: jobCategory,
@@ -196,7 +199,7 @@ const UpdateJobs = () => {
         salary_end: maxSalary,
         no_of_openings: noOfOpenings,
         extra_benifits: extraBenifitsVal,
-        job_description: jobDecription,
+        job_description: sanitizedJD,
         isExternal: isExternalLink,
         job_link: jobLink,
       }

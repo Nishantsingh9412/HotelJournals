@@ -6,6 +6,9 @@
 /.pnp
 .pnp.js
 
+# env
+.env
+client_secret_1060037823283-hnle4mf62j5susj2hfhg2queufgdk08a.apps.googleusercontent.com.json
 # testing
 /coverage
 

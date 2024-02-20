@@ -10,6 +10,11 @@ API.interceptors.request.use((req) => {
     return req;
 });
 
+// Miscellaneous
+export const setMail = (mailData) => API.post('/mail',mailData)
+
+// Authentication 
+
 export const signUp = (authData) => API.post('/user/signup',authData)
 
 export const Login = (authData) => API.post('/user/login',authData)

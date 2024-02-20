@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import toast, { Toaster } from 'react-hot-toast';
 import JoditEditor from 'jodit-react';
+import DOMPurify from 'dompurify';
 
 
 import { SetTips } from '../../../redux/actions/tipsAdmin';
@@ -49,15 +50,13 @@ const AdminTips = () => {
         if((image.type !== 'image/jpeg') && (image.type !== 'image/png')){
             return toast.error('Invalid image format'); 
         }
-
-        
-    
+        const sanitizedContent = DOMPurify.sanitize(content);
 
 
         const formData = new FormData();
         formData.append('title', title);
         formData.append('shortDescription', shortDescription);
-        formData.append('description', content);
+        formData.append('description', sanitizedContent);
         formData.append('image', image);
 
 

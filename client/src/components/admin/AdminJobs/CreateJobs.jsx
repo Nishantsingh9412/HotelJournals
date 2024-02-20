@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 // import cities from 'cities.json';
 import Select from 'react-select'
 import JoditEditor from 'jodit-react';
+import DOMPurify from 'dompurify';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css'; // import styles
 
@@ -143,7 +144,8 @@ const CreateJobs = () => {
       if (!joiningDate) {
         return toast.error('Please select Joining Date');
       }
-
+      const sanitizedJobDescription = DOMPurify.sanitize(jobDecription);
+      
       const jobsData = {
         job_title: jobTitle,
         job_category: jobCategory,
@@ -160,7 +162,7 @@ const CreateJobs = () => {
         salary_end: maxSalary,
         no_of_openings: noOfOpenings,
         extra_benifits: extraBenifitsVal,
-        job_description: jobDecription,
+        job_description: sanitizedJobDescription,
         isExternal: isExternalLink,
         job_link: jobLink,
         created_by: localUser
@@ -224,7 +226,6 @@ const CreateJobs = () => {
             <Select
               options={cities}
               isMulti
-              value={jobLocation}
               onChange={(selectedOps) => setJobLocation(selectedOps.map(options => options.value))}
             />
           </div>
@@ -233,7 +234,11 @@ const CreateJobs = () => {
           <div className='col-md-4'>
             <label htmlFor="mandatory_skills"> Mandatory Skills <small className='text-danger'> * </small> </label>
             {/* Multiselect */}
-            <Select options={skills} isMulti onChange={(selectedOps) => setMandatorySkills(selectedOps.map(options => options.value))} />
+            <Select
+              options={skills}
+              isMulti
+              onChange={(selectedOps) => setMandatorySkills(selectedOps.map(options => options.value))}
+            />
           </div>
 
 

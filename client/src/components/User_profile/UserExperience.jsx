@@ -576,7 +576,6 @@ function MyVerticallyCenteredModalforEditExp(props) {
                             /> <span className='pl-2'> Removing ... </span>
                         </div>
                     </> : 'Remove Intro'}
-
                 </Button>
                 <Button onClick={handleExperiencePostingEdit} >
                     {loading ? <>
@@ -638,7 +637,7 @@ const UserExperience = () => {
     return (
         <div>
             <ToastContainer />
-            {!singleData ?
+            {singleData?.length === 0 ?
                 (
                     <>
                         <div className={` ${PrCss.addSections}`} onClick={() => setModalShow(true)} style={{ cursor: 'pointer' }}>
@@ -659,68 +658,57 @@ const UserExperience = () => {
                     </>
                 ) :
                 (<>
-                    <div className={` ${PrCss.addSections}`}>
-                        <div className="card w-100">
-                            <div className='row'>
-                                <div class="alert alert-warning">
-                                    Experience
-                                </div>
-                                <div style={{ cursor: 'pointer' }} onClick={() => setModalShow(true)}>
-                                    <CiSquarePlus size={'40'} />
-                                    <MyVerticallyCenteredModal
-                                        show={modalShow}
-                                        todaysdate={todayDate}
-                                        onHide={() => setModalShow(false)}
-                                    />
-                                </div>
-
-                                {/* <button onClick={() => setModalShow(true)}> */}
-
-                                {/* Modal Start  */}
-
-                                {/* Modal End */}
-                                {/* </button> */}
-
-
+                    <div className="card w-100">
+                        {singleData?.length > 0 && <div className='row'>
+                            <div class="alert alert-warning">
+                                Experience
                             </div>
-                            {singleData && singleData?.map((experience) => {
-                                return (
-                                    <div class="card-body " key={experience._id}>
-                                        <div className='row' style={{ cursor: 'pointer' }} onClick={() => { setModalEditShow(true); setEditId(experience._id); setDeleteId(experience._id) }}>
-                                            <FaPencil />
+                            <div style={{ cursor: 'pointer' }} onClick={() => setModalShow(true)}>
+                                <CiSquarePlus size={'40'} />
+                                <MyVerticallyCenteredModal
+                                    show={modalShow}
+                                    todaysdate={todayDate}
+                                    onHide={() => setModalShow(false)}
+                                />
+                            </div>
+                        </div>}
+                        {singleData && singleData?.map((experience) => {
+                            return (
+                                <div class="card-body " key={experience._id}>
+                                    <div className='row' style={{ cursor: 'pointer' }} onClick={() => { setModalEditShow(true); setEditId(experience._id); setDeleteId(experience._id) }}>
+                                        <FaPencil />
+                                    </div>
+
+                                    {/* <div className='row' style={{ cursor: 'pointer' }} onClick={() => { setModalEditShow(true); setDeleteId(experience._id) }}> */}
+                                    {/* <IoTrashBin /> */}
+                                    {/* </div> */}
+                                    <div className='col ' >
+                                        <div className="row ">
+                                            <div className='card-title'>
+                                                {experience.jobTitle}
+                                            </div>
+
                                         </div>
-
-                                        {/* <div className='row' style={{ cursor: 'pointer' }} onClick={() => { setModalEditShow(true); setDeleteId(experience._id) }}> */}
-                                        {/* <IoTrashBin /> */}
-                                        {/* </div> */}
-                                        <div className='col ' >
-                                            <div className="row ">
-                                                <div className='card-title'>
-                                                    {experience.jobTitle}
-                                                </div>
-
+                                        <div className="row">
+                                            <div className='card-text'>
+                                                <p>{experience.company} - {experience.city}</p>
                                             </div>
-                                            <div className="row">
-                                                <div className='card-text'>
-                                                    <p>{experience.company} - {experience.city}</p>
-                                                </div>
+                                        </div>
+                                        <div className="row">
+                                            <div className='card-text'>
+                                                <p>{experience.department}</p>
                                             </div>
-                                            <div className="row">
-                                                <div className='card-text'>
-                                                    <p>{experience.department}</p>
-                                                </div>
-                                            </div>
-                                            <div className="row">
-                                                <div className='card-text'>
-                                                    {formatDateAndCalculateDifference(experience.job_start_date, experience.job_end_date)}
-                                                    {/* <p>{experience.job_start_date.split('T')[0]} To {experience.job_end_date.split('T')[0]} </p> */}
-                                                </div>
+                                        </div>
+                                        <div className="row">
+                                            <div className='card-text'>
+                                                {formatDateAndCalculateDifference(experience.job_start_date, experience.job_end_date)}
+                                                {/* <p>{experience.job_start_date.split('T')[0]} To {experience.job_end_date.split('T')[0]} </p> */}
                                             </div>
                                         </div>
                                     </div>
-                                )
-                            })}
-                        </div>
+                                </div>
+                            )
+                        })}
                     </div>
 
                     {/* Modal Start  */}
@@ -728,7 +716,7 @@ const UserExperience = () => {
                         editid={editId}
                         deleteid={deleteId}
                         show={modalEditShow}
-                        todaysdate = {todayDate}
+                        todaysdate={todayDate}
                         onHide={() => setModalEditShow(false)}
                     />
                     {/* Modal End */}

@@ -208,12 +208,12 @@ function MyVerticallyCenteredModalForEdit(props) {
     const handledeleleEducationonEdit = async (e) => {
         setDelLoading(true);
         const response = await dispatch(deleteEducationAction(deleteId));
-        if(response.success){
+        if (response.success) {
             const resp2 = await dispatch(getUserEducationAction(id));
-            if(resp2.success){
+            if (resp2.success) {
                 setDelLoading(false);
                 props.onHide();
-            }else{
+            } else {
                 toast.info('Please refresh the page and try again')
             }
         }
@@ -385,7 +385,7 @@ const UserEducation = () => {
 
     const allEducationExperiencesReducer = useSelector(state => state.getEducationReducer);
     const allEducationExperiences = allEducationExperiencesReducer?.data?.result;
-    // console.log(allEducationExperiences)
+    console.log(allEducationExperiences)
 
 
     function formatDateAndCalculateDifference(dateString1, dateString2) {
@@ -412,7 +412,7 @@ const UserEducation = () => {
 
     return (
         <div>
-            {!allEducationExperiences ?
+            {allEducationExperiences?.length === 0?
                 (
                     <>
                         <div className={` ${PrCss.addSections}`} style={{ cursor: 'pointer' }} onClick={() => setModalShow(true)}>
@@ -426,14 +426,17 @@ const UserEducation = () => {
                     </>
                 ) : (
                     <>
-                        <div className="row">
-                            <div className='alert alert-primary row w-100'>
-                                Education
-                                <div  style={{ cursor: 'pointer' }} onClick={() => setModalShow(true)}>
-                                    <CiSquarePlus size={35} />
+                        {allEducationExperiences && allEducationExperiences.length > 0 ?
+                            <div className="row">
+                                <div className='alert alert-primary row w-100'>
+                                    Education
+                                    <div style={{ cursor: 'pointer' }} onClick={() => setModalShow(true)}>
+                                        <CiSquarePlus size={35} />
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                            : <> </>
+                        }
                         {
                             allEducationExperiences?.map((education, index) => (
                                 <div key={index} className="card">

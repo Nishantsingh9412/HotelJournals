@@ -151,6 +151,14 @@ const RecruiterDashboard = () => {
                                 >
                                     View Applicants
                                 </button>
+                                <button
+                                    className="btn btn-sm btn-block"
+                                    onClick={() => navigate(`/jobs/dashboard/${job._id}/job/manage/finalize`)}
+                                    style={{ backgroundColor: 'green',color:'white' }}
+                                >
+                                    Finalize
+                                </button>
+                                
                             </div>
                         </div>
                     </div>
