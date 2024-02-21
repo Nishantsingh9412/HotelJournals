@@ -13,9 +13,13 @@ const recruiterProfileSchema = new Schema({
     CompanysTagline : {type:String,required:false},
     twitter : {type:String,required:false},
     linkedIn : {type:String,required:false},
-    company_logo : {type:String,required:true},
+    company_logo : {
+        type:String,
+        default:"https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
+        required:false,
+    },
     created_by : {type:Schema.Types.ObjectId,ref:'User',required:true},
-    created_at : {type:Timestamp,default:Date.now},    
+    created_at : {type:Date,default:Date.now},    
 })
 
 export default mongoose.model('RecruiterProfile',recruiterProfileSchema);

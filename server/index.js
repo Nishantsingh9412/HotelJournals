@@ -8,6 +8,7 @@ import tipsAdminRoutes from './routes/Tips.js'
 import coursesRoutes from './routes/Courses.js' 
 import jobsRoutes from './routes/Jobs.js'
 import userProfileRoutes from './routes/userProfile.js'
+import recruiterProfileRoutes from './routes/recruiterProfile.js'
 import { mailFunction } from "./controllers/mail.js";
 
 
@@ -29,6 +30,7 @@ app.use('/admin',tipsAdminRoutes)
 app.use('/courses',coursesRoutes)
 app.use('/jobs',jobsRoutes)
 app.use('/user/profile',userProfileRoutes)
+app.use('/recruiter/profile',recruiterProfileRoutes)
 app.post('/mail',mailFunction)
 
 app.get('/', (req, res) => {

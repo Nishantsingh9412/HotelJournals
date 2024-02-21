@@ -17,7 +17,20 @@ import { CreateJob } from '../../../redux/actions/jobsAdmin.js';
 const CreateJobs = () => {
   let localUser;
   const dispatch = useDispatch();
-
+  const predefinedJd = `
+  <h1>Job Description</h1>  
+  <p>Job Description should be atleast 50 characters long</p>
+  <br>
+  <b>Role : </b> [Role]
+  <b>Industry Type: </b> [industry type]
+  <b> Department : </b> [Department]
+  <b> Employment Type :</b> [Employment Type]
+  <b>Role Category:</b> [Role Category]
+  <br/> 
+  <b> Education </b>
+  <b> UG : </b> [Any Graduate]
+  <b> PG : </b> [Any Postgraduate]
+  `
   const [jobDecription, setJobDescription] = useState('');
 
   const [showJobLink, setShowJobLink] = useState(false);
@@ -94,6 +107,10 @@ const CreateJobs = () => {
       setJoiningDate(today);
     }
   }, [isImmediate]);
+
+  useEffect(() => {
+    setJobDescription(predefinedJd);
+  },[])
 
   const handleSubmit = async (e) => {
     e.preventDefault();

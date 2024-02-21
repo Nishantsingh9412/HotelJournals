@@ -28,6 +28,7 @@ import ManageParticularJob from './components/Jobs/ManageParticularJob';
 import FinalizeCandidates from './components/Jobs/FinalizeCandidates';
 import HotelLandingpage from './components/Hotel_Journals_Landing_page/HotelLandingpage';
 import JobDescription from './components/Job_Description/JobDescription2';
+import ProfileWrapper from './components/Miscellaneous/ProfileWrapper';
 
 
 
@@ -40,7 +41,8 @@ const AllRoutes = () => {
             <Route path='/journals' element={<JournalsPage />} > </Route>
             <Route path='/signUp' element={<Signup />} > </Route>
             <Route path='/login' element={<Login/>} > </Route>
-            <Route path='/profile/:id' element={<UserProfile/>} > </Route>
+            {/* <Route path='/profile/:id' element={<UserProfile/>} > </Route> */}
+            <Route path='/profile/:id' element={<ProfileWrapper/>} > </Route>
             <Route path='/admintips' element={<AdminTips/>} > </Route>
             <Route path='/courses' element= {<Courses /> } > </Route>
 
