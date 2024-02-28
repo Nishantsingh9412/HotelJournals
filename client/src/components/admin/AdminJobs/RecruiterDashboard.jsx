@@ -17,7 +17,6 @@ import { HiDotsVertical } from "react-icons/hi";
 
 // Modules 
 import { DeleteJobAction, GetJobs } from '../../../redux/actions/jobsAdmin.js';
-import { DeleteACourseAction } from '../../../redux/actions/courseAdmin.js';
 
 const RecruiterDashboard = () => {
 
@@ -41,13 +40,13 @@ const RecruiterDashboard = () => {
         dispatch(GetJobs())
     }, [dispatch]);
 
+        // Deletion of Job
     const handleConfirmedDelete = (id) => {
         dispatch(DeleteJobAction(id));
         navigate('/job/dashboard');
         console.log('Job Deleted successfully')
         toast.success('Job Deleted Successfully')
     }
-
 
     const handleDelete = (id) => {
         const result = window.confirm('Are you sure you want to delete this Job ?');

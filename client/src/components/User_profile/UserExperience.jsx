@@ -12,7 +12,7 @@ import { Button } from 'react-bootstrap'
 import PuffLoader from "react-spinners/PuffLoader";
 // Icons
 import { FaBriefcase } from "react-icons/fa";
-import { FaPencil } from 'react-icons/fa6';
+import { RxPencil1 } from 'react-icons/rx';
 import { CiSquarePlus } from "react-icons/ci";
 
 
@@ -635,7 +635,7 @@ const UserExperience = () => {
     }
 
     return (
-        <div>
+        <div id='experiencescroll'>
             <ToastContainer />
             {singleData?.length === 0 ?
                 (
@@ -658,36 +658,48 @@ const UserExperience = () => {
                     </>
                 ) :
                 (<>
-                    <div className="card w-100">
-                        {singleData?.length > 0 && <div className='row'>
-                            <div class="alert alert-warning">
-                                Experience
-                            </div>
-                            <div style={{ cursor: 'pointer' }} onClick={() => setModalShow(true)}>
-                                <CiSquarePlus size={'40'} />
+                    <div className="card w-100 mt-2"
+                        style={{
+                            boxShadow: '14px 10px 20px 3px #d3beae',
+                            borderRadius: '25px 25px 25px 25px'
+                        }}
+                    >
+                        {singleData?.length > 0 &&
+                            <div className="card-body mt-3 mb-0 pb-0">
+                                <div className='row justify-content-between ml-2 mr-2'>
+                                    <h5 className="card-title">Experience</h5>
+                                    <div style={{ cursor: 'pointer' }} onClick={() => setModalShow(true)}>
+                                        <CiSquarePlus size={'40'} />
+                                    </div>
+                                </div>
                                 <MyVerticallyCenteredModal
                                     show={modalShow}
                                     todaysdate={todayDate}
                                     onHide={() => setModalShow(false)}
                                 />
                             </div>
-                        </div>}
+                        }
                         {singleData && singleData?.map((experience) => {
                             return (
-                                <div class="card-body " key={experience._id}>
-                                    <div className='row' style={{ cursor: 'pointer' }} onClick={() => { setModalEditShow(true); setEditId(experience._id); setDeleteId(experience._id) }}>
-                                        <FaPencil />
-                                    </div>
-
-                                    {/* <div className='row' style={{ cursor: 'pointer' }} onClick={() => { setModalEditShow(true); setDeleteId(experience._id) }}> */}
-                                    {/* <IoTrashBin /> */}
-                                    {/* </div> */}
-                                    <div className='col ' >
+                                <div className="card-body " key={experience._id}>
+                                    <hr style={{width:'100%'}} className='p-0'/>
+                                    <div className='col' >
                                         <div className="row ">
+
                                             <div className='card-title'>
                                                 {experience.jobTitle}
                                             </div>
-
+                                            <div className='ml-2 mt-1'>
+                                                <div style={{ cursor: 'pointer' }}
+                                                    onClick={() => {
+                                                        setModalEditShow(true);
+                                                        setEditId(experience._id);
+                                                        setDeleteId(experience._id)
+                                                    }}
+                                                >
+                                                    <RxPencil1 />
+                                                </div>
+                                            </div>
                                         </div>
                                         <div className="row">
                                             <div className='card-text'>
@@ -702,7 +714,6 @@ const UserExperience = () => {
                                         <div className="row">
                                             <div className='card-text'>
                                                 {formatDateAndCalculateDifference(experience.job_start_date, experience.job_end_date)}
-                                                {/* <p>{experience.job_start_date.split('T')[0]} To {experience.job_end_date.split('T')[0]} </p> */}
                                             </div>
                                         </div>
                                     </div>

@@ -20,6 +20,7 @@ import { FaExternalLinkAlt } from "react-icons/fa";
 
 import PrCss from './userProfile.module.css';
 import { deleteCertificateAction, getCertificatesAction, setCertificatesAction, updateCertificateAction } from '../../redux/actions/userProfile/userCertificates';
+import { RxPencil1 } from 'react-icons/rx';
 
 function MyVerticallyCenteredModal(props) {
 
@@ -534,7 +535,7 @@ const UserCertifications = () => {
 
 
     return (
-        <div>
+        <div id='liscencescroll'> 
             <ToastContainer />
             {(allcertificatesData?.length === 0 || allcertificatesData === undefined) ?
                 <>
@@ -548,63 +549,80 @@ const UserCertifications = () => {
                     </div>
                 </> :
                 <>
-                    <div className='alert alert-danger' style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <h3 > Licenses & certifications </h3>
-                        <div onClick={() => setModalShow(true)} style={{ cursor: 'pointer' }} >
-                            <CiSquarePlus size={'35'} />
+                    <div className="card-body mt-3 mb-0 pb-0">
+                        <div className='row justify-content-between ml-2 mr-2'>
+                            <h5 className="card-title">Licenses & certifications </h5>
+                            <div style={{ cursor: 'pointer' }} onClick={() => setModalShow(true)} >
+                                <CiSquarePlus size={'35'} />
+                            </div>
                         </div>
                     </div>
-                    {allcertificatesData?.map((certificate) => {
-                        return (
-                            <div class="card" style={{ width: '50vw' }}>
-                                <div className="card-body">
-                                    <div className="card-header mt-1" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                                        {certificate.certificate_name}
-                                        <div style={{ cursor: 'pointer' }}
-                                            onClick={() => {
-                                                setModalShowEdit(true);
-                                                setDelId(certificate._id);
-                                                setEditId(certificate._id);
-                                            }}>
-                                            <FaPencil />
+                    
+                    <div
+                        style={{
+                            width: '50vw',
+                            boxShadow: '14px 10px 20px 3px #d3beae',
+                            borderRadius: '25px 25px 25px 25px',
+                        }}
+                    >
+                        {allcertificatesData?.map((certificate) => {
+                            return (
+                                <div class="card"
+                                >
+                                    <div className="card-body">
+                                        <div className="card-header mt-1"
+                                            style={{
+                                                display: 'flex',
+                                                alignItems: 'center'
+                                            }}
+                                        >
+                                            {certificate.certificate_name}
+                                            <div style={{ cursor: 'pointer' }}
+                                                onClick={() => {
+                                                    setModalShowEdit(true);
+                                                    setDelId(certificate._id);
+                                                    setEditId(certificate._id);
+                                                }}>
+                                                <RxPencil1 style={{ marginLeft: '10px' }} />
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div className='ml-2'>
-                                        <div className="card-text mt-1">{certificate.issued_by} </div>
-                                        {certificate.credential_id ?
-                                            <>
-                                                <div className="card-text mt-1">
-                                                    Credential ID : {certificate.credential_id}
-                                                </div>
-                                            </>
-                                            : <></>
-                                        }
-                                        <div className="card-text mt-1">
-                                            <small className='text-muted'>
-                                                Issued ·
-                                                {certificate.issue_month} {certificate.issue_year}
-                                                {certificate.expiration_month ?
-                                                    <> · Expires {certificate.expiration_month} {certificate.expiration_year}</>
-                                                    :
-                                                    <></>
-                                                }
-                                            </small>
-                                        </div>
-                                        {/* <div className="card-text mt-1">Credential ID 293f3085-8c81-409e-9a91-a2b5a95a17f0</div> */}
+                                        <div className='ml-2'>
+                                            <div className="card-text mt-1">{certificate.issued_by} </div>
+                                            {certificate.credential_id ?
+                                                <>
+                                                    <div className="card-text mt-1">
+                                                        Credential ID : {certificate.credential_id}
+                                                    </div>
+                                                </>
+                                                : <></>
+                                            }
+                                            <div className="card-text mt-1">
+                                                <small className='text-muted'>
+                                                    Issued ·
+                                                    {certificate.issue_month} {certificate.issue_year}
+                                                    {certificate.expiration_month ?
+                                                        <> · Expires {certificate.expiration_month} {certificate.expiration_year}</>
+                                                        :
+                                                        <></>
+                                                    }
+                                                </small>
+                                            </div>
+                                            {/* <div className="card-text mt-1">Credential ID 293f3085-8c81-409e-9a91-a2b5a95a17f0</div> */}
 
-                                        {certificate.credential_url ?
-                                            <>
-                                                <NavLink to={`${certificate.credential_url}`} target='_blank'>
-                                                    <button className='btn mt-3' style={{ backgroundColor: '#e4b49d', marginRight: '1vw' }}> Show credential  <FaExternalLinkAlt /> </button>
-                                                </NavLink>
-                                            </>
-                                            : <></>
-                                        }
+                                            {certificate.credential_url ?
+                                                <>
+                                                    <NavLink to={`${certificate.credential_url}`} target='_blank'>
+                                                        <button className='btn mt-3' style={{ backgroundColor: '#e4b49d', marginRight: '1vw' }}> Show credential  <FaExternalLinkAlt /> </button>
+                                                    </NavLink>
+                                                </>
+                                                : <></>
+                                            }
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        )
-                    })}
+                            )
+                        })}
+                    </div>
                 </>
             }
 

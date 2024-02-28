@@ -175,3 +175,13 @@ export const getUserCv = (id) => API.get(`/user/profile/getCV/${id}`)
 export const updateUserCv = (id,cvData) => API.patch(`/user/profile/updateCV/${id}`,cvData)
 // Deleting User CV
 export const deleteUserCV = (id) => API.delete(`/user/profile/deleteCV/${id}`)
+
+// ----------------------------------------- For Recruiter Profile ------------------------------
+// Setting Recruiter Profile
+export const setRecruiterProfile = (profileData) => API.post('/recruiter/profile/setrecprofile',profileData)
+// Getting Recruiter Profile
+export const getRecruiterProfile = (id) => API.get(`/recruiter/profile/getrecprofile/${id}`)
+// Updating Recruiter Profile
+export const updateRecruiterProfile = (id,profileData) => API.patch(`/recruiter/profile/updaterecprofile/${id}`,profileData)
+// Deleting Recruiter Profile
+export const deleteRecruiterProfile = (id) => API.delete(`/recruiter/profile/deleterecprofile/${id}`)

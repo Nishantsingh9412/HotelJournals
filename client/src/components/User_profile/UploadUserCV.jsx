@@ -25,8 +25,8 @@ const UploadUserCV = () => {
     const [file, setFile] = useState(null);
     const [loading, setLoading] = useState(false);
     const dispatch = useDispatch();
-    
-    const serverUrl = 'http://localhost:5000/'; 
+
+    const serverUrl = 'http://localhost:5000/';
     useEffect(() => {
         dispatch(getUserCVAction(id))
     }, [dispatch, id])
@@ -103,16 +103,16 @@ const UploadUserCV = () => {
         setLoading(false);
     }
 
-    const handleDeleteCV = async(e) => {
+    const handleDeleteCV = async (e) => {
         e.preventDefault();
         setLoading(true);
         const response = await dispatch(deleteUserCVAction(id));
         if (response.success) {
             // const respo2 = await dispatch(getUserCVAction(id));
             // if(respo2.success){
-                toast.success(response.message);
+            toast.success(response.message);
             // }else{
-                // toast.error('Refresh Page to see changes ');
+            // toast.error('Refresh Page to see changes ');
             // }
         } else {
             toast.error(response.message);
@@ -120,7 +120,7 @@ const UploadUserCV = () => {
         setLoading(false);
     }
 
-    const DownloadCVButton = ({ cvUrl , filename}) => {
+    const DownloadCVButton = ({ cvUrl, filename }) => {
         const handleDownload = async () => {
             try {
                 const response = await fetch(`${serverUrl}${cvUrl}`);
@@ -128,7 +128,7 @@ const UploadUserCV = () => {
                 const url = window.URL.createObjectURL(blob);
                 const link = document.createElement('a');
                 link.href = url;
-                link.setAttribute('download',filename); // or any other extension
+                link.setAttribute('download', filename); // or any other extension
                 document.body.appendChild(link);
                 link.click();
                 link.parentNode.removeChild(link);
@@ -136,14 +136,14 @@ const UploadUserCV = () => {
                 console.error('Error:', error);
             }
         };
-    
+
         return <FaDownload size={'30'} color='#8E7AB5' onClick={handleDownload} />;
     };
 
 
 
     return (
-        <div>
+        <div id='resumescroll'>
             <ToastContainer />
             {/* <div className={` ${PrCss.addSections}`}>
                 <div className="card w-100">
@@ -155,33 +155,44 @@ const UploadUserCV = () => {
             </div> */}
 
             {!singleCV ? (<>
-                <form>
-                    <input type="file" onChange={e => setFile(e.target.files[0])} />
-                    <Button onClick={handlesubmitCV}>
-                        {loading ? <>
-                            <div className='d-flex'>
-                                <PuffLoader
-                                    size={25}
-                                    color="#ffffff"
-                                /> <span className='pl-2'> Submitting... </span>
-                            </div>
-                        </> : 'Submit'}
-                    </Button>
-                </form>
+                <div className='mt-2'>
+                    <form>
+                        <input type="file" onChange={e => setFile(e.target.files[0])} />
+                        <Button onClick={handlesubmitCV}>
+                            {loading ? <>
+                                <div className='d-flex'>
+                                    <PuffLoader
+                                        size={25}
+                                        color="#ffffff"
+                                    /> <span className='pl-2'> Submitting... </span>
+                                </div>
+                            </> : 'Submit'}
+                        </Button>
+                    </form>
+                </div>
             </>) : (
                 <>
-                    <div>
+                    {/* <div className='mt-2' style={}> */}
+                    <div class="card mt-3 p-4"
+                            style=
+                            {{
+                                boxShadow: '14px 10px 20px 3px #d3beae',
+                                borderRadius: '25px 25px 25px 25px'
+                            }}
+                        >
                         <form >
-                            {singleCV?.split('Z')[1]}
-                            <div className='row mb-4'>
-                                <div className="col-md-6">
-                                    <h2>Edit CV</h2>
-                                </div>
-                                <div className="col-md-4" style={{cursor:'pointer'}}>
-                                    <DownloadCVButton cvUrl={singleCV} filename={singleCV?.split('Z')[1]} />
-                                </div>
-                                <div className="col-md-2"  style={{cursor:'pointer'}} onClick={handleDeleteCV} >
-                                    <MdDelete size={'30'} color='red' />
+                            <div className="col-md-6 ">
+                                <h5 style={{fontWeight:'600'}}>Edit CV</h5>
+                            </div>
+                            <div className='row mb-4 p-4'>
+                                <p>{singleCV?.split('Z')[1]}</p>
+                                <div className='col-md-2 d-flex'>
+                                    <div className="" style={{ cursor: 'pointer' }}>
+                                        <DownloadCVButton cvUrl={singleCV} filename={singleCV?.split('Z')[1]} />
+                                    </div>
+                                    <div className="" style={{ cursor: 'pointer' }} onClick={handleDeleteCV} >
+                                        <MdDelete size={'30'} color='red' />
+                                    </div>
                                 </div>
                             </div>
                             <input type="file" onChange={(e) => setFile(e.target.files[0])} />

@@ -1,0 +1,343 @@
+.ManageCandidateContainer {
+    height: auto;
+    width: 100%;
+    display: flex;
+    background-color: white;
+}
+
+.ManageCandidateLeft {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    width: 25%;
+    height: auto;
+    padding: 20px;
+    background-color: #F2F8FE;
+}
+
+.sidebar {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 10px;
+    height: 60px;
+    width: 270px;
+    border-radius: 5px;
+    background-color: #D0E6FF;
+    margin-bottom: 10px;
+    color: rgb(26, 28, 39);
+}
+
+.sidebar:hover {
+    background-color: #c7daf3;
+    cursor: pointer;
+}
+
+.sidebar>h1 {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.sideicon {
+    height: 30px;
+    width: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    object-fit: cover;
+    font-size: 20px;
+    border-radius: 50%;
+    background-color: rgb(247, 233, 233);
+}
+
+.ManageCandidateRight {
+    width: 75%;
+    height: auto;
+    padding-top: 20px;
+    background-color: white;
+    margin-left: 10px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.ManageCandidateHeading {
+    height: 6vh;
+    width: 100%;
+    background-color: #0073E6;
+    display: flex;
+}
+
+.checkbox {
+    height: 100%;
+    width: 5%;
+    background-color: #0073E6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.checkbox>input {
+    height: 20px;
+    width: 20px;
+
+}
+
+
+.serialnumber {
+    height: 100%;
+    width: 15%;
+    background-color: #0073E6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 12px;
+    font-weight: 700;
+
+}
+
+.applicationname {
+    height: 100%;
+    width: 45%;
+    background-color: #0073E6;
+    display: flex;
+    align-items: center;
+    color: white;
+    font-size: 12px;
+    font-weight: 700;
+    padding-left: 5px;
+}
+
+.status {
+    height: 100%;
+    width: 35%;
+    background-color: #0073E6;
+    display: flex;
+    align-items: center;
+    color: white;
+    font-size: 12px;
+    font-weight: 700;
+    padding-left: 5px;
+}
+
+.status2 {
+    height: 100%;
+    width: 35%;
+    background-color: #0073E6;
+    display: flex;
+    align-items: center;
+    color: white;
+    font-size: 12px;
+    font-weight: 700;
+    padding-left: 150px;
+}
+
+
+
+
+.ManageCandidateHeadingmain {
+    height: 15vh;
+    width: 100%;
+    display: flex;
+    border-bottom: 2px solid rgb(202, 221, 219);
+    box-shadow: #98ACC5;
+    margin-bottom: 6px;
+}
+
+.checkboxmain {
+    height: 100%;
+    width: 5%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 12px;
+    font-weight: 700;
+    border-left: 1px solid rgb(202, 221, 219);
+    border-right: 1px solid rgb(202, 221, 219);
+}
+
+.checkboxmain>input {
+    height: 20px;
+    width: 20px;
+}
+
+.serialnumbermain {
+    height: 100%;
+    width: 15%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.applicationnamemain {
+    height: 100%;
+    width: 45%;
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    color: #98ACC5;
+    padding-left: 5px;
+    border-left: 1px solid rgb(202, 221, 219);
+
+}
+
+.applicantimg {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgb(175, 171, 171);
+    overflow: hidden;
+
+}
+
+.applicantimg>img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.applicantdetail {
+    position: relative;
+    height: 100%;
+    width: 92%;
+    display: flex;
+    /* gap: 5px; */
+    line-height: 0.5;
+    align-items: center;
+    padding-left: 10px;
+}
+
+.name {
+    display: flex;
+    flex-direction: column;
+}
+
+.name>h1 {
+    font-size: 15px;
+    color: black;
+}
+
+.name>p {
+    font-size: 12px;
+}
+
+.icon {
+    position: absolute;
+    margin-right: 4px;
+    height: 30px;
+    width: 30px;
+    top: 10px;
+    right: 0;
+    display: none;
+    border-radius: 50%;
+    font-size: 1px;
+    border: 1px solid rgb(196, 218, 216);
+}
+
+.icon>:nth-child(1) {
+    color: black;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.applicationnamemain:hover .icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #D0E6FF;
+    transition: all ease 1s;
+}
+
+.statusmain {
+    height: 100%;
+    width: 35%;
+    display: flex;
+    align-items: center;
+    color: white;
+    font-size: 12px;
+    border-left: 1px solid rgb(202, 221, 219);
+}
+
+
+
+
+
+
+
+@media screen and (max-width: 640px) {
+
+    .ManageCandidateContainer {
+
+        height: auto;
+
+        flex-direction: column;
+    }
+
+    .ManageCandidateLeft {
+        width: 100%;
+        height: auto;
+
+    }
+
+    .sidebar {
+
+        width: 100%;
+
+    }
+
+    .ManageCandidateRight {
+        width: 100%;
+        margin-left: 0px;
+
+    }
+
+    .status {
+        display: none;
+    }
+
+    .status2 {
+        display: none;
+    }
+
+    .statusmain {
+        display: none;
+    }
+
+    .applicationnamemain {
+        height: 100%;
+        width: 90%;
+
+    }
+
+}
+
+@media (min-width: 640px) and (max-width: 850px) {
+    .sidebar {
+        width: 180px;
+    }
+
+}
+
+.twelve {
+    color: #4a4a4a;
+    text-align: left;
+    margin-left: 1.2vw;
+    padding: 20px 0;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    font-size: 36px;
+    /* text-transform: uppercase; */
+    letter-spacing: 2px;
+    border-bottom: 1px solid #f1d0d0;
+}

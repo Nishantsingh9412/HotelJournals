@@ -1,0 +1,314 @@
+.DashboardContainer {
+    height: auto;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 80px;
+}
+
+.DashboardCardContainer {
+    height: auto;
+    width: 80vw;
+    gap: 20px;
+    display: flex;
+    margin-top: 20px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.DashboardCard {
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 24px;
+    padding-bottom: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 130px;
+    width: 350px;
+    background-color: #EBE8FD;
+    border-radius: 20px;
+}
+
+.CardHead {
+    height: 24%;
+    width: 100%;
+    background-color: #EBE8FD;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    justify-content: space-between;
+}
+
+.CardHead>span {
+    font-size: 16px;
+}
+
+.headlogo {
+    height: 20px;
+    width: 20px;
+    background-color: EBE8FD;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.Cardbottom {
+    height: 50px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    background-color: EBE8FD;
+}
+
+.cardlogo {
+    height: 40px;
+    width: 40px;
+    background-color: EBE8FD;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 25px;
+}
+
+.CardBottomDetail {
+    height: 100%;
+    width: calc(100% - 40px);
+    background-color: EBE8FD;
+    display: flex;
+    flex-direction: column;
+    padding-left: 5px;
+
+}
+
+.CardBottomDetail>span {
+    font-weight: 700;
+    font-size: 23px;
+}
+
+.CardBottomDetail>p {
+    color: #05C17D;
+    font-size: 15px;
+}
+
+.Dashboardmiddle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: auto;
+    width: 80vw;
+    gap: 30px;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.middleleft {
+    height: 22vw;
+    width: 70%;
+    border: 2px solid rgb(187, 168, 168);
+    border-radius: 15px;
+}
+
+.middleright {
+    height: 340px;
+    width: 340px;
+    border: 2px solid rgb(187, 168, 168);
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: column;
+}
+
+.Qrimg {
+    height: 140px;
+    width: 140px;
+    object-fit: cover;
+   
+}
+
+.Qrimg>img {
+    height: 100%;
+    width: 100%;
+}
+
+.middlelogocontainer {
+    height: 50px;
+    width: 280px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+}
+
+.middlelogo {
+    height: 45px;
+    width: 45px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    object-fit: cover;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.middlelogo>img {
+    height: 75%;
+    width: 75%;
+}
+
+.buttoncontainer {
+    height: 50px;
+    width: 280px;
+    border-radius: 40px;
+    padding: 4px;
+    background-color: #E5F1FC;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.buttoncontainer>span {
+    font-size: 14px;
+}
+
+.buttonlogo {
+    height: 35px;
+    width: 35px;
+    border-radius: 50%;
+
+    display: flex;
+    object-fit: cover;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+}
+
+.GenderRatio {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    height: 340px;
+    width: 340px;
+    padding-left: 15px;
+    border: 2px solid rgb(201, 184, 184);
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+}
+
+.RatioHeading {
+    height: 10%;
+    width: 100%;
+    display: flex;
+    padding-left: 15px;
+    padding-right: 15px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.RatioHeading>span {
+    font-size: 18px;
+}
+
+.ratioicon {
+    height: 20px;
+    width: 20px;
+    background-color: white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    object-fit: cover;
+    cursor: pointer;
+}
+
+.graphcontainer {
+    display: flex;
+    height: 180px;
+    width: 100%;
+    background-color: white;
+
+}
+
+.gendergraph {
+    height: 180px;
+    width: 180px;
+    object-fit: cover;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    overflow: hidden;
+    display: flex;
+}
+.gendergraph>img{
+    height: 100%;
+    width: 100%;
+}
+
+.graphright {
+    width: calc(100% - 180px);
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.gender {
+    width: 120px;
+    height: auto;
+    display: flex;
+    align-items: center;
+    border-bottom: 2px solid rgb(201, 184, 184);
+    gap: 8px;
+}
+
+.gender>span {
+    font-size: 15px;
+}
+
+.gendercon {
+    height: 15px;
+    width: 15px;
+    background-color: brown;
+}
+
+@media screen and (max-width: 640px) {
+    .DashboardContainer {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .DashboardCardContainer {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .DashboardCard {
+        width: 100%;
+    }
+
+    .Dashboardmiddle {
+        align-items: center;
+        width: 100%;
+    }
+
+    .middleleft {
+        display: none;
+
+    }
+
+    .middleright {
+        width: 100%;
+    }
+
+    .GenderRatio {
+        width: 100%;
+    }
+
+}

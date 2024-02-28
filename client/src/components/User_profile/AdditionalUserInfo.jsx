@@ -18,6 +18,7 @@ import { CiSquarePlus } from "react-icons/ci";
 
 import PrCss from './userProfile.module.css';
 import { deleteAddInfoAction, getAddInfoAction, setAddInfoAction, updateAddInfoAction } from '../../redux/actions/userProfile/userAddInfo';
+import { RxPencil1 } from 'react-icons/rx';
 
 
 
@@ -256,7 +257,7 @@ const AdditionalUserInfo = () => {
     const singleAddInfo = allAddInfo?.data?.result;
 
     return (
-        <div>
+        <div id='additionlInfoScroll'> 
             <ToastContainer />
             {
                 (singleAddInfo?.length === 0 || singleAddInfo === undefined) ?
@@ -279,46 +280,59 @@ const AdditionalUserInfo = () => {
                         </div>
                     </> :
                     <>
-                        <div className='alert alert-info mt-4' style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                            <h3 > Additional Information </h3>
-                            <div onClick={() => setModalShow(true)} style={{ cursor: 'pointer' }} >
-                                <CiSquarePlus size={'35'} />
+                        <div class="card mt-3"
+                            style=
+                            {{
+                                boxShadow: '14px 10px 20px 3px #d3beae',
+                                borderRadius: '25px 25px 25px 25px'
+                            }}
+                        >
+                            <div className='mt-2 p-3'
+                                style={{
+                                    display: 'flex',
+                                    justifyContent: 'space-between',
+                                    alignItems: 'center'
+                                }}
+                            >
+                                <h5 style={{ fontWeight: '600' }}> Additional Information </h5>
+                                <div onClick={() => setModalShow(true)} style={{ cursor: 'pointer' }} >
+                                    <CiSquarePlus size={'35'} />
+                                </div>
                             </div>
-                        </div>
-                        {singleAddInfo?.map((info, index) => {
-                            return (
-                                <div
-                                    className={` ${PrCss.addSections}`}
-                                    key={index}
-                                >
-                                    <div className="card w-100">
-                                        <div className="card-body">
-                                            <div className='d-flex justify-content-between'>
-                                                <h5 className="card-title"> {info.title} </h5>
-                                                <div onClick={() => { setEditId(info._id); setDelId(info._id) }}>
-                                                    <FaPencil
-                                                        style={{ cursor: 'pointer' }}
-                                                        onClick={() => setEditModalShow(true)}
-                                                    />
+                            {singleAddInfo?.map((info, index) => {
+                                return (
+                                    <div
+                                        key={index}
+                                    >
+                                        <div className="card w-100">
+                                            <div className="card-body">
+                                                <div className='d-flex '>
+                                                    <h5 className="card-title"> {info.title} </h5>
+                                                    <div onClick={() => { setEditId(info._id); setDelId(info._id) }}>
+                                                        <RxPencil1
+                                                            style={{ cursor: 'pointer',marginLeft:'1rem' }}
+                                                            onClick={() => setEditModalShow(true)}
+                                                        />
+                                                    </div>
                                                 </div>
+                                                <p className="card-text"> {info.description} </p>
                                             </div>
-                                            <p className="card-text"> {info.description} </p>
                                         </div>
                                     </div>
-                                </div>
-                            )
-                        })}
-                        <MyVerticallyCenteredModal
-                            show={modalShow}
-                            onHide={() => setModalShow(false)}
-                        />
-                        <MyVerticallyCenteredModalEditAddInfo
-                            show={editModalShow}
-                            addinfo={singleAddInfo}
-                            editid={editId}
-                            delid={delId}
-                            onHide={() => setEditModalShow(false)}
-                        />
+                                )
+                            })}
+                            <MyVerticallyCenteredModal
+                                show={modalShow}
+                                onHide={() => setModalShow(false)}
+                            />
+                            <MyVerticallyCenteredModalEditAddInfo
+                                show={editModalShow}
+                                addinfo={singleAddInfo}
+                                editid={editId}
+                                delid={delId}
+                                onHide={() => setEditModalShow(false)}
+                            />
+                        </div>
                     </>
             }
         </div>

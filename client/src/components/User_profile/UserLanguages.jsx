@@ -316,7 +316,7 @@ const UserLanguages = () => {
     console.log(allUserLanguage)
 
     return (
-        <div>
+        <div id='languagescroll'>
             <ToastContainer />
             {(allUserLanguage?.length === 0 || allUserLanguage === undefined) ? <>
                 <div className={` ${PrCss.addSections}`} style={{ cursor: 'pointer' }} onClick={() => setModalShow(true)}>
@@ -329,34 +329,42 @@ const UserLanguages = () => {
                 </div>
             </> :
                 <>
-                    <div className='alert alert-warning mt-4' style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <h3 > Languages </h3>
-                        <div onClick={() => setModalShow(true)} style={{ cursor: 'pointer' }} >
-                            <CiSquarePlus size={'35'} />
+                    <div class="card mt-3" style={{
+                        width: '50vw',
+                        boxShadow: '14px 10px 20px 3px #d3beae',
+                        borderRadius: '25px 25px 25px 25px'
+                    }}
+                    >
+                        <div className='p-4' style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                            <h5 style={{fontWeight:'600'}}> Languages </h5>
+                            <div onClick={() => setModalShow(true)} style={{ cursor: 'pointer' }} >
+                                <CiSquarePlus size={'35'} />
+                            </div>
                         </div>
-                    </div>
-                    {allUserLanguage?.map((language) => {
-                        return (
-                            <div class="card" style={{ width: '50vw' }}>
-                                <div className="card-body">
-                                    <div className="card-header mt-1" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                                        {language.language}
-                                        <div style={{ cursor: 'pointer' }}
-                                            onClick={() => {
-                                                setModalEditShow(true);
-                                                setDelId(language._id);
-                                                setEditId(language._id);
-                                            }}>
-                                            <FaPencil />
+                        
+                        {allUserLanguage?.map((language) => {
+                            return (
+                                <div>
+                                    <div className="card-body">
+                                        <div className="card-header mt-1" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                            {language.language}
+                                            <div style={{ cursor: 'pointer' }}
+                                                onClick={() => {
+                                                    setModalEditShow(true);
+                                                    setDelId(language._id);
+                                                    setEditId(language._id);
+                                                }}>
+                                                <FaPencil />
+                                            </div>
+                                        </div>
+                                        <div className="card-text ml-4">
+                                            <p> Proficiency: {language.proficiency}</p>
                                         </div>
                                     </div>
-                                    <div className="card-text ml-4">
-                                        <p> Proficiency: {language.proficiency}</p>
-                                    </div>
                                 </div>
-                            </div>
-                        )
-                    })}
+                            )
+                        })}
+                    </div>
                 </>
             }
             <MyVerticallyCenteredModal

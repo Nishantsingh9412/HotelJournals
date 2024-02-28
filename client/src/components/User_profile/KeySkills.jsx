@@ -17,6 +17,7 @@ import PrCss from './userProfile.module.css';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteSkillsAction, getUserSkillsAction, setUserSkillsAction, updateUserSkillsAction } from '../../redux/actions/userProfile/userSkills';
+import { RxPencil1 } from 'react-icons/rx';
 
 
 function MyVerticallyCenteredModal(props) {
@@ -162,11 +163,11 @@ function MyVerticallyCenteredModalEditSkills(props) {
         e.preventDefault();
         setLoadingdel(true);
         const response = await dispatch(deleteSkillsAction(skill_id));
-        if(response.success){
+        if (response.success) {
             const respo2 = await dispatch(getUserSkillsAction(id));
-            if(respo2.success){
+            if (respo2.success) {
                 props.onHide();
-            }else{
+            } else {
                 toast.info('Please refresh the page and try again')
             }
         }
@@ -250,7 +251,7 @@ const KeySkills = () => {
     console.log(getskills)
 
     return (
-        <div>
+        <div id='skillscroll'>
             <ToastContainer />
             {!getskills ?
                 (<>
@@ -263,34 +264,68 @@ const KeySkills = () => {
                         </div>
                     </div>
                 </>) :
-                (<>
-                    {/* <div className={` ${PrCss.addSections}`} style={{ cursor: 'pointer' }} onClick={() => setModalShow(true)}>
-                        <div className="card w-100">
-                            <div className="card-body text-center">
-                                <i className='fa-solid fa-plus'></i>
-                                <p className='card-text'>Add more skills </p>
-                            </div>
+                <>
+                    <div className="mt-4 p-3"
+                        style=
+                        {{
+                            boxShadow: '14px 10px 20px 3px #d3beae',
+                            borderRadius: '25px 25px 25px 25px'
+                        }}
+                    >
+                        <div className='d-flex '
+                            onClick={() => setModalEditSkillsShow(true)}
+                            style={{ cursor: 'pointer'}}
+                        >
+                            <p>Skills</p>
+                            <RxPencil1 />
                         </div>
-                    </div> */}
-                    <div className="alert alert-success mt-4"> Skills
-                        <div className='btn btn-primary ml-5' onClick={() => setModalEditSkillsShow(true)} >
-                            <FaPencil />
-                        </div>
-                    </div>
-                    <div className="d-flex flex-wrap" style={{ width: '50vw' }}>
+                        {/* <div className="d-flex flex-wrap" style={{ width: '50vw' }}>
                         {
                             getskills.map((skill, index) => (
-                                <div className='w-100'>
-                                    <div key={index} className="card m-2">
-                                        <div className="card-body">
-                                            <p className="card-text">{skill}</p>
+                                <div key={index} className="card mt-3"
+                                    style=
+                                    {{
+                                        boxShadow: '14px 10px 20px 3px #d3beae',
+                                        borderRadius: '25px 25px 25px 25px'
+                                    }}
+                                >
+                                    <div className="card-body">
+                                        <div className='row'>
+                                            <h5 className="card-title ml-3">{skill}</h5>
+                                            <div className='mt-1' 
+                                                style={{ cursor: 'pointer' }}
+                                            >
+                                            </div>
                                         </div>
                                     </div>
+                                    
                                 </div>
                             ))
                         }
+                    </div> */}
+                        <div className="d-flex flex-wrap">
+                            {
+                                getskills.map((skill, index) => (
+                                    <div key={index} className="m-2"
+                                        style=
+                                        {{
+                                            padding: '5px',
+                                            // backgroundColor: '#efefea',
+                                            borderRadius: '25px',
+                                            border: '1px solid rgb(71, 77, 106)',
+                                            // boxShadow: '5px 5px 10px 2px #efefea',
+                                            cursor: 'pointer'
+                                        }}
+                                        onClick={() => setModalEditSkillsShow(true)}
+                                    >
+                                        <small>{skill}</small>
+                                    </div>
+                                ))
+                            }
+                        </div>
                     </div>
-                </>)
+
+                </>
 
             }
             <MyVerticallyCenteredModal

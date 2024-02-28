@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Modal from 'react-bootstrap/Modal'
 import { Button, Toast } from 'react-bootstrap';
 import PuffLoader from "react-spinners/PuffLoader";
+import { Link } from 'react-scroll'
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -11,6 +12,7 @@ import 'react-toastify/dist/ReactToastify.css';
 // react icons 
 import { FaPencil } from "react-icons/fa6";
 import { FaRegUser } from "react-icons/fa";
+import { RxPencil1 } from 'react-icons/rx';
 
 import ProfilePic from './ProfilePic';
 import PrCss from './userProfile.module.css';
@@ -140,7 +142,7 @@ function MyVerticallyCenteredModalForEdit(props) {
 
 const UserProfile = () => {
 
-  const a = false;
+  // const a = false;
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -266,9 +268,9 @@ const UserProfile = () => {
       <div className='container'>
         <ToastContainer />
         <div className='row pt-2  '>
-          <div className={PrCss.contactFollow}>
-
-            <div className='card w-75'>
+          {/* <div className={PrCss.contactFollow}> */}
+          {/* Profile at 60% completion */}
+          {/* <div className='card w-75'>
               <div className='card mt-5'>
                 <div class="card-body ">
                   <i class="fa-solid fa-user fa-3x"></i> &nbsp;
@@ -277,8 +279,8 @@ const UserProfile = () => {
                   </span>
                 </div>
               </div>
-            </div>
-
+            </div> */}
+          {/*             
             <div class="card" style={{ width: '23vw' }}>
               <div class="card-body text-center">
                 <i class="fa-solid fa-envelope"></i> &nbsp;
@@ -299,77 +301,246 @@ const UserProfile = () => {
                 </span>
               </div>
             </div>
+            */}
+          {/* </div> */}
 
+          {/* Left Side */}
+          {/* Quick Links  */}
+          <div className='mt-3 col-md-4' style={{ position: 'sticky', top: '0', height: '100vh', marginTop: '2vw' }}>
+            <div class="card" style={{ width: '18rem' }}>
+              <div class="card-body">
+                <h5 class="card-title">Quick Links</h5>
+                {/* All Links */}
+                <ul className="list-group list-group-flush">
+                  <li className="list-group-item">
+                    <Link
+                      to="profilescroll"
+                      smooth={true}
+                      duration={1000}
+                      className="card-link"
+                      style={{ cursor: 'pointer' }}
+                    >
+                      Profile
+                    </Link>
+                  </li>
+                  <li className="list-group-item">
+                    <Link
+                      to="experiencescroll"
+                      smooth={true}
+                      duration={1000}
+                      className="card-link"
+                      style={{ cursor: 'pointer' }}
+                    >
+                      Experience
+                    </Link>
+                  </li>
+                  <li className="list-group-item">
+                    <Link
+                      to="educationscroll"
+                      smooth={true}
+                      duration={1000}
+                      className="card-link"
+                      style={{ cursor: 'pointer' }}
+                    >
+                      Education
+                    </Link>
+                  </li>
+                  <li className="list-group-item">
+                    <Link
+                      to="skillscroll"
+                      smooth={true}
+                      duration={1000}
+                      className="card-link"
+                      style={{ cursor: 'pointer' }}
+                    >
+                      Skills
+                    </Link>
+                  </li>
+                  {
+                  /* <li className="list-group-item">
+                    <Link
+                      to="projectscroll"
+                      smooth={true}
+                      duration={1000}
+                      className="card-link"
+                      style={{ cursor: 'pointer' }}
+                    >
+                      Projects
+                    </Link>
+                  </li> */
+                  }
+
+                  <li className="list-group-item">
+                    <Link
+                      to="liscencescroll"
+                      smooth={true}
+                      duration={1000}
+                      className="card-link"
+                      style={{ cursor: 'pointer' }}
+                    >
+                      Liscence and Certification
+                    </Link>
+                  </li>
+
+
+                  <li className="list-group-item">
+                    <Link
+                      to="languagescroll"
+                      smooth={true}
+                      duration={1000}
+                      className="card-link"
+                      style={{ cursor: 'pointer' }}
+                    >
+                      Languages
+                    </Link>
+                  </li>
+
+
+                  <li className="list-group-item">
+                    <Link
+                      to="additionlInfoScroll"
+                      smooth={true}
+                      duration={1000}
+                      className="card-link"
+                      style={{ cursor: 'pointer' }}
+                    >
+                      Additional Information
+                    </Link>
+                  </li>
+
+
+                  <li className="list-group-item">
+                    <Link
+                      to="resumescroll"
+                      smooth={true}
+                      duration={1000}
+                      className="card-link"
+                      style={{ cursor: 'pointer' }}
+                    >
+                      Resume
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+
+
+
+          {/* Right Side */}
+          {/* All Details */}
+          <div className='mt-3 col-md-8'>
+
+            <div class="card"
+              style=
+              {{
+                boxShadow: '14px 10px 20px 3px #d3beae',
+                borderRadius: '25px 25px 25px 25px'
+              }}
+            >
+              <div class="card-body border-0">
+                <h5 class="card-title">Education</h5>
+                {/* Repeater */}
+                <div className='mt-1'>
+                  <div style={{ display: 'flex', alignItems: 'center' }}>
+                    Axis institute of technology and management
+                    <RxPencil1 style={{ marginLeft: '10px' }} />
+                  </div>
+                  <p className='text-muted p-0 m-0'> Graduating in 2024, Full Time </p>
+                </div>
+                <div className='mt-1'>
+                  <div style={{ display: 'flex', alignItems: 'center' }}>
+                    Allen House
+                    <RxPencil1 style={{ marginLeft: '10px' }} />
+                  </div>
+                  <p className='text-muted p-0 m-0'> Graduating in 2024, Full Time </p>
+                </div>
+
+
+              </div>
+            </div>
+
+            {/* About Me Section */}
+
+            {
+              !holaUserIntro ?
+                (<>
+                  <div
+                    className={`mt-3 ${PrCss.addSections}`}
+                    style={{ cursor: 'pointer' }}
+                    onClick={() => setModalShow(true)}
+                  >
+                    <div className="card w-100">
+                      <div className="card-body text-center">
+                        <i className='fa-solid fa-plus'></i>
+                        <p className='card-text'> Briefly Introduce Yourself  </p>
+
+
+                        {/* Modal Start  */}
+                        <MyVerticallyCenteredModal
+                          show={modalShow}
+                          onHide={() => setModalShow(false)}
+                          submitintro={handleIntroduceYourself}
+                          setintrodesc={setintrodesc}
+                          loading={loading}
+                        />
+                        {/* Modal End */}
+                      </div>
+                    </div>
+                  </div>
+                </>) :
+                (<>
+                  <div className="card mt-3"
+                    style=
+                    {{
+                      boxShadow: '14px 10px 20px 3px #d3beae',
+                      borderRadius: '25px 25px 25px 25px'
+                    }}
+                  >
+                    <div className="card-body ">
+                      <div className='row'>
+                        <h5 className="card-title ml-3 ">About Me</h5>
+                        <div className='mt-1' style={{ cursor: 'pointer' }} onClick={() => setModalShow(true)}>
+                          <RxPencil1 style={{ marginLeft: '10px' }} />
+                        </div>
+                      </div>
+
+                      {/* Modal Start */}
+                      <MyVerticallyCenteredModalForEdit
+                        show={modalShow}
+                        onHide={() => setModalShow(false)}
+                        submithandler={handleEditIntro}
+                        value={editTheIntro}
+                        changevalue={setEditTheIntro}
+                        deletevalue={deleteIntro}
+                        loading={loading}
+                        loadingdel={loadingDel}
+                      />
+                      {/* Modal End */}
+
+                      <div className='mt-1'>
+                        <p className='text-muted p-0 m-0'>
+                          {holaUserIntro.length > 150 ? holaUserIntro.substr(0, 150) + "......" : holaUserIntro}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </>
+                )
+            }
+
+            <UserExperience />
+            <UserEducation />
+            <KeySkills />
+            <UserCertifications />
+            <UserLanguages />
+            <AdditionalUserInfo />
+            <UploadUserCV />
           </div>
         </div>
         <div className='row'>
-          {!holaUserIntro ?
-            (<>
-              <div
-                className={` ${PrCss.addSections}`}
-                style={{ cursor: 'pointer' }}
-                onClick={() => setModalShow(true)}
-              >
-                <div className="card w-100">
-                  <div className="card-body text-center">
-                    <i className='fa-solid fa-plus'></i>
-                    <p className='card-text'> Briefly Introduce Yourself  </p>
-
-
-                    {/* Modal Start  */}
-                    <MyVerticallyCenteredModal
-                      show={modalShow}
-                      onHide={() => setModalShow(false)}
-                      submitintro={handleIntroduceYourself}
-                      setintrodesc={setintrodesc}
-                      loading={loading}
-                    />
-                    {/* Modal End */}
-                  </div>
-                </div>
-              </div>
-            </>) :
-            (<>
-              <div class="card w-75">
-                <div className='row'>
-                  <div class="card-header">
-                    About Me
-                  </div>
-                  <button onClick={() => setModalShow(true)}>
-                    <FaPencil />
-
-                    {/* Modal Start  */}
-                    <MyVerticallyCenteredModalForEdit
-                      show={modalShow}
-                      onHide={() => setModalShow(false)}
-                      submithandler={handleEditIntro}
-                      value={editTheIntro}
-                      changevalue={setEditTheIntro}
-                      deletevalue={deleteIntro}
-                      loading={loading}
-                      loadingdel={loadingDel}
-                    />
-                    {/* Modal End */}
-                  </button>
-                </div>
-
-
-                <div class="card-body ">
-                  <blockquote class="blockquote mb-0">
-                    <p> {holaUserIntro.length > 150 ? holaUserIntro.substr(0, 150) + "......" : holaUserIntro}</p>
-                    {/* <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer> */}
-                  </blockquote>
-                </div>
-              </div>
-            </>)
-          }
-          <UserExperience />
-          <UserEducation />
-          <KeySkills />
-          <UserCertifications /> 
-          <UserLanguages />          
-          <AdditionalUserInfo />
-          <UploadUserCV /> 
+          <p>This is Dummy  Upload CV </p>
           <div className={` ${PrCss.addSections}`}>
             <div className="card w-100">
               <div className="card-body text-center">

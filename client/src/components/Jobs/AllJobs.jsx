@@ -5,9 +5,9 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-
+import { Card, Button } from 'react-bootstrap';
 // Icons 
-import { FaPencil } from "react-icons/fa6";
+import { FaLocationDot, FaPencil } from "react-icons/fa6";
 import { IoTrashBin } from "react-icons/io5";
 import { IoShareSocial } from "react-icons/io5";
 import { HiDotsVertical } from "react-icons/hi";
@@ -18,6 +18,8 @@ import { HiDotsVertical } from "react-icons/hi";
 // Modules 
 // import { DeleteJobAction, GetJobs } from '../../../redux/actions/jobsAdmin.js';
 import { GetJobs } from '../../redux/actions/jobsAdmin.js';
+import { TbBriefcase } from 'react-icons/tb';
+import { FaWallet } from 'react-icons/fa';
 // import { DeleteACourseAction } from '../../../redux/actions/courseAdmin.js';
 
 const AllJobs = () => {
@@ -35,6 +37,8 @@ const AllJobs = () => {
     // console.log(`LocalUSERID :  ${local_user_id}`);
 
     // const MyJobs = AllJobsData?.result?.filter((jobs) => jobs.created_by === local_user_id);
+
+
     const MyJobs = AllJobsData?.result;
     console.log(MyJobs);
 
@@ -83,8 +87,16 @@ const AllJobs = () => {
             <div className='mb-5'>
 
                 <ToastContainer />
-                <div className='container d-flex mt-2 '>
-                    <h2 className='pt-4 mb-4'> Welcome to jobs page </h2>
+                <div className='container d-flex mt-3 '>
+                    <div className='d-flex '>
+                        <h1>Get Hired with </h1>
+                        <p style={{
+                            marginLeft: '15px',
+                            color: '#E4B49D',
+                            fontWeight: 'bold',
+                            fontSize: '35px'
+                        }}> Hotel Journals </p>
+                    </div>
                     <div className='ml-4 mt-4'>
                         {/* <button className='btn btn-warning text-white'>
                             <NavLink to='/jobs/post' target='_blank' style={{ textDecoration: 'none', color: 'white' }} >
@@ -92,89 +104,62 @@ const AllJobs = () => {
                             </NavLink>
                         </button> */}
                     </div>
-
                 </div>
-                {MyJobs?.map((job, index) => (
-                    <div className="col-md-6 col-lg-6 " 
-                    style={{ marginLeft: '22vw', marginTop: '1vw' , cursor: 'pointer'}} 
-                    onClick={() => navigate(`/AllJobs/${job._id}`)}
-                    > 
-                        <div className="card h-100 border shadow">
-
-                            <div className="card-body ">
-                                <h5 className="card-title">{job.jobTitle}</h5>
-                                <p className="card-text text-muted mb-2">{job.created_at}</p>
-                                <div className="d-flex justify-content-between align-items-center">
-                                    <span className="badge badge-success">Active</span>
-                                    {/* <span className="badge badge-success">Active</span> */}
-                                    {/* <div>
-                                        <button className="btn btn-sm btn-light mr-2" >
-                                            <IoShareSocial />
-                                        </button>
-                                        <button className='btn btn-sm btn-light mr-2'>
-                                            <HiDotsVertical />
-                                        </button>
-                                        <NavLink style={{ textDecoration: 'none' }} to={`/jobs/dashboard/update/${job._id}`} >
-                                            <button className='btn btn-sm btn-light mr-2' > <FaPencil /> </button>
-                                        </NavLink>
-                                        <NavLink style={{ textDecoration: 'none' }} to={`/jobs/dashboard/`}>
-                                            <button className='btn btn-sm btn-light mr-2' onClick={() => { handleDelete(job._id)}} ><IoTrashBin /></button>
-                                        </NavLink>
-                                    </div> */}
-
-
-                                </div>
-                                <div className="mb-2">
-                                    {/* <p className="mb-1"><strong>Skills:</strong></p> */}
-                                    <div className="d-flex flex-wrap mt-2">
-                                        {job.mandatorySkills.map((skill, index) => (
-                                            <span key={index} className="badge badge-pill badge-light mr-2 mb-1 p-2">{skill}</span>
-                                        ))}
-                                        {job.optionalSkills.map((skill, index) => (
-                                            <span key={index} className="badge badge-pill badge-light mr-2 mb-1 p-2">{skill}</span>
-                                        ))}
-                                    </div>
-                                </div>
-                                <div className="d-flex justify-content-between align-items-center mb-3">
-                                    <div>
-                                        <p className="mb-0"><strong>Salary</strong></p>
-                                        <p className="mb-0">₹ {job.salaryStart} LPA - ₹ {job.salaryEnd} LPA</p>
-                                        {/* <p className="mb-0"><strong>Skills</strong></p> */}
-                                        {/* <p className="mb-0">{job.mandatorySkills}</p> */}
-
-                                    </div>
-                                    <div>
-                                        <p className="mb-0"><strong>Job Type</strong></p>
-                                        <p className="mb-0">{job.jobType}</p>
-                                    </div>
-                                    <div>
-                                        <p className="mb-0"><strong>#Openings</strong></p>
-                                        <p className="mb-0">{job.no_of_openings}</p>
-                                    </div>
-                                    <div>
-                                        <p className="mb-0"><strong>Start Date</strong></p>
-                                        <p className="mb-0">{new Date(job.joiningDate).toLocaleDateString()}</p>
-                                    </div>
-                                </div>
-
+                <div className="container-fluid">
+                    <div className="row">
+                        {MyJobs?.map((job, index) => (
+                            <div className="col-md-4 col-sm-12" style={{ marginTop: '1vw', cursor: 'pointer' }} onClick={() => navigate(`/AllJobs/${job._id}`)}>
+                                <Card style={{ width: '100%', marginBottom: '1vw' }}>
+                                    <Card.Body>
+                                        <div className="d-flex align-items-center">
+                                            <img
+                                                src="https://media.geeksforgeeks.org/img-practice/prod/jobs/1/Web/Other/1631311446380_1708941800.jpg"
+                                                alt="Logo"
+                                                style={{ width: '50px', height: '50px', marginRight: '10px' }}
+                                            />
+                                            <div>
+                                                <Card.Title>{job.jobTitle}</Card.Title>
+                                                <p className="card-text text-muted mb-2">{job.created_at}</p>
+                                                <Card.Subtitle className="mb-2 text-muted"></Card.Subtitle>
+                                            </div>
+                                        </div>
+                                        <Card.Text className='d-flex text-muted'
+                                            style={{
+                                                fontSize: '1rem',
+                                                padding: '1vw',
+                                                marginLeft: '3vw'
+                                            }}
+                                        >
+                                            <div className='d-flex '>
+                                                <TbBriefcase />
+                                                <p>
+                                                    Fresher
+                                                </p>
+                                            </div>
+                                            <div className='d-flex ml-2'>
+                                                <FaWallet />
+                                                <p>
+                                                    ₹ {job.salaryStart} LPA - ₹ {job.salaryEnd} LPA
+                                                </p>
+                                            </div>
+                                            <div className='d-flex ml-2'>
+                                                <FaLocationDot />
+                                                <p>
+                                                    {job.jobLocation}
+                                                </p>
+                                            </div>
+                                        </Card.Text>
+                                        <hr />
+                                            <div className='d-flex'>
+                                                <small style={{ flex: '1' }}> Apply by : {new Date(job.joiningDate).toLocaleDateString()}</small>
+                                                <Button variant="success" style={{ flex: '1' }}>View</Button>
+                                            </div>
+                                    </Card.Body>
+                                </Card>
                             </div>
-                            {/* <div className="card-footer bg-transparent border-top-0 p-0">
-                                <button
-                                    className="btn btn-sm btn-block"
-                                    style={{ backgroundColor: '#E4B49D' }}
-                                    onClick={
-                                        () => {
-                                            handleApply(job._id);
-                                        }
-                                    }
-                                >
-                                    Apply Here
-                                </button>
-                            </div> */}
-                            
-                        </div>
+                        ))}
                     </div>
-                ))}
+                </div>
             </div >
         </>
     )

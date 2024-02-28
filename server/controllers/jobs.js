@@ -1,11 +1,13 @@
 
 import mongoose from "mongoose";
+import RecruiterProfile from "../models/profiles/recruiter.js";
 import Jobs from '../models/jobs.js'
 
+// company_logo
 export const applyJob = async (req, res) => {
     const { jobId, userId } = req.body;
-    
-    if(!mongoose.Types.ObjectId.isValid(jobId) || !mongoose.Types.ObjectId.isValid(userId)){
+
+    if (!mongoose.Types.ObjectId.isValid(jobId) || !mongoose.Types.ObjectId.isValid(userId)) {
         return res.status(400).json({ success: false, message: ' Invalid ID"s ' })
     }
     try {
@@ -18,9 +20,9 @@ export const applyJob = async (req, res) => {
             { new: true }
         )
 
-        if(jobApplicants){
+        if (jobApplicants) {
             res.status(200).json({ success: true, message: 'Applied for Job Successfully', result: jobApplicants })
-        }else{
+        } else {
             res.status(400).json({ success: false, message: 'Failed to apply for job' })
         }
     } catch (error) {
@@ -58,6 +60,10 @@ export const postJobs = async (req, res) => {
             return res.status(400).json({ success: false, message: "Please Fill all the fieldsssss" });
         }
         else {
+            const recruiterCompanyLogo = await RecruiterProfile.findOne({created_by:created_by}).select('company_logo');
+            if(!recruiterCompanyLogo){
+                console.log("No Company Logo Found")
+            }
             const newJob = await Jobs.create({
                 jobTitle: job_title,
                 jobCategory: job_category,
@@ -77,7 +83,8 @@ export const postJobs = async (req, res) => {
                 jobDescription: job_description,
                 isExternal,
                 jobLink: job_link,
-                created_by
+                company_logo: recruiterCompanyLogo ? recruiterCompanyLogo.company_logo : undefined,
+                created_by,
             });
             if (newJob) {
                 res.status(201).json({ success: true, message: 'Job Added Successfully', result: newJob });
@@ -117,6 +124,7 @@ export const getAllJobs = async (req, res) => {
                 jobDescription: singleJob.jobDescription,
                 isExternal: singleJob.isExternal,
                 jobLink: singleJob.jobLink,
+                company_logo: singleJob.company_logo,
                 created_by: singleJob.created_by
             })
         });

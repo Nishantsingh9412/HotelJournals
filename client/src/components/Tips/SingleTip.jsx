@@ -25,7 +25,7 @@ const SingleTip = () => {
     
     
   return (
-    <div> 
+    <div style={{background:'F1F1EA'}}> 
       {/* <h2>u</h2> */}
         {/* <h2> This is single Tip </h2> */}
         {/* <h3> {SingleTip?.data?.result?.title} </h3> */}
@@ -33,8 +33,8 @@ const SingleTip = () => {
         <div className='container mt-2 ml-3'>
           {
             loggedIn ? (
-              <center>
-            <button  className='btn btn-dark w-25 ml-5 mt-5 mb-5' > Edit Post  </button>
+          <center>
+            {/* <button  className='btn btn-dark w-25 ml-5 mt-5 mb-5' > Edit Post  </button> */}
           </center>
             ) : <></>
           }

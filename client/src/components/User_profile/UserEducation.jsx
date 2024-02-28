@@ -12,11 +12,12 @@ import PuffLoader from "react-spinners/PuffLoader";
 
 // React icons 
 import { FaBriefcase } from "react-icons/fa";
-import { FaPencil } from 'react-icons/fa6';
+import { FaPen, FaPencil } from 'react-icons/fa6';
 import { CiSquarePlus } from "react-icons/ci";
 
 import PrCss from './userProfile.module.css';
 import { deleteEducationAction, getUserEducationAction, setUserEducationAction, updateUserEducationAction } from '../../redux/actions/userProfile/userEducation';
+import { RxPencil1 } from 'react-icons/rx';
 
 
 function MyVerticallyCenteredModal(props) {
@@ -184,6 +185,11 @@ function MyVerticallyCenteredModalForEdit(props) {
     const handleSubmitEducationEdit = async (e) => {
         e.preventDefault();
         setLoading(true);
+        if (!school || !city || !degree || !start_date || !end_date) {
+            toast.error('Please fill all the fields');
+            setLoading(false);
+            return;
+        }
         const educationData = {
             school,
             city,
@@ -265,7 +271,9 @@ function MyVerticallyCenteredModalForEdit(props) {
                 <form >
                     <ToastContainer />
                     <div className="form-group">
-                        <label htmlFor="degree">School / University Name </label>
+                        <label htmlFor="degree">School / University Name
+                            <small className='text-danger'>*</small>
+                        </label>
                         <input
                             type="text"
                             className="form-control"
@@ -277,7 +285,10 @@ function MyVerticallyCenteredModalForEdit(props) {
                     </div>
                     <div className='row'>
                         <div className="form-group col">
-                            <label htmlFor="city">City / Country</label>
+                            <label htmlFor="city">
+                                City / Country
+                                <small className='text-danger'>*</small>
+                            </label>
                             <select
                                 className='form-control'
                                 value={city}
@@ -297,7 +308,10 @@ function MyVerticallyCenteredModalForEdit(props) {
                         </div>
 
                         <div className='form-group col'>
-                            <label htmlFor="degree"> Degree </label>
+                            <label htmlFor="degree">
+                                Degree
+                                <small className='text-danger'>*</small>
+                            </label>
                             <input
                                 type="text"
                                 className="form-control"
@@ -310,7 +324,10 @@ function MyVerticallyCenteredModalForEdit(props) {
                     </div>
                     <div className='row'>
                         <div className='form-group col'>
-                            <label htmlFor="startdate"> Start Date</label>
+                            <label htmlFor="startdate">
+                                Start Date
+                                <small className='text-danger'>*</small>
+                            </label>
                             <input
                                 type="date"
                                 className='form-control'
@@ -319,7 +336,10 @@ function MyVerticallyCenteredModalForEdit(props) {
                             />
                         </div>
                         <div className='form-group col'>
-                            <label htmlFor="enddate"> End Date </label>
+                            <label htmlFor="enddate">
+                                End Date
+                                <small className='text-danger'>*</small>
+                            </label>
                             <input
                                 type="date"
                                 className='form-control'
@@ -411,8 +431,8 @@ const UserEducation = () => {
     }
 
     return (
-        <div>
-            {allEducationExperiences?.length === 0?
+        <div id='educationscroll'>
+            {allEducationExperiences?.length === 0 ?
                 (
                     <>
                         <div className={` ${PrCss.addSections}`} style={{ cursor: 'pointer' }} onClick={() => setModalShow(true)}>
@@ -427,40 +447,50 @@ const UserEducation = () => {
                 ) : (
                     <>
                         {allEducationExperiences && allEducationExperiences.length > 0 ?
-                            <div className="row">
-                                <div className='alert alert-primary row w-100'>
-                                    Education
+                            <div className="card-body mt-3 mb-0 pb-0">
+                                <div className='row justify-content-between ml-2 mr-2'>
+                                    <h5 className="card-title"> Education </h5>
                                     <div style={{ cursor: 'pointer' }} onClick={() => setModalShow(true)}>
-                                        <CiSquarePlus size={35} />
+                                        <CiSquarePlus size={'35'} />
                                     </div>
                                 </div>
                             </div>
                             : <> </>
                         }
-                        {
-                            allEducationExperiences?.map((education, index) => (
-                                <div key={index} className="card">
-                                    <div className="card-body">
-                                        <div className='row' style={{ cursor: 'pointer' }} onClick={() => { setModalEditShow(true); setEditId(education._id); setDeleteId(education._id) }}>
-                                            <FaPencil />
+                        <div className="card mt-3"
+                            style=
+                            {{
+                                boxShadow: '14px 10px 20px 3px #d3beae',
+                                borderRadius: '25px 25px 25px 25px'
+                            }}
+                        >
+                            <div className="card-body">
+                                {
+                                    allEducationExperiences?.sort((a, b) => new Date(b.start_date) - new Date(a.start_date))?.map((education, index) => (
+                                        <div key={index}>
+                                            <div className='row'>
+                                                <h5 className="card-title ml-3">{education.school} - {education.city}</h5>
+                                                <div className=' ml-2 mt-1' style={{ cursor: 'pointer' }}
+                                                    onClick={() => {
+                                                        setModalEditShow(true);
+                                                        setEditId(education._id);
+                                                        setDeleteId(education._id)
+                                                    }}>
+                                                    <RxPencil1 />
+                                                </div>
+                                            </div>
+                                            <div className="card-text">
+                                                {education.degree}
+                                            </div>
+                                            <div className="card-text">
+                                                {formatDateAndCalculateDifference(education.start_date, education.end_date)}
+                                            </div>
+                                            {index !== allEducationExperiences.length - 1 && <hr />}
                                         </div>
-                                        <div className="card-text">
-                                            {education.school} - {education.city}
-                                        </div>
-                                    </div>
-                                    <div className="card-body">
-                                        <div className="card-text">
-                                            {education.degree}
-                                        </div>
-                                    </div>
-                                    <div className="card-body">
-                                        <div className="card-text">
-                                            {formatDateAndCalculateDifference(education.start_date, education.end_date)}
-                                        </div>
-                                    </div>
-                                </div>
-                            ))
-                        }
+                                    ))
+                                }
+                            </div>
+                        </div>
                     </>
                 )}
 

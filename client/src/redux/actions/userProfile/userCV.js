@@ -17,6 +17,7 @@ export const getUserCVAction = (id) => async (dispatch) => {
         dispatch({ type: 'GET_USER_CV', data });
         return { success: true, message: 'CV Fetched Successfully' }
     } catch (error) {
+        dispatch({ type: 'GET_USER_CV', data: null });
         console.log("Error from getUserCvAction ", error.message)
         return { success: false, message: 'Error in getting CV' }
     }

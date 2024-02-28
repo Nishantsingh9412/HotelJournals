@@ -45,6 +45,10 @@ import getAddInfoReducer from "./profile/additionalInfoReducer/getAddInfo";
 import CVsettergetterReducer from "./profile/CVReducer/CVSetterGetterReducer";
 import UpdateCVReducer from "./profile/CVReducer/updateCVReducer";
 
+import setRecProfileReducer from "./recruiterProfile/setProfile";
+import getRecProfileReducer from "./recruiterProfile/getProfile";
+import updateRecProfileReducer from "./recruiterProfile/updateProfile"
+
 export default combineReducers({
     authReducer,
     currentuserReducer,
@@ -85,4 +89,10 @@ export default combineReducers({
     getAddInfoReducer,
     CVsettergetterReducer,
     UpdateCVReducer,
+    // Recruiter Profile
+    setRecProfileReducer,
+    getRecProfileReducer,
+    updateRecProfileReducer,
+
+
 })

@@ -1,0 +1,225 @@
+/* JobSearch.module.css */
+
+/* .bg-dark {
+    background-color: #0E0E0D;
+  } */
+  
+  .container {
+    width: 100%;
+    height: auto;
+    background-color: #F9F9F9;
+    display: flex;
+    padding: 20px;
+    /* background-color: red; */
+  }
+  
+  .leftContainer {
+    height: 100%;
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    /* background-color: palevioletred;  */
+  }
+  
+  .leftContainerInner {
+    background-color: #0E0E0D;
+    box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.1), 0 3px 5px 0 rgba(0, 0, 0, 0.06);
+    height: 230px;
+    width: 220px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 20px;
+    padding: 30px 10px;
+  }
+  
+  .containerTitle {
+    width: 90%;
+    font-size: 1.7vw;
+    font-weight: bold;
+    color: white;
+  }
+  
+  .learnMoreButton {
+    color: black;
+    background-color: #88D1FF;
+    border-radius: 20px;
+    padding: 0;
+    height: 40px;
+    width: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .accordionContainer {
+    background-color: white;
+    height: 60%;
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 1px;
+    align-items: center;
+    border-radius: 5px;
+    border-right: 2px solid #000;
+    box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.1), 0 3px 5px 0 rgba(0, 0, 0, 0.06);
+  }
+  
+  .accordionItem {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .accordionTitle {
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    /* background-color: gray; */
+    gap: 3px;
+    padding: 2px;
+  }
+  .accordantriangle{
+    font-size: 12px;
+  }
+  .accordionContent {
+    font-size: 0.875rem;
+  }
+  
+  .rightContainer {
+    width: 70%;
+    height: auto;
+    display: flex;
+    /* background-color: yellowgreen; */
+    flex-direction: column;
+  }
+  
+  .header {
+    width: 100%;
+    height: 8%;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    padding-left: 50px;
+    /* background-color: rebeccapurple; */
+    justify-content: space-between;
+  }
+  
+  .recommendedJobsTitle {
+    font-weight: bold;
+    color: black;
+    display: flex;
+    height: auto;
+    width: auto;
+    justify-content: space-around;
+    /* background-color: goldenrod; */
+    align-items: center;
+    gap: 10px;
+  }
+  .recommendedJobsTitle >h1{
+    font-size: 16px;
+  }
+  .jobsNumber{
+    background-color: #fff;
+    border-radius: 20px;
+    
+    padding: 2px 15px;
+    font-size: 12px;
+    box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.1), 0 3px 5px 0 rgba(0, 0, 0, 0.06);
+  }
+  
+  .lastUpdateContainer{
+    background-color: #fff;
+    border-radius: 20px;
+    padding: 5px 10px;
+    box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.1), 0 3px 5px 0 rgba(0, 0, 0, 0.06);
+  }
+  
+  .lastUpdateTitle {
+    font-size: 12px;
+    font-weight: 700;
+  }
+  
+  .cardContainer {
+    height: auto;
+    padding: 10px;
+    padding-left: 60px;
+    gap: 8px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    /* background-color: hotpink; */
+  }
+  
+
+
+  @media screen and (max-width: 640px){
+    .container {
+        flex-direction: column;
+    }
+    .leftContainer {
+        height: auto;
+        width: 100%;
+    }
+    .containerTitle {
+        width: 90%;
+        font-size: 6vw;
+        font-weight: 700;
+      }
+    .rightContainer{
+        height: auto;
+        width: 100%;
+        padding: 10px;
+    }
+    .cardContainer{
+        padding-left: 0px;
+        align-items: center;
+        justify-content: center;
+    }
+    .header{
+        padding: 0px;
+    }
+    .recommendedJobsTitle >h1{
+        font-size: 14px;
+      }
+    .lastUpdateContainer{
+        width: auto;
+        background-color: #fff;
+        border-radius: 20px;
+        padding: 5px 5px;
+      }
+      .lastUpdateTitle {
+        font-size: 10px;
+      }
+  }
+
+  @media  (min-width: 640px) and (max-width: 850px){
+    .containerTitle {
+        width: 90%;
+        font-size: 3vw;
+        font-weight: 700;
+      }
+      .accordionContainer {
+        width: 100%;
+    }
+    .rightContainer{
+        height: auto;
+        width: 100%;
+    }
+    .cardContainer{
+        padding-left: 10px;
+        /* align-items: center;
+        justify-content: center; */
+    }
+}

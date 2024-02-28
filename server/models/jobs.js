@@ -21,6 +21,11 @@ const jobsSchema  = new Schema({
     jobLink : {type:String,required:false},
     applicants : {type:[{type:Schema.Types.ObjectId,ref:'User'}],required:false},
     created_by : {type:Schema.Types.ObjectId,ref:'User',required:true},
+    company_logo: {
+        type: Schema.Types.ObjectId, 
+        ref:'RecruiterProfile',
+        default:'https://res.cloudinary.com/dwahql1jy/image/upload/v1709029875/Designer_1_moynhz.png'
+    },
     created_at : {type:Date,default:Date.now},
 })
 

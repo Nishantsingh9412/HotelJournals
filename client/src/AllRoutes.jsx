@@ -29,6 +29,11 @@ import FinalizeCandidates from './components/Jobs/FinalizeCandidates';
 import HotelLandingpage from './components/Hotel_Journals_Landing_page/HotelLandingpage';
 import JobDescription from './components/Job_Description/JobDescription2';
 import ProfileWrapper from './components/Miscellaneous/ProfileWrapper';
+import Job_search from './components/Job_search/Job_search';
+import Dashboardd from './components/Dashboard/Dashboardd';
+import ManageCandidate from './components/ManageCandidate/ManageCandidate/ManageCandidate';
+import SidebarDashboard from './components/ManageCandidate/ManageCandidate/SidebarDashboard';
+import ProfilePageNew from './components/ManageCandidate/ManageCandidate/ProfilePageNew';
 
 
 
@@ -76,7 +81,14 @@ const AllRoutes = () => {
             {/* // Temporary Route for testing */}
             <Route path='/HotelLandingpage' element={<HotelLandingpage /> } > </Route>
             <Route path='/JobDescription' element={<JobDescription /> } > </Route>
+            <Route path='/jobsMainPage' element={<Job_search/> } > </Route>
+            <Route path='/Dashboardnew/' element={<Dashboardd />} > </Route>
+            <Route path='/manageCandidates' element={<ManageCandidate />} > </Route>
             <Route path='/test/:id' element={<SingleTip /> } > </Route>
+            <Route path='/test/sidebar' element={<SidebarDashboard /> } > </Route>
+            <Route path='/test/profilePage' element={<ProfilePageNew /> } > </Route>
+            
+            
         </Routes>
     )
 }

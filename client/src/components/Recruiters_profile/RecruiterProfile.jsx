@@ -1,11 +1,24 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import ReactQuill from 'react-quill';
+import { useDispatch, useSelector } from 'react-redux';
+// Purify About Company
+import DOMPurify from 'dompurify';
+// ToastContainer
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+// Loader
+import PuffLoader from 'react-spinners/PuffLoader';
+
+import { getRecProfileAction, setRecProfileAction } from '../../redux/actions/recProfile';
 import RecruiterCSS from './recruiterProfile.module.css';
 import ProfilePic from '../User_profile/ProfilePic';
 import ImageCropper from './ImageCropper';
+import RecruiterFinalDashboard from '../admin/AdminJobs/RecruiterFinalDashboard';
 
 const RecruiterProfile = () => {
+
     const industryTypes = [
+        "Select Industry Type",
         "3D Printing",
         "Accounting",
         "Advanced Manufacturing",
@@ -155,104 +168,299 @@ const RecruiterProfile = () => {
         ],
     };
 
+    const dispatch = useDispatch();
+    const [companyName, setCompanyName] = useState('');
+    const [Designation, setDesignation] = useState('');
+    const [numberOfEmployees, setNumberOfEmployees] = useState('');
+    const [HeadQuarters, setHeadQuarters] = useState('');
+    const [industryType, setIndustryType] = useState('');
+    const [companyType, setCompanyType] = useState('');
+    const [companyWebsite, setCompanyWebsite] = useState('');
+    const [CompanysTagline, setCompanysTagline] = useState('');
+    const [twitter, setTwitter] = useState('');
+    const [linkedIn, setLinkedIn] = useState('');
+    const [companyLogo, setCompanyLogo] = useState('');
+    const [CompanyDescription, setCompanyDescription] = useState('');
+    const [loading, setLoading] = useState(false);
+
+    const localUser = JSON.parse(localStorage.getItem('Profile'));
+    const localuserId = localUser?.result?._id;
+
+    useEffect(() => {
+        dispatch(getRecProfileAction(localuserId))
+    }, [])
+
+    const currentUserProfileFromDB = useSelector(state => state.getRecProfileReducer);
+    const currentRecProfile = currentUserProfileFromDB?.data?.result[0];
+    // console.log(currentRecProfile);
+
+    const isValidUrl = (url) => {
+        const pattern = new RegExp('^(https?:\\/\\/)?' + // protocol
+            '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
+            '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
+            '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
+            '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
+            '(\\#[-a-z\\d_]*)?$', 'i'); // fragment locator
+        return !!pattern.test(url);
+    }
+
+    const postCompanyLogo = (pics) => {
+        setLoading(true);
+        if (pics === undefined) {
+            toast.error("This didn't work.")
+            setLoading(false);
+            return;
+        }
+        if (pics.type !== 'image/jpeg' && pics.type !== 'image/png') {
+            toast.error('Invalid image format');
+            setLoading(false);
+            return;
+        }
+        const data = new FormData();
+        data.append('file', pics);
+        data.append('upload_preset', 'Hotel_Journals_app');
+        data.append('cloud_name', 'dwahql1jy');
+        fetch('https://api.cloudinary.com/v1_1/dwahql1jy/image/upload', {
+            method: 'post',
+            body: data
+        }).then(res => res.json()).then(data => {
+            setCompanyLogo(data.url.toString());
+            console.log(data);
+            setLoading(false);
+        }).catch(err => {
+            console.log(err);
+            setLoading(false);
+        })
+    }
+    const handleProfileSubmit = async (e) => {
+        e.preventDefault();
+        setLoading(true);
+        if (!companyName ||
+            !Designation ||
+            !HeadQuarters ||
+            !industryType ||
+            !companyType ||
+            !CompanyDescription) {
+            setLoading(false);
+            return toast.error('Please fill all the mandatory fields');
+        }
+        if (companyWebsite && !isValidUrl(companyWebsite)) {
+            return toast.error('Invalid Company Website');
+        }
+        if (twitter && !isValidUrl(twitter)) {
+            return toast.error('Invalid Twitter URL');
+        }
+        if (linkedIn && !isValidUrl(linkedIn)) {
+            return toast.error('Invalid LinkedIn URL');
+        }
+        const sanitizedAboutCompany = DOMPurify.sanitize(CompanyDescription);
+
+        const profileData = {
+            companyName,
+            Designation,
+            numberOfEmployees,
+            HeadQuarters,
+            industryType,
+            companyType,
+            companyWebsite,
+            CompanyDescription:sanitizedAboutCompany,
+            CompanysTagline,
+            twitter,
+            linkedIn,
+            company_logo: companyLogo,
+            created_by: localuserId
+        }
+
+        console.log("This is ProfileData");
+        console.log(profileData);
+
+        const response = await dispatch(setRecProfileAction(profileData))
+        if (response.success) {
+            toast.success(response.message)
+            setLoading(false);
+        } else {
+            toast.error(response.message)
+            setLoading(false);
+        }
+    }
+
 
     return (
-        <div className='container'
-            style={{
-                height: 'auto',
-                borderRadius: '10px',
-                padding: '10vw',
-            }}
-        >
-            <form>
-                <div className="form-row mt-3">
-                    <div className="form-group col-md-6">
-                        <label htmlFor="companyName" className='text-dark'> Company Name  <span className='text-danger'>*</span></label>
-                        <input type="text" className='form-control' placeholder='Enter Company Name' />
-                    </div>
-                    <div className="form-group col-md-6">
-                        <label htmlFor="Designation" className='text-dark'> Designation <span className='text-danger'>*</span> </label>
-                        <input type="text" className='form-control' placeholder='Enter Designation' />
-                    </div>
-                </div>
+        currentRecProfile ?
+            <RecruiterFinalDashboard /> :
+            <>
+                <div className='container'
+                    style={{
+                        height: 'auto',
+                        borderRadius: '10px',
+                        padding: '10vw',
+                    }}
+                >
 
-                <div className='form-row mt-3'>
-                    <div className="form-group col-md-6">
-                        <label htmlFor="NoOfEmployees"> No of Employees </label>
-                        <select className='form-control'>
-                            <option value="1-10"> 1-10 </option>
-                            <option value="11-50"> 11-50 </option>
-                            <option value="51-200"> 51-200 </option>
-                            <option value="201-500">201-500</option>
-                            <option value="501-1000">501-1000</option>
-                            <option value="1000-5000">1000-5000 </option>
-                            <option value="5000+">5000+ </option>
-                        </select>
-                    </div>
-                    {/* Country API for HeadQuarters */}
-                    <div className="form-group col-md-6">
-                        <label htmlFor="HeadQuarters"> HeadQuarters <span className='text-danger'>*</span></label>
-                        <input type="text" className='form-control' placeholder='Enter HeadQuarters' />
-                    </div>
+                    <ToastContainer />
+                    <form onSubmit={handleProfileSubmit}
+                        onKeyDown={(e) => {
+                            if (e.key === 'Enter') {
+                                e.preventDefault();
+                            }
+                        }}
+                    >
+                        <div className="form-row mt-3">
+                            <div className="form-group col-md-6">
+                                <label htmlFor="companyName" className='text-dark'> Company Name  <span className='text-danger'>*</span></label>
+                                <input
+                                    type="text"
+                                    onChange={(e) => setCompanyName(e.target.value)}
+                                    className='form-control'
+                                    placeholder='Enter Company Name'
+                                />
+                            </div>
+                            <div className="form-group col-md-6">
+                                <label htmlFor="Designation" className='text-dark'> Designation <span className='text-danger'>*</span> </label>
+                                <input
+                                    type="text"
+                                    onChange={(e) => setDesignation(e.target.value)}
+                                    className='form-control'
+                                    placeholder='Enter Designation' />
+                            </div>
+                        </div>
+
+                        <div className='form-row mt-3'>
+                            <div className="form-group col-md-6">
+                                <label htmlFor="NoOfEmployees"> No of Employees </label>
+                                <select
+                                    className='form-control'
+                                    onChange={(e) => setNumberOfEmployees(e.target.value)}
+                                >
+                                    <option value=""> Select No of Employees </option>
+                                    <option value="1-10"> 1-10 </option>
+                                    <option value="11-50"> 11-50 </option>
+                                    <option value="51-200"> 51-200 </option>
+                                    <option value="201-500">201-500</option>
+                                    <option value="501-1000">501-1000</option>
+                                    <option value="1000-5000">1000-5000 </option>
+                                    <option value="5000+">5000+ </option>
+                                </select>
+                            </div>
+                            {/* Country API for HeadQuarters */}
+                            <div className="form-group col-md-6">
+                                <label htmlFor="HeadQuarters"> HeadQuarters <span className='text-danger'>*</span></label>
+                                <input
+                                    type="text"
+                                    onChange={(e) => setHeadQuarters(e.target.value)}
+                                    className='form-control'
+                                    placeholder='Enter HeadQuarters'
+                                />
+                            </div>
+                        </div>
+                        <div className='form-row mt-3'>
+                            <div className='form-group col-md-6'>
+                                <label htmlFor="industryType"> Industry Type <span className='text-danger'>*</span> </label>
+                                <select
+                                    className='form-control'
+                                    onChange={(e) => setIndustryType(e.target.value)}
+                                >
+                                    {industryTypes.map((type, index) => (
+                                        type === 'Select Industry Type' ?
+                                            <>
+                                                <option key={index} value="" > Select Industry Type </option>
+                                            </>
+                                            :
+                                            <>
+                                                <option key={index} value={type}>
+                                                    {type}
+                                                </option>
+                                            </>
+                                    ))}
+                                </select>
+                            </div>
+                            <div className='form-group col-md-6'>
+                                <label htmlFor="companyType"> Company Type <span className='text-danger'>*</span> </label>
+                                <select
+                                    className='form-control'
+                                    onChange={(e) => setCompanyType(e.target.value)}
+                                >
+                                    <option value=""> Select Company Type </option>
+                                    <option value="Private"> Private </option>
+                                    <option value="Public"> Public </option>
+                                    <option value="Government"> Government </option>
+                                    <option value="NGO"> NGO </option>
+                                    <option value="Other"> Other </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div className='form-row mt-3'>
+                            <div className='form-group col-md-6'>
+                                <label htmlFor="companyWebsite"> Company Website </label>
+                                <input
+                                    type="url"
+                                    onChange={(e) => setCompanyWebsite(e.target.value)}
+                                    className='form-control'
+                                    placeholder='www.yourcompanyname.com'
+                                />
+                            </div>
+                            <div className='form-group col-md-6'>
+                                <label htmlFor="CompanyTagline"> Company Tagline </label>
+                                <input
+                                    type="text"
+                                    onChange={(e) => setCompanysTagline(e.target.value)}
+                                    className='form-control'
+                                    placeholder='Enter Company Tagline' />
+                            </div>
+                        </div>
+                        <div className='form-row mt-3'>
+                            <div className='form-group col-md-6'>
+                                <label htmlFor="twitter"> X (Formerly Twitter) </label>
+                                <input
+                                    type="url"
+                                    onChange={(e) => setTwitter(e.target.value)}
+                                    className='form-control'
+                                    placeholder='https://twitter.com/yourusername' />
+                            </div>
+                            <div className='form-group col-md-6'>
+                                <label htmlFor="linkedIn"> LinkedIn </label>
+                                <input
+                                    type="url"
+                                    onChange={(e) => setLinkedIn(e.target.value)}
+                                    className='form-control'
+                                    placeholder='https://www.linkedin.com/yourusername'
+                                />
+                            </div>
+                        </div>
+                        <div className='form-row mt-3'>
+                            <div className='form-group col-md-6'>
+                                <label htmlFor="companyDescription"> About Company <span className='text-danger'>*</span></label>
+                                <ReactQuill
+                                    theme="snow"
+                                    modules={modules}
+                                    onChange={(e) => setCompanyDescription(e)}
+                                    // formats={formats}
+                                    placeholder='Write something about your company'
+                                />
+                            </div>
+                            <div className='form-group col-md-6'>
+                                <label htmlFor="companyLogo"> Company Logo </label>
+                                <input
+                                    type="file"
+                                    className='form-control'
+                                    onChange={(e) => postCompanyLogo(e.target.files[0])}
+                                />
+                                {/* <ImageCropper /> */}
+                            </div>
+                        </div>
+                        <button type="submit" className='btn btn-warning'>
+                            {loading ? <>
+                                <div className='d-flex '>
+                                    <PuffLoader
+                                        size={25}
+                                        color="#ffffff"
+                                    /> <span className='pl-2'> Loading ... </span>
+                                </div>
+                            </> : 'Submit'}
+                        </button>
+                    </form>
                 </div>
-                <div className='form-row mt-3'>
-                    <div className='form-group col-md-6'>
-                        <label htmlFor="industryType"> Industry Type <span className='text-danger'>*</span> </label>
-                        <select className='form-control'>
-                            {industryTypes.map((type, index) => (
-                                <option key={index} value={type}>{type}</option>
-                            ))}
-                        </select>
-                    </div>
-                    <div className='form-group col-md-6'>
-                        <label htmlFor="companyType"> Company Type <span className='text-danger'>*</span> </label>
-                        <select className='form-control'>
-                            <option value="Private"> Private </option>
-                            <option value="Public"> Public </option>
-                            <option value="Government"> Government </option>
-                            <option value="NGO"> NGO </option>
-                            <option value="Other"> Other </option>
-                        </select>
-                    </div>
-                </div>
-                <div className='form-row mt-3'>
-                    <div className='form-group col-md-6'>
-                        <label htmlFor="companyWebsite"> Company Website </label>
-                        <input type="url" className='form-control' placeholder='www.yourcompanyname.com' />
-                    </div>
-                    <div className='form-group col-md-6'>
-                        <label htmlFor="CompanyTagline"> Company Tagline </label>
-                        <input type="text" className='form-control' placeholder='Enter Company Tagline'/>
-                    </div>
-                </div>
-                <div className='form-row mt-3'>
-                    <div className='form-group col-md-6'>
-                        <label htmlFor="twitter"> X (Formerly Twitter) </label>
-                        <input type="url" className='form-control' placeholder='https://twitter.com/yourusername' />
-                    </div>
-                    <div className='form-group col-md-6'>
-                        <label htmlFor="linkedIn"> LinkedIn </label>
-                        <input type="url" className='form-control' placeholder='https://www.linkedin.com/yourusername' />
-                    </div>
-                </div>
-                <div className='form-row mt-3'>
-                    <div className='form-group col-md-6'>
-                        <label htmlFor="companyDescription"> About Company <span className='text-danger'>*</span></label>
-                        <ReactQuill
-                            theme="snow"
-                            modules={modules}
-                            // formats={formats}
-                            placeholder='Write something about your company'
-                        />
-                    </div>
-                    <div className='form-group col-md-6'>
-                        <label htmlFor="companyLogo"> Company Logo </label>
-                        <input type="file" className='form-control' />
-                        {/* <ImageCropper /> */}
-                    </div>
-                </div>
-            </form>
-        </div>
+            </>
     )
 }
 
