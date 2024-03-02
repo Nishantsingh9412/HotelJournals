@@ -245,9 +245,7 @@ function UserDetailsModal(props) {
 }
 
 const ApplicantsList = ({ applicants }) => {
-    const [userId, setUserId] = useState(null);
-    const [modalShow, setModalShow] = useState(false);
-    const [mailModalShow, setMailModalShow] = useState(false);
+    
 
     return (
         <div className='container '>
@@ -317,19 +315,26 @@ const FinalizeCandidates = () => {
         dispatch(fetchAllUsers())
     }, [dispatch])
 
+    // const singleJobReducer = useSelector((state) => state?.getSingleJobReducer);
+    // const jobApplicants = singleJobReducer?.result?.applicants
+
+    // const usersReducer = useSelector((state) => state.usersReducer);
+    // const allUSerDetails = usersReducer?.allUserDetails;
+    // // const appliedUsers = singleJobReducer?.result?.applicants.filter?.(applicant => usersReducer?.result?.find?.(user => user?._id === applicant));
+
+    // // const appliedUsers = allUSerDetails?.filter((user) => jobApplicants?.map((applicants) => applicants.includes(user?._id)));
+    // const appliedUsers = allUSerDetails?.filter((user) => jobApplicants?.includes(user?._id));
+    
     const singleJobReducer = useSelector((state) => state?.getSingleJobReducer);
-    const jobApplicants = singleJobReducer?.result?.applicants
-
-    const usersReducer = useSelector((state) => state.usersReducer);
-    const allUSerDetails = usersReducer?.allUserDetails;
-    // const appliedUsers = singleJobReducer?.result?.applicants.filter?.(applicant => usersReducer?.result?.find?.(user => user?._id === applicant));
-
-    // const appliedUsers = allUSerDetails?.filter((user) => jobApplicants?.map((applicants) => applicants.includes(user?._id)));
-    const appliedUsers = allUSerDetails?.filter((user) => jobApplicants?.includes(user?._id));
+    console.log("jobApplicants:")
+    const jobApplicants = singleJobReducer?.result?.applicants?.map((applicant) => applicant?.user)
+    console.log(jobApplicants);
+    const appliedUsers = jobApplicants;
     const [modalShow, setModalShow] = useState(false);
 
     return (
         <div>
+            <h1> THis is finalize candidates  </h1>
             <ToastContainer />
             <ApplicantsList applicants={appliedUsers} />
             {/* <Button onClick={() => setModalShow(true)}>Launch vertically centered modal</Button> */}

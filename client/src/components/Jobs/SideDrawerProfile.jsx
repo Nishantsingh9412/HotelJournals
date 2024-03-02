@@ -4,6 +4,8 @@ import { BiPhone } from 'react-icons/bi';
 import { CiLocationOn } from 'react-icons/ci';
 import { IoLocationOutline } from "react-icons/io5";
 import { LiaBirthdayCakeSolid } from "react-icons/lia";
+import { Image as ImageChakra } from '@chakra-ui/react'
+
 
 import { fetchAllUsers } from '../../redux/actions/users';
 // import pdfFileImp from './Resume_Nishant_Singh_(2).pdf'
@@ -64,8 +66,8 @@ const SideDrawerProfile = (props) => {
     // console.log(singleCV)
 
     useEffect(() => {
-        setPdfFile(serverUrl+singleCV)
-    },[singleCV,id])
+        setPdfFile(serverUrl + singleCV)
+    }, [singleCV, id])
 
     console.log("THis is PDF File User Wise bhaiya jee ");
     console.log(pdfFile);
@@ -83,7 +85,14 @@ const SideDrawerProfile = (props) => {
                 >
                     <div class="card-body d-flex">
                         <div className='col-md-2'>
-                            <img src="https://picsum.photos/200" className='img-responsive rounded-circle mt-4' alt="userpic" />
+                            {/* <img src={props?.pic} className='img-responsive rounded-circle mt-4' alt="userpic" /> */}
+                            <img src={props?.pic} className='img-responsive rounded-circle mt-4' alt="userpic" />
+                            {/* <ImageChakra */}
+                                {/* borderRadius='full' */}
+                                {/* boxSize='200px' */}
+                                {/* src={props?.pic} */}
+                                {/* alt='user-image' */}
+                            {/* /> */}
                         </div>
                         <div className='col-md-10'>
                             <div>

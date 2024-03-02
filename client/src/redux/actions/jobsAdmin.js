@@ -1,5 +1,17 @@
 import * as api from '../../api/index.js'
 
+
+export const UpdateCandidStatsAction = (ApplicantStatus) => async(dispatch) => {
+    try{
+        const {data} = await api.updateCandidateStatus(ApplicantStatus);
+        dispatch({type:'UPDATE_CANDIDATE_STATUS',data});
+        return {success:true, message:"Candidate Status Updated Successfully"}
+    }catch(err){
+        console.log("Error from UpdateCandidStat Action: ", err.message, err.stack);
+        return { success: false, message:err.response.data.message}
+    }
+}
+
 export const ApplyJobAction = (jobApplicants) => async(dispatch) => {
     try{
         const {data} = await api.ApplyJob(jobApplicants);

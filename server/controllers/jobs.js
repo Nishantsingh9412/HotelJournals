@@ -2,8 +2,34 @@
 import mongoose from "mongoose";
 import RecruiterProfile from "../models/profiles/recruiter.js";
 import Jobs from '../models/jobs.js'
+import User from "../models/auth.js";
 
-// company_logo
+export const updateCandidateStatus = async (req, res) => {
+        const { jobId, userId, status } = req.body;
+        if (!mongoose.Types.ObjectId.isValid(jobId) || !mongoose.Types.ObjectId.isValid(userId)) {
+            return res.status(400).json({ success: false, message: 'Invalid ID' })
+        }
+        try {
+            let applicantStatus = await Jobs.findOneAndUpdate(
+                { _id: jobId, "applicants.user": userId },
+                {
+                    $set: {
+                        "applicants.$.status": status
+                    }
+                },
+                { new: true ,  runValidators: true }
+            );
+            if(!applicantStatus) {
+                return res.status(404).json({ success: false, message: 'Job not found' });
+            }
+            applicantStatus = await Jobs.populate(applicantStatus, { path: 'applicants.user' });
+            res.status(200).json({ success: true, message: 'Candidate status updated successfully', result: applicantStatus });
+        } catch (error) {
+            console.log("Error from updateCandidateStatus Controller ", error.message)
+            res.status(500).json({ success: false, message: error.message });
+        }
+}
+
 export const applyJob = async (req, res) => {
     const { jobId, userId } = req.body;
 
@@ -11,23 +37,26 @@ export const applyJob = async (req, res) => {
         return res.status(400).json({ success: false, message: ' Invalid ID"s ' })
     }
     try {
-        const jobApplicants = await Jobs.findOneAndUpdate(
+        let jobApplicants = await Jobs.findOneAndUpdate(
             { _id: jobId },
             {
                 $addToSet:
-                    { applicants: userId }
+                    { applicants: { user: userId, status: 'Not_Offered' } }
             },
             { new: true }
-        )
+        );
 
-        if (jobApplicants) {
-            res.status(200).json({ success: true, message: 'Applied for Job Successfully', result: jobApplicants })
-        } else {
-            res.status(400).json({ success: false, message: 'Failed to apply for job' })
+        if (!jobApplicants) {
+            return res.status(404).json({ success: false, message: 'Job not found' });
         }
+
+        // Manually populate the updated document
+        jobApplicants = await Jobs.populate(jobApplicants, { path: 'applicants.user' });
+
+        res.status(200).json({ success: true, message: 'Applied for Job Successfully', result: jobApplicants });
     } catch (error) {
         console.log("Error from applyJob Controller ", error.message)
-        res.status(500).json({ success: false, message: error.message })
+        res.status(500).json({ success: false, message: error.message });
     }
 }
 
@@ -62,7 +91,7 @@ export const postJobs = async (req, res) => {
         else {
             const recruiterCompanyLogo = await RecruiterProfile.findOne({created_by:created_by}).select('company_logo');
             if(!recruiterCompanyLogo){
-                console.log("No Company Logo Found")
+                console.log("No Company Logo Found")            
             }
             const newJob = await Jobs.create({
                 jobTitle: job_title,
@@ -132,12 +161,12 @@ export const getAllJobs = async (req, res) => {
     } catch (error) {
         res.status(500).json({ success: false, message: error.message });
     }
-}
+}   
 
 export const getSingleJob = async (req, res) => {
     try {
         const { id } = req.params;
-        const singleJob = await Jobs.findById(id);
+        const singleJob = await Jobs.findById(id).populate('applicants.user','-password -joinedOn')
         res.status(200).json({ success: true, message: 'Single Job Data', result: singleJob })
     } catch (err) {
         res.status(500).json({ success: false, message: err.message })

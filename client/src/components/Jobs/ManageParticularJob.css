@@ -1,0 +1,11 @@
+.rgt-cell-header-inner {
+    background-color: rgb(46, 43, 43);
+    color: white;
+}
+.rgt-search-input{
+    padding-left: 10px;
+}
+.rgt-search-input input:focus{
+    border : 2px solid #E4B49D;
+}
+

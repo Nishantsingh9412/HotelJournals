@@ -19,11 +19,25 @@ const jobsSchema  = new Schema({
     jobDescription : {type:String,required:true},
     isExternal : {type:Boolean,required:true},
     jobLink : {type:String,required:false},
-    applicants : {type:[{type:Schema.Types.ObjectId,ref:'User'}],required:false},
+    applicants : {
+        type: [{
+            user: {
+                type: Schema.Types.ObjectId, 
+                ref: 'User'
+            },
+            status: {
+                type: String,
+                enum: ['Not_Offered','Offered','Hired', 'Rejected'],
+                default: 'Not_Offered'
+            }
+        }],
+        required:false
+    },
     created_by : {type:Schema.Types.ObjectId,ref:'User',required:true},
     company_logo: {
-        type: Schema.Types.ObjectId, 
-        ref:'RecruiterProfile',
+        // type: Schema.Types.ObjectId, 
+        // ref:'RecruiterProfile',
+        type: String,
         default:'https://res.cloudinary.com/dwahql1jy/image/upload/v1709029875/Designer_1_moynhz.png'
     },
     created_at : {type:Date,default:Date.now},

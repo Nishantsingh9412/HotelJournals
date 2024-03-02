@@ -1,0 +1,126 @@
+.resume{
+    padding-left: 20px;
+    padding-right: 20px;
+    /* background-color: red; */
+    height: 60vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+  
+  }
+  .rheading{
+  height: 40vh;
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  /* background-color: aqua; */
+  justify-content: flex-end;
+  /* justify-content: space-around; */
+  }
+  .rheading>h1{
+    font-size: 20px;
+    font-weight: 700;
+  }
+  .rheading>p{
+   font-size: 15px;
+  }
+  .up_date{
+    /* background-color: blue; */
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  
+  }
+  .up_dateheaing{
+    height: 10vh;
+    width: 100%;
+  }
+  .up_dateheaing>h1{
+    font-size: 20px;
+    font-weight: 700;
+  }
+  .up_dateheaing>p{
+    font-size: 15px;
+  }
+  .rbutton{
+    /* background: yellow; */
+       width: 100px;
+       display: flex;
+       justify-content: space-between;
+       align-items: center;
+  
+  }
+  .rbutton button{
+    /* background-color: brown; */
+    height: 40px;
+    width: 40px;
+    background-color: #F6F6F8;
+    border-radius: 50%;
+  }
+  .rbutton>button{
+    display: flex;
+    font-size: 17px;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  
+  
+  .inputfield{
+    /* background-color: green; */
+    height: 40vh;
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+    border: 2px dashed rgb(71, 64, 64);
+    padding: 4px;
+  }
+
+
+
+
+
+
+  @media screen and (max-width: 640px) {
+    .resume{
+        padding-left: 0px;
+        padding-right: 0px;
+        /* background-color: red;      */
+      }
+      .rheading{
+        height: 40vh;
+        width: 70%;
+        display: flex;
+        flex-direction: column;
+        /* background-color: aqua; */
+        justify-content: flex-end;
+        /* justify-content: space-around; */
+        }
+        .rheading>h1{
+            font-size: 15px;
+            font-weight: 700;
+          }
+          .rheading>p{
+           font-size: 10px;
+          }
+          
+          .up_dateheaing>h1{
+            font-size: 15px;
+            font-weight: 700;
+          }
+          .up_dateheaing>p{
+            font-size: 10px;
+          }
+         
+          .form-label{
+            font-size: 10px;
+          }
+
+
+}

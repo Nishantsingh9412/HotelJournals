@@ -6,11 +6,14 @@ import {
     editJob,
     getAllJobs,
     getSingleJob,
-    postJobs
+    postJobs,
+    updateCandidateStatus
 } from '../controllers/jobs.js';
 
 const router = express.Router();
 
+// Update candidate status
+router.patch('/updatestatus', updateCandidateStatus)
 // Apply for a job
 router.patch('/applyjob', applyJob)
 // Add a new Job

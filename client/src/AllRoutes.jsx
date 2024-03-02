@@ -34,7 +34,8 @@ import Dashboardd from './components/Dashboard/Dashboardd';
 import ManageCandidate from './components/ManageCandidate/ManageCandidate/ManageCandidate';
 import SidebarDashboard from './components/ManageCandidate/ManageCandidate/SidebarDashboard';
 import ProfilePageNew from './components/ManageCandidate/ManageCandidate/ProfilePageNew';
-
+import Resume from './components/Danish/Resume/Resume';
+import ShowApplicantsTable from './components/Jobs/ShowApplicantsTable';
 
 
 const AllRoutes = () => {
@@ -77,7 +78,7 @@ const AllRoutes = () => {
             <Route path='/jobs/dashboard/:id/job/manage/finalize' element={<FinalizeCandidates />} > </Route> 
             <Route path='/jobs/dashboard/update/:id' element={<UpdateJobs />}></Route>
 
-
+    
             {/* // Temporary Route for testing */}
             <Route path='/HotelLandingpage' element={<HotelLandingpage /> } > </Route>
             <Route path='/JobDescription' element={<JobDescription /> } > </Route>
@@ -87,8 +88,8 @@ const AllRoutes = () => {
             <Route path='/test/:id' element={<SingleTip /> } > </Route>
             <Route path='/test/sidebar' element={<SidebarDashboard /> } > </Route>
             <Route path='/test/profilePage' element={<ProfilePageNew /> } > </Route>
-            
-            
+            <Route path='/test/resume' element={<Resume /> } > </Route>
+            <Route path='/test/showtable' element = {<ShowApplicantsTable />} > </Route>
         </Routes>
     )
 }

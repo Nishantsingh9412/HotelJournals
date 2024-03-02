@@ -1,18 +1,18 @@
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import { useState } from 'react';
 
-function Pdfcomp(p) {
+function Pdfcomp(props) {
     const [numPages, setNumPages] = useState(null);
     const [pageNumber, setPageNumber] = useState(1);
 
-
+    
     return (
         <div className="pdf-div mt-4">
-            {p.pdfFile &&
-                (p.pdfFile.includes('.pdf') ||
-                    p.pdfFile.includes('.doc') ||
-                    p.pdfFile.includes('.docx'))
-                &&
+            {props.pdfFile &&
+                (props.pdfFile.includes('.pdf') ||
+                    props.pdfFile.includes('.doc') ||
+                    props.pdfFile.includes('.docx'))
+                ?
                 <>
                     <div
                         style={{
@@ -23,7 +23,12 @@ function Pdfcomp(p) {
                     >
 
                         <iframe
-                            src={`${p.pdfFile}#page=${pageNumber}`}
+                            // src={`${props.pdfFile}#page=${pageNumber}`}
+                            src={
+                                props.pdfFile.includes('.pdf') ?
+                                    `${props.pdfFile}#page=${pageNumber}` :
+                                    `https://docs.google.com/gview?url=${props.pdfFile}&embedded=true`
+                            }
                             width="100%"
                             height="500px"
                             type="application/pdf"
@@ -35,43 +40,33 @@ function Pdfcomp(p) {
                             <small>
                                 If you unable to view your file please
                                 <a
-                                    className="text-primary"
+                                    className="text-primary ml-1"
                                     style={{
                                         cursor: 'pointer',
                                         textDecoration: 'none'
                                     }}
-                                    href={p.pdfFile}
+                                    href={props.pdfFile}
                                     target="_blank"
                                 >
                                     download file from here
                                 </a>
                             </small>
                         </div>
-                        <center>
-                            <div className='p-2'>
-                                <small>
-                                    If you unable to view your file please
-                                    <a
-                                        className="text-primary"
-                                        style={{
-                                            cursor: 'pointer',
-                                            textDecoration: 'none'
-                                        }}
-                                        href={p.pdfFile}
-                                        target="_blank"
-                                    >
-                                        download file from here
-                                    </a>
-                                </small>
-                            </div>
-                        </center>
                     </>
+                </>
+                :
+                <>
+                    <div
+                        style={{opacity: '0.5'}}
+                    >
+                        <h2> No CV uploaded by user </h2>
+                    </div>
                 </>
             }
 
 
-                </div>
-            );
+        </div>
+    );
 }
 
-            export default Pdfcomp;
+export default Pdfcomp;

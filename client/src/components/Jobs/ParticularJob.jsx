@@ -53,13 +53,14 @@ const ParticularJob = () => {
     const { id } = useParams();
     const localUser = JSON.parse(localStorage.getItem('Profile'));
     const userId = localUser?.result?._id;
+    console.log("User Id \n");
+    console.log(userId);
     const [appliedToJob, setAppliedToJob] = useState(false);
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         dispatch(getJobSingleAction(id))
     }, [dispatch]);
-
 
 
 
@@ -74,7 +75,6 @@ const ParticularJob = () => {
         const response = await dispatch(ApplyJobAction(jobApplicants))
         if (response.success) {
             toast.success(response.message);
-
         } else {
             toast.error(response.message);
         }
@@ -96,18 +96,28 @@ const ParticularJob = () => {
     console.log("Recruiter Profile Data \n");
     const singleRecruiterData = recProfileData?.data?.result[0];
     console.log(singleRecruiterData);
+
+    const appliedCandidates = singleJobsData?.result?.applicants;
+    // console.log("Applied Candidates \n");
+    // console.log(appliedCandidates);
+
     // if(singleJobsData?.result?.applicants?.includes(userId)){
     //     toast.info('You have already applied for this job');
     // }
-    const applicantsSet = new Set(singleJobsData?.result?.applicants);
+    const applicantsSet = new Set(singleJobsData?.result?.applicants.map((applicant) => applicant.user));
+    console.log("Applicants Set \n");
+    console.log(applicantsSet);
+
+    console.log("Appis \n");
+    console.log(singleJobsData?.result?.applicants)
+    
     // if (applicantsSet.has(userId)) {
     //     toast.info('You have already applied for this job');
     // }
 
-    // useEffect(() => {
-    //     setAppliedToJob(applicantsSet.has(userId));
-    // },[appliedToJob,applicantsSet,userId,singleJobsData?.result?.applicants])
-
+    useEffect(() => {
+        setAppliedToJob(applicantsSet.has(userId));
+    },[appliedToJob,applicantsSet,userId,singleJobsData?.result?.applicants])
 
     useEffect(() => {
         if (applicantsSet?.has(userId)) {
@@ -232,8 +242,35 @@ const ParticularJob = () => {
                                 <p>Applicants: <span>{singleJobsData?.result?.applicants?.length}</span></p>
                             </div>
                             <div className={jobdescriptionCSS.detailbutton}>
-                                <button type="button" className={jobdescriptionCSS.btn1}>Register To Apply</button>
-                                <button type="button" className={jobdescriptionCSS.btn2}>Apply</button>
+                                {/* <button type="button" className={jobdescriptionCSS.btn1}>Register To Apply</button> */}
+                                {/* <button type="button" className={jobdescriptionCSS.btn2}>
+
+                                </button> */}
+
+                                {/* <center> */}
+                                    {!appliedToJob ?
+                                        <button className='btn btn-info mt-2 mb-2 w-50 ' onClick={() => {
+                                            handleJobApply(singleJobsData?.result?._id);
+                                            setAppliedToJob(true);
+                                        }}>
+                                            {loading ?
+                                                <>
+                                                    <div className=''>
+                                                        <PuffLoader
+                                                            size={25}
+                                                            color="#ffffff"
+                                                        />
+                                                        <span className='pl-2 text'> Applying  ... </span>
+                                                    </div>
+                                                </> :
+                                                'Apply'
+                                            }
+                                        </button> :
+                                        <button className='btn btn-success mt-2 mb-2 w-25 ' disabled>
+                                            Applied
+                                        </button>
+                                    }
+                                {/* </center> */}
                             </div>
                         </div>
 
