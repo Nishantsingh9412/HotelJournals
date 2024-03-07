@@ -41,6 +41,8 @@ import { fetchAllUsers } from '../../redux/actions/users';
 import ProfilePic from '../User_profile/ProfilePic';
 import SideDrawerProfile from './SideDrawerProfile';
 import { sendMailAction } from '../../redux/actions/mail';
+import SideBar from '../../components/admin/RecruiterDashboard/Sidebar/SideBar';
+
 
 
 
@@ -266,13 +268,13 @@ function SizeExample(props) {
                             id={props?.id}
                             pic={props?.pic}
                         />
+
                     </DrawerBody>
                 </DrawerContent>
             </Drawer>
         </>
     )
 }
-
 
 // Mail Popup Modal
 
@@ -465,10 +467,14 @@ const ManageParticularJob = () => {
     return (
         <div>
             <ToastContainer />
-            <div className='alert alert-primary text-center'>
-                {jobTitle} | Select
+            <div className='ManageParticularSidebar'>
+                <SideBar />
             </div>
-            {/* <div>
+            <div className='ManageParticularContent'>
+                <div className='alert alert-primary text-center'>
+                    {jobTitle} | Select
+                </div>
+                {/* <div>
                 <ul
                     style={{
                         display: 'flex',
@@ -492,30 +498,30 @@ const ManageParticularJob = () => {
                 </ul>
             </div> */}
 
-            <Tabs>
-                <TabList>
-                    <Tab>All ({appliedUsers?.length})</Tab>
-                    <Tab>Not Offered</Tab>
-                    <Tab>Offered</Tab>
-                    <Tab>Hired</Tab>
-                    <Tab>Rejected</Tab>
-                </TabList>
+                <Tabs>
+                    <TabList>
+                        <Tab>All ({appliedUsers?.length})</Tab>
+                        <Tab>Not Offered</Tab>
+                        <Tab>Offered</Tab>
+                        <Tab>Hired</Tab>
+                        <Tab>Rejected</Tab>
+                    </TabList>
 
-                <TabPanels>
-                    <TabPanel>
-                        {/* <p>one!</p> */}
-                        <ApplicantsList2 applicants={appliedUsers} />
-                    </TabPanel>
-                    <TabPanel>
-                        <p>two!</p>
-                        <ApplicantsList2 applicants={appliedUsers} />
-                    </TabPanel>
-                    <TabPanel>
-                        <p>three!</p>
-                    </TabPanel>
-                </TabPanels>
-            </Tabs>
-
+                    <TabPanels>
+                        <TabPanel>
+                            {/* <p>one!</p> */}
+                            <ApplicantsList2 applicants={appliedUsers} />
+                        </TabPanel>
+                        <TabPanel>
+                            <p>two!</p>
+                            <ApplicantsList2 applicants={appliedUsers} />
+                        </TabPanel>
+                        <TabPanel>
+                            <ApplicantsList2 applicants={appliedUsers} />
+                        </TabPanel>
+                    </TabPanels>
+                </Tabs>
+            </div>
             {/* <ApplicantsList applicants={appliedUsers} /> */}
             {/* <ApplicantsList2 applicants={appliedUsers} /> */}
         </div>

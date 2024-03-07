@@ -2,18 +2,82 @@ import mongoose from 'mongoose';
 import users from '../models/auth.js'
 
 
-export const getProfile = async(req,res) => {
+export const getProfile = async (req, res) => {
     try {
         const allUsers = await users.find();
         const allUserDetails = [];
         allUsers.forEach(singleUser => {
-            allUserDetails.push({_id:singleUser._id,fname:singleUser.fname,
-                lname:singleUser.lname,email:singleUser.email,userType:singleUser.userType,
-                phone:singleUser.phone,country_code:singleUser.country_code,
-                joinedOn:singleUser.joinedOn});
+            allUserDetails.push({
+                _id: singleUser._id, fname: singleUser.fname,
+                lname: singleUser.lname, email: singleUser.email, userType: singleUser.userType,
+                phone: singleUser.phone, country_code: singleUser.country_code,
+                joinedOn: singleUser.joinedOn
+            });
         });
-        res.status(200).json({success:true,allUserDetails});
+        res.status(200).json({ success: true, allUserDetails });
     } catch (error) {
-        res.status(401).json({success:false,message:`Something went wrong from getProfile controller ${error.message}`});
+        res.status(500).json({ success: false, message: `Something went wrong from getProfile controller ${error.message}` });
+    }
+}
+
+export const getProfileById = async (req, res) => {
+    const { id: _id } = req.params;
+    if (!mongoose.Types.ObjectId.isValid(_id))
+        return res.status(400).json({ success: false, message: 'Invalid Id' });
+    try {
+        const singleUser = await users.findById(_id);
+        res.status(200).json({ success: true, result: singleUser })
+    } catch (error) {
+        res.status(500).json({ success: false, message: `Something went wrong` });
+    }
+}
+
+export const updateProfilePic = async (req, res) => {
+    const { id: _id } = req.params;
+    const { pic } = req.body;
+
+    if (!mongoose.Types.ObjectId.isValid(_id)) {
+        return res.status(400).json({ success: false, message: 'Invalid Id' });
+    }
+
+    try {
+        const updatedProfilePic = await users.findByIdAndUpdate(_id, {
+            $set: {
+                'pic': pic
+            }
+        }, { new: true });
+
+        if (!updatedProfilePic) {
+            return res.status(400).json({ success: false, message: 'Failed to update picture' })
+        } else {
+            res.status(200).json({ success: true, message: 'Picture Updated Successfulllllllly', result: updatedProfilePic })
+        }
+    } catch (error) {
+        res.status(500).json({ success: false, message: `Something went wrong` });
+    }
+}
+
+
+// It's actually updating with that of default image, but not deleting it
+export const delteProfilePic = async (req, res) => {
+    const { id: _id } = req.params;
+    if (!mongoose.Types.ObjectId.isValid(_id)) {
+        return res.status(400).json({ success: false, message: 'Invalid Id' });
+    }
+
+    try {
+        const deleteProfilePic = await users.findByIdAndUpdate(_id, {
+            $set: {
+                'pic': 'https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg'
+            }
+        }, { new: true });
+
+        if (!deleteProfilePic) {
+            return res.status(400).json({ success: false, message: 'Failed to delete picture' })
+        } else {
+            res.status(200).json({ success: true,message: 'Picture deleted Successfuly',result: deleteProfilePic })
+        }
+    } catch (error) {
+        res.status(500).json({ success: false, message: `Something went wrong` });
     }
 }

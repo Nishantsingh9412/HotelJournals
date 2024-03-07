@@ -1,15 +1,21 @@
-import { BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter as Router, useLocation } from 'react-router-dom';
 import React from 'react';
 import './App.css';
 
 import Navbar from './components/partials/Navbar'
+import RecruiterNavbar from './components/admin/RecruiterDashboard/RecruiterNavbar';
 import AllRoutes from './AllRoutes';
+
+function Navigation() {
+  const location = useLocation();
+  return location.pathname.includes('recruiter') ? <RecruiterNavbar /> : <Navbar />;
+}
 
 function App() {
   return (
     <div className='App'>
       <Router>
-          <Navbar />
+          <Navigation />
           <AllRoutes />
       </Router>
     </div>

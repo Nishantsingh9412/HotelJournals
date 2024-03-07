@@ -36,7 +36,12 @@ import SidebarDashboard from './components/ManageCandidate/ManageCandidate/Sideb
 import ProfilePageNew from './components/ManageCandidate/ManageCandidate/ProfilePageNew';
 import Resume from './components/Danish/Resume/Resume';
 import ShowApplicantsTable from './components/Jobs/ShowApplicantsTable';
-
+import ManageApplicants from './components/admin/RecruiterDashboard/ManageApplicants';
+import MainRecruiterDashboard from './components/admin/RecruiterDashboard/MainRecruiterDashboard';
+import RecruiterSidebar from './components/admin/RecruiterDashboard/RecruiterSidebar';
+import Sidebar from './components/admin/RecruiterDashboard/Sidebar/SideBar'
+import ManageAllJobs from './components/admin/RecruiterDashboard/ManageAllJobs';
+import ImageCropperReal from './components/Recruiters_profile/ImageCropperReal';
 
 const AllRoutes = () => {
   return (
@@ -72,11 +77,13 @@ const AllRoutes = () => {
                             {/* Edit Course */}
             <Route path='/educator/dashboard/update/:id' element={<UpdateCourse />}>  </Route>
                 {/* For Jobs */}
-            <Route path='/jobs/post' element={<CreateJobs />} ></Route>
-            <Route path='/jobs/dashboard' element={<RecruiterDashboard />} > </Route>
-            <Route path='/jobs/dashboard/:id/job/manage/' element={<ManageParticularJob />} > </Route> 
+            {/* <Route path='/jobs/dashboard' element={<RecruiterDashboard />} > </Route> */}
+            {/* <Route path='/jobs/dashboard/:id/job/manage/' element={<ManageParticularJob />} > </Route>  */}
             <Route path='/jobs/dashboard/:id/job/manage/finalize' element={<FinalizeCandidates />} > </Route> 
             <Route path='/jobs/dashboard/update/:id' element={<UpdateJobs />}></Route>
+
+            {/* Recruiter Dashboard */}
+            <Route path='/jobs/mainrecruiterdash' element={<MainRecruiterDashboard />} > </Route>
 
     
             {/* // Temporary Route for testing */}
@@ -90,6 +97,14 @@ const AllRoutes = () => {
             <Route path='/test/profilePage' element={<ProfilePageNew /> } > </Route>
             <Route path='/test/resume' element={<Resume /> } > </Route>
             <Route path='/test/showtable' element = {<ShowApplicantsTable />} > </Route>
+
+            {/* Routes for recruiter dashboard */}
+            <Route path='/test/recruiter/sidebarNew' element = {<RecruiterSidebar />} > </Route>
+            <Route path='/test/recruiter/sidebar' element = {<Sidebar />} > </Route>
+            <Route path='/test/recruiter/manageJobs' element={<ManageAllJobs />} > </Route>
+            <Route path='/jobs/recruiter/post' element={<CreateJobs />} ></Route>
+            <Route path='/jobs/recruiter/:id/job/manage/' element={<ManageParticularJob />} > </Route> 
+            <Route path='/test/imageCropper' element={<ImageCropperReal />} > </Route>
         </Routes>
     )
 }

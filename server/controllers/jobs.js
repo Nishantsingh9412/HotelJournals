@@ -230,7 +230,7 @@ export const editJob = async (req, res) => {
         if (!updatedJob) {
             return res.status(400).json({ success: false, message: 'Failed to update job' })
         } else {
-            res.status(200).json({ success: true, message: 'Job Updated Successfulllllllly', result: updatedJob })
+            res.status(200).json({ success: true, message: ' Job Updated Successfully ', result: updatedJob })
         }
     } catch (error) {
         console.log("Error from editJob Controller ", error.message)

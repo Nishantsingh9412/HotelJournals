@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, useNavigate } from 'react-router-dom';
-
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
 import { Card, Button } from 'react-bootstrap';
 // Icons 
 import { FaLocationDot, FaPencil } from "react-icons/fa6";
 import { IoTrashBin } from "react-icons/io5";
 import { IoShareSocial } from "react-icons/io5";
 import { HiDotsVertical } from "react-icons/hi";
+import { TbBriefcase } from 'react-icons/tb';
+import { FaWallet } from 'react-icons/fa';
 // import { IoMdTime } from "react-icons/io";
 // import { FaArrowUpRightDots } from "react-icons/fa6";
 
@@ -18,8 +18,9 @@ import { HiDotsVertical } from "react-icons/hi";
 // Modules 
 // import { DeleteJobAction, GetJobs } from '../../../redux/actions/jobsAdmin.js';
 import { GetJobs } from '../../redux/actions/jobsAdmin.js';
-import { TbBriefcase } from 'react-icons/tb';
-import { FaWallet } from 'react-icons/fa';
+import JobsBgImg from '../../assets/img/brief2.png'
+import 'animate.css';
+
 // import { DeleteACourseAction } from '../../../redux/actions/courseAdmin.js';
 
 const AllJobs = () => {
@@ -35,14 +36,11 @@ const AllJobs = () => {
     // const localStorageData = JSON.parse(localStorage.getItem('Profile'));
     // const local_user_id = localStorageData?.result?._id;
     // console.log(`LocalUSERID :  ${local_user_id}`);
-
     // const MyJobs = AllJobsData?.result?.filter((jobs) => jobs.created_by === local_user_id);
 
 
     const MyJobs = AllJobsData?.result;
     console.log(MyJobs);
-
-
 
     useEffect(() => {
         dispatch(GetJobs())
@@ -87,15 +85,39 @@ const AllJobs = () => {
             <div className='mb-5'>
 
                 <ToastContainer />
-                <div className='container d-flex mt-3 '>
-                    <div className='d-flex '>
+                <div className='container-fluid d-flex '
+                    style={{
+                        backgroundImage: `url(${JobsBgImg})`,
+                        backgroundSize: 'cover',
+                        backgroundRepeat: 'no-repeat',
+                        height: '35vh',
+                    }}
+                >
+                    <div
+                        className='row 
+                        animate__animated
+                        animate__fadeIn
+                        animate__slower 
+                        animate__repeat-2'
+                        style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            marginLeft: '30vw',
+                            color:'#4e88f1',
+
+                        }}
+                    >
                         <h1>Get Hired with </h1>
                         <p style={{
                             marginLeft: '15px',
-                            color: '#E4B49D',
+                            marginTop: '10px',
+                            color:'#4e88f1',
                             fontWeight: 'bold',
                             fontSize: '35px'
-                        }}> Hotel Journals </p>
+                        }}>
+                            Hotel Journals
+                        </p>
                     </div>
                     <div className='ml-4 mt-4'>
                         {/* <button className='btn btn-warning text-white'>
@@ -150,10 +172,10 @@ const AllJobs = () => {
                                             </div>
                                         </Card.Text>
                                         <hr />
-                                            <div className='d-flex'>
-                                                <small style={{ flex: '1' }}> Apply by : {new Date(job.joiningDate).toLocaleDateString()}</small>
-                                                <Button variant="success" style={{ flex: '1' }}>View</Button>
-                                            </div>
+                                        <div className='d-flex'>
+                                            <small style={{ flex: '1' }}> Apply by : {new Date(job.joiningDate).toLocaleDateString()}</small>
+                                            <Button variant="success" style={{ flex: '1' }}>View</Button>
+                                        </div>
                                     </Card.Body>
                                 </Card>
                             </div>

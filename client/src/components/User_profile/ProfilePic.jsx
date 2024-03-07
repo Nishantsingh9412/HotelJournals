@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 // Icons 
@@ -9,30 +9,53 @@ import { RxPencil1 } from "react-icons/rx";
 import { LiaBirthdayCakeSolid } from "react-icons/lia";
 // UsersAction
 import PrCss from './userProfile.module.css';
-import { fetchAllUsers } from '../../redux/actions/users';
+import { fetchAllUsers, fetchSingleUser } from '../../redux/actions/users';
+import ImageCropperReal from '../Recruiters_profile/ImageCropperReal';
+import { useStatStyles } from '@chakra-ui/react';
 
 
 const ProfilePic = () => {
 
   const { id } = useParams();
   const dispatch = useDispatch();
-  const users = useSelector((state) => state.usersReducer)
-  const currentUser = users?.allUserDetails?.filter((user) => user._id === id)[0];
-  console.log("this is current user")
+  const [loadedImage, setLoadedImage] = useState(null);
+  // const users = useSelector((state) => state.usersReducer)
+  // const currentUser = users?.allUserDetails?.filter((user) => user._id === id)[0];
+  // console.log("this is current user")
+  // console.log(currentUser);
+
+  const currentUserReducer = useSelector(state => state.singleUserReducer);
+  const currentUser = currentUserReducer?.data?.result;
+  const picture = currentUser?.pic;
+  
+  console.log("this is picture")
+  console.log(picture);
+  
+  console.log("this is current user reducer \n")
   console.log(currentUser);
 
 
-    console.log("this is from profile pic ")
-    const allEducationExperiencesReducer = useSelector(state => state.getEducationReducer);
-    const allEducationExperiences = allEducationExperiencesReducer?.data?.result;
-    const recentEducation = allEducationExperiences?.sort((a, b) => new Date(b.start_date) - new Date(a.start_date))[0];
-    // console.log(recentEducation?.degree)
-
+  console.log("this is from profile pic ")
+  const allEducationExperiencesReducer = useSelector(state => state.getEducationReducer);
+  const allEducationExperiences = allEducationExperiencesReducer?.data?.result;
+  const recentEducation = allEducationExperiences?.sort((a, b) => new Date(b.start_date) - new Date(a.start_date))[0];
+  
+  // console.log(recentEducation?.degree)
+  // useEffect(() => {
+  //   dispatch(fetchAllUsers());
+  // }, [dispatch])
 
   useEffect(() => {
-    dispatch(fetchAllUsers());
-  }, [dispatch])
+    dispatch(fetchSingleUser(id));
+  },[dispatch])
 
+  useEffect(() => {
+    const img = new Image();
+    img.src = picture;
+    img.onload = () => {
+      setLoadedImage(img);
+    }
+  },[picture])
 
   return (
     // <div className={`container mt-1 ${PrCss.mainProfile}`} >
@@ -66,7 +89,10 @@ const ProfilePic = () => {
 
         <div class="card-body d-flex">
           <div className='col-md-2'>
-            <img src="https://picsum.photos/200" className='img-responsive rounded-circle mt-4' alt="userpic" />
+           { loadedImage ? <ImageCropperReal 
+              image={picture} 
+              alt="userpic"
+            /> : <></> }
           </div>
           <div className='col-md-10'>
             <div>

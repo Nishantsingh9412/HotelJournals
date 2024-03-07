@@ -1,81 +1,84 @@
-import { useState } from 'react';
+import React, {useState} from "react";
 import ReactCrop from 'react-image-crop';
 import 'react-image-crop/dist/ReactCrop.css';
+import demoImage from '../../assets/img/blender_image.jpg';
 
-function ImageCropper() {
-    const [src, setSrc] = useState(null);
-    const [crop, setCrop] = useState({ aspect: 16 / 9, x: 0, y: 0, width: 100, height: 100 });
-    const [image, setImage] = useState(null);
-    const [output, setOutput] = useState(null);
+function ImageCropper(props) {
+    const {imageToCrop, onImageCropped} = props;
 
-    const selectImage = (file) => {
-        setSrc(URL.createObjectURL(file));
-    };
+    const [cropConfig, setCropConfig] = useState(
+        // default crop config
+        {
+            unit: '%',
+            width: 30,
+            aspect: 16 / 9,
+        }
+    );
 
-    const cropImageNow = () => {
+    const [imageRef, setImageRef] = useState();
+
+    async function cropImage(crop) {
+        if (imageRef && crop.width && crop.height) {
+            const croppedImage = await getCroppedImage(
+                imageRef,
+                crop,
+                'croppedImage.jpeg' // destination filename
+            );
+
+            // calling the props function to expose
+            // croppedImage to the parent component
+            onImageCropped(croppedImage);
+        }
+    }
+
+    function getCroppedImage(sourceImage, cropConfig, fileName) {
         const canvas = document.createElement('canvas');
-        const scaleX = image.naturalWidth / image.width;
-        const scaleY = image.naturalHeight / image.height;
-        canvas.width = crop.width;
-        canvas.height = crop.height;
+        const scaleX = sourceImage.naturalWidth / sourceImage.width;
+        const scaleY = sourceImage.naturalHeight / sourceImage.height;
+        canvas.width = cropConfig.width;
+        canvas.height = cropConfig.height;
         const ctx = canvas.getContext('2d');
 
-        const pixelRatio = window.devicePixelRatio;
-        canvas.width = crop.width * pixelRatio;
-        canvas.height = crop.height * pixelRatio;
-        ctx.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
-        ctx.imageSmoothingQuality = 'high';
-
         ctx.drawImage(
-            image,
-            crop.x * scaleX,
-            crop.y * scaleY,
-            crop.width * scaleX,
-            crop.height * scaleY,
+            sourceImage,
+            cropConfig.x * scaleX,
+            cropConfig.y * scaleY,
+            cropConfig.width * scaleX,
+            cropConfig.height * scaleY,
             0,
             0,
-            crop.width,
-            crop.height,
+            cropConfig.width,
+            cropConfig.height,
         );
 
-        // Converting to base64
-        const base64Image = canvas.toDataURL('image/jpeg');
-        setOutput(base64Image);
-    };
+        return new Promise((resolve, reject) => {
+            canvas.toBlob(blob => {
+                if (!blob) {
+                    reject(new Error('Canvas is empty'));
+                    return;
+                }
+                blob.name = fileName;
+                const croppedImageUrl = window.URL.createObjectURL(blob);
+                resolve(croppedImageUrl);
+            }, 'image/jpeg');
+        });
+    }
 
     return (
-        <div className="App">
-            <center>
-                <input
-                    type="file"
-                    accept="image/*"
-                    onChange={(e) => {
-                        selectImage(e.target.files[0]);
-                    }}
-                />
-                <br />
-                <br />
-                <div>
-                    {src && (
-                        <div>
-                            <ReactCrop
-                                src={src}
-                                onImageLoaded={setImage}
-                                crop={crop}
-                                onChange={newCrop => setCrop(newCrop)} 
-                                style={{ width: '100%', height: 'auto' }}
-                            />
-                            <br />
-                            <button onClick={cropImageNow}>Crop</button>
-                            <br />
-                            <br />
-                        </div>
-                    )}
-                </div>
-                <div>{output && <img src={output} />}</div>
-            </center>
-        </div>
+        <ReactCrop
+            src={imageToCrop || demoImage}
+            crop={cropConfig}
+            ruleOfThirds
+            onImageLoaded={(imageRef) => setImageRef(imageRef)}
+            onComplete={(cropConfig) => cropImage(cropConfig)}
+            onChange={(cropConfig) => setCropConfig(cropConfig)}
+            crossorigin="anonymous" // to avoid CORS-related problems
+        />
     );
+}
+
+ImageCropper.defaultProps = {
+    onImageCropped: () => {}
 }
 
 export default ImageCropper;

@@ -22,6 +22,9 @@ export const Login = (authData) => API.post('/user/login',authData)
 // Getting all users data from database
 export const Profile = () => API.get('/user/profile')
 
+// Getting single user data from database
+export const singleProfile = (id) => API.get(`/user/profile/${id}`)
+
 // Tips Admin (Blog creation)
 export const TipsAdminData = (tipsData) => API.post('/admin/tips',tipsData)
 

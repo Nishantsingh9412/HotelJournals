@@ -3,6 +3,8 @@ import { combineReducers } from "redux";
 import authReducer from "./auth";
 import currentuserReducer from "./currentUser";
 import usersReducer from "./users";
+import singleUserReducer from "./userSingle";
+// For Tips
 import TipsReducer from "./tipsReducer";
 import getTipsReducer from "./getTips";
 import singleTipReducer from "./getSingleTips";
@@ -53,6 +55,7 @@ export default combineReducers({
     authReducer,
     currentuserReducer,
     usersReducer,
+    singleUserReducer,
 //  For Tips  
     TipsReducer,
     getTipsReducer,

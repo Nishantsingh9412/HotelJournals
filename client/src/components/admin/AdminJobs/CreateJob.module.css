@@ -1,0 +1,18 @@
+.containerJobs{
+    display: flex;
+}
+
+.sidebar {
+    float: left;
+    height: 180vh;
+    /* or use flexbox/grid */
+    width: 10%;
+    /* adjust as needed */
+}
+
+.content {
+    float: right;
+    /* or use flexbox/grid */
+    width: 90%;
+    /* adjust as needed */
+}

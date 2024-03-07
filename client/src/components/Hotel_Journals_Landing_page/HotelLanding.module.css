@@ -1,0 +1,346 @@
+.container {
+  width: 100%;
+  height: auto;
+}
+
+/* First section */
+.firstSection {
+  background-color: #FAF1EA;
+  height: 80vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 5vw;
+  position: relative;
+}
+
+.firstSectionContent {
+  width: 100%;
+  height: 70%;
+  padding-top: 5vw;
+  display: flex;
+  flex-direction: column;
+  gap: 2vw;
+  padding-left: 3vw;
+}
+
+.firstSectionTitle {
+  font-size: 5vw;
+  font-weight: 900;
+  width: 40vw;
+  color: #110D32;
+}
+
+.span {
+  color: #B4C2D6;
+}
+
+.firstSectionSubtitle {
+  font-size: 3vw;
+  width: 70vw;
+}
+
+.firstSectionButtons {
+  display: flex;
+  width: 50vw;
+  height: 8vw;
+  justify-content: space-between;
+  font-weight: bold;
+}
+
+.joinClassButton,
+.getStartedButton {
+  border-radius: 2vw;
+  padding: 3vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 3vw;
+}
+
+.imageContainer {
+  width: 100%;
+  height: 70%;
+  display: flex;
+  padding-top: 30px;
+  justify-content: center;
+}
+
+.image {
+  object-fit: cover;
+  width: 100%;
+}
+
+/* Card of first section */
+.cardSection {
+  position: absolute;
+  bottom: -17vw;
+  width: 100%;
+  height: 35vh;
+  padding: 12vw;
+  display: flex;
+  justify-content: space-between;
+}
+
+.cardItem {
+  background-color: #B4C2D6;
+  height: 12vw;
+  width: 18vw;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.iconBackground {
+  background-color: #E4B49D;
+  border-radius: 50%;
+  height: 3.5vw;
+  width: 3.5vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cardItemParagraph {
+  color: black;
+  padding-left: 1.5vw;
+  font-size: 1vw;
+  width: 80%;
+}
+
+/* Feature course section */
+.featureCourseSection {
+  margin-top: 15vw;
+  height: 100vh;
+  padding: 6vw;
+  width: 100%;
+}
+
+.featureCourseHeader {
+  position: relative;
+  height: 15vh;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.featureCourseTitle {
+  font-size: 5vw;
+  font-weight: 900;
+  width: 25vw;
+}
+
+.viewAllText {
+  font-weight: 900;
+  font-size: 2vw;
+}
+
+.featureCourseDot {
+  position: absolute;
+  top: 4.5vw;
+  left: -2vw;
+  background-color: #E4B49D;
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+}
+
+.courseGrid {
+  padding: 0.5vh;
+  height: 80%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.courseItem {
+  background-color: white;
+  height: 10vh;
+  width: 300px;
+  border-radius: 5px;
+  padding: 0.5vw;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+}
+
+.courseImageContainer {
+  width: 30%;
+  height: 100%;
+}
+
+.courseImage {
+  height: 100%;
+  width: 80%;
+}
+
+.courseDetails {
+  width: 70%;
+  height: 100%;
+}
+
+.courseTitle {
+  font-size: 15px;
+  font-weight: bold;
+}
+
+/* Talent section */
+.talentSection {
+  margin-top: 8vw;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6vw;
+}
+
+.talentButton {
+  background-color: #E4B49D;
+  border-radius: 90px;
+  height: 8vw;
+  width: 30vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.talentSubtitle {
+  font-size: 4.3vw;
+  font-weight: 900;
+  color: #E4B49D;
+  width: 40vw;
+}
+
+.talentDescription {
+  width: 80%;
+}
+
+/* Job section */
+.jobSection {
+  width: 100%;
+  height: 60%;
+  display: flex;
+  overflow: hidden;
+}
+
+.jobLeftColumn,
+.jobRightColumn {
+  padding: 1vw;
+  height: 80vh;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  gap: 2vw;
+}
+
+.jobItem {
+  padding: 0.5vw;
+  border-radius: 4px;
+  background-color: white;
+  height: 8vh;
+  width: 95%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.jobRole {
+  font-weight: 900;
+  font-size: 1.2vw;
+}
+
+.jobDetails {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Responsive styles */
+@media screen and (max-width: 768px) {
+  .firstSectionTitle {
+    font-size: 3rem;
+    width: 80%;
+  }
+
+  .firstSectionSubtitle {
+    font-size: 2rem;
+    width: 100%;
+  }
+
+  .firstSectionButtons {
+    width: 100%;
+  }
+
+  .joinClassButton,
+  .getStartedButton {
+    font-size: 2rem;
+  }
+
+  .flexibleClassMentor {
+    flex-direction: column;
+  }
+
+  .featureCourseTitle {
+    font-size: 3rem;
+    width: 80%;
+  }
+
+  .viewAllText {
+    font-size: 1.5rem;
+  }
+
+  .courseGrid {
+    justify-content: center;
+  }
+
+  .courseItem {
+    width: 90%;
+    margin-bottom: 2rem;
+  }
+
+  .courseImageContainer {
+    width: 40%;
+  }
+
+  .courseDetails {
+    width: 60%;
+  }
+
+  .courseTitle {
+    font-size: 1rem;
+  }
+
+  .talentSubtitle {
+   
+
+ font-size: 3rem;
+    width: 90%;
+  }
+
+  .talentDescription {
+    width: 100%;
+  }
+
+  .jobLeftColumn,
+  .jobRightColumn {
+    width: 100%;
+    height: auto;
+  }
+
+  .jobItem {
+    width: 90%;
+    margin-bottom: 2rem;
+  }
+
+  .jobRole {
+    font-size: 1.2rem;
+  }
+}
