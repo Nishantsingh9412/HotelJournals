@@ -14,7 +14,12 @@ const Profile = (props) => {
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', paddingTop: '3rem' }}>
+    <div style={{
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      paddingTop: '1rem'
+    }}>
       <div style={{ position: 'relative' }}>
         <button
           style={{
@@ -37,7 +42,12 @@ const Profile = (props) => {
         <img
           src={avatarUrl.current}
           alt="Avatar"
-          style={{ width: '150px', height: '150px', borderRadius: '50%', border: '2px solid #CBD5E0' }}
+          style={{
+            width: '150px',
+            height: '150px',
+            borderRadius: '50%',
+            border: '2px solid #CBD5E0'
+          }}
         />
 
       </div>
@@ -45,6 +55,7 @@ const Profile = (props) => {
         <Modal
           updateAvatar={updateAvatar}
           closeModal={() => setModalOpen(false)}
+          oldImageURL={props.oldImage}
         />
       )}
     </div>

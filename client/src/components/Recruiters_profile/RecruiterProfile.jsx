@@ -12,7 +12,7 @@ import PuffLoader from 'react-spinners/PuffLoader';
 import { getRecProfileAction, setRecProfileAction } from '../../redux/actions/recProfile';
 import RecruiterCSS from './recruiterProfile.module.css';
 import ProfilePic from '../User_profile/ProfilePic';
-import ImageCropper from './ImageCropper';
+// import ImageCropper from './ImageCropper';
 import RecruiterFinalDashboard from '../admin/AdminJobs/RecruiterFinalDashboard';
 
 const RecruiterProfile = () => {

@@ -5,7 +5,8 @@ import {
     getProfile,
     getProfileById,
     updateProfilePic,
-    delteProfilePic
+    delteProfilePic,
+    getProfilePic
 }
     from "../controllers/users.js";
 
@@ -18,7 +19,8 @@ router.post('/login', login)
 
 router.get('/profile', getProfile)
 router.get('/profile/:id', getProfileById)
-router.patch('/profile/update/:id', updateProfilePic)
-router.patch('/profile/delete/:id', delteProfilePic)
+router.get('/profile/pic/:id', getProfilePic)
+router.patch('/profile/updatepic/:id', updateProfilePic)
+router.patch('/profile/deletepic/:id', delteProfilePic)
 
 export default router

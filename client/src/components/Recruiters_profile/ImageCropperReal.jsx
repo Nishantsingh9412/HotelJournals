@@ -5,7 +5,9 @@ const ImageCropperReal = (props) => {
   return (
     <div>
         {/* < Profile oldImage={'https://via.placeholder.com/200/'} /> */}
-        <Profile oldImage={props.image} />
+        <Profile 
+          oldImage={props.image} 
+        />
     </div>
   )
 }

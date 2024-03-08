@@ -1,7 +1,7 @@
 import { IoMdCloseCircle } from "react-icons/io";
 import ImageCropper from "./ImageCropper";
 
-const Modal = ({ updateAvatar, closeModal }) => {
+const Modal = ({ updateAvatar, closeModal,oldImageURL }) => {
   return (
     <div
       style={{
@@ -67,6 +67,7 @@ const Modal = ({ updateAvatar, closeModal }) => {
               <ImageCropper
                 updateAvatar={updateAvatar}
                 closeModal={closeModal}
+                oldImageURL={oldImageURL}
               />
             </div>
           </div>

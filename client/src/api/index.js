@@ -25,6 +25,14 @@ export const Profile = () => API.get('/user/profile')
 // Getting single user data from database
 export const singleProfile = (id) => API.get(`/user/profile/${id}`)
 
+// Updating user profile pic
+export const updateUserProfilePics = (id,profileData) => API.patch(`/user/profile/updatepic/${id}`,profileData)
+// Deleting user profile pic
+export const deleteUserProfilePic = (id) => API.patch(`/user/profile/deletepic/${id}`)
+
+// Getting user profile pic
+export const getProfilePicSingle = (id) => API.get(`/user/profile/pic/${id}`)
+
 // Tips Admin (Blog creation)
 export const TipsAdminData = (tipsData) => API.post('/admin/tips',tipsData)
 

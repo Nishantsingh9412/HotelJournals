@@ -32,9 +32,26 @@ export const getProfileById = async (req, res) => {
     }
 }
 
+// For pic 
+export const getProfilePic = async (req, res) => {
+    const { id: _id } = req.params;
+    if (!mongoose.Types.ObjectId.isValid(_id))
+        return res.status(400).json({ success: false, message: 'Invalid Id' });
+    try {
+        const singleUser = await users.findById(_id);
+        res.status(200).json({ success: true, result: singleUser.pic })
+    } catch (error) {
+        res.status(500).json({ success: false, message: `Something went wrong` });
+    }
+
+}
+
 export const updateProfilePic = async (req, res) => {
     const { id: _id } = req.params;
     const { pic } = req.body;
+    if(!pic){
+        return res.status(400).json({ success: false, message: 'Please select a picture' })
+    }
 
     if (!mongoose.Types.ObjectId.isValid(_id)) {
         return res.status(400).json({ success: false, message: 'Invalid Id' });
@@ -78,6 +95,8 @@ export const delteProfilePic = async (req, res) => {
             res.status(200).json({ success: true,message: 'Picture deleted Successfuly',result: deleteProfilePic })
         }
     } catch (error) {
+        console.log("Error from delete profile pic controller: ", error.message);
         res.status(500).json({ success: false, message: `Something went wrong` });
     }
 }
+

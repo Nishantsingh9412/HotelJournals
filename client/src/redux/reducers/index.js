@@ -4,6 +4,7 @@ import authReducer from "./auth";
 import currentuserReducer from "./currentUser";
 import usersReducer from "./users";
 import singleUserReducer from "./userSingle";
+import userProfilePicReducer from './userProfilepic'
 // For Tips
 import TipsReducer from "./tipsReducer";
 import getTipsReducer from "./getTips";
@@ -56,6 +57,7 @@ export default combineReducers({
     currentuserReducer,
     usersReducer,
     singleUserReducer,
+    userProfilePicReducer,
 //  For Tips  
     TipsReducer,
     getTipsReducer,
