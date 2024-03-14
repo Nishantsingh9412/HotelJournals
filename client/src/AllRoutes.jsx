@@ -42,6 +42,8 @@ import RecruiterSidebar from './components/admin/RecruiterDashboard/RecruiterSid
 import Sidebar from './components/admin/RecruiterDashboard/Sidebar/SideBar'
 import ManageAllJobs from './components/admin/RecruiterDashboard/ManageAllJobs';
 import ImageCropperReal from './components/Recruiters_profile/ImageCropperReal';
+import Jobs from './components/Jobs/JobsLanding/Jobs';
+import SuperAdmin from './components/superAdmin/SuperAdmin';
 
 const AllRoutes = () => {
   return (
@@ -58,7 +60,9 @@ const AllRoutes = () => {
             <Route path='/courses' element= {<Courses /> } > </Route>
 
             {/* Jobs Routes */}
-            <Route path='/jobs' element={<JobsLanding />} > </Route>
+            {/* <Route path='/jobs' element={<JobsLanding />} > </Route> */}
+            <Route path='/jobs' element={<Jobs />} > </Route>
+
             <Route path='/AllJobs' element={<AllJobs />} > </Route>
             <Route path='/AllJobs/:id' element={<ParticularJob />} > </Route>
 
@@ -90,7 +94,7 @@ const AllRoutes = () => {
             <Route path='/HotelLandingpage' element={<HotelLandingpage /> } > </Route>
             <Route path='/JobDescription' element={<JobDescription /> } > </Route>
             <Route path='/jobsMainPage' element={<Job_search/> } > </Route>
-            <Route path='/Dashboardnew/' element={<Dashboardd />} > </Route>
+            {/* <Route path='/Dashboardnew/' element={<Dashboardd />} > </Route> */}
             <Route path='/manageCandidates' element={<ManageCandidate />} > </Route>
             <Route path='/test/:id' element={<SingleTip /> } > </Route>
             <Route path='/test/sidebar' element={<SidebarDashboard /> } > </Route>
@@ -98,6 +102,8 @@ const AllRoutes = () => {
             <Route path='/test/resume' element={<Resume /> } > </Route>
             <Route path='/test/showtable' element = {<ShowApplicantsTable />} > </Route>
 
+            <Route path='/superadmin' element={<SuperAdmin />} > </Route>
+            
             {/* Routes for recruiter dashboard */}
             <Route path='/test/recruiter/sidebarNew' element = {<RecruiterSidebar />} > </Route>
             <Route path='/test/recruiter/sidebar' element = {<Sidebar />} > </Route>
@@ -105,7 +111,11 @@ const AllRoutes = () => {
             <Route path='/jobs/recruiter/post' element={<CreateJobs />} ></Route>
             <Route path='/jobs/recruiter/:id/job/manage/' element={<ManageParticularJob />} > </Route> 
             <Route path='/test/imageCropper' element={<ImageCropperReal />} > </Route>
-        </Routes>
+
+            
+            {/* <Route path='/superadmin' element={<Supe />} > </Route> */}
+
+        </Routes>   
     )
 }
 

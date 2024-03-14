@@ -1,0 +1,127 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Inter&family=Roboto&display=swap');
+
+.job-card{
+    border: 1px solid grey !important;
+    border-radius: 5px !important;
+    /* max-width: 300px !important; */
+    font-family: 'Inter', sans-serif !important;
+    min-height: 250px !important;
+    box-sizing: border-box !important;
+    padding: 15px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    transition: transform 0.3s ease-in-out !important;
+    box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1) !important;
+}
+
+.job-card:hover {
+    cursor: pointer !important;
+    transform: scale(1.1) !important;
+}
+
+.job-card .head {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    margin-bottom: 10px !important;
+}
+.job-card .head .head_box{
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+}
+
+
+.job-card .head svg {
+    width: 20px !important;
+}
+
+.job-card .head svg:hover {
+    width: 15px !important;
+    fill: crimson !important;
+    transform: scale(1.2) !important;
+}
+
+.job-card .employer-logo {
+    width: 50px !important;
+    height: 55px !important;
+    background-color: rgb(183, 193, 241) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+.job-card .like-button {
+    background-color: rgb(183, 193, 241) !important;
+    padding: 5px !important;
+    height: 45px !important;
+    width: 45px !important;
+    border-radius: 50% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+.job-card .description {
+    font-size: 14px !important;
+    text-align: left !important;
+    color: gray !important;
+}
+
+.job-card .job-role p {
+    font-size: 16px !important;
+    font-weight: bold !important;
+    line-height: 60% !important;
+}
+
+.job-card .job-role small {
+    font-size: 12px !important;
+    color: #6c757d !important;
+}
+
+.job-card .job-role {
+    margin-bottom: 10px !important;
+    margin-top: 10px !important;
+}
+
+.job-card .salary {
+    font-size: 14px !important;
+}
+
+/* .organization {
+    width: 55% !important;
+} */
+
+.organization small {
+    font-size: 12px !important;
+    color: #6c757d !important;
+}
+
+.job-card .cfooter {
+    margin-top: 20px !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+}
+
+.job-card .cfooter .cbutton {
+    padding: 6px 16px !important;
+    border-radius: 5px !important;
+    border: none !important;
+    background-color: #7954ffff !important;
+    color: white !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease-in-out !important;
+}
+
+.job-card .cfooter .cbutton:hover {
+    background-color: rgb(90, 68, 168) !important;
+}
+
+@media screen and (max-width: 500px){
+    .card-body{
+        padding: 0;
+    }
+}

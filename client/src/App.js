@@ -8,6 +8,9 @@ import AllRoutes from './AllRoutes';
 
 function Navigation() {
   const location = useLocation();
+  if (location.pathname.includes('superadmin')) {
+    return null;
+  }
   return location.pathname.includes('recruiter') ? <RecruiterNavbar /> : <Navbar />;
 }
 
@@ -15,8 +18,9 @@ function App() {
   return (
     <div className='App'>
       <Router>
-          <Navigation />
-          <AllRoutes />
+        <Navigation />
+        <AllRoutes />
+
       </Router>
     </div>
 

@@ -13,8 +13,7 @@ const JobsLanding = () => {
         </NavLink>
         <NavLink to='/alljobs'> 
             <button className='btn btn-info ml-3'> All Jobs </button>
-        </NavLink>
-        
+        </NavLink>        
     </div>
   )
 }
