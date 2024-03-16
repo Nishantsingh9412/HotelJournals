@@ -45,8 +45,8 @@ const AllJobs = () => {
 
     const [AllFilters, setAllFilters] = useState({
         yearsOfExperience: '',
-        salaryMin: null,
-        salaryMax: null,
+        salaryMin: '',
+        salaryMax: '',
         salarySpecification: '',
         jobDesignation: '',
         locationType: '',
@@ -94,7 +94,7 @@ const AllJobs = () => {
 
         const response = await axios.get('https://api.countrystatecity.in/v1/countries', {
             headers: {
-                'X-CSCAPI-KEY':process.env.REACT_APP_CSC_API_KEY
+                'X-CSCAPI-KEY': process.env.REACT_APP_CSC_API_KEY
             }
         });
         console.log('countres')
@@ -113,7 +113,7 @@ const AllJobs = () => {
         setStatesLoading(true);
         const response = await axios.get(`https://api.countrystatecity.in/v1/countries/${selectedCountry}/states`, {
             headers: {
-                'X-CSCAPI-KEY':process.env.REACT_APP_CSC_API_KEY
+                'X-CSCAPI-KEY': process.env.REACT_APP_CSC_API_KEY
             }
         });
         if (response) {
@@ -132,7 +132,7 @@ const AllJobs = () => {
         setCitiesLoading(true);
         const response = await axios.get(`https://api.countrystatecity.in/v1/countries/${selectedCountry}/states/${selectedState}/cities`, {
             headers: {
-                'X-CSCAPI-KEY':process.env.REACT_APP_CSC_API_KEY
+                'X-CSCAPI-KEY': process.env.REACT_APP_CSC_API_KEY
             }
         });
 
@@ -224,12 +224,21 @@ const AllJobs = () => {
     const handleApplyFilter = async () => {
         console.log('All Filters')
         console.log(AllFilters);
-        const params = new URLSearchParams(AllFilters).toString();
-        console.log('Params : \n', params)
-        const response = await fetch(`http://localhost:5000/jobs/filter?${params}`);
+        const params = new URLSearchParams();
+        // console.log('Params : \n', params)
+        for (let key in AllFilters){
+            if(key !== 'citiesFilter'){
+                params.append(key, AllFilters[key]);
+            }
+        }
+        console.log('Params : \n', params.toString());
+        const response = await 
+        fetch(`http://localhost:5000/jobs/filter?${params.toString()}&citiesFilter=${AllFilters.citiesFilter}`);
         const data = await response.json();
         console.log('Filtered Data');
         console.log(data);
+        console.log('cities Data');
+        console.log(AllFilters.citiesFilter);
     }
 
     const handleClearFilter = () => {
@@ -241,7 +250,7 @@ const AllJobs = () => {
         <>
 
             {/* Testing Starts */}
-            <div className='form-row mt-3'>
+            {/* <div className='form-row mt-3'>
                 <label htmlFor="select countries">
                     Select Countries
                 </label>
@@ -279,12 +288,7 @@ const AllJobs = () => {
                     }}
                 />
 
-            </div>
-
-
-
-
-
+            </div> */}
             {/* Testing End */}
             <div className='mb-5'>
                 <ToastContainer />
@@ -435,7 +439,7 @@ const AllJobs = () => {
                                 </div>
                             </div>
                             <label htmlFor="jobType mt-4"> Select Location </label>
-                            <div className="form-row mt-2">
+                            {/* <div className="form-row mt-2">
                                 <div className="col-md-4">
                                     <label htmlFor="Country"> Country </label>
                                     <select className='form-control'>
@@ -462,6 +466,52 @@ const AllJobs = () => {
                                             setAllFilters({ ...AllFilters, citiesFilter: selectedOps.map((city) => city.value) })
                                         }}
                                     />
+                                </div>
+                            </div> */}
+                            <div className='form-row mt-3'>
+                                <div className="col-md-4">
+                                    <label htmlFor="select countries">
+                                        Country
+                                    </label>
+                                    <Select
+                                        options={countriesAll?.map((country) => country)}
+                                        onChange={(e) => {
+                                            setSelectedCountry(e.iso2);
+                                            console.log('Selected Country : ', e.iso2);
+                                        }}
+                                    />
+                                </div>
+                                <div className="col-md-4">
+                                    <label htmlFor="select state">
+                                        State
+                                    </label>
+                                    <Select
+                                        options={statesAll?.map((state) => state)}
+                                        isDisabled={statesLoading}
+                                        isLoading={statesLoading}
+                                        onChange={(e) => {
+                                            setSelectedState(e.iso2);
+                                            console.log('Selected Country : ', e.iso2);
+                                        }}
+                                    />
+                                </div>
+                                <div className='col-md-4'>
+                                    <label htmlFor="select cities">
+                                        Cities
+                                    </label>
+                                    <Select
+                                        options={citiesAll?.map((city) => city)}
+                                        isDisabled={citiesLoading}
+                                        isLoading={citiesLoading}
+                                        isMulti
+                                        onChange={(selectedOps) => {
+                                            setSelectedCity(selectedOps.map((city) => city.value));
+                                            setAllFilters({ ...AllFilters, citiesFilter:selectedOps.map((city) => city.value)})
+                                        }}
+                                    />
+                                    {/* onChange={(selectedOps) => {
+                                            setAllFilters({ ...AllFilters, citiesFilter: selectedOps.map((city) => city.value) })
+                                        }} */}
                                 </div>
                             </div>
                             <div className='d-flex justify-content-end m-4' >

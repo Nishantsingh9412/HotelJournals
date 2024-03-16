@@ -4,80 +4,93 @@ import RecruiterProfile from "../models/profiles/recruiter.js";
 import Jobs from '../models/jobs.js'
 import User from "../models/auth.js";
 
-export const filterJobs = async (req,res) => {
+export const filterJobs = async (req, res) => {
     try {
         const {
-          yearsOfExperience,
-          salaryMin,
-          salaryMax,
-          salarySpecification,
-          jobDesignation,
-          locationType,
-          citiesFilter,
+            yearsOfExperience,
+            salaryMin,
+            salaryMax,
+            salarySpecification,
+            jobDesignation,
+            locationType,
+            citiesFilter,
         } = req.query;
-    
+
+        console.log("yearsOfExperience", yearsOfExperience);
+        console.log("salaryMin", salaryMin);
+        console.log("salaryMax", salaryMax);
+        console.log("salarySpecification", salarySpecification);
+        console.log("jobDesignation", jobDesignation);
+        console.log("locationType", locationType);
+        console.log("citiesFilter", citiesFilter);
+
+
         // Build the filter object
         const filter = {};
-    
+
         if (yearsOfExperience) {
-          filter.yearsOfExperience = { $gte: yearsOfExperience };
+            filter.workExperienceMax = { $lte: yearsOfExperience };
         }
-    
-        if (salaryMin && salaryMax) {
-          filter.salary = { $gte: salaryMin, $lte: salaryMax };
+
+        if (salaryMin) {
+            filter.salaryStart = { $gte: salaryMin };
         }
-    
+
+        if (salaryMax) {
+            filter.salaryEnd = { $lte: salaryMax };
+        }
+
         if (salarySpecification) {
-          filter.salarySpecification = salarySpecification;
+            filter.salarySpecification = salarySpecification;
         }
-    
+
         if (jobDesignation) {
-          filter.jobDesignation = jobDesignation;
+            filter.jobTitle = jobDesignation;
         }
-    
+
         if (locationType) {
-          filter.locationType = locationType;
+            filter.jobType = locationType;
         }
-    
+
         if (citiesFilter) {
-          filter.city = { $in: citiesFilter };
+            filter.jobLocation = { $in: citiesFilter };
         }
-    
+
         // Find the jobs that match the filter criteria
         const jobsFinded = await Jobs.find(filter);
-    
+
         // Send the filtered jobs as the response
         res.status(200).json({ success: true, message: 'Jobs Filtered Successfully', result: jobsFinded });
         // res.json(jobs);
-      } catch (err) {
+    } catch (err) {
         res.status(500).json({ success: false, message: err.message });
-      }
+    }
 }
 
 export const updateCandidateStatus = async (req, res) => {
-        const { jobId, userId, status } = req.body;
-        if (!mongoose.Types.ObjectId.isValid(jobId) || !mongoose.Types.ObjectId.isValid(userId)) {
-            return res.status(400).json({ success: false, message: 'Invalid ID' })
+    const { jobId, userId, status } = req.body;
+    if (!mongoose.Types.ObjectId.isValid(jobId) || !mongoose.Types.ObjectId.isValid(userId)) {
+        return res.status(400).json({ success: false, message: 'Invalid ID' })
+    }
+    try {
+        let applicantStatus = await Jobs.findOneAndUpdate(
+            { _id: jobId, "applicants.user": userId },
+            {
+                $set: {
+                    "applicants.$.status": status
+                }
+            },
+            { new: true, runValidators: true }
+        );
+        if (!applicantStatus) {
+            return res.status(404).json({ success: false, message: 'Job not found' });
         }
-        try {
-            let applicantStatus = await Jobs.findOneAndUpdate(
-                { _id: jobId, "applicants.user": userId },
-                {
-                    $set: {
-                        "applicants.$.status": status
-                    }
-                },
-                { new: true ,  runValidators: true }
-            );
-            if(!applicantStatus) {
-                return res.status(404).json({ success: false, message: 'Job not found' });
-            }
-            applicantStatus = await Jobs.populate(applicantStatus, { path: 'applicants.user' });
-            res.status(200).json({ success: true, message: 'Candidate status updated successfully', result: applicantStatus });
-        } catch (error) {
-            console.log("Error from updateCandidateStatus Controller ", error.message)
-            res.status(500).json({ success: false, message: error.message });
-        }
+        applicantStatus = await Jobs.populate(applicantStatus, { path: 'applicants.user' });
+        res.status(200).json({ success: true, message: 'Candidate status updated successfully', result: applicantStatus });
+    } catch (error) {
+        console.log("Error from updateCandidateStatus Controller ", error.message)
+        res.status(500).json({ success: false, message: error.message });
+    }
 }
 
 export const applyJob = async (req, res) => {
@@ -139,9 +152,9 @@ export const postJobs = async (req, res) => {
             return res.status(400).json({ success: false, message: "Please Fill all the fieldsssss" });
         }
         else {
-            const recruiterCompanyLogo = await RecruiterProfile.findOne({created_by:created_by}).select('company_logo');
-            if(!recruiterCompanyLogo){
-                console.log("No Company Logo Found")            
+            const recruiterCompanyLogo = await RecruiterProfile.findOne({ created_by: created_by }).select('company_logo');
+            if (!recruiterCompanyLogo) {
+                console.log("No Company Logo Found")
             }
             const newJob = await Jobs.create({
                 jobTitle: job_title,
@@ -211,12 +224,12 @@ export const getAllJobs = async (req, res) => {
     } catch (error) {
         res.status(500).json({ success: false, message: error.message });
     }
-}   
+}
 
 export const getSingleJob = async (req, res) => {
     try {
         const { id } = req.params;
-        const singleJob = await Jobs.findById(id).populate('applicants.user','-password -joinedOn')
+        const singleJob = await Jobs.findById(id).populate('applicants.user', '-password -joinedOn')
         res.status(200).json({ success: true, message: 'Single Job Data', result: singleJob })
     } catch (err) {
         res.status(500).json({ success: false, message: err.message })
