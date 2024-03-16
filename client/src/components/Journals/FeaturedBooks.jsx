@@ -7,45 +7,132 @@ import book7 from '../../assets/img/book7.jpg'
 import book8 from '../../assets/img/book8.jpg'
 import bookLarge from '../../assets/img/book_large.png'
 
-const bookStyleTopBooks = {
-    height: '16vw',
-    boxShadow: "rgb(22, 27, 27) 2px 4px 10px",
-    borderRadius: '2%',
-}
+import style from './FeaturedBooks.module.css'
+import './Books.css'
+
 
 
 const FeaturedBooks = () => {
     return (
-        <div className='container-fluid'>
-            <div className='pt-4 ml-5 pl-4'>
+        <div className='container' style={{ maxWidth: "90%" }}>
+            <div className='pt-4 ml-5 featured-books-container'>
                 <h3> Featured Books </h3>
                 <hr className='' style={{ border: '2px solid black', width: '10vw', }} />
                 <span className='p-0 m-0'> Handpicks need just for you   </span>
 
-                <div className='row pt-5'>
-                    <div className='col'>
-                        <div style={{ display:"flex"}}>
-                            <img src={book4} className='img-responsive' alt="book1" style={bookStyleTopBooks} />
-                            <div className='pt-4' style={{ textAlign: 'left',  paddingLeft:'1vw'}}>
-                                <h5>Creador</h5>
-                                <div>
-                                    <i className="fa-regular fa-star" ></i>
-                                    <i className="fa-regular fa-star"></i>
-                                    <i className="fa-regular fa-star"></i>
-                                    <i className="fa-regular fa-star"></i>
-                                    <i className="fa-regular fa-star"></i>
-                                </div>
-                                <div className='mt-1'>
-                                    In Stock
-                                </div>
-                                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Adipisci, deserunt?</p>
 
+                {/* main row for featured books */}
+                <div className='row main-row-featured-books pt-3 flex-wrap-reverse justify-content-center'>
+                    {/* small Books */}
+                    <div className='col-md-8 col-sm-12'>
+
+                        {/* sub row for featured books */}
+                        <div className="row featured-books-row align-items-center justify-content-around">{/* row start */}
+                            {/* card 1 start */}
+                            <div className='mb-4 book-card' style={{ display: "flex", }}>
+                                <img src={book4}
+                                    className={`${style.bookStyleTopBooks} img-responsive`}
+                                    alt="book1"
+                                />
+                                <div className='pt-4' style={{ textAlign: 'left', paddingLeft: '1vw' }}>
+                                    <h5>Creador</h5>
+                                    <div>
+                                        <i className="fa-regular fa-star" ></i>
+                                        <i className="fa-regular fa-star"></i>
+                                        <i className="fa-regular fa-star"></i>
+                                        <i className="fa-regular fa-star"></i>
+                                        <i className="fa-regular fa-star"></i>
+                                    </div>
+                                    <div className='mt-1'>
+                                        In Stock
+                                    </div>
+                                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Adipisci, deserunt?</p>
+
+                                </div>
                             </div>
-                        </div>
 
-                        <div style={{ display:"flex",marginTop:'10vw'}}>
-                            <img src={book5} className='img-responsive' alt="book1" style={bookStyleTopBooks} />
-                            <div  className='pt-4' style={{ textAlign: 'left', paddingLeft:'1vw' }}>
+                            {/* card 2 start */}
+                            <div className='mb-4 book-card' style={{ display: "flex", }}>
+                                <img
+                                    src={book5}
+                                    className={`${style.bookStyleTopBooks} img-responsive`}
+                                    alt="book1"
+                                />
+                                <div className='pt-4' style={{ textAlign: 'left', paddingLeft: '1vw' }}>
+                                    <h5>Front Office Agenda</h5>
+                                    <div>
+                                        <i className="fa-regular fa-star" ></i>
+                                        <i className="fa-regular fa-star"></i>
+                                        <i className="fa-regular fa-star"></i>
+                                        <i className="fa-regular fa-star"></i>
+                                        <i className="fa-regular fa-star"></i>
+                                    </div>
+                                    <div className='mt-1'>
+                                        In Stock
+                                    </div>
+                                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Adipisci, deserunt?</p>
+
+                                </div>
+                            </div>
+
+                            {/* card 3 start */}
+                            <div className='mb-4 book-card' style={{ display: "flex", }}>
+                                <img
+                                    src={book6}
+                                    className={`${style.bookStyleTopBooks} img-responsive`}
+                                    alt="book1"
+                                />
+                                <div className='pt-4' style={{ textAlign: 'left', paddingLeft: '1vw' }}>
+                                    <h5>Front Office Agenda</h5>
+                                    <div>
+                                        <i className="fa-regular fa-star" ></i>
+                                        <i className="fa-regular fa-star"></i>
+                                        <i className="fa-regular fa-star"></i>
+                                        <i className="fa-regular fa-star"></i>
+                                        <i className="fa-regular fa-star"></i>
+                                    </div>
+                                    <div className='mt-1'>
+                                        In Stock
+                                    </div>
+                                    <p>ipsum dolor sit amet consectetur adipisicing elit. Adipisci, deserunt?</p>
+
+                                </div>
+                            </div>
+                            {/* card 4 start */}
+                            <div className='mb-4 book-card' style={{ display: "flex", }}>
+                                <img
+                                    src={book7}
+                                    className={`${style.bookStyleTopBooks} img-responsive`} 
+                                    alt="book1"
+                                />
+                                <div className='pt-4' style={{ textAlign: 'left', paddingLeft: '1vw' }}>
+                                    <h5>Front Office Agenda</h5>
+                                    <div>
+                                        <i className="fa-regular fa-star" ></i>
+                                        <i className="fa-regular fa-star"></i>
+                                        <i className="fa-regular fa-star"></i>
+                                        <i className="fa-regular fa-star"></i>
+                                        <i className="fa-regular fa-star"></i>
+                                    </div>
+                                    <div className='mt-1'>
+                                        In Stock
+                                    </div>
+                                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Adipisci, deserunt?</p>
+
+                                </div>
+                            </div>
+                        </div>{/* row end */}
+
+                    </div>
+
+
+                    {/* column for large book */}
+                    <div className='col-md-3 col-sm-12 large-book-col '>
+                        <div style={{ display: "flex", justifyContent: "flex-start", flexWrap: 'wrap' }}>
+
+                            {/* large book image */}
+                            <img src={bookLarge} className='img-responsive large-book-image' alt="book1" style={{ boxShadow: "rgb(22, 27, 27) 2px 4px 10px", borderRadius: '2%', }} />
+                            <div className='pt-4'>
                                 <h5>Front Office Agenda</h5>
                                 <div>
                                     <i className="fa-regular fa-star" ></i>
@@ -63,71 +150,9 @@ const FeaturedBooks = () => {
                         </div>
                     </div>
 
-                    <div className='col'>
-                        <div style={{ display:"flex"}}>
-                            <img src={book6} className='img-responsive' alt="book1" style={bookStyleTopBooks} />
-                            <div  className='pt-4' style={{ textAlign: 'left', paddingLeft:'1vw'}}>
-                                <h5>Front Office Agenda</h5>
-                                <div>
-                                    <i className="fa-regular fa-star" ></i>
-                                    <i className="fa-regular fa-star"></i>
-                                    <i className="fa-regular fa-star"></i>
-                                    <i className="fa-regular fa-star"></i>
-                                    <i className="fa-regular fa-star"></i>
-                                </div>
-                                <div className='mt-1'>
-                                    In Stock
-                                </div>
-                                <p>ipsum dolor sit amet consectetur adipisicing elit. Adipisci, deserunt?</p>
 
-                            </div>
-                        </div>
 
-                        <div style={{ display:"flex",marginTop:'10vw'}}>
-                            <img src={book7} className='img-responsive' alt="book1" style={bookStyleTopBooks} />
-                            <div  className='pt-4' style={{ textAlign: 'left',  paddingLeft:'1vw' }}>
-                                <h5>Front Office Agenda</h5>
-                                <div>
-                                    <i className="fa-regular fa-star" ></i>
-                                    <i className="fa-regular fa-star"></i>
-                                    <i className="fa-regular fa-star"></i>
-                                    <i className="fa-regular fa-star"></i>
-                                    <i className="fa-regular fa-star"></i>
-                                </div>
-                                <div className='mt-1'>
-                                    In Stock
-                                </div>
-                                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Adipisci, deserunt?</p>
 
-                            </div>
-                        </div>
-                    </div>
-                    
-
-                    <div className='col mr-4'>
-                        <div style={{ display:"flex",justifyContent: "flex-start",flexWrap: 'wrap'}}>
-                            <img src={bookLarge} className='img-responsive' alt="book1" style={{ boxShadow: "rgb(22, 27, 27) 2px 4px 10px",borderRadius: '2%',}} />
-                            <div  className='pt-4' style={{ textAlign: 'left', }}>
-                                <h5>Front Office Agenda</h5>
-                                <div>
-                                    <i className="fa-regular fa-star" ></i>
-                                    <i className="fa-regular fa-star"></i>
-                                    <i className="fa-regular fa-star"></i>
-                                    <i className="fa-regular fa-star"></i>
-                                    <i className="fa-regular fa-star"></i>
-                                </div>
-                                <div className='mt-1'>
-                                    In Stock
-                                </div>
-                                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Adipisci, deserunt?</p>
-
-                            </div>
-                        </div>
-                    </div>            
-                
-
-                    
-                    
 
 
                 </div>

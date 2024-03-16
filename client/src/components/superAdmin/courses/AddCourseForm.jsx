@@ -3,7 +3,7 @@ import Select from 'react-select'
 import toast, { Toaster } from 'react-hot-toast';
 import { useNavigate } from "react-router-dom";
 
-import languages from './languages'
+import languages from '../../admin/AdminCourses/languages.js'
 import { useDispatch } from 'react-redux';
 import { SetCourse } from '../../../redux/actions/courseAdmin';
 
@@ -15,11 +15,9 @@ import { SetCourse } from '../../../redux/actions/courseAdmin';
 // ]
 
 
-const CreateCourse = () => {
-
+const AddCourseForm = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-
 
     const [courseTitle, setCourseTitle] = useState('');
     const [courseDesc, setCourseDesc] = useState('');
@@ -55,16 +53,11 @@ const CreateCourse = () => {
 
     useEffect(() => {
         setCourseDuration(courseDurationValue + " " + courseDurationUnit);
-        if (storedProfile?.result?.userType !== 'educator' || !storedProfile?.result === null) {
-            navigate('/login');
-            // toast.error('You are not authorized to access this page');
-        }
-    }, [courseDurationValue, courseDurationUnit, navigate])
-
-
-
-
-
+        // if (storedProfile?.result?.userType !== 'educator' || !storedProfile?.result === null) {
+        //     navigate('/login');
+        //     // toast.error('You are not authorized to access this page');
+        // }
+    }, [courseDurationValue, courseDurationUnit])
 
     const postThumbnail = (pics) => {
         setLoading(true);
@@ -75,6 +68,8 @@ const CreateCourse = () => {
         if (pics.type !== 'image/jpeg' && pics.type !== 'image/png') {
             toast.error('Invalid image format');
             return;
+        } if (pics.size > 1000000) {
+            return toast.error('Thumbnail size should be less than 1 MB ')
         }
         const data = new FormData();
         data.append('file', pics);
@@ -103,6 +98,9 @@ const CreateCourse = () => {
             toast.error('Invalid image format');
             return;
         }
+        if (pics.size > 1000000) {
+            return toast.error('Logo size should be less than 1 MB ')
+        }
         const data = new FormData();
         data.append('file', pics);
         data.append('upload_preset', 'Hotel_Journals_app');
@@ -120,12 +118,19 @@ const CreateCourse = () => {
         })
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async(e) => {
         e.preventDefault();
         console.log(courseTitle, courseDesc, courseLanguage, courseLink, courseFormat, isFree, coursePrice, courseDuration, courseCompany, picThumb, picLogo);
         if (!courseTitle || !difficulty || !courseDesc || courseLanguage.length === 0 || !courseLink || !courseFormat || isFree === null || (isFree === false && coursePrice === "")
             || !courseDurationValue || !courseDurationUnit || !courseCompany || !courseCategory || !courseType || !picThumb || !picLogo) {
             return toast.error('Please fill all fields');
+        }
+
+        if (picThumb.size > 1000000) {
+            return toast.error('Thumbnail size should be less than 1 MB ')
+        }
+        if (picLogo.size > 1000000) {
+            return toast.error('Logo size should be less than 1 MB ')
         }
         if (courseDesc.length < 200) {
             return toast.error('Course Description must be more than 200 characters');
@@ -153,9 +158,14 @@ const CreateCourse = () => {
             created_by: storedProfileUserID,
         };
 
-        const response = dispatch(SetCourse(courseData));
-        console.log("This is response.path  " + response.path);
-        toast.success('Course Posted Successfully');
+        const response = await dispatch(SetCourse(courseData));
+        if(response.success){
+            console.log("This is response.path  " + response.path);
+            navigate('/superadmin/courses')
+            toast.success(response.message);
+        }else{
+            toast.error(response.message);
+        }
     }
 
 
@@ -164,7 +174,7 @@ const CreateCourse = () => {
         <>
             <div className="container mt-4 mb-3">
                 <Toaster />
-                <form>
+                <form onSubmit={handleSubmit}>
                     <div className="form-group">
                         <label htmlFor="course_title">Course Title</label>
                         <input
@@ -288,6 +298,7 @@ const CreateCourse = () => {
                         <div className="form-group col-md-4">
                             <label htmlFor="inputState">Course Duration Value</label>
                             <input
+                                min={0}
                                 type="number"
                                 className="form-control"
                                 placeholder="4.5"
@@ -295,7 +306,7 @@ const CreateCourse = () => {
                             />
                         </div>
 
-                        
+
                         <div className="form-group col-md-2">
                             <label htmlFor="inputState"> Duration Unit </label>
                             <select
@@ -362,18 +373,24 @@ const CreateCourse = () => {
                     </div>
                     <div className="form-row">
                         <div className="form-group col-md-6">
-                            <label htmlFor="inputZip">Course Thumbnail </label>
+                            <label htmlFor="inputZip">Course Thumbnail (Image should be less than 1 MB)
+                                <small className='text-danger'> * </small>
+                            </label>
                             <input
                                 type="file"
+                                accept='image/*'
                                 className="form-control"
                                 onChange={(e) => postThumbnail(e.target.files[0])}
                             />
                         </div>
-
+                        
                         <div className="form-group col-md-6">
-                            <label htmlFor="inputZip">Company Logo</label>
+                            <label htmlFor="inputZip">Company Logo (Image should be less than 1 MB)
+                                <small className='text-danger'> * </small>
+                            </label>
                             <input
                                 type="file"
+                                accept='image/*'
                                 className="form-control"
                                 onChange={(e) => postLogo(e.target.files[0])}
                             />
@@ -383,7 +400,6 @@ const CreateCourse = () => {
                     <button
                         type="submit"
                         className="mt-3 btn btn-success w-100"
-                        onClick={handleSubmit}
                         disabled={loading}
                     >
                         {loading ? "Loading..." : "Publish"}
@@ -394,4 +410,4 @@ const CreateCourse = () => {
     )
 }
 
-export default CreateCourse
+export default AddCourseForm

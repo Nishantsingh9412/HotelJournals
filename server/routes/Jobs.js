@@ -7,10 +7,14 @@ import {
     getAllJobs,
     getSingleJob,
     postJobs,
-    updateCandidateStatus
+    updateCandidateStatus,
+    filterJobs
 } from '../controllers/jobs.js';
 
 const router = express.Router();
+
+// Create Filter Section 
+router.get('/filter',filterJobs)
 
 // Update candidate status
 router.patch('/updatestatus', updateCandidateStatus)

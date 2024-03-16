@@ -26,7 +26,7 @@ import AllJobs from './components/Jobs/AllJobs';
 import ParticularJob from './components/Jobs/ParticularJob';
 import ManageParticularJob from './components/Jobs/ManageParticularJob';
 import FinalizeCandidates from './components/Jobs/FinalizeCandidates';
-import HotelLandingpage from './components/Hotel_Journals_Landing_page/HotelLandingpage';
+import HotelLandingpage from './components/Hotel_Journals_Landing_page/HotelLandingPage';
 import JobDescription from './components/Job_Description/JobDescription2';
 import ProfileWrapper from './components/Miscellaneous/ProfileWrapper';
 import Job_search from './components/Job_search/Job_search';
@@ -44,11 +44,18 @@ import ManageAllJobs from './components/admin/RecruiterDashboard/ManageAllJobs';
 import ImageCropperReal from './components/Recruiters_profile/ImageCropperReal';
 import Jobs from './components/Jobs/JobsLanding/Jobs';
 import SuperAdmin from './components/superAdmin/SuperAdmin';
+import TipsSuperAdmin from './components/superAdmin/TipsSuperAdmin';
+import AddTipSuperAdmin from './components/superAdmin/AddTipSuperAdmin';
+import TipEditSuperAdmin from './components/superAdmin/TipEditSuperAdmin';
+import CourseSuperAdmin from './components/superAdmin/courses/CourseSuperAdmin';
+import AddCourseSA from './components/superAdmin/courses/AddCourseSA';
+import EditCourse from './components/superAdmin/courses/EditCourse';
 
 const AllRoutes = () => {
   return (
         <Routes > 
-            <Route  path='/' element={< Home/>}> </Route>
+            {/* <Route  path='/' element={< Home/>}> </Route> */}
+            <Route path='/' element={<HotelLandingpage /> } > </Route>
             <Route path='/about' element = {< About/>}>  </Route>
             <Route path='/tips' element={<Tips />} >  </Route>
             <Route path='/journals' element={<JournalsPage />} > </Route>
@@ -91,7 +98,7 @@ const AllRoutes = () => {
 
     
             {/* // Temporary Route for testing */}
-            <Route path='/HotelLandingpage' element={<HotelLandingpage /> } > </Route>
+            {/* <Route path='/HotelLandingpage' element={<HotelLandingpage /> } > </Route> */}
             <Route path='/JobDescription' element={<JobDescription /> } > </Route>
             <Route path='/jobsMainPage' element={<Job_search/> } > </Route>
             {/* <Route path='/Dashboardnew/' element={<Dashboardd />} > </Route> */}
@@ -102,8 +109,17 @@ const AllRoutes = () => {
             <Route path='/test/resume' element={<Resume /> } > </Route>
             <Route path='/test/showtable' element = {<ShowApplicantsTable />} > </Route>
 
+                {/* SuperAdmin Dashboard */}
+                {/* Tips */}
             <Route path='/superadmin' element={<SuperAdmin />} > </Route>
-            
+            <Route path='/superadmin/tips' element={<TipsSuperAdmin />} > </Route>
+            <Route path='/superadmin/tips/post' element={<AddTipSuperAdmin />} > </Route>
+            <Route path='/superadmin/tips/update/:id' element={<TipEditSuperAdmin />} > </Route>
+                {/* Courses */}
+            <Route path='/superadmin/courses' element={<CourseSuperAdmin />} > </Route>
+            <Route path='/superadmin/courses/post' element={<AddCourseSA />} > </Route>
+            <Route path='/superadmin/courses/update/:id' element={<EditCourse />} > </Route>
+
             {/* Routes for recruiter dashboard */}
             <Route path='/test/recruiter/sidebarNew' element = {<RecruiterSidebar />} > </Route>
             <Route path='/test/recruiter/sidebar' element = {<Sidebar />} > </Route>

@@ -3,11 +3,11 @@ import Select from 'react-select'
 import toast, { Toaster } from 'react-hot-toast';
 import { useNavigate, useParams } from "react-router-dom";
 
-import languages from './languages'
+import languages from '../../admin/AdminCourses/languages.js'
 import { useDispatch, useSelector } from 'react-redux';
 import { GetCourseSingle, UpdateCourseAction } from '../../../redux/actions/courseAdmin';
 
-const UpdateCourse = () => {
+const EditCourseForm = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { id } = useParams();
@@ -52,13 +52,6 @@ const UpdateCourse = () => {
     console.log(` UPDATECOURSE.JSX`, singleCourse);
     const [hasUserChangedValue, setHasUserChangedValue] = useState(false);
 
-
-
-
-
-
-
-
     useEffect(() => {
         if (singleCourse?.result) {
             setCourseTitle(singleCourse?.result?.title);
@@ -72,11 +65,9 @@ const UpdateCourse = () => {
             setCoursePrice(singleCourse?.result?.price);
             if (singleCourse?.result?.duration) {
                 const [value, unit] = singleCourse.result.duration.split(' ');
-
                 if (value) {
                     setCourseDurationValue(parseFloat(value));
                 }
-
                 if (unit) {
                     setCourseDurationUnit(unit);
                 }
@@ -108,17 +99,23 @@ const UpdateCourse = () => {
 
     useEffect(() => {
         setCourseDuration(courseDurationValue + " " + courseDurationUnit);
-    },[courseDurationValue, courseDurationUnit])
+    }, [courseDurationValue, courseDurationUnit])
 
 
     const postThumbnail = (pics) => {
         setLoading(true);
         if (pics === undefined) {
             toast.error("This didn't work.")
+            setLoading(false);
             return;
         }
         if (pics.type !== 'image/jpeg' && pics.type !== 'image/png') {
             toast.error('Invalid image format');
+            setLoading(false);
+            return;
+        }if(pics.size > 1000000){
+            toast.error('Image size should be less than 1 MB');
+            setLoading(false);
             return;
         }
         const data = new FormData();
@@ -142,10 +139,17 @@ const UpdateCourse = () => {
         setLoading(true);
         if (pics === undefined) {
             toast.error("This didn't work.")
+            setLoading(false);
             return;
         }
         if (pics.type !== 'image/jpeg' && pics.type !== 'image/png') {
             toast.error('Invalid image format');
+            setLoading(false);
+            return;
+        }
+        if(pics.size > 1000000){
+            toast.error('Image size should be less than 1 MB');
+            setLoading(false);
             return;
         }
         const data = new FormData();
@@ -165,21 +169,29 @@ const UpdateCourse = () => {
         })
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
+        setLoading(true)
         // console.log(courseTitle, courseDesc, courseLanguage, courseLink, courseFormat, isFree,
-            // coursePrice, courseDuration, courseCompany,  picThumb, picLogo);
-        if (!courseTitle || !difficulty || !courseDesc || courseLanguage.length === 0 || !courseLink || !courseFormat || isFree === null ||  (isFree === false && coursePrice === "")
-            || !courseDurationValue || !courseDurationUnit || !courseCompany || !courseCategory || !courseType ||  !picThumb || !picLogo ) {
+        // coursePrice, courseDuration, courseCompany,  picThumb, picLogo);
+        if (!courseTitle || !difficulty || !courseDesc || courseLanguage.length === 0 || !courseLink || !courseFormat || isFree === null || (isFree === false && coursePrice === "")
+            || !courseDurationValue || !courseDurationUnit || !courseCompany || !courseCategory || !courseType || !picThumb || !picLogo) {
+            setLoading(false);
             return toast.error('Please fill all fields');
         }
         if (courseDesc.length < 200) {
+            setLoading(false);
             return toast.error('Course Description must be more than 200 characters');
         }
-        if(isFree){
+        if (isFree) {
             setCoursePrice(0);
-        }if(!isValidURL(courseLink)){
+        } if (!isValidURL(courseLink)) {
+            setLoading(false);
             return toast.error(' Enter a Valid Course Link');
+        }if(picThumb.size > 1000000 || picLogo.size > 1000000){
+            setLoading(false);
+            toast.error('Image size should be less than 1 MB');
+            return;
         }
 
         const courseData = {
@@ -200,9 +212,15 @@ const UpdateCourse = () => {
             // created_by:storedProfileUserID,
         };
 
-        const response = dispatch(UpdateCourseAction(id, courseData));
-        console.log("This is response.path  " + response.path);
-        toast.success('Course Updated Successfully');
+        const response = await dispatch(UpdateCourseAction(id, courseData));
+        if (response.success) {
+            // console.log("This is response.path  " + response.path);
+            toast.success(response.message);
+            navigate('/superadmin/courses');
+        } else {
+            toast.error(response.message);
+        }
+        setLoading(false);
     }
 
 
@@ -211,7 +229,6 @@ const UpdateCourse = () => {
 
     return (
         <div className='container mt-4 mb-3'>
-            <h2 className='text-center mb-4'> Update Course </h2>
             <Toaster />
             <form onSubmit={handleSubmit}>
                 <div class="form-row">
@@ -269,11 +286,11 @@ const UpdateCourse = () => {
                         <label htmlFor="course_option"> Is this course free <small className='text-danger'> * </small> </label>
                         <div className='col-md-2'>
                             <div class="custom-control custom-radio">
-                                <input type="radio" id="freeYes" name="isFree" defaultChecked className="custom-control-input" onChange={() => {setIsFree(true) ; setCoursePrice(''); } } />
+                                <input type="radio" id="freeYes" name="isFree" defaultChecked className="custom-control-input" onChange={() => { setIsFree(true); setCoursePrice(''); }} />
                                 <label class="custom-control-label" for="freeYes">Yes</label>
                             </div>
                             <div class="custom-control custom-radio">
-                                <input type="radio" id="freeNo" name="isFree"  className="custom-control-input" onChange={() => setIsFree(false)} />
+                                <input type="radio" id="freeNo" name="isFree" className="custom-control-input" onChange={() => setIsFree(false)} />
                                 <label class="custom-control-label" for="freeNo">No</label>
                             </div>
                         </div>
@@ -359,13 +376,25 @@ const UpdateCourse = () => {
 
                 <div className='form-row'>
                     <div class="form-group col-md-6">
-                        <label htmlFor="inputZip">Course Thumbnail </label>
-                        <input type="file" class="form-control" onChange={(e) => postThumbnail(e.target.files[0])} />
+                        <label htmlFor="inputZip"> Course Thumbnail
+                            
+                        </label>
+                        <input
+                            type="file"
+                            accept='image/*'
+                            className="form-control"
+                            onChange={(e) => postThumbnail(e.target.files[0])}
+                        />
                     </div>
 
                     <div class="form-group col-md-6">
                         <label htmlFor="inputZip">Company Logo</label>
-                        <input type="file" class="form-control" onChange={(e) => postLogo(e.target.files[0])} />
+                        <input
+                            type="file"
+                            accept='image/*'
+                            className="form-control"
+                            onChange={(e) => postLogo(e.target.files[0])}
+                        />
                     </div>
                 </div>
 
@@ -378,4 +407,4 @@ const UpdateCourse = () => {
     )
 }
 
-export default UpdateCourse
+export default EditCourseForm

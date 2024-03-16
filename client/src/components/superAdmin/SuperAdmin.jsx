@@ -4,8 +4,8 @@ import { MdCancel } from "react-icons/md";
 import { MdAnalytics } from "react-icons/md";
 import { IoIosSunny } from "react-icons/io";
 import { CiShoppingCart } from "react-icons/ci";
-import { FaRegMoon } from "react-icons/fa";
-import { HiOutlineMenu } from "react-icons/hi";
+import { FaPencilAlt, FaPencilRuler, FaRegMoon } from "react-icons/fa";
+import { HiOutlineMenu, HiPencilAlt } from "react-icons/hi";
 import { FaCheck, FaGear, FaInfo, FaMessage, FaNoteSticky, FaPlus, FaUser } from "react-icons/fa6";
 import { IoAnalyticsOutline, IoBarChart } from "react-icons/io5";
 
@@ -61,13 +61,13 @@ const SuperAdmin = () => {
                         <MdDashboard />
                         <h3 className={styles.heading3}> Dashboard </h3>
                     </a>
-                    <a className={styles.anchorTag} href="#" className={styles.active}>
-                        <FaUser />
-                        <h3 className={styles.heading3}> Customers </h3>
+                    <a className={styles.anchorTag} href="/superadmin/tips" >
+                        <HiPencilAlt />
+                        <h3 className={styles.heading3}> Tips </h3>
                     </a>
-                    <a className={styles.anchorTag} href="#">
+                    <a className={styles.anchorTag} href="/superadmin/courses"> 
                         <FaNoteSticky />
-                        <h3 className={styles.heading3}> Orders </h3>
+                        <h3 className={styles.heading3}> Courses </h3>
                     </a>
                     <a className={styles.anchorTag} href="#">
                         <IoAnalyticsOutline />

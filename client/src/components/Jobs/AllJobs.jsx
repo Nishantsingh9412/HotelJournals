@@ -1,8 +1,10 @@
+import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import {
     Button as ButtonChakra,
     Tabs, TabList, TabPanels, Tab, TabPanel
 } from '@chakra-ui/react';
+
 
 import Select from 'react-select'
 import { useDispatch, useSelector } from 'react-redux';
@@ -40,10 +42,11 @@ const AllJobs = () => {
     const [alljobsValue, setAllJobsValue] = useState(true);
     const [applied, setApplied] = useState(false);
     const [IsFilteredCheck, setIsFilteredCheck] = useState(true);
+
     const [AllFilters, setAllFilters] = useState({
         yearsOfExperience: '',
-        salaryMin:null,
-        salaryMax:null,
+        salaryMin: null,
+        salaryMax: null,
         salarySpecification: '',
         jobDesignation: '',
         locationType: '',
@@ -52,6 +55,19 @@ const AllJobs = () => {
 
     const [showDropDown, setShowDropDown] = useState(false);
     const [jobId, setJobId] = useState('');
+
+    const [countriesAll, setCountriesAll] = useState([]);
+    const [selectedCountry, setSelectedCountry] = useState('');
+
+    const [statesAll, setStatesAll] = useState([]);
+    const [statesLoading, setStatesLoading] = useState(false);
+    const [selectedState, setSelectedState] = useState('');
+
+    const [citiesAll, setCitiesAll] = useState([]);
+    const [citiesLoading, setCitiesLoading] = useState(false);
+
+    const [selectedCity, setSelectedCity] = useState('');
+
 
     const AllJobsData = useSelector((state) => state.AllJobsReducer)
     console.log(AllJobsData);
@@ -71,12 +87,82 @@ const AllJobs = () => {
     const MyJobs = AllJobsData?.result;
 
     // Filtraion of Jobs
-
-
-
     console.log(MyJobs);
 
+
+    const loadCountries = async () => {
+
+        const response = await axios.get('https://api.countrystatecity.in/v1/countries', {
+            headers: {
+                'X-CSCAPI-KEY':process.env.REACT_APP_CSC_API_KEY
+            }
+        });
+        console.log('countres')
+        console.log(response);
+        const countriesData = response?.data?.map((country) =>
+        ({
+            value: country.name,
+            label: country.name,
+            iso2: country.iso2
+        }));
+
+        setCountriesAll(countriesData);
+    }
+
+    const loadStates = async () => {
+        setStatesLoading(true);
+        const response = await axios.get(`https://api.countrystatecity.in/v1/countries/${selectedCountry}/states`, {
+            headers: {
+                'X-CSCAPI-KEY':process.env.REACT_APP_CSC_API_KEY
+            }
+        });
+        if (response) {
+            const statesData = response?.data?.map((state) =>
+            ({
+                value: state.name,
+                label: state.name,
+                iso2: state.iso2
+            }));
+            setStatesAll(statesData);
+            setStatesLoading(false);
+        }
+    }
+
+    const loadCities = async () => {
+        setCitiesLoading(true);
+        const response = await axios.get(`https://api.countrystatecity.in/v1/countries/${selectedCountry}/states/${selectedState}/cities`, {
+            headers: {
+                'X-CSCAPI-KEY':process.env.REACT_APP_CSC_API_KEY
+            }
+        });
+
+        if (response) {
+            const citiesData = response.data.map((city) =>
+            ({
+                value: city.name,
+                label: city.name
+            }));
+
+            setCitiesAll(citiesData);
+            setCitiesLoading(false);
+        }
+    }
+
+
     useEffect(() => {
+        if (selectedCountry) {
+            loadStates();
+        }
+    }, [selectedCountry])
+
+    useEffect(() => {
+        if (selectedState) {
+            loadCities();
+        }
+    }, [selectedState])
+
+    useEffect(() => {
+        loadCountries();
         dispatch(GetJobs())
     }, [dispatch]);
 
@@ -101,6 +187,7 @@ const AllJobs = () => {
         { value: 'Ahmedabad', label: 'Ahmedabad' },
         { value: 'Surat', label: 'Surat' },
     ]
+
     const designations = [
         { value: 'Software_Developer', label: 'Software Developer' },
         { value: 'Frontend_Developer', label: 'Frontend Developer' },
@@ -134,22 +221,71 @@ const AllJobs = () => {
         // console.log(userApplied?._id);
     }
 
-    const handleApplyFilter = () => {
+    const handleApplyFilter = async () => {
         console.log('All Filters')
         console.log(AllFilters);
-        console.log('Filter Applied');
+        const params = new URLSearchParams(AllFilters).toString();
+        console.log('Params : \n', params)
+        const response = await fetch(`http://localhost:5000/jobs/filter?${params}`);
+        const data = await response.json();
+        console.log('Filtered Data');
+        console.log(data);
     }
 
     const handleClearFilter = () => {
         console.log('Clarity Aa gyi hai');
     }
 
-
-
-
     return (
 
         <>
+
+            {/* Testing Starts */}
+            <div className='form-row mt-3'>
+                <label htmlFor="select countries">
+                    Select Countries
+                </label>
+                <Select
+                    options={countriesAll?.map((country) => country)}
+                    onChange={(e) => {
+                        setSelectedCountry(e.iso2);
+                        console.log('Selected Country : ', e.iso2);
+                    }}
+                />
+
+                <label htmlFor="select state">
+                    Select State
+                </label>
+                <Select
+                    options={statesAll?.map((state) => state)}
+                    // isDisabled={statesLoading}
+                    isLoading={statesLoading}
+                    onChange={(e) => {
+                        setSelectedState(e.iso2);
+                        console.log('Selected Country : ', e.iso2);
+                    }}
+                />
+
+                <label htmlFor="select cities">
+                    Select Cities
+                </label>
+                <Select
+                    options={citiesAll?.map((city) => city)}
+                    // isDisabled={citiesLoading}
+                    isLoading={citiesLoading}
+                    isMulti
+                    onChange={(selectedOps) => {
+                        setSelectedCity(selectedOps.map((city) => city.value));
+                    }}
+                />
+
+            </div>
+
+
+
+
+
+            {/* Testing End */}
             <div className='mb-5'>
                 <ToastContainer />
                 {/* Image Section get started with Hotel Journals */}
@@ -269,7 +405,7 @@ const AllJobs = () => {
                                             className='form-control col-md-2 ml-2'
                                             onChange={(e) => setAllFilters({ ...AllFilters, salarySpecification: e.target.value })}
                                         >
-                                            <option value=""> Select </option> 
+                                            <option value=""> Select </option>
                                             <option value="LPA">LPA</option>
                                             <option value="USD">USD</option>
                                         </select>
@@ -277,9 +413,9 @@ const AllJobs = () => {
                                 </div>
                                 <div className='col-md-4'>
                                     <label htmlFor="designation"> Designation </label>
-                                    <Select 
-                                        options={designations} 
-                                        onChange={(selectedOption) => setAllFilters({...AllFilters, jobDesignation: selectedOption.value})}
+                                    <Select
+                                        options={designations}
+                                        onChange={(selectedOption) => setAllFilters({ ...AllFilters, jobDesignation: selectedOption.value })}
                                     />
                                 </div>
                             </div>
@@ -287,9 +423,9 @@ const AllJobs = () => {
                             <div className="form-row mt-2">
                                 <div className='col-md-4'>
                                     <label htmlFor="location"> Location Type</label>
-                                    <select 
+                                    <select
                                         className='form-control'
-                                        onChange={(e) => setAllFilters({...AllFilters,locationType:e.target.value})}
+                                        onChange={(e) => setAllFilters({ ...AllFilters, locationType: e.target.value })}
                                     >
                                         <option value=""> Select </option>
                                         <option value="Remote">Remote</option>
@@ -318,15 +454,14 @@ const AllJobs = () => {
                                 </div>
                                 <div className="col-md-4">
                                     <label htmlFor="city">City</label>
-                                    <Select 
-                                        options={cities} 
-                                        isMulti 
-                                        onChange={(selectedOption) => setAllFilters({...AllFilters, jobDesignation: selectedOption.value})}
-
+                                    <Select
+                                        options={cities}
+                                        isMulti
+                                        // onChange={(selectedOption) => setAllFilters({...AllFilters, jobDesignation: selectedOption.value})}
                                         onChange={(selectedOps) => {
-                                            setAllFilters({...AllFilters,citiesFilter:selectedOps.map((city) => city.value)})
+                                            setAllFilters({ ...AllFilters, citiesFilter: selectedOps.map((city) => city.value) })
                                         }}
-                                        />
+                                    />
                                 </div>
                             </div>
                             <div className='d-flex justify-content-end m-4' >

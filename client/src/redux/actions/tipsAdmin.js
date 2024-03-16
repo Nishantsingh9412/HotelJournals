@@ -4,9 +4,10 @@ export const SetTips = (tipsData) => async (dispatch) => {
     try {
         const { data } = await api.TipsAdminData(tipsData);
         dispatch({ type: 'TIPS', data });
-        console.log("Tips Admin Action : ", data);
+        return {success:true,message:'Tip Posted Successfully'}
     } catch (error) {
         console.log(":Error from TipsAdmin Action: " + error.message)
+        return {success:false,message:'Tip Posting Failed'}
     }
 }
 
@@ -44,8 +45,10 @@ export const UpdateATip = (id, tipsData) => async (dispatch) => {
     try {
         const { data } = await api.UpdateTip(id, tipsData);
         dispatch({type: 'UPDATE_CURRENT_TIP', data});
+        return {success:true,message:'Tip Updated Successfully'}
     }catch(err){
         console.log("Error from UpdateATip Action : " + err.message)
+        return {success:false,message:'Tip Update Failed'}
     }
     
 }

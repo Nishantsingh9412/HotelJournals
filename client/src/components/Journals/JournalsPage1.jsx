@@ -5,11 +5,11 @@ import Footer from '../partials/Footer'
 
 const JournalsPage = () => {
   return (
-    <>  
+    <div style={{maxWidth:'99vw'}}>
       <FeaturedBooks />
       <TopBooks />
       <Footer />
-    </>
+    </div>
   )
 }
 

@@ -5,8 +5,10 @@ export const SetCourse = (courseData) => async (dispatch) => {
         const {data} = await api.CourseAdminData(courseData);
         dispatch({type: 'COURSE', data});
         console.log("Course Admin Action : ", data);
+        return {success:true,message:'Course posted successfully'}
     } catch (error) {
         console.log(" Error from CourseAdmin Action: " + error.message, error.stack);
+        return {success:false,message:'Error posting Course'}
     }
 }
 
@@ -45,8 +47,11 @@ export const UpdateCourseAction = (id,courseData) => async(dispatch) => {
         const {data} = await api.UpdateCourseData(id,courseData);
         dispatch({type:'UPDATE_CURRENT_COURSE',data});
         console.log("UpdateCourse Action : ", data);
+        return {success:true,message:'Course updated successfully'}
     }catch(err){
         console.log("Error from UpdateCourse Action : " + err.message);
+        return {success:false,message:'Error updating Course'}
+
     }
 }
 

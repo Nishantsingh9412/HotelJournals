@@ -4,7 +4,7 @@ const Footer = () => {
   return (
     <>
     {/* <!-- Remove the container if you want to extend the Footer to full width. --> */}
-<div class="container-fluid my-3 m-0" >
+<div class="container-fluid mt-4 p-0 m-0" >
   {/* <!-- Footer --> */}
   <footer class="text-center text-dark" style={{background:'#e4b49d'}}>
     {/* <!-- Grid container --> */}

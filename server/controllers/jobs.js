@@ -4,6 +4,56 @@ import RecruiterProfile from "../models/profiles/recruiter.js";
 import Jobs from '../models/jobs.js'
 import User from "../models/auth.js";
 
+export const filterJobs = async (req,res) => {
+    try {
+        const {
+          yearsOfExperience,
+          salaryMin,
+          salaryMax,
+          salarySpecification,
+          jobDesignation,
+          locationType,
+          citiesFilter,
+        } = req.query;
+    
+        // Build the filter object
+        const filter = {};
+    
+        if (yearsOfExperience) {
+          filter.yearsOfExperience = { $gte: yearsOfExperience };
+        }
+    
+        if (salaryMin && salaryMax) {
+          filter.salary = { $gte: salaryMin, $lte: salaryMax };
+        }
+    
+        if (salarySpecification) {
+          filter.salarySpecification = salarySpecification;
+        }
+    
+        if (jobDesignation) {
+          filter.jobDesignation = jobDesignation;
+        }
+    
+        if (locationType) {
+          filter.locationType = locationType;
+        }
+    
+        if (citiesFilter) {
+          filter.city = { $in: citiesFilter };
+        }
+    
+        // Find the jobs that match the filter criteria
+        const jobsFinded = await Jobs.find(filter);
+    
+        // Send the filtered jobs as the response
+        res.status(200).json({ success: true, message: 'Jobs Filtered Successfully', result: jobsFinded });
+        // res.json(jobs);
+      } catch (err) {
+        res.status(500).json({ success: false, message: err.message });
+      }
+}
+
 export const updateCandidateStatus = async (req, res) => {
         const { jobId, userId, status } = req.body;
         if (!mongoose.Types.ObjectId.isValid(jobId) || !mongoose.Types.ObjectId.isValid(userId)) {

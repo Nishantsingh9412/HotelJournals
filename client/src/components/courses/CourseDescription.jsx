@@ -7,25 +7,21 @@ import { IoIosRocket } from "react-icons/io";
 import { NavLink, useParams } from 'react-router-dom';
 import ClipLoader from "react-spinners/ClipLoader";
 
-
-
 import { GetCourseSingle } from '../../redux/actions/courseAdmin';
 import Cards from './Cards';
+import Styles from './CourseDescription.module.css';
 
 
 
 const CourseDescription = () => {
 
-  const [loading, setLoading] = useState(true);
-
-
   const { id } = useParams();
-  console.log(id);
+
+  const [loading, setLoading] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
+  const [showreadMoreBtn, setShowReadMoteBtn] = useState(false);
 
   const dispatch = useDispatch();
-
-
-
   const course = useSelector((state) => state.GetCourseSingleReducer)
   console.log(course);
 
@@ -36,6 +32,16 @@ const CourseDescription = () => {
     }
   }, [dispatch, id, course.result])
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  },[])
+
+  const readMoreStyles = {
+    WebkitLineClamp: 5,
+    WebkitBoxOrient: 'vertical',
+    overflow: 'hidden',
+    display: '-webkit-box',
+  }
 
   return (
     // Section 1st start
@@ -43,26 +49,28 @@ const CourseDescription = () => {
       {loading ? (
 
         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-          <ClipLoader 
-          color="red"
-          size={70}          
+          <ClipLoader
+            color="red"
+            size={70}
           />
         </div>
 
       ) : (
-        
+
         <div className='container mt-3' >
           <div className="card mb-3" style={{ boxShadow: '0px 0px 15px rgba(0, 0, 0, 0.5)' }}>
             <div className="row g-0">
-              <div className="col-md-4">
-                <img className='img-fluid rounded-start p-2' src={course?.result?.banner_image} alt="" />
+              <div className="col-md-4 col-sm-12">
+                <img 
+                style={{borderRadius: '20px'}}
+                className='img-fluid p-2 d-block mx-auto w-100 h-100' src={course?.result?.banner_image} alt="" />
               </div>
               <div className="col-md-8">
                 <div className="card-body">
-                  <h3 className="card-title w-75">
+                  <h3 className="card-title">
                     {course?.result?.title}
                   </h3>
-                  <p className="card-text w-75">
+                  <p className="card-text w-100">
                     {/* lorem25 */}
                     {course?.result?.description.substring(0, 98)}...
                   </p>
@@ -74,39 +82,39 @@ const CourseDescription = () => {
                     </button>
                   </NavLink>
                 </div>
-                <div className="row ml-2 mt-2 mb-3">
-                  <div className="col-md-2 text-center border border-dark rounded p-2 ml-3" style={{ background: '#F5F6FB' }}>
+
+                {/* Course details section: time, language..etc */}
+
+                <div className="row mt-2 mb-3 justify-content-around p-4">
+                  <div className="col-md-2 text-center border border-dark rounded p-2 " style={{ background: '#F5F6FB', minWidth: '140px', height: 'fit-content' }}>
                     <div className="col" style={{ opacity: 0.7 }}><TbLanguageHiragana size={20} alignmentBaseline='' /> </div>
                     <div className="col" style={{ opacity: 0.7, fontSize: '15px' }}> <small> Languages </small> </div>
-                    <div className="col"> <small> {course?.result?.languages}   </small> </div>
+                    <div className="col" > 
+                      <small> {course?.result?.languages}   </small> 
+                    </div>
                   </div>
-                  <div className="col-md-2 text-center border border-dark rounded p-2 ml-2" style={{ background: '#F5F6FB' }}>
+                  <div className="col-md-2 text-center border border-dark rounded p-2 " style={{ background: '#F5F6FB', minWidth: '140px', height: 'fit-content' }}>
                     <div className="col" style={{ opacity: 0.7 }}><CgSandClock size={20} alignmentBaseline='' /> </div>
                     <div className="col" style={{ opacity: 0.7, fontSize: '15px' }}> <small> Duration </small> </div>
                     <div className="col"><small> {course?.result?.duration} </small> </div>
                   </div>
-                  <div className="col-md-2 text-center border border-dark rounded p-2 ml-2" style={{ background: '#F5F6FB' }}>
+                  <div className="col-md-2 text-center border border-dark rounded p-2 " style={{ background: '#F5F6FB', minWidth: '140px', height: 'fit-content' }}>
                     <div className="col" style={{ opacity: 0.7 }}><FaArrowUpRightDots size={20} alignmentBaseline='' /> </div>
                     <div className="col" style={{ opacity: 0.7, fontSize: '15px' }}> <small> Difficulty </small> </div>
                     <div className="col"><small> {course?.result?.difficulty} </small> </div>
                   </div>
-                  <div className="col-md-2 text-center border border-dark rounded p-2 ml-2" style={{ background: '#F5F6FB' }}>
+                  <div className="col-md-2 text-center border border-dark rounded p-2 " style={{ background: '#F5F6FB', minWidth: '140px', height: 'fit-content' }}>
                     <div className="col" style={{ opacity: 0.7 }}><IoIosRocket size={20} alignmentBaseline='' /> </div>
                     <div className="col" style={{ opacity: 0.7, fontSize: '15px' }}> <small> Format </small> </div>
                     <div className="col"><small> {course?.result?.format} </small> </div>
                   </div>
-                  {
-                    course?.result?.isFree ? (<div className='text-left rounded' style={{ position: 'absolute', top: 10, right: 0, background: 'green', color: 'white', padding: '10px', paddingLeft: '100px' }}>
+                  {course?.result?.isFree ? (
+                    <div className='text-left rounded' style={{ position: 'absolute', top: 10, right: 0, background: 'green', color: 'white', padding: '10px', paddingLeft: '100px' }}>
                       Free
-                    </div>) : (
-                      // <div className='text-left rounded' style={{ position: 'absolute', top: 10, right: 0, background: 'green', color: 'white', padding: '10px', paddingLeft: '100px' }}>
-                      //   {course.price}
-                      // </div>
-                      <></>
-                    )
-                  }
-
+                    </div>
+                  ) : null}
                 </div>
+                {/* *****End of Course details section***** */}
 
               </div>
             </div>
@@ -120,11 +128,26 @@ const CourseDescription = () => {
             <div className='p-4'>
               <h5 className='font-weight-bold'> What Yo'll Learn </h5>
               <div style={{ opacity: '0.85' }}>
-                <p className='text-justify mt-4'>
-                  <p className='text-justify mt-4'>
-                    {course?.result?.description}...
-                  </p>
-                </p>
+                {course?.result?.description.length > 728 ?
+                  <>
+                    <p
+                      style={isOpen ? null : readMoreStyles}
+                      className='text-justify mt-4'
+                    >
+                      {course?.result?.description}...
+                    </p>
+
+                    <button
+                      onClick={() => setIsOpen(!isOpen)}>
+                      {isOpen ? 'Read Less' : 'Read More ...'}
+                    </button>
+                  </> :
+                  <>
+                    {course?.result?.description}
+                  </>
+                }
+
+                
               </div>
             </div>
           </div>
@@ -136,7 +159,7 @@ const CourseDescription = () => {
               <p style={{ fontWeight: 600 }}> Discover this selection of interesting courses </p>
               <div style={{ opacity: '0.85' }}>
                 <span>We have a range of courses available: from online courses to short courses and master's degrees. Start your search by checking out our most popular courses below.</span>
-                <Cards />
+                <Cards filter={false} />
               </div>
             </div>
           </div>

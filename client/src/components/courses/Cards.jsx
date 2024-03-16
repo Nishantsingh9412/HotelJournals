@@ -1,121 +1,121 @@
-import React, { useEffect } from 'react'
-
-import { IoMdTime } from "react-icons/io";
-import { FaArrowUpRightDots } from "react-icons/fa6";
-
-
+import React, { useEffect } from 'react';
+import { IoMdTime } from 'react-icons/io';
+import { FaArrowUpRightDots } from 'react-icons/fa6';
 import { useDispatch, useSelector } from 'react-redux';
 import { GetCourse } from '../../redux/actions/courseAdmin';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import CheckBox from "./CheckBox";
+import CSS from './Cards.module.css';
+
+const cardImageStyle = {
+    width: '100%',
+    height: '200px',
+};
 
 
-
-const cardImageStyleCardsPage = {
-    width: '331.5px',
-    height: '243px',
-}
-
-const baseURL = "http://localhost:3000/"
-const serverURL = "http://localhost:5000/"
-
-
-const Cards = () => {
+const Cards = ({ filter }) => {
 
 
     const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(GetCourse());
-    }, [dispatch])
+    }, [dispatch]);
 
-    const AllCoursesData = useSelector((state) => state.getCoursesReducer)
+    const AllCoursesData = useSelector((state) => state.getCoursesReducer);
     console.log(AllCoursesData);
 
-
     return (
-        <div className="container">
-            
-            <div className='container flex flex-wrap justify-center gap-4 mb-4 mt-5 pt-3'>
-                <div className="card-deck d-flex flex-wrap justify-content-start">
-                    {AllCoursesData?.result?.map((course, index) => (
-                        <div className="card m-2 " style={{ flex: '0 0 30%', border: '1px solid #E4B49D', overflow:'hidden'}} key={course._id}>
-                            <img className="card-img-top " src={`${course.banner_image}`} alt="Card image cap" style={cardImageStyleCardsPage}  />
-                            <div className="card-body">
-                                <h6 className="card-title text-center" style={{ fontWeight: 'bolder' }}>{course.title}</h6>
-                                <p className="card-text text-justify" style={{ opacity: 0.9 }}>{course.description.substr(0, 180)}...</p>
-                                <div className='row'>
-                                    <p className="card-text ml-3" style={{ opacity: 0.8 }}>  <IoMdTime /> <small> {course.duration} </small>  </p>
-                                    <p className="card-text ml-auto mr-3" style={{ opacity: 0.8 }}>  <FaArrowUpRightDots /> <small> {course.difficulty} </small>  </p>
+        <div className=' container'>
+            <div className='row'>
+                {filter ?
+                    <div className={`${CSS.filterBox} col`} style={{ maxWidth: "20rem" }}>
+                        <div>
+                            <h5>FILTER BY</h5>
+                            <div>
+                                <div className="ml-2 pb-3">
+                                    <hr style={{ background: "#E4B49D" }} />
+
+                                    <h6 className="font-weight-bold">Course Types</h6>
+                                    <div className="ml-3">
+                                        <CheckBox content={"Bachelors"} />
+                                        <CheckBox content={"Masters"} />
+                                        <CheckBox content={"Professionals"} />
+                                        <CheckBox content={"Shorts"} />
+                                    </div>
+
+                                    <h6 className="font-weight-bold mt-3">Course Languages</h6>
+                                    <div className="ml-3">
+                                        <CheckBox content={"English"} />
+                                        <CheckBox content={"Spanish"} />
+                                        <CheckBox content={"French"} />
+                                        <CheckBox content={"Italian"} />
+                                        <CheckBox content={"Portuguese"} />
+                                        <CheckBox content={"German"} />
+                                    </div>
+
+                                    <h6 className="font-weight-bold mt-3">Categories</h6>
+                                    <div className="ml-3">
+                                        <CheckBox content={"Web Development"} />
+                                        <CheckBox content={"Data Science"} />
+                                        <CheckBox content={"Machine Learning"} />
+                                        <CheckBox content={"Mobile App Development"} />
+                                        <CheckBox content={"Cybersecurity"} />
+                                        <CheckBox content={"Digital Marketing"} />
+                                        <CheckBox content={"Sales and Marketing"} />
+                                        <CheckBox content={"Spa"} />
+                                        <CheckBox content={"Tourism"} />
+                                        <CheckBox content={"Business Skills"} />
+                                    </div>
                                 </div>
-                                <NavLink to={`/courses/${course._id}`} target='_blank'>
-                                    <button className='mt-3 btn w-100 ' style={{ background: '#E4B49D', fontWeight: 600 }}>
-                                        Enroll Now
-                                    </button>
-                                    {/* courses/:id */}
-                                </NavLink>
                             </div>
                         </div>
-                    ))}
-                </div>
-
-            </div>
+                    </div> : null
+                }
 
 
-{/*          
-            <div className="row mt-4">
-                <div className="col-sm-4">
-                    <div className="card">
-                        <img className="card-img-top" style={cardImageStyle} src={Course1} alt="Card image cap" />
-                        <div className="card-body">
-                            <h5 className="card-title font-weight-bold">Lorem ipsum dolor </h5>
-                            <p className="card-text">Some quick example text to build the another way to show</p>
-                            <p className="card-text">Some quick example text to build   </p>
-                            <div className='d-flex mt-3'>
-                                <p className="card-text">  <FaRegUser style={{ marginBottom: '3px' }} /> <small> 1200 </small>  </p>
-                                <p className="card-text ml-4">  <FiThumbsUp style={{ marginBottom: '3px' }} /> <small> 100%  (14) </small>  </p>
+                <div className="container mt-5 col">
+                    <div className={CSS.cardContainer} >
+                        {AllCoursesData?.result?.map((course, index) => (
+                            <div className="" key={course._id} style={{minWidth:""}}>
+                                <div className="card" style={{ border: '1px solid #E4B49D' }}>
+                                    <img className="card-img-top" src={`${course.banner_image}`} alt="CardImageCap" style={cardImageStyle} />
+                                    <div className="card-body" style={{ padding: "10px" }}>
+                                        <div style={{ minHeight: "11rem", overflow: "hidden" }}>
+                                            <h6 className="card-title" style={{ fontWeight: 'bold' }}>
+                                                {course.title}
+                                            </h6>
+                                            <p className="card-text" style={{ opacity: 0.9, fontSize: "16px!important" }}>
+                                    
+                                                {course.description.substr(0, 150)}...
+                                            </p>
+                                        </div>
+
+                                        <div className="row mt-1">
+                                            <p className="card-text ml-3" style={{ opacity: 0.8 }}>
+                                                <IoMdTime /> <small> {course.duration} </small>
+                                            </p>
+                                            <p className="card-text ml-auto mr-3" style={{ opacity: 0.8 }}>
+                                                <FaArrowUpRightDots /> <small> {course.difficulty} </small>
+                                            </p>
+                                        </div>
+                                        <Link to={`/courses/${course._id}`} >
+                                            <button className=" btn w-100" style={{ background: '#E4B49D', fontWeight: 600 }}>
+                                                Enroll Now
+                                            </button>
+                                        </Link>
+                                    </div>
+                                </div>
                             </div>
-                            <button className={`btn mt-5 mt-5 ${CSS.customBtn}`} > <CiShoppingCart size={22} style={{ marginBottom: '4px' }} />  Buy &euro;45 </button>
-                        </div>
+                        ))}
                     </div>
+
                 </div>
             </div>
-            <div className="col-sm-4">
-                <div className="card">
-                    <img className="card-img-top" style={cardImageStyle} src={Course2} alt="Card image cap" />
-                    <div className="card-body">
-                        <h5 className="card-title font-weight-bold ">Lorem ipsum dolor</h5>
-                        <p className="card-text">Some quick example text to build the another way to show</p>
-                        <p className="card-text">Some quick example text to build   </p>
-                        <div className='d-flex mt-3'>
-                            <p className="card-text">  <FaRegUser style={{ marginBottom: '3px' }} /> <small> 1200 </small>  </p>
-                            <p className="card-text ml-4">  <FiThumbsUp style={{ marginBottom: '3px' }} /> <small> 100%  (14) </small>  </p>
-                        </div>
-                        <button className={`btn mt-5 ${CSS.customBtn}`} > <CiShoppingCart size={22} style={{ marginBottom: '4px' }} />  Buy &euro;45 </button>
-                    </div>
-                </div>
-            </div>
-            <div className="col-sm-4">
-                <div className="card">
-                    <img className="card-img-top" style={cardImageStyle} src={Course3} alt="Card image cap" />
-                    <div className="card-body">
-                        <h5 className="card-title font-weight-bold"> Lorem ipsum dolor </h5>
-                        <p className="card-text">Some quick example text to build the another way to show</p>
-                        <p className="card-text">Some quick example text to build   </p>
-                        <div className='d-flex mt-3'>
-                            <p className="card-text">  <FaRegUser style={{ marginBottom: '3px' }} /> <small> 1200 </small>  </p>
-                            <p className="card-text ml-4">  <FiThumbsUp style={{ marginBottom: '3px' }} /> <small> 100%  (14) </small>  </p>
-                        </div>
-                        <button href="#" className={`btn mt-5 ${CSS.customBtn}`} > <CiShoppingCart size={22} style={{ marginBottom: '4px' }} />  Buy &euro;45 </button>
-                    </div>
-                </div>
-            </div>
-        </div>  */}
 
         </div >
 
+    );
+};
 
-
-    )
-}
-
-export default Cards
+export default Cards;

@@ -1,26 +1,113 @@
-.smallHeading{
+/* Add Bootstrap utility classes for responsiveness */
+
+.smallHeading {
     margin-top: 6rem;
     font-size: 1.5rem;
     font-weight: lighter;
-    font-family:system-ui;
+    font-family: system-ui;
     text-align: center;
     width: 100%;
 }
+.A_s1b{
+  gap: 10px;
+  align-items: center;
+  background: #363434;
+}
+.A_s2b{
+  width: 50%;
+  align-items: center;
+}
 
-.bigHeading{
+@media (max-width: 950px) {
+  .A_s1b {
+      flex-direction: column;
+  }
+  .A_s2b{
+    width: 90%;
+  }
+}
+/* For small screens, use smaller font size */
+@media (max-width: 576px) {
+    .smallHeading {
+        font-size: 1.2rem;
+    }
+    .A_s1b{
+      align-items: flex-start;
+    }
+    .A_s2b{
+      flex-direction: column;
+      align-items: flex-start;
+    }
+}
+
+.bigHeading {
     font-size: 3.35rem;
     font-weight: lighter;
-    font-family:system-ui;
-    text-align: center;
+    font-family: system-ui;
     width: 100%;
     text-transform: uppercase;
-
 }
 
-.blackbgHeading{
+
+/* For small screens, use smaller font size */
+@media (max-width: 576px) {
+    .bigHeading {
+        font-size: 2.5rem;
+    }
+}
+
+.blackbgHeading {
     font-size: 4rem;
     font-weight: lighter;
-    font-family:system-ui;
-    text-align: right;
+    font-family: system-ui;
+
     width: 100%;
 }
+
+/* For small screens, adjust the font size and alignment */
+@media (max-width: 576px) {
+    .blackbgHeading {
+        font-size: 3rem;
+       
+    }
+}
+
+/* new */
+/* For small screens */
+@media (max-width: 576px) {
+    .col-md-6 {
+      width: 100%;
+    }
+  
+    .col-md-6.col-sm-12 {
+      padding: 0;
+    }
+  
+    .col-md-6.pt-5.pl-5.pr-5 {
+      padding: 0;
+      text-align: center;
+    }
+  
+    .col-md-6.col-sm-12.pt-5.pl-5.pr-5 {
+      min-width: auto;
+    }
+  }
+  
+  /* For medium screens */
+  @media (min-width: 577px) and (max-width: 768px) {
+    .col-md-6.col-sm-12.pt-5.pl-5.pr-5 {
+      min-width: 100%;
+    }
+  }
+  
+  /* For large screens and above */
+  @media (min-width: 769px) {
+    .col-md-6 {
+      width: 50%;
+    }
+  
+    .col-md-6.col-sm-12.pt-5.pl-5.pr-5 {
+      min-width: 500px;
+    }
+  }
+  

@@ -6,6 +6,7 @@ import DOMPurify from 'dompurify';
 
 
 import { SetTips } from '../../../redux/actions/tipsAdmin';
+import { useNavigate } from 'react-router-dom';
 
 const AdminTips = () => {
         
@@ -14,6 +15,7 @@ const AdminTips = () => {
     // const config = "Please Hello !!!!!!"
     
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     
     const [title , setTitle] = useState('');
     // const [description , setDescription] = useState('');
@@ -40,6 +42,7 @@ const AdminTips = () => {
 
 
     const handleSubmit = async (e) => {
+
         e.preventDefault();
         if(!title || !content || !image){
             return toast.error('Please fill all fields');
@@ -49,7 +52,10 @@ const AdminTips = () => {
         }
         if((image.type !== 'image/jpeg') && (image.type !== 'image/png')){
             return toast.error('Invalid image format'); 
+        }if(image.size > 1000000){
+            return toast.error('Image size must be less than 1MB');
         }
+        
         const sanitizedContent = DOMPurify.sanitize(content);
 
 
@@ -60,25 +66,30 @@ const AdminTips = () => {
         formData.append('image', image);
 
 
-        const response = dispatch(SetTips(formData));
-        console.log("This is response.path " + response.path);   
-        toast.success('Tips Posted Successfully');
+        const response = await dispatch(SetTips(formData));
+        if(response.success){
+            // console.log("This is response.path " + response.path);   
+            toast.success(response.message);
+            navigate('/superadmin/tips');
+        }else{
+            toast.error('Failed to post Tip');
+        }
     }
 
     return (
         <div className='container mt-5'>
             <form  encType='multipart/form-data'  onSubmit={handleSubmit}>
                 <div className="form-group">
-                    <label for="formGroupExampleInput">Title</label>
+                    <label for="formGroupExampleInput">Title  <small className='text-danger'> * </small> </label>
                     <input type="text" onChange={(e) => setTitle(e.target.value)}  className="form-control" id="formGroupExampleInput" placeholder="Enter Title" />
                 </div>
 
                 <div className="form-group">
-                    <label for="shortDesc">ShortDesc</label>
+                    <label for="shortDesc">ShortDesc  <small className='text-danger'> * </small> </label>
                     <textarea class="form-control" onChange={(e) => setShortDescription(e.target.value)} name="postBody" rows="5" cols="30" placeholder='Enter Short Description in 150 words' ></textarea>
                 </div>
                 <div className="form-group">
-                    <label for="formGroupExampleInput2">Description</label>
+                    <label for="formGroupExampleInput2">Description  <small className='text-danger'> * </small> </label>
                     {/* <textarea class="form-control" onChange={(e) => setDescription(e.target.value)} name="postBody" rows="5" cols="30" placeholder='Enter Post Description' ></textarea> */}
                     <JoditEditor 
                         ref={editor}
@@ -87,11 +98,11 @@ const AdminTips = () => {
                         onChange={newContent => setContent(newContent)}
                     />
                 </div>
-                <div className="form-group w-25">
-                    <label for="formGroupExampleInput">Image</label>
-                    <input type="file"  name='image'  onChange={(e) => setImage(e.target.files[0])}  className="form-control" id="formGroupExampleInput" />
+                <div className="form-group w-50">
+                    <label for="formGroupExampleInput">Image <small className='text-danger'>*</small> (Image size must be less than 1 MB)</label>
+                    <input type="file" accept='image/*' name='image'  onChange={(e) => setImage(e.target.files[0])}  className="form-control" id="formGroupExampleInput" />
                 </div>
-                <button className='btn btn-dark w-100' > Post  </button>
+                <button className='btn btn-success w-100' > Add Tip  </button>
                 <Toaster />
             </form>
         </div>

@@ -1,18 +1,8 @@
 
 .customBtn{
-    /* width: 215px; */
-    /* height: 70px; */
-    /* width: 12vw;
-    height: 4vw;
-    border-radius:4vw;
-    background-color: #FFBA18; */
-    /* margin-top: 2vw;
-    margin-bottom: 4vw; */
-    /* margin-left: 2vw; */
     font-weight: 600;
     background-color: #E4B49D;
     border: #E4B49D 3px solid;
-    /* border-radius: 20vw; */
     width: 17.25rem;
     height: 3.25vw;
 }
@@ -21,9 +11,26 @@
     outline: none !important;
     box-shadow: 0 0 0 0.1rem #e5bda6 !important;
 }
-/* 
-.customBtn:hover{
-    background-color: #ffffff;
-    color: #C36C68;
-    border: 3px solid #C36C68;
-} */
+
+
+.cardContainer{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0.5rem;
+}
+@media (max-width:1200px) {
+    .cardContainer{
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width:777px) {
+    .filterBox{
+        display: none;
+    }  
+}
+@media (max-width:400px) {
+    .cardContainer{
+        grid-template-columns: 1fr ;
+    }
+}

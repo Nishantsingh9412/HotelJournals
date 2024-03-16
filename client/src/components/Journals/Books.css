@@ -1,0 +1,109 @@
+
+.book-card img{
+   min-height: 220px;
+    
+}
+.jor1_C{
+    max-width: 90%;
+}
+.featured-books-row .book-card{
+    width: 40%;
+}
+
+@media only screen and (max-width: 1400px) {
+    .featured-books-row .book-card{
+        width: 100%;
+    }
+}
+
+@media only screen and (max-width:1000px) {
+    .cabo_s{
+        max-width: 100%!important;
+        flex: auto !important;
+    }
+}
+/* for mobile screens */
+@media only screen  and (max-width: 600px) {
+    .featured-books-container{
+        width: 100%;
+        flex-direction: column;
+        margin: auto !important;
+        /* border: 2px solid yellow; */
+        box-sizing: border-box;
+    }
+    .top-books-container {
+        width: 100%!important;
+        display: block;
+        margin: auto !important;
+        /* border: 2px solid red; */
+        box-sizing: border-box;
+
+    }
+    .book-card{
+        /* border: 2px solid red; */
+        width: 100% !important;
+        height: auto;
+        margin-top: 10px;
+        flex-grow: 1;
+    }
+    .book-card img{
+        width: 50%;
+    }
+    .main-row-featured-books{
+        flex-direction: column-reverse;
+        /* border: 2px solid red; */
+        align-items: center;
+        width: 100%!important;
+        margin: auto;
+    }
+    .featured-books-row{width: 100%;}
+    .large-book-col{
+        min-width: 100%;
+        /* border: 2px solid green; */
+        width: 100%;
+        display: block;
+        margin: auto;
+        text-align: center!important;
+    }
+
+
+}
+
+
+
+/* for wider screens */
+@media only screen and (min-width: 600px) and (max-width:800px) {
+    .featured-books-row{
+        flex-direction: row;
+        /* border: 2px solid red; */
+    }
+    
+    .featured-books-row .book-card{
+        /* min-width: 400px; */
+        /* max-width: 365px; */
+        /* border: 2px solid green; */
+
+        margin: 10px 8px;
+    }
+    .book-card img{
+        min-width: 150px;
+        min-height: 220px;
+        
+    }
+    .large-book-col{
+       
+            min-width: 200px !important; /* Set your desired minimum width */
+            max-width: 100%;
+            flex-grow: 1;
+            overflow: hidden;
+            /* border: 2px solid blue; */
+        
+    }
+    .large-book-image{
+
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+}
+

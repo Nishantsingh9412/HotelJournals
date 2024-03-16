@@ -1,0 +1,11 @@
+.bookStyleTopBooks {
+    height: 16vw;
+    box-shadow: rgb(22, 27, 27) 2px 4px 10px;
+    border-radius: 2%;
+}
+
+.bookStyleTopBooks:hover{
+    box-shadow: rgb(22, 27, 27) 2px 4px 10px;
+    transform: scale(1.07);
+    transition: all 0.3s ease-out 0s;
+}
