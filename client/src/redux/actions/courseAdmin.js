@@ -1,5 +1,28 @@
 import * as api from '../../api/index.js';
 
+
+export const courseFilterAction = (filteredData) => async (dispatch) => {
+    try{    
+        const {data} = await api.courseFilter(filteredData);
+        dispatch({type:'COURSE_FILTER',data});
+        return {success:true,message:'Course filtered successfully',data}
+    }catch(error){
+        console.log("Error from courseFilter Action: " + error.message, error.stack);
+        return {success:false,message:'Error filtering Course'}
+    }
+}
+
+export const courseSearchAction = (courseData) => async (dispatch) => {
+    try{
+        const {data} = await api.courseSearch(courseData);
+        dispatch({type:'COURSE_SEARCH',data});
+        return {success:true,message:'Course filtered successfully',data}
+    }catch(error){
+        console.log("Error from courseFilter Action: " + error.message, error.stack);
+        return {success:false,message:'Error filtering Course'}
+    }
+}
+
 export const SetCourse = (courseData) => async (dispatch) => {
     try {
         const {data} = await api.CourseAdminData(courseData);
@@ -11,8 +34,6 @@ export const SetCourse = (courseData) => async (dispatch) => {
         return {success:false,message:'Error posting Course'}
     }
 }
-
-
 
                 // It can be also written as it is a higher order function:  
     // function createAsyncDispatchFunction(courseData) {

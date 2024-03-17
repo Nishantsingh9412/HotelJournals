@@ -36,7 +36,9 @@ const AddCourseForm = () => {
     const [courseCompany, setCourseCompany] = useState('');
     const [difficulty, setDifficulty] = useState('');
     const [picThumb, setPicThumb] = useState('');
+    const [picThumbUploaded,setPicThumbUploaded] = useState(false);
     const [picLogo, setPicLogo] = useState('');
+    const [picLogoUploaded,setPicLogoUploaded] = useState(false)
     const [loading, setLoading] = useState(false);
 
     const storedProfile = JSON.parse(localStorage.getItem('Profile'));
@@ -63,12 +65,15 @@ const AddCourseForm = () => {
         setLoading(true);
         if (pics === undefined) {
             toast.error("This didn't work.")
+            setLoading(false);
             return;
         }
         if (pics.type !== 'image/jpeg' && pics.type !== 'image/png') {
             toast.error('Invalid image format');
+            setLoading(false);
             return;
         } if (pics.size > 1000000) {
+            setLoading(false);
             return toast.error('Thumbnail size should be less than 1 MB ')
         }
         const data = new FormData();
@@ -81,10 +86,12 @@ const AddCourseForm = () => {
         }).then(res => res.json()).then(data => {
             setPicThumb(data.url.toString());
             console.log(data);
+            setPicThumbUploaded(true);
             setLoading(false);
         }).catch(err => {
             console.log(err);
             setLoading(false);
+            return toast.error('Error Uploading Image to server')
         })
     }
 
@@ -92,13 +99,16 @@ const AddCourseForm = () => {
         setLoading(true);
         if (pics === undefined) {
             toast.error("This didn't work.")
+            setLoading(false);
             return;
         }
         if (pics.type !== 'image/jpeg' && pics.type !== 'image/png') {
             toast.error('Invalid image format');
+            setLoading(false);
             return;
         }
         if (pics.size > 1000000) {
+            setLoading(false);
             return toast.error('Logo size should be less than 1 MB ')
         }
         const data = new FormData();
@@ -111,14 +121,16 @@ const AddCourseForm = () => {
         }).then(res => res.json()).then(data => {
             setPicLogo(data.url.toString());
             console.log(data);
+            setPicLogoUploaded(true);
             setLoading(false);
         }).catch(err => {
             console.log(err);
             setLoading(false);
+            return toast.error('Error Uploading Image to server')
         })
     }
 
-    const handleSubmit = async(e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         console.log(courseTitle, courseDesc, courseLanguage, courseLink, courseFormat, isFree, coursePrice, courseDuration, courseCompany, picThumb, picLogo);
         if (!courseTitle || !difficulty || !courseDesc || courseLanguage.length === 0 || !courseLink || !courseFormat || isFree === null || (isFree === false && coursePrice === "")
@@ -138,6 +150,10 @@ const AddCourseForm = () => {
             setCoursePrice(0);
         } if (!isValidURL(courseLink)) {
             return toast.error(' Enter a Valid Course Link');
+        }if(!picLogoUploaded){
+            return toast.error('Logo not uploaded to server');
+        }if(!picThumbUploaded){
+            return toast.error('Thumbnail not uploaded to server');
         }
 
         const courseData = {
@@ -158,13 +174,15 @@ const AddCourseForm = () => {
             created_by: storedProfileUserID,
         };
 
+        console.log(courseData) 
         const response = await dispatch(SetCourse(courseData));
-        if(response.success){
+        if (response.success) {
             console.log("This is response.path  " + response.path);
             navigate('/superadmin/courses')
             toast.success(response.message);
-        }else{
+        } else {
             toast.error(response.message);
+
         }
     }
 
@@ -210,7 +228,6 @@ const AddCourseForm = () => {
                             onChange={(e) => setCourseDesc(e.target.value)}
                         ></textarea>
                     </div>
-
                     <div className="form-row">
                         <div className="form-group col-md-6">
                             <label htmlFor="inputLanguages">Course Language</label>
@@ -335,25 +352,27 @@ const AddCourseForm = () => {
                             <label htmlFor="course category" > Course Category </label>
                             <select className='form-control' onChange={(e) => setCourseCategory(e.target.value)}>
                                 <option value=""> Select Course Category </option>
-                                <option value="IT and Software"> IT & Software </option>
+                                <option value=""> Select Course Category </option>
+                                <option value="Culinary"> Culinary </option>
                                 <option value="Business"> Business </option>
-                                <option value="Development and Computing"> Development & Computing </option>
-                                <option value="Finance and Accounting"> Finance & Accounting </option>
-                                <option value="Office Productivity"> Office Productivity </option>
                                 <option value="Personal Development"> Personal Development </option>
-                                <option value="Design"> Design </option>
                                 <option value="Marketing"> Marketing </option>
-                                <option value="Lifestyle"> Lifestyle </option>
-                                <option value="Health and Safety"> Health & Safety </option>
-                                <option value="Human Resources"> Human Resources </option>
-                                <option value="Leadership and Management"> Leadership & Management </option>
-                                <option value="Legal"> Legal </option>
-                                <option value="Photography and Video"> Photography </option>
-                                <option value="Health and Fitness"> Health & Fitness </option>
-                                <option value="Music"> Music </option>
-                                <option value="Teacher and Academics"> Teacher & Academics </option>
+                                <option value="Human Resource"> Human Resource </option>
+                                <option value="Leadership And Management"> Leadership And Management </option>
                                 <option value="Language"> Language </option>
-                                <option value="Test Prep"> Test Preparation </option>
+                                <option value="Test Preparation"> Test Preparation </option>
+                                <option value="Pastry"> Pastry </option>
+                                <option value="Cruises Management"> Cruises Management </option>
+                                <option value="Oenology"> Oenology </option>
+                                <option value="Hospitality Management"> Hospitality Management </option>
+                                <option value="Sales And Marketing"> Sales And Marketing </option>
+                                <option value="Event Management"> Event Management </option>
+                                <option value="Revenue Management"> Revenue Management </option>
+                                <option value="Reception"> Reception </option>
+                                <option value="Food And Beverages"> Food And Beverages </option>
+                                <option value="Spa"> Spa </option>
+                                <option value="Tourism"> Tourism </option>
+                                <option value="Business Skills"> Business Skills </option>
                             </select>
 
                         </div>
@@ -366,8 +385,7 @@ const AddCourseForm = () => {
                                 <option value="Masters"> Masters </option>
                                 <option value="Diploma"> Diploma </option>
                                 <option value="Professional"> Professional </option>
-                                <option value="Short Course"> Short Course </option>
-                                <option value="Bootcamp"> Bootcamp </option>
+                                <option value="ShortCourse"> Short  Course </option>
                             </select>
                         </div>
                     </div>
@@ -383,7 +401,7 @@ const AddCourseForm = () => {
                                 onChange={(e) => postThumbnail(e.target.files[0])}
                             />
                         </div>
-                        
+
                         <div className="form-group col-md-6">
                             <label htmlFor="inputZip">Company Logo (Image should be less than 1 MB)
                                 <small className='text-danger'> * </small>

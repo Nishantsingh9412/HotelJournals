@@ -42,6 +42,7 @@ const AllJobs = () => {
     const [alljobsValue, setAllJobsValue] = useState(true);
     const [applied, setApplied] = useState(false);
     const [IsFilteredCheck, setIsFilteredCheck] = useState(true);
+    const serverURL = 'http://localhost:5000';
 
     const [AllFilters, setAllFilters] = useState({
         yearsOfExperience: '',
@@ -233,7 +234,7 @@ const AllJobs = () => {
         }
         console.log('Params : \n', params.toString());
         const response = await 
-        fetch(`http://localhost:5000/jobs/filter?${params.toString()}&citiesFilter=${AllFilters.citiesFilter}`);
+        fetch(`${serverURL}/jobs/filter?${params.toString()}&citiesFilter=${AllFilters.citiesFilter}`);
         const data = await response.json();
         console.log('Filtered Data');
         console.log(data);

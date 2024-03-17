@@ -34,8 +34,10 @@ const LeftSidebar = ({ onClose }) => {
               <div className="ml-3">
                 <CheckBox content={"Bachelors"} />
                 <CheckBox content={"Masters"} />
-                <CheckBox content={"Professionals"} />
-                <CheckBox content={"Shorts"} />
+                <CheckBox content={"Diploma"} />
+                <CheckBox content={"Professional"} />
+                <CheckBox content={"ShortCourse"} />
+                <CheckBox content={"Bootcamp"} />
               </div>
 
               <h6 className="font-weight-bold mt-3">Course Languages</h6>
@@ -50,16 +52,25 @@ const LeftSidebar = ({ onClose }) => {
 
               <h6 className="font-weight-bold mt-3">Categories</h6>
               <div className="ml-3">
-                <CheckBox content={"Web Development"} />
-                <CheckBox content={"Data Science"} />
-                <CheckBox content={"Machine Learning"} />
-                <CheckBox content={"Mobile App Development"} />
-                <CheckBox content={"Cybersecurity"} />
-                <CheckBox content={"Digital Marketing"} />
-                <CheckBox content={"Sales and Marketing"} />
-                <CheckBox content={"Spa"} />
-                <CheckBox content={"Tourism"} />
-                <CheckBox content={"Business Skills"} />
+                <CheckBox content={"IT and Software"} />
+                <CheckBox content={"Business"} />
+                <CheckBox content={"Development and Computing"} />
+                <CheckBox content={"Finance and Accounting"} />
+                <CheckBox content={"Office Productivity"} />
+                <CheckBox content={"Personal Development"} />
+                <CheckBox content={"Design"} />
+                <CheckBox content={"Marketing"} />
+                <CheckBox content={"Lifestyle"} />
+                <CheckBox content={"Health and Safety"} />
+                <CheckBox content={"Human Resources"} />
+                <CheckBox content={"Leadership and Management"} />
+                <CheckBox content={"Legal"} />
+                <CheckBox content={"Photography and Video"} />
+                <CheckBox content={"Health and Fitness"} />
+                <CheckBox content={"Music"} />
+                <CheckBox content={"Teacher and Academics"} />
+                <CheckBox content={"Language"} />
+                <CheckBox content={"Test Preparation"} />
               </div>
             </div>
           </DrawerBody>

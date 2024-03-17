@@ -5,11 +5,20 @@ import {
     CoursesAdmin,
     DeleteCourse, 
     SingleCourseData,
-    editCourse
+    editCourse,
+    AllCompaniesName,
+    courseSearch,
+    AllCourseFilters
 } from "../controllers/courses.js"
 
 const router = express.Router();
 
+// Filter Courses 
+router.get('/courseFilter', AllCourseFilters)
+// Search courses 
+router.get('/courseSearch', courseSearch)
+// Get all Companies name (Course Created by)
+router.get('/allCompanies', AllCompaniesName)
 // Add a new Course
 router.post('/newCourse', CoursesAdmin)
 // Get all Courses

@@ -50,6 +50,13 @@ export const UpdateTip = (id,tipsdata) => API.patch(`/admin/tips/${id}`,tipsdata
 
 //  ----------------------------  For Creating a Course---------------
 
+
+// Setting  up courses Filter API
+export const courseFilter = (filterData) => API.get(`/courses/courseFilter?${filterData}`)
+
+// Setting up courses Search API
+export const courseSearch = (searchData) => API.get(`/courses/courseSearch?${searchData}`)
+
 // Course Admin (Course creation)
 export const CourseAdminData = (courseData) => API.post('/courses/newCourse',courseData)
 

@@ -10,7 +10,7 @@ const courseSchema = mongoose.Schema({
     isFree : {type:Boolean, default:false , required:true},
     difficulty : {type:String,required:true},
     course_link : {type:String,required:true},
-    format: {type:String,required:true},
+    format: {type:String,required:true},    // Online Offline Both
     languages : {type:[String],required:true},
     duration : {type:String,required:true},
     banner_image:{type:String,required:true},

@@ -52,6 +52,7 @@ const MidImage = () => {
                     </div>
                 </div>
             </div> */}
+            
             <div className={CSS.imageContainer}>
                 <Flex flexDirection='column' alignItems='center' justifyContent='center'>
                     <div className='container'>
