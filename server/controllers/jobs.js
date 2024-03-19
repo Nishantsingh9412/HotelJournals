@@ -4,6 +4,59 @@ import RecruiterProfile from "../models/profiles/recruiter.js";
 import Jobs from '../models/jobs.js'
 import User from "../models/auth.js";
 
+
+export const VerifyJobs = async (req, res) => {
+    const { id : jobId } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(jobId)) {
+        return res.status(400).json({ success: false, message: 'Invalid ID' })
+    }
+    try {
+        let verifiedJobStatus = await Jobs.findOneAndUpdate(
+            { _id: jobId},
+            {
+                $set: {
+                    'isVerifiedJob':true
+                }
+            },{ new: true });
+        if (!verifiedJobStatus) {
+            return res.status(404).json({ success: false, message: 'Job not found' });
+        }else{
+            res.status(200).json({ success: true, message: 'Job Verified SuccessFully', result: verifiedJobStatus });
+        }
+    } catch (error) {
+        console.log("Error from updateCandidateStatus Controller ", error.message)
+        res.status(500).json({ success: false, message: error.message });
+    }
+}
+
+export const rejectJobs = async (req, res) => {
+    const { id : jobId } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(jobId)) {
+        return res.status(400).json({ success: false, message: 'Invalid ID' })
+    }
+    try {
+        let rejectedJobStatus = await Jobs.findOneAndUpdate(
+            { _id: jobId},
+            {
+                $set: {
+                    'isVerifiedJob':false
+                }
+            },{ new: true });
+
+        if (!rejectedJobStatus) {
+            return res.status(404).json({ success: false, message: 'Job not found' });
+        }else{
+            res.status(200).json({ success: true, message: 'Job Rejected SuccessFully', result: rejectedJobStatus });
+        }
+    } catch (error) {
+        console.log("Error from updateCandidateStatus Controller ", error.message)
+        res.status(500).json({ success: false, message: error.message });
+    }
+
+}
+
 export const filterJobs = async (req, res) => {
     try {
         const {
@@ -153,8 +206,13 @@ export const postJobs = async (req, res) => {
         }
         else {
             const recruiterCompanyLogo = await RecruiterProfile.findOne({ created_by: created_by }).select('company_logo');
+            const recruiterCompanyName = await RecruiterProfile.findOne({ created_by: created_by }).select('companyName');
+
             if (!recruiterCompanyLogo) {
                 console.log("No Company Logo Found")
+            }
+            if(!recruiterCompanyName){
+                console.log("No Company Name Found")
             }
             const newJob = await Jobs.create({
                 jobTitle: job_title,
@@ -175,6 +233,7 @@ export const postJobs = async (req, res) => {
                 jobDescription: job_description,
                 isExternal,
                 jobLink: job_link,
+                company_name:recruiterCompanyName.companyName,
                 company_logo: recruiterCompanyLogo ? recruiterCompanyLogo.company_logo : undefined,
                 created_by,
             });
@@ -190,9 +249,10 @@ export const postJobs = async (req, res) => {
     }
 }
 
+// Get all Jobs (Verified Only)
 export const getAllJobs = async (req, res) => {
     try {
-        const AllJobs = await Jobs.find();
+        const AllJobs = await Jobs.find({isVerifiedJob:true});
         const AllJobsArray = [];
         AllJobs.forEach(singleJob => {
             AllJobsArray.push({
@@ -217,6 +277,46 @@ export const getAllJobs = async (req, res) => {
                 isExternal: singleJob.isExternal,
                 jobLink: singleJob.jobLink,
                 company_logo: singleJob.company_logo,
+                company_name: singleJob.company_name,
+                created_by: singleJob.created_by
+            })
+        });
+        res.status(200).json({ success: true, message: 'All jobs Data Fetched Successfully', result: AllJobsArray })
+    } catch (error) {
+        res.status(500).json({ success: false, message: error.message });
+    }
+}
+
+// Get all Jobs (Both Verified and unverified)
+export const getAllJobsForSuperAdmin = async (req, res) => {
+    try {
+        const AllJobs = await Jobs.find();
+        const AllJobsArray = [];
+        AllJobs.forEach(singleJob => {
+            AllJobsArray.push({
+                _id: singleJob._id,
+                jobTitle: singleJob.jobTitle,
+                jobCategory: singleJob.jobCategory,
+                jobType: singleJob.jobType,
+                jobApplicants: singleJob.applicants,
+                jobLocation: singleJob.jobLocation,
+                mandatorySkills: singleJob.mandatorySkills,
+                optionalSkills: singleJob.optionalSkills,
+                joiningDate: singleJob.joiningDate,
+                isImmediate: singleJob.isImmediate,
+                workExperienceMin: singleJob.workExperienceMin,
+                workExperienceMax: singleJob.workExperienceMax,
+                salarySpecification: singleJob.salarySpecification,
+                salaryStart: singleJob.salaryStart,
+                salaryEnd: singleJob.salaryEnd,
+                no_of_openings: singleJob.no_of_openings,
+                extraBenifits: singleJob.extraBenifits,
+                jobDescription: singleJob.jobDescription,
+                isExternal: singleJob.isExternal,
+                isVerifiedJob: singleJob.isVerifiedJob,
+                jobLink: singleJob.jobLink,
+                company_logo: singleJob.company_logo,
+                company_name: singleJob.company_name,
                 created_by: singleJob.created_by
             })
         });

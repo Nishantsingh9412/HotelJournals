@@ -8,8 +8,38 @@
    font-size: 13px;
    color: #6c757d;
    padding: 0.1rem;
+   
 }
+/* YourStyles.module.css */
 
+.paraSmallHeading {
+    position: relative;
+  }
+  
+  .firstWord {
+    cursor: pointer;
+  }
+  
+  .hiddenWords {
+    position: absolute;
+    top: -138%;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    background-color: #0000009c;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+  
+  .paraSmallHeading:hover .hiddenWords {
+    opacity: 1;
+  }
+  
 .jobIconSmall{
     /* font-size: small; */
     color: #6c757d;

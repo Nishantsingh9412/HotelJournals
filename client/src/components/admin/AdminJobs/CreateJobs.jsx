@@ -18,28 +18,14 @@ import JobStyles from './CreateJob.module.css';
 const CreateJobs = () => {
   let localUser;
   const dispatch = useDispatch();
-  const predefinedJd = `
-  <h1>Job Description</h1>  
-  <p>Job Description should be atleast 50 characters long</p>
-  <br>
-  <b>Role : </b> [Role]
-  <b>Industry Type: </b> [industry type]
-  <b> Department : </b> [Department]
-  <b> Employment Type :</b> [Employment Type]
-  <b>Role Category:</b> [Role Category]
-  <br/> 
-  <b> Education </b>
-  <b> UG : </b> [Any Graduate]
-  <b> PG : </b> [Any Postgraduate]
-  `
+  const predefinedJd = ``
   const [jobDecription, setJobDescription] = useState('');
-
   const [showJobLink, setShowJobLink] = useState(false);
   const [disableJoiningDate, setDisableJoiningDate] = useState(false);
 
   const [jobTitle, setJobTitle] = useState('');
   const [country, setCountry] = useState('');
-  const [citiesData, setCitiesData] = useState([]);
+  // const [citiesData, setCitiesData] = useState([]);
   const [jobCategory, setJobCategory] = useState('');
   const [jobType, setJobType] = useState('');
   const [jobLocation, setJobLocation] = useState([]);
@@ -57,6 +43,20 @@ const CreateJobs = () => {
   const [isExternalLink, setIsExternalLink] = useState(false);
   const [jobLink, setJobLink] = useState('');
 
+  // For countries states and cities 
+
+  const [countriesAll, setCountriesAll] = useState([]);
+  const [selectedCountry, setSelectedCountry] = useState('');
+
+  const [statesAll, setStatesAll] = useState([]);
+  const [statesLoading, setStatesLoading] = useState(false);
+  const [selectedState, setSelectedState] = useState('');
+
+  const [citiesAll, setCitiesAll] = useState([]);
+  const [citiesLoading, setCitiesLoading] = useState(false);
+
+  const [selectedCity, setSelectedCity] = useState('');
+
 
   const isValidUrl = (url) => {
     try {
@@ -67,14 +67,96 @@ const CreateJobs = () => {
     }
   }
 
-  const getCities = async () => {
-    const response = await axios.get('https://countriesnow.space/api/v0.1/countries/cities/q?country=germany');
-    setCitiesData(response?.data?.data);
-  };
+  useEffect(() => {
+    if (jobType === 'Remote') {
+      setJobLocation('Remote');
+    }
+  }, [jobType])
+
+  const loadCountries = async () => {
+
+    const response = await axios.get('https://api.countrystatecity.in/v1/countries', {
+      headers: {
+        'X-CSCAPI-KEY': process.env.REACT_APP_CSC_API_KEY
+      }
+    });
+    console.log('countres')
+    console.log(response);
+    const countriesData = response?.data?.map((country) =>
+    ({
+      value: country.name,
+      label: country.name,
+      iso2: country.iso2
+    }));
+
+    setCountriesAll(countriesData);
+  }
+
+  const loadStates = async () => {
+    setStatesLoading(true);
+    const response = await axios.get(`https://api.countrystatecity.in/v1/countries/${selectedCountry}/states`, {
+      headers: {
+        'X-CSCAPI-KEY': process.env.REACT_APP_CSC_API_KEY
+      }
+    });
+    if (response) {
+      const statesData = response?.data?.map((state) =>
+      ({
+        value: state.name,
+        label: state.name,
+        iso2: state.iso2
+      }));
+      setStatesAll(statesData);
+      setStatesLoading(false);
+    }
+  }
+
+  const loadCities = async () => {
+    setCitiesLoading(true);
+    const response = await axios.get(`https://api.countrystatecity.in/v1/countries/${selectedCountry}/states/${selectedState}/cities`, {
+      headers: {
+        'X-CSCAPI-KEY': process.env.REACT_APP_CSC_API_KEY
+      }
+    });
+
+    if (response) {
+      const citiesData = response.data.map((city) =>
+      ({
+        value: city.name,
+        label: city.name
+      }));
+
+      setCitiesAll(citiesData);
+      setCitiesLoading(false);
+    }
+  }
+
 
   useEffect(() => {
-    getCities();
-  }, [])
+    if (selectedCountry) {
+      loadStates();
+    }
+  }, [selectedCountry])
+
+  useEffect(() => {
+    if (selectedState) {
+      loadCities();
+    }
+  }, [selectedState])
+
+  useEffect(() => {
+    loadCountries();
+    // dispatch(GetJobs())
+  }, [dispatch]);
+
+  // const getCities = async () => {
+  //   const response = await axios.get('https://countriesnow.space/api/v0.1/countries/cities/q?country=germany');
+  //   setCitiesData(response?.data?.data);
+  // };
+
+  // useEffect(() => {
+  //   getCities();
+  // }, [])
 
 
   const modules = {
@@ -91,17 +173,58 @@ const CreateJobs = () => {
   //   { value: 'Noida', label: 'Noida' },
   // ]
 
-  const cities = citiesData.map(city => ({
-    value: city, label: city
-  }));
+  // const cities = citiesData.map(city => ({
+  //   value: city, label: city
+  // }));
 
 
   const skills = [
-    { value: 'Javascript', label: 'JavaScript' },
-    { value: 'Python', label: 'Python' },
-    { value: 'Java', label: 'Java' },
-    { value: 'C++', label: 'C++' },
-  ]
+    { value: 'Administrative Skills', label: 'Administrative Skills' },
+    { value: 'Attention to Detail', label: 'Attention to Detail' },
+    { value: 'Bartending Skills', label: 'Bartending Skills' },
+    { value: 'Budgeting', label: 'Budgeting' },
+    { value: 'Cash Handling', label: 'Cash Handling' },
+    { value: 'Cleaning Techniques', label: 'Cleaning Techniques' },
+    { value: 'Client Relationship Management', label: 'Client Relationship Management' },
+    { value: 'Communication Skills', label: 'Communication Skills' },
+    { value: 'Contract Management', label: 'Contract Management' },
+    { value: 'Culinary Skills', label: 'Culinary Skills' },
+    { value: 'Customer Service', label: 'Customer Service' },
+    { value: 'Data Analysis', label: 'Data Analysis' },
+    { value: 'Decision-Making', label: 'Decision-Making' },
+    { value: 'Destination Knowledge', label: 'Destination Knowledge' },
+    { value: 'Employee Relations', label: 'Employee Relations' },
+    { value: 'Event Planning', label: 'Event Planning' },
+    { value: 'Financial Analysis', label: 'Financial Analysis' },
+    { value: 'Financial Reporting', label: 'Financial Reporting' },
+    { value: 'Front Office Operations', label: 'Front Office Operations' },
+    { value: 'HR Policies and Procedures', label: 'HR Policies and Procedures' },
+    { value: 'Housekeeping Management', label: 'Housekeeping Management' },
+    { value: 'Inventory Management', label: 'Inventory Management' },
+    { value: 'Leadership', label: 'Leadership' },
+    { value: 'Market Research', label: 'Market Research' },
+    { value: 'Marketing Strategy', label: 'Marketing Strategy' },
+    { value: 'Menu Knowledge', label: 'Menu Knowledge' },
+    { value: 'Menu Planning', label: 'Menu Planning' },
+    { value: 'Negotiation Skills', label: 'Negotiation Skills' },
+    { value: 'Order Taking', label: 'Order Taking' },
+    { value: 'Organization', label: 'Organization' },
+    { value: 'Performance Management', label: 'Performance Management' },
+    { value: 'Problem-Solving Skills', label: 'Problem-Solving Skills' },
+    { value: 'Recruitment', label: 'Recruitment' },
+    { value: 'Reservations Management', label: 'Reservations Management' },
+    { value: 'Restaurant Operations', label: 'Restaurant Operations' },
+    { value: 'Sales Techniques', label: 'Sales Techniques' },
+    { value: 'Strategic Planning', label: 'Strategic Planning' },
+    { value: 'Supplier Management', label: 'Supplier Management' },
+    { value: 'Technical Skills', label: 'Technical Skills' },
+    { value: 'Time Management', label: 'Time Management' },
+    { value: 'Tour Planning', label: 'Tour Planning' },
+    { value: 'Training and Development', label: 'Training and Development' },
+    { value: 'Upselling', label: 'Upselling' },
+    { value: 'Writing Skills', label: 'Writing Skills' },
+  ];
+
 
   const extraBenifits = [
     { value: 'Health Insurance', label: 'Health Insurance' },
@@ -148,9 +271,6 @@ const CreateJobs = () => {
         !jobDecription
       ) {
         return toast.error('Please fill all the required fields');
-      }
-      if (jobTitle.length < 5) {
-        return toast.error('Job Title should be atleast 5 characters long');
       }
       if (minWorkExp > 20 || minWorkExp < 0) {
         return toast.error('Minimum Work Experience should be less than 20 and greater than 0');
@@ -231,10 +351,54 @@ const CreateJobs = () => {
             <ToastContainer />
             <form onSubmit={handleSubmit}>
               <div className='form-row '>
-              
+
                 <div className='col-md-4'>
                   <label htmlFor="job_title"> Job Title  <small className='text-danger'> * </small> </label>
-                  <input type='text' className='form-control' placeholder='Job Title' onChange={(e) => setJobTitle(e.target.value)} />
+                  {/* <input type='text' className='form-control' placeholder='Job Title' onChange={(e) => setJobTitle(e.target.value)} /> */}
+                  <select className='form-control' onChange={(e) => setJobTitle(e.target.value)} >
+                    <option value="" > Select </option>
+                    <option value="F & B Kitchen">F & B Kitchen</option>
+                    <option value="F & B Services">F & B Services</option>
+                    <option value="Finance & Marketing">Finance & Marketing</option>
+                    <option value="Guest Relations">Guest Relations</option>
+                    <option value="Host/Hostess">Host/Hostess</option>
+                    <option value="Housekeeping">Housekeeping</option>
+                    <option value="Human Resources">Human Resources</option>
+                    <option value="Maintenances">Maintenances</option>
+                    <option value="Management">Management</option>
+                    <option value="Marketing">Marketing</option>
+                    <option value="Other">Other</option>
+                    <option value="Pastry">Pastry</option>
+                    <option value="Porter">Porter</option>
+                    <option value="Project Management">Project Management</option>
+                    <option value="Public Relations">Public Relations</option>
+                    <option value="Purchasing">Purchasing</option>
+                    <option value="Reception">Reception</option>
+                    <option value="Recreation & Leisure">Recreation & Leisure</option>
+                    <option value="Reservations">Reservations</option>
+                    <option value="Revenue Management">Revenue Management</option>
+                    <option value="Room Division Management">Room Division Management</option>
+                    <option value="Sales">Sales</option>
+                    <option value="Secretary / Executive Assistant">Secretary / Executive Assistant</option>
+                    <option value="Security">Security</option>
+                    <option value="Sommelier">Sommelier</option>
+                    <option value="Spa">Spa</option>
+                    <option value="Sport and Fitness">Sport and Fitness</option>
+                    <option value="Steward">Steward</option>
+                    <option value="Travel Guide">Travel Guide</option>
+                    <option value="Travel Tour Operator">Travel Tour Operator</option>
+                    <option value="Account Management">Account Management</option>
+                    <option value="Administration">Administration</option>
+                    <option value="Bar">Bar</option>
+                    <option value="Concierge">Concierge</option>
+                    <option value="Consulting">Consulting</option>
+                    <option value="Content & Communication">Content & Communication</option>
+                    <option value="Customer Services">Customer Services</option>
+                    <option value="Data & Analytics">Data & Analytics</option>
+                    <option value="Event">Event</option>
+                    <option value="F & B Management">F & B Management</option>
+                  </select>
+
                 </div>
 
                 <div className='col-md-4'>
@@ -259,25 +423,77 @@ const CreateJobs = () => {
                 </div>
               </div>
 
+              {/* 
               <div className='form-row mt-4'>
                 <div className="col-md-4">
                   <label htmlFor="country"> Country  <small className='text-danger'> * </small> </label>
                   <input type='text' className='form-control' placeholder='India' onChange={(e) => setCountry(e.target.value)} />
                 </div>
-              </div>
+              </div> */}
+
+              {/* Testing Starts */}
+              {jobType === 'InOffice' || jobType === 'Hybrid' ?
+                <>
+                  <div className='form-row mt-3'>
+                    <div className="col-md-4">
+                      <label htmlFor="select countries">
+                        Country
+                      </label>
+                      <Select
+                        options={countriesAll?.map((country) => country)}
+                        onChange={(e) => {
+                          setSelectedCountry(e.iso2);
+                          console.log('Selected Country : ', e.iso2);
+                        }}
+                      />
+                    </div>
+                    <div className="col-md-4">
+                      <label htmlFor="select state">
+                        State
+                      </label>
+                      <Select
+                        options={statesAll?.map((state) => state)}
+                        isDisabled={statesLoading}
+                        isLoading={statesLoading}
+                        onChange={(e) => {
+                          setSelectedState(e.iso2);
+                          console.log('Selected Country : ', e.iso2);
+                        }}
+                      />
+                    </div>
+                    <div className='col-md-4'>
+                      <label htmlFor="select cities">
+                        Cities
+                      </label>
+                      <Select
+                        options={citiesAll?.map((city) => city)}
+                        isDisabled={citiesLoading}
+                        isLoading={citiesLoading}
+                        isMulti
+                        onChange={(selectedOps) => {
+                          setJobLocation(selectedOps.map((city) => city.value));
+                        }}
+                      />
+                    </div>
+                  </div>
+                </> : null
+              }
+              {/* Testing End */}
 
               <div className='form-row mt-4' >
-                <div className="col-md-4">
-                  <label htmlFor="jobLocation"> Job Location  <small className='text-danger'> * </small> </label>
-                  {/* Multiselect */}
-                  {/* <Select options={languages} isMulti onChange={(selectedOptions) => setCourseLanguage(selectedOptions.map(option => option.value))} /> */}
-                  <Select
-                    options={cities}
-                    isMulti
-                    isDisabled={country === '' ? true : false}
-                    onChange={(selectedOps) => setJobLocation(selectedOps.map(options => options.value))}
-                  />
-                </div>
+
+                {
+                  /* <div className="col-md-4">
+                    <label htmlFor="jobLocation"> Job Location  <small className='text-danger'> * </small> </label>
+                    <Select
+                      options={cities}
+                      isMulti
+                      isDisabled={country === '' ? true : false}
+                      onChange={(selectedOps) => setJobLocation(selectedOps.map(options => options.value))}
+                    />
+                  </div> */
+                }
+
                 {/* <Select options={} isMulti  /> */}
                 {/* onChange={(selectedOptions) => setCourseLanguage(selectedOptions.map(option => option.value))} */}
                 <div className='col-md-4'>
@@ -291,12 +507,18 @@ const CreateJobs = () => {
                 </div>
 
 
-                <div className='col-md-2'>
+                <div className='col-md-4'>
                   {/* Multiselect */}
 
                   <label htmlFor="optional_skills"> Optional Skills </label>
-                  <Select options={skills} isMulti onChange={(selectedOps) => setOptionalSkills(selectedOps.map(options => options.value))} />
+                  <Select
+                    options={skills.filter((skill) => !mandatorySkills.includes(skill.value))}
+                    isMulti
+                    onChange={(selectedOps) => setOptionalSkills(selectedOps.map(options => options.value))}
+                  />
                 </div>
+
+
               </div>
 
               <div className="form-row mt-4">

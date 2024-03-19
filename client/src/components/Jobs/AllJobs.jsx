@@ -5,6 +5,7 @@ import {
     Tabs, TabList, TabPanels, Tab, TabPanel
 } from '@chakra-ui/react';
 
+import TooltipParagraph from './TooltipParagraph';
 
 import Select from 'react-select'
 import { useDispatch, useSelector } from 'react-redux';
@@ -41,7 +42,8 @@ const AllJobs = () => {
     const navigate = useNavigate();
     const [alljobsValue, setAllJobsValue] = useState(true);
     const [applied, setApplied] = useState(false);
-    const [IsFilteredCheck, setIsFilteredCheck] = useState(true);
+    const [IsFilteredCheck, setIsFilteredCheck] = useState(false);
+
     const serverURL = 'http://localhost:5000';
 
     const [AllFilters, setAllFilters] = useState({
@@ -98,7 +100,7 @@ const AllJobs = () => {
                 'X-CSCAPI-KEY': process.env.REACT_APP_CSC_API_KEY
             }
         });
-        console.log('countres')
+        console.log('countries')
         console.log(response);
         const countriesData = response?.data?.map((country) =>
         ({
@@ -163,7 +165,7 @@ const AllJobs = () => {
     }, [selectedState])
 
     useEffect(() => {
-        loadCountries();
+        // loadCountries();
         dispatch(GetJobs())
     }, [dispatch]);
 
@@ -227,14 +229,14 @@ const AllJobs = () => {
         console.log(AllFilters);
         const params = new URLSearchParams();
         // console.log('Params : \n', params)
-        for (let key in AllFilters){
-            if(key !== 'citiesFilter'){
+        for (let key in AllFilters) {
+            if (key !== 'citiesFilter') {
                 params.append(key, AllFilters[key]);
             }
         }
         console.log('Params : \n', params.toString());
-        const response = await 
-        fetch(`${serverURL}/jobs/filter?${params.toString()}&citiesFilter=${AllFilters.citiesFilter}`);
+        const response = await
+            fetch(`${serverURL}/jobs/filter?${params.toString()}&citiesFilter=${AllFilters.citiesFilter}`);
         const data = await response.json();
         console.log('Filtered Data');
         console.log(data);
@@ -507,7 +509,7 @@ const AllJobs = () => {
                                         isMulti
                                         onChange={(selectedOps) => {
                                             setSelectedCity(selectedOps.map((city) => city.value));
-                                            setAllFilters({ ...AllFilters, citiesFilter:selectedOps.map((city) => city.value)})
+                                            setAllFilters({ ...AllFilters, citiesFilter: selectedOps.map((city) => city.value) })
                                         }}
                                     />
                                     {/* onChange={(selectedOps) => {
@@ -599,6 +601,7 @@ const AllJobs = () => {
                                                 <div>
                                                     <Card.Title>{job.jobTitle}</Card.Title>
                                                     <p className="card-text text-muted mb-2">{job.created_at}</p>
+                                                    <small> {job.company_name} </small>
                                                     <Card.Subtitle className="mb-2 text-muted"></Card.Subtitle>
                                                 </div>
                                             </div>
@@ -623,8 +626,8 @@ const AllJobs = () => {
                                                 </div>
                                                 <div className='d-flex ml-2'>
                                                     <FaLocationDot className={styles.jobIconSmall} />
-                                                    <p className={styles.paraSmallHeading}>
-                                                        {job.jobLocation}
+                                                    <p className={styles.paraSmallHeading} data-tooltip={job.jobLocation}>
+                                                        <TooltipParagraph text={job.jobLocation} />
                                                     </p>
                                                 </div>
                                             </Card.Text>

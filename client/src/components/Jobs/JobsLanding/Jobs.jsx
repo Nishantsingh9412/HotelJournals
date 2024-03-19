@@ -1,6 +1,17 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom';
+import mainJobImage from '../../../assets/img/Jobs_img/job_main_image.png';
+// company logos
+import Iberostar_logo from '../../../assets/img/Iberostar_logo.png';
+import mariott_logo from '../../../assets/img/mariott_logo.png';
+import palladium_logo from '../../../assets/img/Palladium_Hotel_Group_Logo.png';
+import melia_hotels_logo from '../../../assets/img/melia_hotels.png';
+import Hilton_logo from '../../../assets/img/Hilton-logo.png';
+import Barcelo_logo from '../../../assets/img/Barcelo_logo.png';
+
+
 // import avatar1 from '../../assets/img/Jobs_img/2.png';
+
 // import airbnbLogo from '../../assets/img/Jobs_img/airbnb.png';
 // import hubspotLogo from '../../assets/img/Jobs_img/HubSpot.png';
 // import googleLogo from '../../assets/img/Jobs_img/Google.png';
@@ -34,7 +45,11 @@ const Jobs = () => {
                 <div className="container">
                     <div className="header">
                         <div className="avatars-small">
-                            <img src={avatar1} alt="Avatar 1" />
+                            <img 
+                                src={mainJobImage} 
+                                alt="mainJobImage" 
+                                style={{borderRadius:'60px', marginBottom:'20px'}}
+                            />
                         </div>
                         <div className="title">
                             <h1>Find & Hire Top Talented From The World.</h1>
@@ -71,18 +86,22 @@ const Jobs = () => {
                         </div>
 
                         <div className="avatars">
-                            <img src={avatar1} alt="Avatar 2" />
+                            <img 
+                                src={mainJobImage} 
+                                alt="mainJobImage" 
+                                style={{borderRadius:'60px'}}
+                            />
                         </div>
                     </div>
                 </div>
                 <div className="scrolling-logos">
                     <div className="logos">
-                        <img src={airbnbLogo} alt="Airbnb" />
-                        <img src={hubspotLogo} alt="HubSpot" />
-                        <img src={googleLogo} alt="Google" />
-                        <img src={microsoftLogo} alt="Microsoft" />
-                        <img src={walmartLogo} alt="Walmart" />
-                        <img src={fedexLogo} alt="FedEx" />
+                        <img src={Iberostar_logo} alt="Iberostar_logo" />
+                        <img src={mariott_logo} alt="HubSpot" />
+                        <img src={palladium_logo} alt="palladium_logo" />
+                        <img src={melia_hotels_logo} alt="melia_hotels_logo" />
+                        <img src={Hilton_logo} alt="Hilton_logo" />
+                        <img src={Barcelo_logo} alt="Barcelo_logo" />
                     </div>
                 </div>
                 <div className="container">

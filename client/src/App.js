@@ -23,7 +23,6 @@ function App() {
       <Router>
         <Navigation />
         <AllRoutes />
-        <Footer />
       </Router>
     </div>
 

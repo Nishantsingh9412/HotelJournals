@@ -1,14 +1,14 @@
 :root {
-    --main-theme-color: #7954ffff;
-    --main-theme-color2: #7954ffc5;
-    --icon-background-color: #7954ff33;
+    --main-theme-color: #E4B49D;
+    --main-theme-color2: #FAF1EA;
+    --icon-background-color: #E4B49D;
 }
 
 * {
     font-family: 'Inter', sans-serif;
     box-sizing: border-box;
     margin: 0;
-    padding: 0;
+    padding: 0;     
    
 }
 
@@ -94,7 +94,7 @@
 .scrolling-logos {
     overflow: hidden;
     white-space: nowrap;
-    background-color: #DFEBF9;
+    background-color: #E4B49D;
     /* background-color: #6b97ca; */
     margin: 0;
 }
@@ -232,7 +232,7 @@
 }
 
 .jobsCompany__detail{
-    background-color: #7954ff;
+    background-color: #E4B49D;
     padding: 20px;
 }
 .jobdetail__Number{

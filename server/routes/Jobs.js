@@ -8,10 +8,19 @@ import {
     getSingleJob,
     postJobs,
     updateCandidateStatus,
-    filterJobs
+    filterJobs,
+    VerifyJobs,
+    rejectJobs,
+    getAllJobsForSuperAdmin
 } from '../controllers/jobs.js';
 
 const router = express.Router();
+
+// Verify Jobs SuperAdmin
+router.patch('/verifyjob/:id', VerifyJobs)
+
+// Reject Jobs SuperAdmin
+router.patch('/rejectjob/:id', rejectJobs)
 
 // Create Filter Section 
 router.get('/filter',filterJobs)
@@ -24,6 +33,9 @@ router.patch('/applyjob', applyJob)
 router.post('/createjob', postJobs)
 // get all Jobs
 router.get('/alljobs', getAllJobs)
+
+router.get('/alljobsforsuperadmin', getAllJobsForSuperAdmin)
+
 // get a single Job
 router.get('/singlejob/:id', getSingleJob)
 // Delete a single Job

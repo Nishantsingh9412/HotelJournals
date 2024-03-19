@@ -16,6 +16,7 @@ import UpdateCourseReducer from "./coursesReducers/updateCourse";
 
 import setJobs from './jobsReducers/setJobsReducer'
 import AllJobsReducer from "./jobsReducers/allJobsReducer";
+import AllJobsSuperAdmin from "./jobsReducers/allJobsSuperAdmin";
 import UpdateJobsReducer from "./jobsReducers/updateJobsReducer";
 import getSingleJobReducer from "./jobsReducers/getSingleJobReducer";
 
@@ -67,8 +68,10 @@ export default combineReducers({
     getCoursesReducer,
     GetCourseSingleReducer,
     UpdateCourseReducer,
+// For Jobs
     setJobs,
     AllJobsReducer,
+    AllJobsSuperAdmin,
     UpdateJobsReducer,
     getSingleJobReducer,
     getProfileReducer,

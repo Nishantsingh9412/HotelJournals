@@ -1,0 +1,27 @@
+@media (max-width:1100px) {
+    .FJo1{
+        flex-direction: column !important;
+    }
+    .FJoC{
+        max-width: 100% !important;
+    }
+    .img-fluid{
+        height: 700px;
+    }
+}
+
+@media (max-width:600px) {
+    .FJoC{
+       padding: 5px !important;
+    }
+    .img-fluid{
+        height: auto;
+    }
+}
+
+@media screen and (min-width: 680px) and (max-width: 1080px) {
+    .imageRespStyleAboutMe{
+        padding: 10vw;
+    }
+
+}

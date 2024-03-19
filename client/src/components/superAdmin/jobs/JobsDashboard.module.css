@@ -1,0 +1,9 @@
+@media screen and (max-width:768px) {
+    .JobsDashboardContainer{
+
+    }
+    .viewButton {
+        /* width: 50%; */
+        margin-top: 20px;
+    }
+}

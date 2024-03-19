@@ -85,8 +85,17 @@ export const ApplyJob = (jobApplicants) => API.patch('/jobs/applyjob',jobApplica
 // Job Admin (Job creation)
 export const PostNewJob = (JobData) => API.post('/jobs/createjob',JobData)
 
-// Job Data (Job fetching)  For All Jobs
+// Job Data (Job fetching)  For All Jobs (Verified Jobs)
 export const GetAllJobs = () =>  API.get('jobs/allJobs')
+
+// Accept jobs SuperAdmin  (For SuperAdmin)
+export const AcceptJob = (id) => API.patch(`/jobs/verifyjob/${id}`)
+
+// Reject jobs SuperAdmin  (For SuperAdmin)
+export const RejectJob = (id) => API.patch(`/jobs/rejectjob/${id}`)
+
+// Job Data (Job fetching)  For All Jobs (For SuperAdmin Both Verified and Unverified Jobs)
+export const GetAllJobsForSuperAdmin = () =>  API.get('jobs/alljobsforsuperadmin')
 
 // Getting Single Job
 export const GetSingleJob = (id) => API.get(`/jobs/singlejob/${id}`)

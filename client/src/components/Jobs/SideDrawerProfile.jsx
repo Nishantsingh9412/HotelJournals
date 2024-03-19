@@ -96,7 +96,7 @@ const SideDrawerProfile = (props) => {
                         </div>
                         <div className='col-md-10'>
                             <div>
-                                <h2 class="card-title" >{currentUser?.fname} {currentUser?.lname}</h2>
+                                <h2 class="card-title " >{currentUser?.fname} {currentUser?.lname}</h2>
                                 <p class="card-text p-0 m-0">{recentEducation?.degree}</p>
                                 <p class="card-text p-0 m-0">{recentEducation?.school}</p>
                                 <hr style={{ width: '100%' }} />
@@ -132,7 +132,7 @@ const SideDrawerProfile = (props) => {
                                             </p>
                                         </div>
 
-                                        <div className='row'>
+                                        <div className='row '>
                                             <p class="card-text mr-2 mt-1">
                                                 <IoLocationOutline />
                                             </p>

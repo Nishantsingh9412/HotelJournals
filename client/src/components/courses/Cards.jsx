@@ -44,6 +44,7 @@ const Cards = ({ filter }) => {
         Portuguese: false,
         German: false,
         Catalan: false,
+        Other:false
     });
 
     const [categoriesFilter, setCategoriesFilter] = useState({
@@ -320,6 +321,15 @@ const Cards = ({ filter }) => {
                                             onChange={(e) =>
                                                 setCourseLangFilter(
                                                     { ...courseLangFilter, German: e.target.checked }
+                                                )}
+                                        />
+
+                                        <CheckBox
+                                            content={"Other"}
+                                            checked={courseLangFilter.Other}
+                                            onChange={(e) =>
+                                                setCourseLangFilter(
+                                                    { ...courseLangFilter, Other: e.target.checked }
                                                 )}
                                         />
                                     </div>

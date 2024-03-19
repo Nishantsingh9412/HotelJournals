@@ -18,6 +18,7 @@ const jobsSchema  = new Schema({
     extraBenifits : {type:[String],required:false},
     jobDescription : {type:String,required:true},
     isExternal : {type:Boolean,required:true},
+    isVerifiedJob : {type:Boolean,required:false,default:false},
     jobLink : {type:String,required:false},
     applicants : {
         type: [{
@@ -31,9 +32,10 @@ const jobsSchema  = new Schema({
                 default: 'Not_Offered'
             }
         }],
-        required:false
+        required:false,
     },
     created_by : {type:Schema.Types.ObjectId,ref:'User',required:true},
+    company_name:{type:String,required:false},
     company_logo: {
         // type: Schema.Types.ObjectId, 
         // ref:'RecruiterProfile',

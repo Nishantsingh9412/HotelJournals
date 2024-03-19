@@ -50,6 +50,10 @@ import TipEditSuperAdmin from './components/superAdmin/TipEditSuperAdmin';
 import CourseSuperAdmin from './components/superAdmin/courses/CourseSuperAdmin';
 import AddCourseSA from './components/superAdmin/courses/AddCourseSA';
 import EditCourse from './components/superAdmin/courses/EditCourse';
+import JobsDashboardMain from './components/superAdmin/jobs/JobsDashboardMain';
+import ViewParticularJob from './components/superAdmin/jobs/ViewParticularJob';
+import CreateJobsSA from './components/superAdmin/jobs/CreateJobsSA';
+import UpdateJobDashboard from './components/superAdmin/jobs/UpdateJobDashboard';
 
 const AllRoutes = () => {
   return (
@@ -110,8 +114,8 @@ const AllRoutes = () => {
             <Route path='/test/showtable' element = {<ShowApplicantsTable />} > </Route>
 
                 {/* SuperAdmin Dashboard */}
-                {/* Tips */}
             <Route path='/superadmin' element={<SuperAdmin />} > </Route>
+                {/* Tips */}
             <Route path='/superadmin/tips' element={<TipsSuperAdmin />} > </Route>
             <Route path='/superadmin/tips/post' element={<AddTipSuperAdmin />} > </Route>
             <Route path='/superadmin/tips/update/:id' element={<TipEditSuperAdmin />} > </Route>
@@ -119,6 +123,11 @@ const AllRoutes = () => {
             <Route path='/superadmin/courses' element={<CourseSuperAdmin />} > </Route>
             <Route path='/superadmin/courses/post' element={<AddCourseSA />} > </Route>
             <Route path='/superadmin/courses/update/:id' element={<EditCourse />} > </Route>
+            {/* Jobs */}
+            <Route path='/superadmin/jobs' element={<JobsDashboardMain />} > </Route>
+            <Route path='/superadmin/jobs/view/:id' element={<ViewParticularJob />} ></Route>
+            <Route path='/superadmin/jobs/post' element={<CreateJobsSA />} ></Route>
+            <Route path='/superadmin/jobs/update/:id' element={<UpdateJobDashboard />} ></Route>
 
             {/* Routes for recruiter dashboard */}
             <Route path='/test/recruiter/sidebarNew' element = {<RecruiterSidebar />} > </Route>

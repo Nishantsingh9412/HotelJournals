@@ -33,7 +33,7 @@ export const AllCourseFilters = async (req, res) => {
         const selectedCategories = Object.keys(categories).filter(category => categories[category]);
         const selectedLocation = Object.keys(location).filter(locationType => location[locationType]);
         const selectedCourseValue = Object.keys(courseValue).filter(courseValues => courseValue[courseValues]);
-        console.log("This is the selectedCourseValue",selectedCourseValue)
+        console.log("This is the selectedCourseValue", selectedCourseValue)
         console.log("This is the Selected Location")
         console.log(selectedLocation)
 
@@ -48,7 +48,21 @@ export const AllCourseFilters = async (req, res) => {
 
         //  English , Spanish , French , German .....
         if (selectedCourseLanguages.length > 0) {
-            filter.languages = { $in: selectedCourseLanguages };
+            if (selectedCourseLanguages.includes('Other')) {
+                filter.languages = {
+                    $nin: [
+                        'English',
+                        'Spanish',
+                        'French',
+                        'German',
+                        'Italian',
+                        'Portuguese',
+                        'Catalan'
+                    ]
+                };
+            }else{
+                filter.languages = { $in: selectedCourseLanguages };
+            }
         }
 
         //  HR , Pastry  , Oenology , Receptionist  .....
@@ -57,16 +71,16 @@ export const AllCourseFilters = async (req, res) => {
         }
 
         // Onsite , offsite
-        if (selectedLocation.length > 0 )  {
-            if(selectedLocation.includes('Online') && selectedLocation.includes('Offline')){
+        if (selectedLocation.length > 0) {
+            if (selectedLocation.includes('Online') && selectedLocation.includes('Offline')) {
                 filter.format = "Both"
-            }else{
-                filter.format = { $in: selectedLocation };  
+            } else {
+                filter.format = { $in: selectedLocation };
             }
         }
 
 
-        
+
         // Free , Paid
         // if(selectedCourseValue.isFree){
         //     filter.isFree = true;
@@ -76,14 +90,14 @@ export const AllCourseFilters = async (req, res) => {
         //     filter.isFree = false;
         // }
 
-        if(courseValue.isFree){
+        if (courseValue.isFree) {
             filter.isFree = true;
         }
-        
-        if(courseValue.isPaid){
+
+        if (courseValue.isPaid) {
             filter.isFree = false;
         }
-        
+
         // Use the filter object to filter the courses in the database
         const filteredCourses = await Courses.find(filter);
         res.status(200).json({ success: true, message: 'Filtered Courses', result: filteredCourses });
