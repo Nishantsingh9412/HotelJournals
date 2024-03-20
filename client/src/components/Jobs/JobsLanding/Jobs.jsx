@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { NavLink } from 'react-router-dom';
 import mainJobImage from '../../../assets/img/Jobs_img/job_main_image.png';
 // company logos
@@ -28,14 +28,10 @@ import { Button, background } from '@chakra-ui/react';
 
 const Jobs = () => {
 
+    useEffect(() => {
+        window.scrollTo(0,0);
+    },[])
 
-    const avatar1 = 'https://via.placeholder.com/150';
-    const airbnbLogo = 'https://via.placeholder.com/150';
-    const hubspotLogo = 'https://via.placeholder.com/150';
-    const googleLogo = 'https://via.placeholder.com/150';
-    const microsoftLogo = 'https://via.placeholder.com/150';
-    const walmartLogo = 'https://via.placeholder.com/150';
-    const fedexLogo = 'https://via.placeholder.com/150';
     const arrowIcon = 'https://via.placeholder.com/150';
     const searchIcon = 'https://via.placeholder.com/150';
 
@@ -104,7 +100,7 @@ const Jobs = () => {
                         <img src={Barcelo_logo} alt="Barcelo_logo" />
                     </div>
                 </div>
-                <div className="container">
+                {/* <div className="container">
 
                     <div className="card-heading">
                         <div className="card-heading-text">
@@ -168,12 +164,12 @@ const Jobs = () => {
                             <p>52+ Active Jobs</p>
                         </div>
                     </div>
-                </div>
+                </div> */}
             </div>
 
             {/* New Job Opportunities section */}
 
-            <div className="container">
+            {/* <div className="container">
                 <div className="row catagories">
                     <JobCard />
                     <JobCard />
@@ -188,31 +184,31 @@ const Jobs = () => {
                     <JobCard />
                     <JobCard />
                 </div>
-            </div>
+            </div> */}
 
-            <div className='container'>
+            {/* <div className='container'>
                 <div >
-                    <h3 className="text-center my-5" style={{ fontWeight: "900" }}>Find your need with jobfi</h3>
+                    <h3 className="text-center my-5" style={{ fontWeight: "900" }}>Find your Dream Job with Hotel Journals </h3>
                     <div className="d-flex flex-wrap align-items-center justify-content-around jobsCompany__detail" style={{ gap: "12px" }}>
                         <span className="d-flex flex-column align-items-center justify-content-center text-light text-center">
-                            <p className='m-0 jobdetail__Number'>20k+</p>
-                            <p className='m-0 jobdetail__heading'>Dummy text</p>
+                            <p className='m-0 jobdetail__Number text-white'>20k+</p>
+                            <p className='m-0 jobdetail__heading text-white'>Dummy text</p>
                         </span>
                         <span className="d-flex flex-column align-items-center justify-content-center text-light text-center">
-                            <p className='m-0 jobdetail__Number'>60+</p>
-                            <p className='m-0 jobdetail__heading'>Dummy text</p>
+                            <p className='m-0 jobdetail__Number text-white'>60+</p>
+                            <p className='m-0 jobdetail__heading text-white'>Dummy text</p>
                         </span>
                         <span className="d-flex flex-column align-items-center justify-content-center text-light text-center">
-                            <p className='m-0 jobdetail__Number'>40k+</p>
-                            <p className='m-0 jobdetail__heading'>Dummy text</p>
+                            <p className='m-0 jobdetail__Number text-white'>40k+</p>
+                            <p className='m-0 jobdetail__heading text-white'>Dummy text</p>
                         </span>
                         <span className="d-flex flex-column align-items-center justify-content-center text-light text-center">
-                            <p className='m-0 jobdetail__Number'>98%+</p>
-                            <p className='m-0 jobdetail__heading'>Dummy text</p>
+                            <p className='m-0 jobdetail__Number text-white'>98%+</p>
+                            <p className='m-0 jobdetail__heading text-white'>Dummy text</p>
                         </span>
                     </div>
                 </div>
-            </div>
+            </div> */}
 
 
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import AliceCarousel from 'react-alice-carousel';
 import 'react-alice-carousel/lib/alice-carousel.css';
 import authorImg from '../../assets/img/author_image.jpg';
@@ -9,6 +9,12 @@ import ImageGallery from './ImageGallery';
 
 
 const About = () => {
+
+  useEffect(() => {
+    window.scrollTo(0,0);
+  },[])
+
+
   return (
     <div>
       <div className='container'>
