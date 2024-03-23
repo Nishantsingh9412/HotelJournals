@@ -51,7 +51,9 @@ import UpdateCVReducer from "./profile/CVReducer/updateCVReducer";
 
 import setRecProfileReducer from "./recruiterProfile/setProfile";
 import getRecProfileReducer from "./recruiterProfile/getProfile";
-import updateRecProfileReducer from "./recruiterProfile/updateProfile"
+import updateRecProfileReducer from "./recruiterProfile/updateProfile";
+
+import recruiterImages from "./recruiterProfile/recruiterimage/RecruiterPic";
 
 export default combineReducers({
     authReducer,
@@ -101,6 +103,7 @@ export default combineReducers({
     setRecProfileReducer,
     getRecProfileReducer,
     updateRecProfileReducer,
+    recruiterImages
 
 
 })

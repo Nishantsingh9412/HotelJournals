@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate, useParams } from 'react-router-dom';
+// import ReactGridTable from "@nadavshaar/react-grid-table";
+import GridTable from '@nadavshaar/react-grid-table';
+
 import copy from 'copy-to-clipboard';
 import Swal from 'sweetalert2'
 
@@ -23,13 +26,16 @@ import { ImCancelCircle } from 'react-icons/im';
 
 import { AcceptJobsAction, DeleteJobAction, RejectJobsAction, getJobsSuperAdminAction } from '../../../redux/actions/jobsAdmin.js';
 import styles from './JobsDashboard.module.css';
+import { PiNotepad } from 'react-icons/pi';
+import { Button } from '@chakra-ui/react';
+import { FcCancel } from 'react-icons/fc';
 // import ManageAllStyles from './ManageAllJobs.module.css';
 
 const JobsDashboard = () => {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const [showDropDown, setShowDropDown] = useState(false);
+    const [TableLoading,setTableLoading] = useState(true);
 
     const baseURL = "http://localhost:3000/"
 
@@ -40,11 +46,18 @@ const JobsDashboard = () => {
     const MyJobs = AllJobs?.result
     console.log(MyJobs);
 
+    useEffect(() => {
+        if (MyJobs) {
+            setTableLoading(false)
+        }
+    },[MyJobs])
+
 
     const handleJobAccepted = async (jobId) => {
         const response = await dispatch(AcceptJobsAction(jobId));
         if (response.success) {
             toast.success(response.message);
+            dispatch(getJobsSuperAdminAction())
         } else {
             toast.info('Error in Accepting Job')
         }
@@ -55,6 +68,7 @@ const JobsDashboard = () => {
         const response = await dispatch(RejectJobsAction(jobId));
         if (response.success) {
             toast.error(response.message);
+            dispatch(getJobsSuperAdminAction())
         } else {
             toast.info('Error in Accepting Job')
         }
@@ -74,7 +88,11 @@ const JobsDashboard = () => {
 
     useEffect(() => {
         dispatch(getJobsSuperAdminAction())
-    }, [dispatch, handleJobAccepted, handleJobRejected]);
+    }, []);
+
+    // useEffect(() => {
+    //     dispatch(getJobsSuperAdminAction())
+    // }, [handleJobAccepted, handleJobRejected]);
 
     // Deletion of Job
     const handleConfirmedDelete = (id) => {
@@ -93,81 +111,240 @@ const JobsDashboard = () => {
             console.log('Cancelled')
         }
     }
+    
+
+    const FnameCell = ({ tableManager, value, field, data, column, colIndex, rowIndex }) => {
+        return (
+            <div className='rgt-cell-inner'
+                style={{
+                    display: 'flex',
+                }}
+            >
+                {/* <ImageChakra
+                    borderRadius='full'
+                    boxSize='50px'
+                    src={data?.pic}
+                    alt='user-image'
+                /> */}
+                <span className='rgt-text-truncate row-hover' style={{ marginLeft: 10, marginTop: 15 }}>
+                    {data?.jobTitle}
+                </span>
+            </div>
+        )
+    }
+
+    const ViewCell = ({ tableManager, value, field, data, column, colIndex, rowIndex }) => {
+        return (
+            <div className='rgt-cell-inner' >
+                <a
+                    href={`/alljobs/${data._id}`}
+                    target='_blank'
+                    rel='noopener noreferrer'
+                    style={{ textDecoration: 'none' }}
+                >
+                    <button
+                        className="btn btn-sm btn-block w-50"
+                        style={{ backgroundColor: '#E4B49D' }}
+                    >
+                        View Job
+                    </button>
+                </a>
+            </div>
+        )
+    }
+
+
+    const VerifiedCell = ({ tableManager, value, field, data, column, colIndex, rowIndex }) => {
+        return (
+            <div className='rgt-cell-inner'
+                style={{
+                    display: 'flex',
+
+                }}
+            >
+                <span className='rgt-text-truncate row-hover' style={{ marginLeft: 10, marginTop: 15 }}>
+                    {data.isVerifiedJob ?
+                        <>
+                            <span className="badge badge-success">
+                                Active
+                            </span>
+                        </>
+                        :
+                        <>
+                            <span className="badge badge-danger">
+                                Inactive
+                            </span>
+                        </>
+                    }
+                </span>
+            </div>
+        )
+    }
+
+
+    const IconCell = ({ tableManager, value, field, data, column, colIndex, rowIndex }) => {
+        const dispatch = useDispatch();
+        const { id } = useParams();
+        const [showModal, setModalShow] = useState(false);
+
+
+        const handleEye = (e) => {
+            e.preventDefault();
+            // console.log(`Applicant ID: ${data._id}, Icon Name: Eye`)
+        }
+
+        const handleNotepad = async (e) => {
+            e.preventDefault();
+            console.log("this is notepad", data, data._id)
+            setModalShow(true);
+            // const updatedStatsUser = {
+            //     jobId:id,
+            //     userId:data._id,
+            //     status:'Offered'
+            // }
+            // const response = await dispatch(UpdateCandidStatsAction(updatedStatsUser));
+
+            // if(response.success){
+            //     toast.success('Applicant Offered Successfully')
+            // }else{
+            //     toast.error('Applicant Not Offered Try Again'  )
+            // }
+
+            // <div>
+            // <UserEmailModal
+            //     show={true}
+            //     onHide={() => setMailModalShow(false)}
+            //     userid={data._id}
+            //     applicants={data}
+            // />
+            // </div>
+            console.log(`Applicant ID: ${data._id}, Icon Name: UserCheck`)
+        }
+
+        const handleRejected = async (e) => {
+            e.preventDefault();
+            const updatedStatsUser = {
+                jobId: id,
+                userId: data._id,
+                status: 'Rejected'
+            }
+            const response = { success: true }
+
+            if (response.success) {
+                toast.success('Applicant Rejected Successfully')
+            } else {
+                toast.error('Applicant Not Rejected Try Again')
+            }
+
+            console.log("All params")
+            const allParams = [id, data._id, 'Rejected'];
+            console.log(allParams)
+            console.log(`Applicant ID: ${data._id}, Icon Name: UserTimes`)
+        }
+
+
+        return (
+            <div>
+                <div className='rgt-cell-inner'
+                    style={{
+                        display: 'flex',
+                        margin: '20px',
+                        marginLeft:'10px'
+                    }}
+                >
+                    <button
+                        className="btn btn-sm btn-light mr-2"
+                        onClick={() => handleShare(data._id)}
+                    >
+                        <IoShareSocial />
+                    </button>
+                    <button className='btn btn-sm btn-light mr-2'
+                        onClick={() => handleJobAccepted(data._id)}
+                    >
+                        <FaCheckCircle />
+                    </button>
+                    <button className='btn btn-sm btn-light mr-2'
+                        onClick={() => handleJobRejected(data._id)}
+
+                    >
+                        <ImCancelCircle />
+                    </button>
+                    <NavLink style={{ textDecoration: 'none' }} to={`/superadmin/jobs/update/${data._id}`}>
+                        <button className='btn btn-sm btn-light mr-2' > <FaPencil /> </button>
+                    </NavLink>
+
+                    <button
+                        className='btn btn-sm btn-light mr-2'
+                        onClick={() => { handleDelete(data._id) }}
+                    >
+                        <IoTrashBin />
+                    </button>
+                </div>
+            </div>
+        )
+    }
+
+
+
+
+    const columns = [
+        {
+            id: 1,
+            field: 'jobTitle',
+            label: 'Job Title',
+            cellRenderer: FnameCell
+        },
+        {
+            id: 2,
+            field: 'isVerifiedJob',
+            label: 'Status',
+            cellRenderer: VerifiedCell,
+        },
+        {
+            id: 3,
+            field: 'company_name',
+            label: 'Company Name',
+        },
+        {
+            id: 4,
+            field: 'actionStatus',
+            label: 'Action / Status',
+            cellRenderer: IconCell
+
+        },
+        {
+            id: 5,
+            field: 'view',
+            label: 'View',
+            cellRenderer: ViewCell
+        },
+
+    ];
+
+    const JobsAll = ({ MyJobs }) => {
+        return (
+            <div className='container mt-2 responsive-table' >
+                <GridTable 
+                    isLoading={TableLoading}
+                    columns={columns} 
+                    rows={MyJobs} 
+                    />
+            </div>
+        );
+    };
 
     return (
 
         <>
             <div className='mb-5'>
                 <ToastContainer />
-                {/* <div className={ManageAllStyles.sidebar}>
-                    <SideBar />
-                </div> */}
-
-                {/* <div className='container d-flex mt-2 '>
-                        <h2 className='pt-4 mb-4'> Recruiter Dashboard  </h2>
-                        <div className='ml-4 mt-4'>
-                            <button className='btn btn-warning text-white'>
-                                <NavLink to='/jobs/post' target='_blank' style={{ textDecoration: 'none', color: 'white' }} >
-                                    Add a new Job
-                                </NavLink>
-                            </button>
-                        </div>
-
-                    </div> */}
+                <NavLink to='/superadmin/jobs/post' style={{ textDecoration: 'none', color: 'white' }}>
+                    <button className="btn btn-warning mb-4 ml-3">
+                        + Add New Job
+                    </button>
+                </NavLink>
                 <div className='col'>
-                    {/* {
-                        MyJobs?.map((job, index) => (
-                            <div className="col-md-6 col-lg-6 " style={{ marginTop: '1vw' }}>
-                                <div className="card shadow">
-
-                                    <div className="card-body ">
-                                        <h5 className="card-title">{job.jobTitle}</h5>
-                                        <p className="card-text text-muted mb-2">{job.created_at}</p>
-                                        <div className="d-flex justify-content-between align-items-center">
-                                            <span className="badge badge-success">Active</span>
-                                            <div>
-                                                <button className="btn btn-sm btn-light mr-2" >
-                                                    <IoShareSocial />
-                                                </button>
-                                                <button className='btn btn-sm btn-light mr-2'>
-                                                    <HiDotsVertical />
-                                                </button>
-                                                <NavLink style={{ textDecoration: 'none' }} to={`/jobs/dashboard/update/${job._id}`} >
-                                                    <button className='btn btn-sm btn-light mr-2' > <FaPencil /> </button>
-                                                </NavLink>
-                                                <NavLink style={{ textDecoration: 'none' }} to={`/jobs/dashboard/`}>
-                                                    <button className='btn btn-sm btn-light mr-2' onClick={() => { handleDelete(job._id) }} ><IoTrashBin /></button>
-                                                </NavLink>
-                                            </div>
-                                        </div>
-                                        <div className="mb-2">
-                                            <div className="d-flex flex-wrap mt-2">
-                                                {job.mandatorySkills.map((skill, index) => (
-                                                    <span key={index} className="badge badge-pill badge-light mr-2 mb-1 p-2">{skill}</span>
-                                                ))}
-                                                {job.optionalSkills.map((skill, index) => (
-                                                    <span key={index} className="badge badge-pill badge-light mr-2 mb-1 p-2">{skill}</span>
-                                                ))}
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="card-footer bg-transparent border-top-0 p-0">
-                                        <a href={`/alljobs/${job._id}`} target='_blank' rel='noopener noreferrer' style={{ textDecoration: 'none' }}>
-                                            <button
-                                                className="btn btn-sm btn-block"
-                                                style={{ backgroundColor: '#E4B49D' }}
-                                            >
-                                                View Job
-                                            </button>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        ))
-                        } */}
-
-
-                    <div className={`${styles.JobsDashboardContainer} container`}>
+                    {/* <div className={`${styles.JobsDashboardContainer} container`}>
                         {MyJobs?.map((job, index) => (
                             <div key={index} className="row border mb-3 p-3">
                                 <div className="col-sm-12 col-md-2">{job.jobTitle}</div>
@@ -229,10 +406,12 @@ const JobsDashboard = () => {
                                 </div>
                             </div>
                         ))}
+                    </div> */}
+                    <div className={`${styles.JobsDashboardContainer} container`}>
+                        <JobsAll MyJobs={MyJobs} />
                     </div>
                 </div>
-
-            </div >
+            </div>
         </>
     )
 }

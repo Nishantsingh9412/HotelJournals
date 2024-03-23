@@ -218,7 +218,7 @@ const Cards = ({ filter }) => {
                                                 )}
                                         />
                                         <CheckBox
-                                            content={"ShortCourse"}
+                                            content={"Short Course"}
                                             checked={courseTypesFilter.ShortCourse}
                                             onChange={(e) =>
                                                 setCourseTypesFilter(

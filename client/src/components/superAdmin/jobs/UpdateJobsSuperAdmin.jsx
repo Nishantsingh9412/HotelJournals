@@ -11,7 +11,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import { UpdateAJobAction, getJobSingleAction } from '../../../redux/actions/jobsAdmin.js';
 import languages from '../../admin/AdminCourses/languages.js';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 
 const UpdateJobsSuperAdmin = () => {
@@ -19,6 +19,7 @@ const UpdateJobsSuperAdmin = () => {
     console.log(id);
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const [jobDecription, setJobDescription] = useState('');
 
@@ -161,6 +162,11 @@ const UpdateJobsSuperAdmin = () => {
     //   getCities();
     // }, [])
 
+    useEffect(() => {
+        if (jobType === 'Remote') {
+            setJobLocation('Remote');
+        }
+    }, [jobType])
 
     const modules = {
         toolbar: [
@@ -278,6 +284,10 @@ const UpdateJobsSuperAdmin = () => {
         }
     }, [singleJob])
 
+
+    const mappedMandatorySkills = mandatorySkills.map((skill) => ({ value: skill, label: skill }));
+    const mappedOptionalSkills = optionalSkills.map((skill) => ({ value: skill, label: skill }));
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -297,6 +307,11 @@ const UpdateJobsSuperAdmin = () => {
                 !jobDecription
             ) {
                 return toast.error('Please fill all the required fields');
+            }
+            if (jobType === 'InOffice' || jobType === 'Hybrid') {
+                if(jobLocation.length === 0 || jobLocation === 'Remote'){
+                    return toast.error('Please select Atleast one Job Location');
+                }
             }
             if (jobTitle.length < 5) {
                 return toast.error('Job Title should be atleast 5 characters long');
@@ -357,6 +372,7 @@ const UpdateJobsSuperAdmin = () => {
                 const response = await dispatch(UpdateAJobAction(id, jobsData));
                 if (response.success) {
                     toast.success('Job Updated Successfully');
+                    navigate('/superadmin/jobs');
                 } else {
                     console.log(response)
                     toast.error(response.message); // err.response.data.message
@@ -463,7 +479,7 @@ const UpdateJobsSuperAdmin = () => {
                             <div className='form-row mt-3'>
                                 <div className="col-md-4">
                                     <label htmlFor="select countries">
-                                        Country
+                                        Country <small className='text-danger'>*</small>
                                     </label>
                                     <Select
                                         options={countriesAll?.map((country) => country)}
@@ -475,7 +491,7 @@ const UpdateJobsSuperAdmin = () => {
                                 </div>
                                 <div className="col-md-4">
                                     <label htmlFor="select state">
-                                        State
+                                        State <small className='text-danger'>*</small>
                                     </label>
                                     <Select
                                         options={statesAll?.map((state) => state)}
@@ -489,7 +505,7 @@ const UpdateJobsSuperAdmin = () => {
                                 </div>
                                 <div className='col-md-4'>
                                     <label htmlFor="select cities">
-                                        Cities
+                                        Cities <small className='text-danger'>*</small>
                                     </label>
                                     <Select
                                         options={citiesAll?.map((city) => city)}
@@ -506,14 +522,41 @@ const UpdateJobsSuperAdmin = () => {
                 }
                 {/* Testing End */}
 
+                <div className='form-row mt-4' >
+                    <div className='col-md-6'>
+                        <label htmlFor="mandatory_skills"> Mandatory Skills <small className='text-danger'> * </small> </label>
+                        {/* Multiselect */}
+                        <Select
+                            options={skills}
+                            value={mappedMandatorySkills}
+                            isMulti
+                            onChange={(selectedOps) => setMandatorySkills(selectedOps.map(options => options.value))}
+                        />
+                    </div>
+
+
+                    <div className='col-md-6'>
+                        {/* Multiselect */}
+
+                        <label htmlFor="optional_skills"> Optional Skills </label>
+                        <Select
+                            options={skills.filter((skill) => !mandatorySkills.includes(skill.value))}
+                            value={mappedOptionalSkills}
+                            isMulti
+                            onChange={(selectedOps) => setOptionalSkills(selectedOps.map(options => options.value))}
+                        />
+                    </div>
+                </div>
+
+
                 <div className="form-row mt-4">
-                    <div className='col-md-4'>
+                    <div className='col-md-6'>
                         {/* lets add date and time picker here */}
                         <label htmlFor="jobPostedDate"  > Joining Date  <small className='text-danger'> * </small> </label>
                         <input
                             type='date'
                             disabled={disableJoiningDate}
-                            value={joiningDate}
+                            value={joiningDate.split('T')[0]}
                             className='form-control'
                             min={new Date().toISOString().split('T')[0]}
                             // "YYYY-MM-DDTHH:mm:ss.sssZ". For example, "2022-03-15 T 13:56:59.120Z".
@@ -521,18 +564,22 @@ const UpdateJobsSuperAdmin = () => {
 
                         />
 
+
+
                         <div className='mt-3'>
                             <input
                                 type='checkbox'
                                 id='isImmediate'
                                 className='pt-2'
                                 value={isImmediate ? true : false}
-                                onClick={() => setDisableJoiningDate(prevState => !prevState)} onChange={() => setIsImmediate(true)}
+                                onClick={() => setDisableJoiningDate(prevState => !prevState)} 
+                                onChange={() => setIsImmediate(!isImmediate)}
                                 style={{ transform: 'scale(1.6)' }}
                             />
                             <label htmlFor='isImmediate' className='ml-1 ' > Immediate Joining (Onboard within 30 days) </label>
                         </div>
                     </div>
+
                 </div>
 
 

@@ -6,28 +6,21 @@ import PuffLoader from "react-spinners/PuffLoader";
 // Library for date and time
 import { formatDistanceToNow } from 'date-fns';
 // React toast 
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 // Icons
 import { FaStar } from "react-icons/fa";
 import { TbBriefcase2 } from "react-icons/tb";
 import { FiLink } from "react-icons/fi";
 import {
-    FaBuilding,
-    FaGlobe, FaLink, FaMapMarkerAlt, FaUsers
+    FaGlobe,
 } from 'react-icons/fa';
 import { HiBuildingOffice2, HiMiniUserGroup } from "react-icons/hi2";
 
 
 import {
-    FaFacebook,
-    FaLinkedin,
     FaLocationDot,
-    FaTwitter,
-    FaYoutube,
     FaWallet,
-    FaUser,
-    FaPersonShelter,
 } from "react-icons/fa6";
 import { FaHouseChimneyCrack } from "react-icons/fa6";
 import { FaFirstAid } from "react-icons/fa";
@@ -46,7 +39,7 @@ import img3 from "../../assets/JobImage/img3.gif";
 import { ApplyJobAction, getJobSingleAction } from '../../redux/actions/jobsAdmin.js';
 import { getRecProfileAction } from '../../redux/actions/recProfile.js';
 import { IoLogoLinkedin } from 'react-icons/io5';
-import { TiGroupOutline } from 'react-icons/ti';
+
 
 const ParticularJob = () => {
     const dispatch = useDispatch();
@@ -110,14 +103,14 @@ const ParticularJob = () => {
 
     console.log("Appis \n");
     console.log(singleJobsData?.result?.applicants)
-    
+
     // if (applicantsSet.has(userId)) {
     //     toast.info('You have already applied for this job');
     // }
 
     useEffect(() => {
         setAppliedToJob(applicantsSet.has(userId));
-    },[appliedToJob,applicantsSet,userId,singleJobsData?.result?.applicants])
+    }, [appliedToJob, applicantsSet, userId, singleJobsData?.result?.applicants])
 
     useEffect(() => {
         if (applicantsSet?.has(userId)) {
@@ -196,27 +189,36 @@ const ParticularJob = () => {
                                     <p>1238 Reviews</p>
                                 </div>
                                 <div className={jobdescriptionCSS.yearname}>
-                                    <div>
+                                    <div className={jobdescriptionCSS.reservation}>
+                                        <TbBriefcase2 size={20} />
                                         <p>
-                                            <TbBriefcase2 size={20} />&nbsp;
+                                            &nbsp;
                                             {singleJobsData?.result?.workExperienceMin} -
                                             {singleJobsData?.result?.workExperienceMax}
                                             &nbsp;Years
                                         </p>
                                     </div>
-                                    <p>
-                                        <FaWallet /> &nbsp;
-                                        {singleJobsData?.result?.salaryStart}
-                                        - {singleJobsData?.result?.salaryEnd}
-                                        &nbsp; {singleJobsData?.result?.salarySpecification}
+                                    <div className={jobdescriptionCSS.reservation}>
+                                        <FaWallet className={jobdescriptionCSS.svgg} />
+                                        <p>
+                                            &nbsp;
+                                            {singleJobsData?.result?.salaryStart}
+                                            - {singleJobsData?.result?.salaryEnd}
+                                            &nbsp; {singleJobsData?.result?.salarySpecification}
 
-                                    </p>
+                                        </p>
+                                    </div>
                                 </div>
                                 <div className={jobdescriptionCSS.companylocation}>
                                     <div className={jobdescriptionCSS.locationlogo}><FaLocationDot /></div>
-                                    <p>{singleJobsData?.result?.jobLocation?.map((location) => (
-                                        <span key={location.id}> {location} </span>
-                                    ))}</p>
+                                    <p>
+                                        {singleJobsData?.result?.jobLocation?.map((location, index, arr) => (
+                                            <span key={location.id}>
+                                                {location}
+                                                {index < arr.length - 1 ? ', ' : ''}
+                                            </span>
+                                        ))}
+                                    </p>
                                 </div>
                             </div>
                             {/* rightcompanydescription section  */}
@@ -232,8 +234,8 @@ const ParticularJob = () => {
                         <div className={jobdescriptionCSS.details}>
                             <div className={jobdescriptionCSS.openinginformation}>
                                 {/* <div className={jobdescriptionCSS.opening"></div>
-                <div className={jobdescriptionCSS.opening"></div>
-                <div className={jobdescriptionCSS.opening"></div> */}
+<div className={jobdescriptionCSS.opening"></div>
+<div className={jobdescriptionCSS.opening"></div> */}
 
                                 <p>Posted: <span>{singleJobsData?.result?.created_at &&
                                     `${formatDistanceToNow(posted_at)} ago`} </span> </p>
@@ -245,31 +247,31 @@ const ParticularJob = () => {
                                 {/* <button type="button" className={jobdescriptionCSS.btn1}>Register To Apply</button> */}
                                 {/* <button type="button" className={jobdescriptionCSS.btn2}>
 
-                                </button> */}
+                </button> */}
 
                                 {/* <center> */}
-                                    {!appliedToJob ?
-                                        <button className='btn btn-info mt-2 mb-2 w-50 ' onClick={() => {
-                                            handleJobApply(singleJobsData?.result?._id);
-                                            setAppliedToJob(true);
-                                        }}>
-                                            {loading ?
-                                                <>
-                                                    <div className=''>
-                                                        <PuffLoader
-                                                            size={25}
-                                                            color="#ffffff"
-                                                        />
-                                                        <span className='pl-2 text'> Applying  ... </span>
-                                                    </div>
-                                                </> :
-                                                'Apply'
-                                            }
-                                        </button> :
-                                        <button className='btn btn-success mt-2 mb-2 w-25 ' disabled>
-                                            Applied
-                                        </button>
-                                    }
+                                {!appliedToJob ?
+                                    <button className='btn btn-info mt-2 mb-2 w-50 ' onClick={() => {
+                                        handleJobApply(singleJobsData?.result?._id);
+                                        setAppliedToJob(true);
+                                    }}>
+                                        {loading ?
+                                            <>
+                                                <div className=''>
+                                                    <PuffLoader
+                                                        size={25}
+                                                        color="#ffffff"
+                                                    />
+                                                    <span className='pl-2 text'> Applying  ... </span>
+                                                </div>
+                                            </> :
+                                            'Apply'
+                                        }
+                                    </button> :
+                                    <button className='btn btn-success mt-2 mb-2 w-25 ' disabled>
+                                        Applied
+                                    </button>
+                                }
                                 {/* </center> */}
                             </div>
                         </div>
@@ -284,10 +286,8 @@ const ParticularJob = () => {
 
                         <div className={jobdescriptionCSS.KeySkills}>
                             <h1>Key Skills</h1>
-                            <p>Skills highlighted with ‘*‘ are preferred keyskills</p>
-                            <div className={jobdescriptionCSS.preferedbutton}>
-                                <button className={jobdescriptionCSS.btn}>Sales Executive</button>
-                            </div>
+                            {/* <p>Skills highlighted with ‘*‘ are preferred keyskills</p> */}
+
                             <div className={jobdescriptionCSS.keyskillsButton}>
                                 {singleJobsData?.result?.mandatorySkills?.map((skill, index) => (
                                     <button key={index} className={jobdescriptionCSS.btn}>{skill}</button>
@@ -297,65 +297,65 @@ const ParticularJob = () => {
                                 ))}
                                 {/* <button className={jobdescriptionCSS.btn}></button> */}
                                 {/* <button className={jobdescriptionCSS.btn}>Sales Executive</button>
-                                <button className={jobdescriptionCSS.btn}>Sales Executive</button>
-                                <button className={jobdescriptionCSS.btn}>Sales Executive</button>
-                                <button className={jobdescriptionCSS.btn}>Sales Executive</button> */}
+                <button className={jobdescriptionCSS.btn}>Sales Executive</button>
+                <button className={jobdescriptionCSS.btn}>Sales Executive</button>
+                <button className={jobdescriptionCSS.btn}>Sales Executive</button> */}
                             </div>
                         </div>
 
                         {/* <p>Job Description and Key Responsibilities: <br />
-                            Responsible for developing the portfolio of Adhesives and Sealants products for construction, industrial and automotive markets. The person should have in-depth understanding of adhesives and sealants, their applications, key customers and their expectations.
-                            The person should be able to define a go-to market strategy with the appropriate marketing mix.
-                            He/she needs to have a strong performance record with the mindset of a start-up business and be able to multitask.</p>
-                        <ul>
-                            <h1>Major responsibilities will include the following:</h1>
-                            <li>Getting new leads from customers</li>
-                            <li>Mapping of market at distributor/dealer level per district & gaining inputs into market size, market trends by product line, understanding market issues/distributor feedback</li>
-                            <li>Supporting distributors to get orders from retailers</li>
-                            <li>Performing secondary sales for dealers</li>
-                            <li>Conducting product trials</li>
-                            <li>Communication of latest news from the business/schemes etc. Getting distributor feedback on schemes/promotions needed</li>
-                            <li>Assisting in expanding distributor/dealer network across the respective states.</li>
-                            <li>Build market information</li>
-                        </ul>
-                        <ul>
-                            <h1>Desired Candidate Profile:</h1>
-                            <li>Qualifications: Graduate</li>
-                            <li>Work Experience: 2-3 years of Sales experience</li>
-                            <li>Preferably having worked in Adhesives/Sealants segments; alternatively having experience in allied industries like Plywood, Glass and Hardware segments</li>
-                            <li>Should have knowledge of retail sales, additionally any knowledge of industrial and project sales would be appreciated.Role & responsibilities</li>
-                        </ul>
-                        <div className={jobdescriptionCSS.rolecatagory}>
-                            <h1>Role: <span> Field Sales Executive</span></h1>
-                            <h1>Industry Type: <span> Engineering & Construction</span></h1>
-                            <h1>Department: <span> Sales & Business Development</span></h1>
-                            <h1>Employment Type: <span>  Full Time, Permanent</span></h1>
-                            <h1>Role Category: <span> Retail & B2C Sales</span></h1>
-                        </div>
-                        <div className={jobdescriptionCSS.education}>
-                            <h1>Education</h1>
-                            <h1>UG: <span>Any Graduate</span></h1>
-                        </div>
-                        <div className={jobdescriptionCSS.KeySkills}>
-                            <h1>Key Skills</h1>
-                            <p>Skills highlighted with ‘*‘ are preferred keyskills</p>
-                            <div className={jobdescriptionCSS.preferedbutton}>
-                                <button className={jobdescriptionCSS.btn}>Sales Executive</button>
-                            </div>
-                            <div className={jobdescriptionCSS.keyskillsButton}>
-                                <button className={jobdescriptionCSS.btn}>Sales Executive</button>
-                                <button className={jobdescriptionCSS.btn}>Sales Executive</button>
-                                <button className={jobdescriptionCSS.btn}>Sales Executive</button>
-                                <button className={jobdescriptionCSS.btn}>Sales Executive</button>
-                                <button className={jobdescriptionCSS.btn}>Sales Executive</button>
-                            </div>
-                        </div>
-                        <div className={jobdescriptionCSS.iconcontainer}>
-                            <div className={jobdescriptionCSS.icons}> <a href=""><FaLinkedin /></a></div>
-                            <div className={jobdescriptionCSS.icons}> <a href=""><FaFacebook /></a></div>
-                            <div className={jobdescriptionCSS.icons}> <a href=""><FaTwitter /></a></div>
-                            <div className={jobdescriptionCSS.icons}> <a href=""><FaYoutube /></a></div>
-                        </div> */}
+            Responsible for developing the portfolio of Adhesives and Sealants products for construction, industrial and automotive markets. The person should have in-depth understanding of adhesives and sealants, their applications, key customers and their expectations.
+            The person should be able to define a go-to market strategy with the appropriate marketing mix.
+            He/she needs to have a strong performance record with the mindset of a start-up business and be able to multitask.</p>
+        <ul>
+            <h1>Major responsibilities will include the following:</h1>
+            <li>Getting new leads from customers</li>
+            <li>Mapping of market at distributor/dealer level per district & gaining inputs into market size, market trends by product line, understanding market issues/distributor feedback</li>
+            <li>Supporting distributors to get orders from retailers</li>
+            <li>Performing secondary sales for dealers</li>
+            <li>Conducting product trials</li>
+            <li>Communication of latest news from the business/schemes etc. Getting distributor feedback on schemes/promotions needed</li>
+            <li>Assisting in expanding distributor/dealer network across the respective states.</li>
+            <li>Build market information</li>
+        </ul>
+        <ul>
+            <h1>Desired Candidate Profile:</h1>
+            <li>Qualifications: Graduate</li>
+            <li>Work Experience: 2-3 years of Sales experience</li>
+            <li>Preferably having worked in Adhesives/Sealants segments; alternatively having experience in allied industries like Plywood, Glass and Hardware segments</li>
+            <li>Should have knowledge of retail sales, additionally any knowledge of industrial and project sales would be appreciated.Role & responsibilities</li>
+        </ul>
+        <div className={jobdescriptionCSS.rolecatagory}>
+            <h1>Role: <span> Field Sales Executive</span></h1>
+            <h1>Industry Type: <span> Engineering & Construction</span></h1>
+            <h1>Department: <span> Sales & Business Development</span></h1>
+            <h1>Employment Type: <span>  Full Time, Permanent</span></h1>
+            <h1>Role Category: <span> Retail & B2C Sales</span></h1>
+        </div>
+        <div className={jobdescriptionCSS.education}>
+            <h1>Education</h1>
+            <h1>UG: <span>Any Graduate</span></h1>
+        </div>
+        <div className={jobdescriptionCSS.KeySkills}>
+            <h1>Key Skills</h1>
+            <p>Skills highlighted with ‘*‘ are preferred keyskills</p>
+            <div className={jobdescriptionCSS.preferedbutton}>
+                <button className={jobdescriptionCSS.btn}>Sales Executive</button>
+            </div>
+            <div className={jobdescriptionCSS.keyskillsButton}>
+                <button className={jobdescriptionCSS.btn}>Sales Executive</button>
+                <button className={jobdescriptionCSS.btn}>Sales Executive</button>
+                <button className={jobdescriptionCSS.btn}>Sales Executive</button>
+                <button className={jobdescriptionCSS.btn}>Sales Executive</button>
+                <button className={jobdescriptionCSS.btn}>Sales Executive</button>
+            </div>
+        </div>
+        <div className={jobdescriptionCSS.iconcontainer}>
+            <div className={jobdescriptionCSS.icons}> <a href=""><FaLinkedin /></a></div>
+            <div className={jobdescriptionCSS.icons}> <a href=""><FaFacebook /></a></div>
+            <div className={jobdescriptionCSS.icons}> <a href=""><FaTwitter /></a></div>
+            <div className={jobdescriptionCSS.icons}> <a href=""><FaYoutube /></a></div>
+        </div> */}
                     </div>
 
                     <div className={jobdescriptionCSS.aboutcompany}>
@@ -366,16 +366,16 @@ const ParticularJob = () => {
                         {/* <h1>Company Info</h1> */}
                         {/* <h1>Address: <span>5th Floor, Leela Business Park,Airport Road Metro Station, Andheri Kurla Road, Andheri East – Mumbai 400059</span></h1> */}
                         {/* {singleRecruiterData?.companyName && (
-                            <p>
-                                <FaBuilding /> Company Name: {singleRecruiterData.companyName}
-                            </p>
-                        )} */}
+            <p>
+                <FaBuilding /> Company Name: {singleRecruiterData.companyName}
+            </p>
+        )} */}
 
                         {/* {singleRecruiterData?.Designation && (
-                            <p>
-                                <FaUsers /> Designation: {singleRecruiterData.Designation}
-                            </p>
-                        )} */}
+            <p>
+                <FaUsers /> Designation: {singleRecruiterData.Designation}
+            </p>
+        )} */}
 
                         {singleRecruiterData?.CompanyDescription && (
                             <div
@@ -384,10 +384,10 @@ const ParticularJob = () => {
                         )}
 
                         {/* {singleRecruiterData?.numberOfEmployees && (
-                            <p>
-                                <FaUsers /> Number of Employees: {singleRecruiterData.numberOfEmployees}
-                            </p>
-                        )} */}
+            <p>
+                <FaUsers /> Number of Employees: {singleRecruiterData.numberOfEmployees}
+            </p>
+        )} */}
 
                         <div>
 
@@ -579,29 +579,28 @@ const ParticularJob = () => {
 
 
                     {/* <div className={jobdescriptionCSS.servicesection}>
-                            <div className={jobdescriptionCSS.servicedetail}>
-                                <div className={jobdescriptionCSS.servicelink}>
-                                    <p>Services you might be
-                                        interested in</p>
-                                    <a href="">link</a>
-                                </div>
-                                <p>Resume Display <br /> <span>Increase your profile visibility to recruiters upto 3 times</span> <br />
-                                    Get a Featured Profile, Stand out and get noticed in recruiter eyes.
-                                </p>
-                            </div>
-                            <div className={jobdescriptionCSS.serviceBottom}>
-                                <div className={jobdescriptionCSS.logoService}>
-                                    <img src={companyimage} alt="" />
-                                </div>
-                                <h1>Company Name</h1>
-                            </div>
+            <div className={jobdescriptionCSS.servicedetail}>
+                <div className={jobdescriptionCSS.servicelink}>
+                    <p>Services you might be
+                        interested in</p>
+                    <a href="">link</a>
+                </div>
+                <p>Resume Display <br /> <span>Increase your profile visibility to recruiters upto 3 times</span> <br />
+                    Get a Featured Profile, Stand out and get noticed in recruiter eyes.
+                </p>
+            </div>
+            <div className={jobdescriptionCSS.serviceBottom}>
+                <div className={jobdescriptionCSS.logoService}>
+                    <img src={companyimage} alt="" />
+                </div>
+                <h1>Company Name</h1>
+            </div>
 
-                        </div> */}
+        </div> */}
 
                 </div>
 
             </div>
-
         </>
     )
 

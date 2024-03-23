@@ -64,9 +64,8 @@ const UpdateTips = () => {
 
         const response = await dispatch(UpdateATip(id, formData));
         if (response.success) {
-            //   console.log("This is response.path " + response.path);   
             toast.success('Tip Posted Successfully');
-            navigate('superadmin/tips/');
+            navigate('/superadmin/tips');
         } else {
             toast.error('Tip Editing Failed');
         }

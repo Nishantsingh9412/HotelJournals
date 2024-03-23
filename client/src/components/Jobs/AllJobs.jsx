@@ -30,6 +30,7 @@ import { BsBuildingFill, BsBuildings } from 'react-icons/bs';
 // import { DeleteJobAction, GetJobs } from '../../../redux/actions/jobsAdmin.js';
 import { GetJobs } from '../../redux/actions/jobsAdmin.js';
 import JobsBgImg from '../../assets/img/brief2.png'
+import newJobHeaderImg from '../../assets/img/job2_new.png'
 import 'animate.css';
 import styles from './AllJobs.module.css';
 import { CiFilter } from 'react-icons/ci';
@@ -295,15 +296,15 @@ const AllJobs = () => {
             {/* Testing End */}
             <div className='mb-5'>
                 <ToastContainer />
-                {/* Image Section get started with Hotel Journals */}
                 <div className='container-fluid d-flex '
                     style={{
-                        backgroundImage: `url(${JobsBgImg})`,
+                        backgroundImage: `url(${newJobHeaderImg})`,
                         backgroundSize: 'cover',
                         backgroundRepeat: 'no-repeat',
                         height: '55vh',
                     }}
                 >
+                    
                     <div
                         className='row 
                         animate__animated
@@ -319,7 +320,7 @@ const AllJobs = () => {
 
                         }}
                     >
-                        <h1>Get Hired with </h1>
+                        {/* <h1>Get Hired with </h1>
                         <p style={{
                             marginLeft: '15px',
                             marginTop: '10px',
@@ -328,16 +329,12 @@ const AllJobs = () => {
                             fontSize: '35px'
                         }}>
                             Hotel Journals
-                        </p>
-                    </div>
-                    <div className='ml-4 mt-4'>
-                        {/* <button className='btn btn-warning text-white'>
-                            <NavLink to='/jobs/post' target='_blank' style={{ textDecoration: 'none', color: 'white' }} >
-                                Add a new Job
-                            </NavLink>
-                        </button> */}
+                        </p> */}
                     </div>
                 </div>
+                
+
+
                 {/* Filter Section  Start*/}
                 <div className='d-flex justify-content-end'>
                     <ButtonChakra

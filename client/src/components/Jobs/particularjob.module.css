@@ -1,5 +1,5 @@
 .jobcontainer {
-    background-color: #FAF1EA;
+    background-color: white;
     width: 100%;
     height: auto;
     padding: 70px;
@@ -24,11 +24,12 @@
     border-radius: 15px;
     /* padding-bottom: 10px; */
     padding: 10px 10px;
+    padding-left: 30px;
 }
 
 .companydescription {
     padding: 10px;
-    height: 70%;
+    height: 90%;
     width: 100%;
     /* background-color: brown; */
     display: flex;
@@ -83,15 +84,34 @@
 
 .yearname {
     display: flex;
-    width: 200px;
+    width: 300px;
+    height: auto;
     font-size: small;
-    justify-content: space-between;
+    gap: 0px;
+    padding-left: 14px;
     /* background-color: darkorange; */
+}
+.svgg{
+    margin-top: 4px;
+}
+.reservation{
+    /* display: -ms-flexbox; */
+    display: flex;
+    /* align-items: center; */
+    /* background-color: #592dbe; */
+    /* justify-content: center; */
+
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    height: 100%;
+    width: 100%;
+    margin-right: -15px;
+    margin-left: -15px;
 }
 
 .companylocation {
     display: flex;
-    width: 180px;
+    width: auto;
     height: 25px;
     /* align-items: center; */
     gap: 3px;
@@ -101,16 +121,21 @@
 
 .companylocation>p {
     font-size: 10px;
+    width: auto;
+        height: 20px;
 }
-
+p{
+    color: #000000;
+    font-size: 14px;
+}
 .locationlogo {
-    width: 20px;
+    width: 15px;
     height: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
     /* background-color: black; */
-    font-size: 12px;
+    font-size: 15px;
 }
 
 .btn:hover {
@@ -281,10 +306,13 @@
 }
 
 .KeySkills>h1 {
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 700;
     margin-top: 10px;
+    width: auto;
+    height: 15px;
     margin-bottom: 8px;
+     /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
 }
 
 .KeySkills>p {
@@ -299,13 +327,15 @@ span {
 
 .keyskillsButton {
     /* background-color: yellow; */
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    padding: 10px;
-    gap: 15px;
-    margin-top: 10px;
+    /* background-color: yellow;  */
+width: 100%;
+display: flex;
+flex-wrap: wrap;
+flex-wrap: wrap;
+justify-content: flex-start;
+
+gap: 15px;
+margin-top: 10px;
 
 }
 
@@ -313,32 +343,36 @@ span {
     padding-left: 10px;
 }
 
-.preferedbutton>button {
+/* .preferedbutton>button {
     margin-top: 20px;
     width: 130px;
     height: 40px;
     /* background-color: blue; */
-    padding: 10px;
+    /* padding: 10px;
     border-radius: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 12px;
-    border: 1px solid rgb(49, 48, 48);
-}
+    border: 1px solid rgb(49, 48, 48); }
+    */
+
 
 .keyskillsButton>button {
-    width: 130px;
-    height: 40px;
+    width: auto;
+    height: 33px;
     /* background-color: blue; */
     padding: 10px;
-    border-radius: 20px;
+    border-radius: 22px;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 12px;
-    border: 1px solid rgb(49, 48, 48);
+    border: 1px solid rgb(193 189 189);
+    /* font-weight: 700;
     /* font-weight: 700; */
+    
+
 
 }
 
@@ -901,7 +935,11 @@ span {
 
 @media (min-width:1200px) {
     .detailbutton {
-        margin-left: 10vw;
+        margin-left: 6vw;
+        display: flex;
+        /* background-color: red; */
+        align-items: center;
+        justify-content: center;
     }
 }
 

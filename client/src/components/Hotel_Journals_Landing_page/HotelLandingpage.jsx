@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { easeIn, easeInOut, motion } from "framer-motion";
-import { NavLink, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 import courseImage from '../../assets/img/courses_large.png'
 import testimonialImg1 from '../../assets/img/testimonials/ana_mantero_testimonial_1.jpeg'
@@ -159,18 +159,27 @@ const HotelLandingpage = () => {
       name: "STEPHANIA AYALA",
       role: "FRONT OFFICE MANAGER",
       pairagraph:
-        "Hotel Journals cubrió una de las necesidades más grandes y nunca reconocidas del sector hotelero... La de tener una identidad, una herramienta que nos represente y ese algo que nos de un sentido de pertenencia",
+      `Hotel Journals met one of the largest and never recognized needs of the hotel sector... 
+      To have an identity, a tool that represents us and that's something that gives us a sense 
+      of belonging`,
+        // "Hotel Journals cubrió una de las necesidades más grandes y nunca reconocidas del sector hotelero... La de tener una identidad, una herramienta que nos represente y ese algo que nos de un sentido de pertenencia",
       profile_link: 'https://www.linkedin.com/in/stephania-ayala-ornelas-424b19218/'
     },
     {
       img: testimonialImg2,
       name: "Gaëtan Meo",
       role: "Front Desk Agent",
+      // pairagraph:
+      //   ` La gran comunidad que es hotel journals permite conectar a todos los que trabajamos en el mundo hostelero y los que 
+      //     quieren hacer parte de este mundo increíble. Además de consejos y recomendaciones la comunidad siempre comparte experiencias
+      //     y momentos divertidos que permiten traer ese toque de humor que es lo que marca la diferencia en un universo muy profesional 
+      //     y con muchas responsabilidades
+      //   `,
       pairagraph:
-        ` La gran comunidad que es hotel journals permite conectar a todos los que trabajamos en el mundo hostelero y los que 
-          quieren hacer parte de este mundo increíble. Además de consejos y recomendaciones la comunidad siempre comparte experiencias
-          y momentos divertidos que permiten traer ese toque de humor que es lo que marca la diferencia en un universo muy profesional 
-          y con muchas responsabilidades
+        `
+        The large community that is Hotel Journals allows to connect all those 
+        who work in the hospitality world and those who want to be part of this
+        incredible world.
         `,
       profile_link: 'https://www.linkedin.com/in/gaetanmeo/'
 
@@ -179,11 +188,17 @@ const HotelLandingpage = () => {
       img: testimonialImg3,
       name: "Ana Mantero García",
       role: "Receptionist",
+      // pairagraph:
+      //   ` Gracias a Hotel Journals he conocido otros campos dentro 
+      //   del sector además de testimonios y anécdotas increíbles de 
+      //   compañeros para así aprender mucho mas de ellos.
+      //   `,
       pairagraph:
-        ` Gracias a Hotel Journals he conocido otros campos dentro 
-        del sector además de testimonios y anécdotas increíbles de 
-        compañeros para así aprender mucho mas de ellos.
-        `,
+      `
+      Thanks to Hotel Journals I have known other fields within 
+      the sector as well as incredible testimonies and anecdotes 
+      of colleagues to learn much more about them
+      `,
       profile_link: 'https://www.linkedin.com/in/ana-mantero-garc%C3%ADa-32b750171/'
     },
     // {
@@ -235,6 +250,8 @@ const HotelLandingpage = () => {
       },
     ],
   };
+
+  
   return (
     <>
       <div className={styles.maincontainer}>
@@ -255,9 +272,9 @@ const HotelLandingpage = () => {
               or to continue opening the best doors into the future.
             </p>
             <div className={styles.firstectionbuttoncontainer}>
-              <NavLink to='/courses' style={{ textDecoration: 'none', color: 'white' }}>
+              <Link to='/courses' style={{ textDecoration: 'none', color: 'white' }}>
                 <div className={styles.button} data-aos="fade-right" data-aos-delay="400"> Join Class</div>
-              </NavLink>
+              </Link>
               {/* <div className={styles.button} data-aos="fade-left" data-aos-delay="500" >Get Started</div> */}
             </div>
             <div className={styles.detail}>
@@ -297,9 +314,9 @@ const HotelLandingpage = () => {
             <h1 data-aos="fade-right" data-aos-delay="300">
               Explore featured <br />courses
             </h1>
-            <NavLink to={'/courses'} style={{ textDecoration: 'none', color: 'black', fontWeight: '700' }}>
+            <Link to={'/courses'} style={{ textDecoration: 'none', color: 'black', fontWeight: '700' }}>
               <h1 data-aos="fade-left" >view all</h1>
-            </NavLink>
+            </Link>
             <div data-aos="fade-right" duration="3000" data-aos-delay="350" className={styles.featurecircle}></div>
 
           </div>
@@ -322,9 +339,9 @@ const HotelLandingpage = () => {
         {/*talent section  */}
         <div className={styles.tailentcontainer}>
           <div className={styles.tailentcontainerleft}>
-            <NavLink to={'/jobs'} style={{ textDecoration: 'none', color: 'white' }}>
+            <Link to={'/jobs'} style={{ textDecoration: 'none', color: 'white' }}>
               <div className={styles.tailentcontainerleftbutton} data-aos="fade-up" > Find Job </div>
-            </NavLink>
+            </Link>
             <h1 data-aos="fade-up" data-aos-delay="100" className={styles.tailentcontainerleftheding}>
               where talent meets opportunity
             </h1>
@@ -426,11 +443,11 @@ const HotelLandingpage = () => {
               Get to know me (where read more is)
             </p>
 
-            <NavLink to='/about' style={{ textDecoration: 'none', color: 'white' }}>
+            <Link to='/about' style={{ textDecoration: 'none', color: 'white' }}>
               <div data-aos="fade-up" data-aos-delay="200" className={styles.authorbutton} >
                 Read More
               </div>
-            </NavLink>
+            </Link>
           </div>
         </div>
 
@@ -444,11 +461,11 @@ const HotelLandingpage = () => {
             <div className={styles.bookdetail}>
               <h1>Front Office</h1>
               <p>By Naira Siverio</p>
-              <NavLink to='/journals' style={{ textDecoration: 'none', color: 'white' }}>
+              <Link to='/journals' style={{ textDecoration: 'none', color: 'white' }}>
                 <div className={styles.bookbutton}>
                   View More
                 </div>
-              </NavLink>
+              </Link>
             </div>
 
 

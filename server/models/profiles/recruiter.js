@@ -15,7 +15,7 @@ const recruiterProfileSchema = new Schema({
     linkedIn : {type:String,required:false},
     company_logo : {
         type:String,
-        default:"https://res.cloudinary.com/dwahql1jy/image/upload/v1709029875/Designer_1_moynhz.png",
+        default:"https://res.cloudinary.com/dwahql1jy/image/upload/v1711122304/dummy_image_kji5nv.jpg",
         required:false,     
     },
     created_by : {type:Schema.Types.ObjectId,ref:'User',required:true},

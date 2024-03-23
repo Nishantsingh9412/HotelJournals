@@ -16,7 +16,7 @@ export const getJobsSuperAdminAction = () => async (dispatch) => {
 export const AcceptJobsAction = (id) => async (dispatch) => {
     try {
         const { data } = await api.AcceptJob(id);
-        getJobsSuperAdminAction();
+        // getJobsSuperAdminAction();
         // dispatch({type:'ACCEPTED_JOBS',data});
         return { success: true, message: "Jobs Accepted Successfully" };
     } catch (error) {
@@ -29,7 +29,7 @@ export const AcceptJobsAction = (id) => async (dispatch) => {
 export const RejectJobsAction = (id) => async (dispatch) => {
     try {
         const { data } = await api.RejectJob(id);
-        getJobsSuperAdminAction();
+        // getJobsSuperAdminAction();
         // dispatch({type:'REJECTED_JOBS',data});
         return { success: true, message: "Jobs Rejected Successfully" };
     } catch (error) {

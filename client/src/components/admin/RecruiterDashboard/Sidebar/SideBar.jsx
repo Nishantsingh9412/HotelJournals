@@ -11,7 +11,7 @@ import SidebarMenu from "./SidebarMenu";
 
 const routes = [
   {
-    path: "/",
+    path: "/test/recruiter",
     name: "Dashboard",
     icon: <FaHome />,
   },

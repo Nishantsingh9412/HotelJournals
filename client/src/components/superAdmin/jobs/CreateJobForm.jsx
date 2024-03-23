@@ -14,10 +14,12 @@ import JoditEditor from 'jodit-react';
 import languages from '../../admin/AdminCourses/languages.js';
 import { CreateJob } from '../../../redux/actions/jobsAdmin.js';
 import JobStyles from './CreateJob.module.css';
+import { useNavigate } from 'react-router-dom';
 
 const CreateJobForm = () => {
   let localUser;
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const predefinedJd = ``
   const [jobDecription, setJobDescription] = useState('');
   const [showJobLink, setShowJobLink] = useState(false);
@@ -68,10 +70,12 @@ const CreateJobForm = () => {
   }
 
   useEffect(() => {
-    if(jobType === 'Remote'){
-        setJobLocation('Remote');
+    if (jobType === 'Remote') {
+      setJobLocation('Remote');
+    }else{
+      setJobLocation([]);
     }
-  },[jobType])
+  }, [jobType])
 
 
   const loadCountries = async () => {
@@ -275,6 +279,12 @@ const CreateJobForm = () => {
       ) {
         return toast.error('Please fill all the required fields');
       }
+      if (jobType === 'InOffice' || jobType === 'Hybrid') {
+        if (jobLocation.length === 0 || jobLocation === 'Remote') {
+          return toast.error('Please select Atleast one Job Location');
+        }
+      }
+
       if (minWorkExp > 20 || minWorkExp < 0) {
         return toast.error('Minimum Work Experience should be less than 20 and greater than 0');
       } if (maxWorkExp > 20 || maxWorkExp < 0) {
@@ -303,6 +313,7 @@ const CreateJobForm = () => {
       }
       const sanitizedJobDescription = DOMPurify.sanitize(jobDecription);
 
+
       const jobsData = {
         job_title: jobTitle,
         job_category: jobCategory,
@@ -330,6 +341,7 @@ const CreateJobForm = () => {
         const response = await dispatch(CreateJob(jobsData));
         if (response.success) {
           toast.success('Job Posted Successfully');
+          navigate('/superadmin/jobs')
         } else {
           console.log(response)
           toast.error(response.message); // err.response.data.message
@@ -398,7 +410,7 @@ const CreateJobForm = () => {
                     <option value="Data & Analytics">Data & Analytics</option>
                     <option value="Event">Event</option>
                     <option value="F & B Management">F & B Management</option>
-                  </select> 
+                  </select>
                 </div>
 
                 <div className='col-md-4'>
@@ -437,7 +449,7 @@ const CreateJobForm = () => {
                   <div className='form-row mt-3'>
                     <div className="col-md-4">
                       <label htmlFor="select countries">
-                        Country
+                        Country <small className='text-danger'>*</small>
                       </label>
                       <Select
                         options={countriesAll?.map((country) => country)}
@@ -449,7 +461,7 @@ const CreateJobForm = () => {
                     </div>
                     <div className="col-md-4">
                       <label htmlFor="select state">
-                        State
+                        State <small className='text-danger'>*</small>
                       </label>
                       <Select
                         options={statesAll?.map((state) => state)}
@@ -463,7 +475,7 @@ const CreateJobForm = () => {
                     </div>
                     <div className='col-md-4'>
                       <label htmlFor="select cities">
-                        Cities
+                        Cities <small className='text-danger'>*</small>
                       </label>
                       <Select
                         options={citiesAll?.map((city) => city)}
@@ -496,7 +508,7 @@ const CreateJobForm = () => {
 
                 {/* <Select options={} isMulti  /> */}
                 {/* onChange={(selectedOptions) => setCourseLanguage(selectedOptions.map(option => option.value))} */}
-                <div className='col-md-4'>
+                <div className='col-md-6'>
                   <label htmlFor="mandatory_skills"> Mandatory Skills <small className='text-danger'> * </small> </label>
                   {/* Multiselect */}
                   <Select
@@ -507,11 +519,11 @@ const CreateJobForm = () => {
                 </div>
 
 
-                <div className='col-md-4'>
+                <div className='col-md-6'>
                   {/* Multiselect */}
 
                   <label htmlFor="optional_skills"> Optional Skills </label>
-                  <Select 
+                  <Select
                     options={skills.filter((skill) => !mandatorySkills.includes(skill.value))}
                     isMulti
                     onChange={(selectedOps) => setOptionalSkills(selectedOps.map(options => options.value))}
@@ -522,7 +534,7 @@ const CreateJobForm = () => {
               </div>
 
               <div className="form-row mt-4">
-                <div className='col-md-4'>
+                <div className='col-md-6'>
                   {/* lets add date and time picker here */}
                   <label htmlFor="jobPostedDate"  > Joining Date  <small className='text-danger'> * </small> </label>
                   <input
@@ -538,10 +550,18 @@ const CreateJobForm = () => {
 
 
                   <div className='mt-3'>
-                    <input type='checkbox' id='isImmediate' className='pt-2' onClick={() => setDisableJoiningDate(prevState => !prevState)} onChange={() => setIsImmediate(true)} style={{ transform: 'scale(1.6)' }} />
+                    <input
+                      type='checkbox'
+                      id='isImmediate'
+                      className='pt-2'
+                      onClick={() => setDisableJoiningDate(prevState => !prevState)}
+                      onChange={() => setIsImmediate(!isImmediate)}
+                      style={{ transform: 'scale(1.6)' }}
+                    />
                     <label htmlFor='isImmediate' className='ml-1 ' > Immediate Joining (Onboard within 30 days) </label>
                   </div>
                 </div>
+
               </div>
 
 

@@ -54,6 +54,9 @@ import JobsDashboardMain from './components/superAdmin/jobs/JobsDashboardMain';
 import ViewParticularJob from './components/superAdmin/jobs/ViewParticularJob';
 import CreateJobsSA from './components/superAdmin/jobs/CreateJobsSA';
 import UpdateJobDashboard from './components/superAdmin/jobs/UpdateJobDashboard';
+import ProfilePageMain from './components/Recruiters_profile/ProfilePageMain';
+import RecruiterProfile from './components/Recruiters_profile/RecruiterProfile';
+import RecruiterFinalDashboard from './components/admin/AdminJobs/RecruiterFinalDashboard';
 
 const AllRoutes = () => {
   return (
@@ -130,12 +133,18 @@ const AllRoutes = () => {
             <Route path='/superadmin/jobs/update/:id' element={<UpdateJobDashboard />} ></Route>
 
             {/* Routes for recruiter dashboard */}
-            <Route path='/test/recruiter/sidebarNew' element = {<RecruiterSidebar />} > </Route>
+            {/* <Route path='/test/recruiter/sidebarNew' element = {<RecruiterSidebar />} > </Route> */}
             <Route path='/test/recruiter/sidebar' element = {<Sidebar />} > </Route>
-            <Route path='/test/recruiter/manageJobs' element={<ManageAllJobs />} > </Route>
+
+            <Route path='/test/recruiter' element={<MainRecruiterDashboard />} > </Route>
             <Route path='/jobs/recruiter/post' element={<CreateJobs />} ></Route>
+            <Route path='/test/recruiter/manageJobs' element={<ManageAllJobs />} > </Route>
             <Route path='/jobs/recruiter/:id/job/manage/' element={<ManageParticularJob />} > </Route> 
-            <Route path='/test/imageCropper' element={<ImageCropperReal />} > </Route>
+            {/* <Route path='/test/imageCropper' element={<ImageCropperReal />} > </Route> */}
+
+                {/* For Recruiter and Educator Profile  Testing */}
+            <Route path='/test/profilepagmain' element={<ProfilePageMain />} > </Route>
+            <Route path='/test/recprofile/:id' element={<RecruiterProfile />} > </Route>
 
             
             {/* <Route path='/superadmin' element={<Supe />} > </Route> */}

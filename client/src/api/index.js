@@ -214,3 +214,15 @@ export const getRecruiterProfile = (id) => API.get(`/recruiter/profile/getrecpro
 export const updateRecruiterProfile = (id,profileData) => API.patch(`/recruiter/profile/updaterecprofile/${id}`,profileData)
 // Deleting Recruiter Profile
 export const deleteRecruiterProfile = (id) => API.delete(`/recruiter/profile/deleterecprofile/${id}`)
+
+
+// ----------------------------------------- For Recruiter Profile (Profile Pic) ------------------------------
+
+// Getting recruiter profile pic 
+export const getRecruiterProfilePic = (id) => API.get(`/recruiter/profile/getrecpic/${id}`)
+// Updating recruiter profile pic
+export const updateRecruiterProfilePic = (id,profilepicData) => API.patch(`/recruiter/profile/updaterecpic/${id}`,profilepicData)
+// Deleting recruiter profile pic
+export const deleteRecruiterProfilePic = (id) => API.patch(`/recruiter/profile/deleterecpic/${id}`)
+
+

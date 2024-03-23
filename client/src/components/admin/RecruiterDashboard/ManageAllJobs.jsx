@@ -36,8 +36,6 @@ const ManageAllJobs = () => {
     const MyJobs = AllJobs?.result?.filter((jobs) => jobs.created_by === local_user_id);
     console.log(MyJobs);
 
-
-
     useEffect(() => {
         dispatch(GetJobs())
     }, [dispatch]);
@@ -59,10 +57,6 @@ const ManageAllJobs = () => {
             console.log('Cancelled')
         }
     }
-
-
-
-
 
     return (
 

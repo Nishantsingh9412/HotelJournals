@@ -1,22 +1,33 @@
 import React, { useEffect, useState } from 'react'
-import { MdDashboard, MdLocalMall, MdStackedLineChart } from "react-icons/md";
+import { useNavigate } from 'react-router-dom';
+import decode from 'jwt-decode';
+// Icons start
+import { MdDashboard } from "react-icons/md";
 import { MdCancel } from "react-icons/md";
-import { MdAnalytics } from "react-icons/md";
 import { IoIosSunny } from "react-icons/io";
-import { CiShoppingCart } from "react-icons/ci";
 import { FaRegMoon } from "react-icons/fa";
-import { HiOutlineMenu } from "react-icons/hi";
-import { FaCheck, FaGear, FaInfo, FaMessage, FaNoteSticky, FaPlus, FaUser } from "react-icons/fa6";
-import { IoAnalyticsOutline, IoBarChart } from "react-icons/io5";
+import { HiOutlineMenu, HiPencilAlt } from "react-icons/hi";
+import {
+    FaBriefcase,
+    FaGraduationCap,
+} from "react-icons/fa6";
+import { RiLogoutBoxLine } from 'react-icons/ri';
+import { useDispatch, useSelector } from 'react-redux';
+// Icons end
 
 import logoImg from '../../assets/img/logo.png'
-import styles from './TipsSuperAdmin.module.css'
 import Dashboard from '../admin/Dashboard/Dashboard';
+import styles from './TipsSuperAdmin.module.css'
+
+import { setCurrentUser } from '../../redux/actions/CurrentUser';
 
 const TipsSuperAdmin = () => {
 
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isDarkMode, setIsDarkMode] = useState(true);
+
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const handleMenuClick = () => {
         setIsMenuOpen(!isMenuOpen);
@@ -34,9 +45,33 @@ const TipsSuperAdmin = () => {
         console.log('theme toggled');
     }
 
+
+    const User = useSelector((state) => (state.currentuserReducer));
+    console.log(User);
+
+    const handleLogout = () => {
+        dispatch({ type: 'LOGOUT' });
+        navigate('/login');
+        dispatch(setCurrentUser(null));
+    }
+    useEffect(() => {
+        const token = User?.token;
+        if (token) {
+            const decodeToken = decode(token);
+            if (decodeToken.exp * 1000 < new Date().getTime()) {
+                handleLogout();
+            }
+        }
+        dispatch(setCurrentUser(JSON.parse(localStorage.getItem('Profile'))));
+    }, [dispatch])
+
+
     return (
         <div className={styles.dashContainer}>
-            <aside className={`${styles.asideComponentDash} ${isMenuOpen ? styles.show : ''}`}>
+            <aside
+                // className={styles.asideComponentDash}
+                className={`${styles.asideComponentDash} ${isMenuOpen ? styles.show : ''}`}
+            >
                 <div className={`${styles.top} ${styles.logo}`} >
                     <img className={styles.imageClass} src={logoImg} alt="logo" />
                     <h2 className={` ${styles.heading2}  ${styles.textMuted}`}>Hotel
@@ -45,33 +80,39 @@ const TipsSuperAdmin = () => {
                             marginLeft: '2px'
                         }}>Journals</span>
                     </h2>
+                    <div
+                        className={styles.close}
+                        id='close-btn'
+                        onClick={handleMenuClose}
+                    >
+                        {/* <div id="close-btn"></div> */}
+                        <MdCancel size={25} />
+                    </div>
                 </div>
-                <div
-                    className={styles.close}
-                    id='close-btn'
-                    onClick={handleMenuClose}
-                >
-                    {/* <div id="close-btn"></div> */}
-                    <MdCancel size={25} />
-                </div>
+
                 <div className={styles.sidebar}>
-                    <a className={styles.anchorTag} href="#">
+                    <a className={styles.anchorTag} href="/superadmin">
                         <MdDashboard />
                         <h3 className={styles.heading3}> Dashboard </h3>
                     </a>
                     <a className={styles.anchorTag} href="/superadmin/tips" >
-                        <FaUser />
+                        <HiPencilAlt />
                         <h3 className={styles.heading3}> Tips </h3>
                     </a>
-                    <a className={styles.anchorTag} href="#">
-                        <FaNoteSticky />
-                        <h3 className={styles.heading3}> Orders </h3>
+                    <a className={styles.anchorTag} href="/superadmin/courses">
+                        <FaGraduationCap />
+                        <h3 className={styles.heading3}> Courses </h3>
                     </a>
-                    <a className={styles.anchorTag} href="#">
-                        <IoAnalyticsOutline />
-                        <h3 className={styles.heading3}> Analytics </h3>
+                    <a className={styles.anchorTag} href="/superadmin/jobs">
+                        <FaBriefcase />
+                        <h3 className={styles.heading3}> Jobs </h3>
                     </a>
-                    <a className={styles.anchorTag} href="#">
+
+                    <a className={styles.anchorTag} onClick={handleLogout}>
+                        <RiLogoutBoxLine />
+                        <h3 className={styles.heading3}> Logout </h3>
+                    </a>
+                    {/* <a className={styles.anchorTag} href="#">
                         <FaMessage />
                         <h3 className={styles.heading3}> Messages </h3>
                         <span className={styles.messages}> 26 </span>
@@ -92,7 +133,7 @@ const TipsSuperAdmin = () => {
                     <a className={styles.anchorTag} href="#">
                         <FaPlus />
                         <h3 className={styles.heading3}> Add Product </h3>
-                    </a>
+                    </a> */}
 
                 </div>
             </aside>

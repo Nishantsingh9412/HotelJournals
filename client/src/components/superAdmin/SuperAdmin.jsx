@@ -1,21 +1,31 @@
 import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import decode from 'jwt-decode';
+
+// Icons start
 import { MdDashboard, MdLocalMall, MdStackedLineChart } from "react-icons/md";
 import { MdCancel } from "react-icons/md";
 import { MdAnalytics } from "react-icons/md";
 import { IoIosSunny } from "react-icons/io";
 import { CiShoppingCart } from "react-icons/ci";
-import { FaPencilAlt, FaPencilRuler, FaRegMoon } from "react-icons/fa";
+import { FaBriefcase,FaRegMoon } from "react-icons/fa";
 import { HiOutlineMenu, HiPencilAlt } from "react-icons/hi";
-import { FaCheck, FaGear, FaInfo, FaMessage, FaNoteSticky, FaPlus, FaUser } from "react-icons/fa6";
+import { FaGraduationCap, FaPlus, FaUser } from "react-icons/fa6";
 import { IoAnalyticsOutline, IoBarChart } from "react-icons/io5";
+import { RiLogoutBoxLine } from "react-icons/ri";
+// Icons End
 
 import logoImg from '../../assets/img/logo.png'
+import { setCurrentUser } from '../../redux/actions/CurrentUser'
 import styles from './SuperAdmin.module.css'
 
 const SuperAdmin = () => {
 
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isDarkMode, setIsDarkMode] = useState(true);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const handleMenuClick = () => {
         setIsMenuOpen(!isMenuOpen);
@@ -33,6 +43,30 @@ const SuperAdmin = () => {
         console.log('theme toggled');
     }
 
+
+    
+    const User = useSelector((state) => (state.currentuserReducer)); 
+    console.log(User);
+
+    const handleLogout = () => {
+        dispatch({ type: 'LOGOUT' });
+        navigate('/login');
+        dispatch(setCurrentUser(null));
+    }
+    useEffect(() => {
+        const token = User?.token;
+        if (token) {
+            const decodeToken = decode(token);
+            if (decodeToken.exp * 1000 < new Date().getTime()) {
+                handleLogout();
+            }
+        }
+        dispatch(setCurrentUser(JSON.parse(localStorage.getItem('Profile'))));
+    }, [dispatch])
+
+
+
+
     return (
         <div className={styles.dashContainer}>
             <aside
@@ -43,7 +77,7 @@ const SuperAdmin = () => {
                     <img className={styles.imageClass} src={logoImg} alt="logo" />
                     <h2 className={` ${styles.heading2}  ${styles.textMuted}`}>Hotel
                         <span style={{
-                            color:'#e4b49d',
+                            color: '#e4b49d',
                             marginLeft: '2px'
                         }}>Journals</span>
                     </h2>
@@ -57,7 +91,7 @@ const SuperAdmin = () => {
                     <MdCancel size={25} />
                 </div>
                 <div className={styles.sidebar}>
-                    <a className={styles.anchorTag} href="#">
+                    <a className={styles.anchorTag} href="/superadmin">
                         <MdDashboard />
                         <h3 className={styles.heading3}> Dashboard </h3>
                     </a>
@@ -65,15 +99,20 @@ const SuperAdmin = () => {
                         <HiPencilAlt />
                         <h3 className={styles.heading3}> Tips </h3>
                     </a>
-                    <a className={styles.anchorTag} href="/superadmin/courses"> 
-                        <FaNoteSticky />
+                    <a className={styles.anchorTag} href="/superadmin/courses">
+                        <FaGraduationCap />
                         <h3 className={styles.heading3}> Courses </h3>
                     </a>
-                    <a className={styles.anchorTag} href="#">
-                        <IoAnalyticsOutline />
-                        <h3 className={styles.heading3}> Analytics </h3>
+                    <a className={styles.anchorTag} href="/superadmin/jobs">
+                        <FaBriefcase />
+                        <h3 className={styles.heading3}> Jobs </h3>
                     </a>
-                    <a className={styles.anchorTag} href="#">
+
+                    <a className={styles.anchorTag} onClick={handleLogout}>
+                        <RiLogoutBoxLine />
+                        <h3 className={styles.heading3}> Logout </h3>
+                    </a>
+                    {/* <a className={styles.anchorTag} href="#">
                         <FaMessage />
                         <h3 className={styles.heading3}> Messages </h3>
                         <span className={styles.messages}> 26 </span>
@@ -94,18 +133,20 @@ const SuperAdmin = () => {
                     <a className={styles.anchorTag} href="#">
                         <FaPlus />
                         <h3 className={styles.heading3}> Add Product </h3>
-                    </a>
+                    </a> */}
 
                 </div>
             </aside>
             {/* End of aside   */}
+
+            {/* Start of main section */}
             <main className={styles.mainComp}>
                 <h1 className={styles.heading1}>Dashboard</h1>
                 <div className={styles.date}>
                     <input type='date' />
                 </div>
                 <div className={styles.insights}>
-                    {/* Start of sales */}
+                    {/* // Start of sales */}
                     <div className={styles.sales}>
                         <span>
                             <MdAnalytics
@@ -130,9 +171,9 @@ const SuperAdmin = () => {
                             Last 24 Hours
                         </small>
                     </div>
-                    {/* End of Sales */}
+                    {/* // End of Sales */}
 
-                    {/* Start of Expenses */}
+                    {/* // Start of Expenses */}
                     <div className={styles.expenses}>
                         <span>
                             <IoAnalyticsOutline
@@ -142,7 +183,7 @@ const SuperAdmin = () => {
                         <div className={styles.middle}>
                             <div className={styles.left}>
                                 <h3 className={styles.heading3}>Total Expenses</h3>
-                                <h1 className={styles.heading1} >$25,024</h1>  
+                                <h1 className={styles.heading1} >$25,024</h1>
                             </div>
                             <div className={styles.progress}>
                                 <svg className={styles.svgcircleIcon}>
@@ -157,9 +198,9 @@ const SuperAdmin = () => {
                             Last 24 Hours
                         </small>
                     </div>
-                    {/* End of Expenses */}
+                    {/* // End of Expenses */}
 
-                    {/* Start of Income */}
+                    {/* // Start of Income */}
                     <div className={styles.income}>
                         <span>
                             <MdStackedLineChart
@@ -184,9 +225,9 @@ const SuperAdmin = () => {
                             Last 24 Hours
                         </small>
                     </div>
-                    {/* End of Income */}
+                    {/* // End of Income */}
                 </div>
-                {/* End of insights */}
+                {/* // End of insights */}
                 <div className={styles.recentOrder}>
                     <h2 className={styles.heading2}> Recent Orders </h2>
                     <table>
@@ -240,7 +281,9 @@ const SuperAdmin = () => {
                     <a className={styles.anchorTag} href="#"> Show All</a>
                 </div>
             </main>
-            {/* End of main section  */}
+            {/* // End of main section  */}
+
+
             <div className={styles.right}>
                 <div className={styles.top}>
                     <button
@@ -250,9 +293,9 @@ const SuperAdmin = () => {
                     >
                         <span><HiOutlineMenu /></span>
                     </button>
-                    <div 
+                    <div
                         className={styles.themeToggler}
-                        onClick={handleThemeToggle}    
+                        onClick={handleThemeToggle}
                     >
                         <span className={isDarkMode ? styles.active : ''}> <IoIosSunny /> </span>
                         <span className={isDarkMode ? '' : styles.active}> <FaRegMoon /> </span>
@@ -267,7 +310,6 @@ const SuperAdmin = () => {
                         </div>
                     </div>
                 </div>
-                {/* End Of Top */}
                 <div className={styles.recentUpdates}>
                     <h2 className={styles.heading2}> Recent Updates </h2>
                     <div className={styles.updates}>
@@ -308,7 +350,6 @@ const SuperAdmin = () => {
                         </div>
                     </div>
                 </div>
-                {/* End of recent updates */}
                 <div className={styles.salesAnalytics}>
                     <h2 className={styles.heading2}>  Sales Analytics  </h2>
                     <div className={`${styles.item} ${styles.online}`}>

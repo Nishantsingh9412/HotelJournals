@@ -1,26 +1,47 @@
 import React, { useEffect, useState } from 'react'
-import ReactQuill from 'react-quill';
 import { useDispatch, useSelector } from 'react-redux';
-// Purify About Company
-import DOMPurify from 'dompurify';
-// ToastContainer
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-// Loader
-import PuffLoader from 'react-spinners/PuffLoader';
+import { useNavigate } from 'react-router-dom';
+import DOMPurify from 'dompurify';
+import PuffLoader from "react-spinners/PuffLoader";
+import ReactQuill from 'react-quill';
 
-import { getRecProfileAction, setRecProfileAction } from '../../redux/actions/recProfile';
-import RecruiterCSS from './recruiterProfile.module.css';
-import ProfilePic from '../User_profile/ProfilePic';
-// import ImageCropper from './ImageCropper';
-import RecruiterFinalDashboard from '../admin/AdminJobs/RecruiterFinalDashboard';
-import Profile from './ImageCropperForRecProfile/Profile';
+import { fetchSingleUser } from '../../../redux/actions/users.js';
+import { getRecProfileAction } from '../../../redux/actions/recProfile.js';
+import Profile from '../../Recruiters_profile/ImageCropperForRecProfile/Profile.jsx';
+import SideBar from './Sidebar/SideBar.jsx';
+import ViewProfile from './ViewProfile.jsx';
 
-import { PiSelectionSlashDuotone } from 'react-icons/pi';
+const UpdateRecProfileForm = () => {
 
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const [loading, setLoading] = useState(true);
+    const [oldProfilePic, setOldProfilePic] = useState('');
+    const [editProfile, setEditProfile] = useState(false);
 
-const RecruiterProfile = () => {
+    const [companyName, setCompanyName] = useState('');
+    const [Designation, setDesignation] = useState('');
+    const [numberOfEmployees, setNumberOfEmployees] = useState('');
+    const [HeadQuarters, setHeadQuarters] = useState('');
+    const [industryType, setIndustryType] = useState('');
+    const [companyType, setCompanyType] = useState('');
+    const [companyWebsite, setCompanyWebsite] = useState('');
+    const [CompanysTagline, setCompanysTagline] = useState('');
+    const [twitter, setTwitter] = useState('');
+    const [linkedIn, setLinkedIn] = useState('');
+    const [companyLogo, setCompanyLogo] = useState('');
+    const [CompanyDescription, setCompanyDescription] = useState('');
 
+    const localUser = JSON.parse(localStorage.getItem('Profile'));
+    const localUserId = localUser?.result?._id;
+    console.log(localUserId);
+
+    const recruiterProfile = useSelector((state) => state.getRecProfileReducer);
+    const singleRecruiterData = recruiterProfile?.data?.result[0];
+
+    
     const industryTypes = [
         "Select Industry Type",
         "3D Printing",
@@ -165,42 +186,52 @@ const RecruiterProfile = () => {
         "Wireless",
         "Writing and Editing"
     ];
-    const modules = {
-        toolbar: [
-            ['bold', 'italic', 'underline'],
-            [{ 'list': 'ordered' }, { 'list': 'bullet' }],
-        ],
-    };
-
-    const dispatch = useDispatch();
-    const [companyName, setCompanyName] = useState('');
-    const [Designation, setDesignation] = useState('');
-    const [numberOfEmployees, setNumberOfEmployees] = useState('');
-    const [HeadQuarters, setHeadQuarters] = useState('');
-    const [industryType, setIndustryType] = useState('');
-    const [companyType, setCompanyType] = useState('');
-    const [companyWebsite, setCompanyWebsite] = useState('');
-    const [CompanysTagline, setCompanysTagline] = useState('');
-    const [twitter, setTwitter] = useState('');
-    const [linkedIn, setLinkedIn] = useState('');
-    const [companyLogo, setCompanyLogo] = useState('');
-    const [CompanyDescription, setCompanyDescription] = useState('');
-    const [loading, setLoading] = useState(false);
-
-    const localUser = JSON.parse(localStorage.getItem('Profile'));
-    const localuserId = localUser?.result?._id;
-
-    // const loadedImage = useEffect(() => {
-
-    // },[])
 
     useEffect(() => {
-        dispatch(getRecProfileAction(localuserId))
+        dispatch(fetchSingleUser(localUserId));
+    }, [dispatch])
+
+    useEffect(() => {
+        if (localUserId) {
+            dispatch(getRecProfileAction(localUserId))
+        }
+    }, [dispatch])
+
+
+    useEffect(() => {
+        if (singleRecruiterData) {
+            setOldProfilePic(singleRecruiterData?.company_logo);
+            setLoading(false);
+        }
+    }, [singleRecruiterData])
+
+    useEffect(() => {
+        // for logout redirect to login page
+        if (!localStorage.getItem('Profile')) {
+            navigate('/login');
+        }
     }, [])
 
-    const currentUserProfileFromDB = useSelector(state => state.getRecProfileReducer);
-    const currentRecProfile = currentUserProfileFromDB?.data?.result[0];
-    // console.log(currentRecProfile);
+    useEffect(() => {
+        if (singleRecruiterData) {
+            setCompanyName(singleRecruiterData?.companyName);
+            setDesignation(singleRecruiterData?.Designation);
+            setNumberOfEmployees(singleRecruiterData?.numberOfEmployees);
+            setHeadQuarters(singleRecruiterData?.HeadQuarters);
+            setIndustryType(singleRecruiterData?.industryType);
+            setCompanyType(singleRecruiterData?.companyType);
+            setCompanyWebsite(singleRecruiterData?.companyWebsite);
+            setCompanysTagline(singleRecruiterData?.CompanysTagline);
+            setTwitter(singleRecruiterData?.twitter);
+            setLinkedIn(singleRecruiterData?.linkedIn);
+            setCompanyDescription(singleRecruiterData?.CompanyDescription);
+        }
+    }, [singleRecruiterData])
+
+    const handleProfileClick = () => {
+        dispatch(getRecProfileAction(localUserId));
+    }
+
 
     const isValidUrl = (url) => {
         const pattern = new RegExp('^(https?:\\/\\/)?' + // protocol
@@ -245,6 +276,7 @@ const RecruiterProfile = () => {
     //         setLoading(false);
     //     })
     // }
+
     const handleProfileSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
@@ -281,37 +313,135 @@ const RecruiterProfile = () => {
             twitter,
             linkedIn,
             // company_logo: companyLogo,
-            created_by: localuserId
+            created_by: localUserId
         }
 
         console.log("This is ProfileData");
         console.log(profileData);
 
-        const response = await dispatch(setRecProfileAction(profileData))
-        if (response.success) {
-            toast.success(response.message)
-            setLoading(false);
-        } else {
-            toast.error(response.message)
-            setLoading(false);
-        }
+        // const response = await dispatch(setRecProfileAction(profileData))
+        // if (response.success) {
+        // toast.success(response.message)
+        // setLoading(false);
+        // } else {
+        // toast.error(response.message)
+        // setLoading(false);
+        // }
     }
 
+    console.log(singleRecruiterData);
+    console.log(100, singleRecruiterData)
+    console.log(101, oldProfilePic)
 
     return (
-        currentRecProfile ?
-            <RecruiterFinalDashboard /> :
-            <>
-                <div className='container'
+        // <div>
+        //     <div>
+        //         <div className="container rounded bg-white mt-5 mb-5">
+        //             <div className="row">
+        //                 <div className="col-md-3 border-right">
+        //                     <div
+        //                         className="d-flex flex-column align-items-center text-center p-3 py-5"
+        //                         onClick={handleProfileClick}
+        //                     >
+        //                         {/* <img
+        //                     className="rounded-circle mt-5"
+        //                     width="150px"
+        //                     src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"
+        //                     alt="Profile"
+        //                   />
+        //               <span className="font-weight-bold">Edogaru</span> */}
+        //                         {/* <span className="text-black-50">edogaru@mail.com.my</span> */}
+        //                         <Profile
+        //                             id={localUserId}
+        //                             oldImage={oldProfilePic}
+        //                         />
+        //                         <span> </span>
+        //                     </div>
+        //                 </div>
+        //                 <div className="col-md-5 border-right">
+        //                     <div className="p-3 py-5">
+        //                         <div className="d-flex justify-content-between align-items-center mb-3">
+        //                             <h4 className="text-right">Profile Settings</h4>
+        //                         </div>
+        //                         <div className="row mt-2">
+        //                             <div className="col-md-6">
+        //                                 <label className="labels">Name</label>
+        //                                 <input type="text" className="form-control" placeholder="first name" />
+        //                             </div>
+        //                             <div className="col-md-6">
+        //                                 <label className="labels">Surname</label>
+        //                                 <input type="text" className="form-control" placeholder="surname" />
+        //                             </div>
+        //                         </div>
+        //                         <div className="row mt-2">
+        //                             <div className="col-md-6">
+        //                                 <label className="labels">Name</label>
+        //                                 <input type="text" className="form-control" placeholder="first name" />
+        //                             </div>
+        //                             <div className="col-md-6">
+        //                                 <label className="labels">Surname</label>
+        //                                 <input type="text" className="form-control" placeholder="surname" />
+        //                             </div>
+        //                         </div>
+        //                         {/* Other input fields */}
+        //                         <div className="mt-5 text-center">
+        //                             <button className="btn btn-primary profile-button" type="button">
+        //                                 Save Profile
+        //                             </button>
+        //                         </div>
+        //                     </div>
+        //                 </div>
+        //                 <div className="col-md-4">
+        //                     <div className="p-3 py-5">
+        //                         <div className="d-flex justify-content-between align-items-center experience">
+        //                             <span>Edit Experience</span>
+        //                             <span className="border px-3 p-1 add-experience">
+        //                                 <i className="fa fa-plus"></i>&nbsp;Experience
+        //                             </span>
+        //                         </div>
+        //                         <br />
+        //                         <div className="col-md-12">
+        //                             <label className="labels">Experience in Designing</label>
+        //                             <input type="text" className="form-control" placeholder="experience" />
+        //                         </div>
+        //                         <br />
+        //                         <div className="col-md-12">
+        //                             <label className="labels">Additional Details</label>
+        //                             <input type="text" className="form-control" placeholder="additional details" />
+        //                         </div>
+        //                     </div>
+        //                 </div>
+        //             </div>
+        //         </div>
+        //     </div>
+        // </div>
+
+        <>
+
+            {loading ? (
+
+                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+                    <PuffLoader
+                        color="red"
+                        size={70}
+                    />
+                </div>
+
+            ) : (
+                <div className='container mt-0 pt-0'
                     style={{
                         height: 'auto',
                         borderRadius: '10px',
                         padding: '10vw',
                     }}
                 >
-                <ToastContainer />
-
-
+                    <ToastContainer />
+                    <div className='mt-2' onClick={handleProfileClick}>
+                        <Profile
+                            id={localUserId}
+                            oldImage={oldProfilePic}
+                        />
+                    </div>
                     <form onSubmit={handleProfileSubmit}
                         onKeyDown={(e) => {
                             if (e.key === 'Enter') {
@@ -324,6 +454,7 @@ const RecruiterProfile = () => {
                                 <label htmlFor="companyName" className='text-dark'> Company Name  <span className='text-danger'>*</span></label>
                                 <input
                                     type="text"
+                                    value={companyName}
                                     onChange={(e) => setCompanyName(e.target.value)}
                                     className='form-control'
                                     placeholder='Enter Company Name'
@@ -333,6 +464,7 @@ const RecruiterProfile = () => {
                                 <label htmlFor="Designation" className='text-dark'> Designation <span className='text-danger'>*</span> </label>
                                 <input
                                     type="text"
+                                    value={Designation}
                                     onChange={(e) => setDesignation(e.target.value)}
                                     className='form-control'
                                     placeholder='Enter Designation' />
@@ -344,6 +476,7 @@ const RecruiterProfile = () => {
                                 <label htmlFor="NoOfEmployees"> No of Employees </label>
                                 <select
                                     className='form-control'
+                                    value={numberOfEmployees}
                                     onChange={(e) => setNumberOfEmployees(e.target.value)}
                                 >
                                     <option value=""> Select No of Employees </option>
@@ -361,6 +494,7 @@ const RecruiterProfile = () => {
                                 <label htmlFor="HeadQuarters"> HeadQuarters <span className='text-danger'>*</span></label>
                                 <input
                                     type="text"
+                                    value={HeadQuarters}
                                     onChange={(e) => setHeadQuarters(e.target.value)}
                                     className='form-control'
                                     placeholder='Enter HeadQuarters'
@@ -372,6 +506,7 @@ const RecruiterProfile = () => {
                                 <label htmlFor="industryType"> Industry Type <span className='text-danger'>*</span> </label>
                                 <select
                                     className='form-control'
+                                    value={industryType}
                                     onChange={(e) => setIndustryType(e.target.value)}
                                 >
                                     {industryTypes.map((type, index) => (
@@ -392,6 +527,7 @@ const RecruiterProfile = () => {
                                 <label htmlFor="companyType"> Company Type <span className='text-danger'>*</span> </label>
                                 <select
                                     className='form-control'
+                                    value={companyType}
                                     onChange={(e) => setCompanyType(e.target.value)}
                                 >
                                     <option value=""> Select Company Type </option>
@@ -408,6 +544,7 @@ const RecruiterProfile = () => {
                                 <label htmlFor="companyWebsite"> Company Website </label>
                                 <input
                                     type="url"
+                                    value={companyWebsite}
                                     onChange={(e) => setCompanyWebsite(e.target.value)}
                                     className='form-control'
                                     placeholder='www.yourcompanyname.com'
@@ -417,6 +554,7 @@ const RecruiterProfile = () => {
                                 <label htmlFor="CompanyTagline"> Company Tagline </label>
                                 <input
                                     type="text"
+                                    value={CompanysTagline}
                                     onChange={(e) => setCompanysTagline(e.target.value)}
                                     className='form-control'
                                     placeholder='Enter Company Tagline' />
@@ -427,6 +565,7 @@ const RecruiterProfile = () => {
                                 <label htmlFor="twitter"> X (Formerly Twitter) </label>
                                 <input
                                     type="url"
+                                    value={twitter}
                                     onChange={(e) => setTwitter(e.target.value)}
                                     className='form-control'
                                     placeholder='https://twitter.com/yourusername' />
@@ -435,6 +574,7 @@ const RecruiterProfile = () => {
                                 <label htmlFor="linkedIn"> LinkedIn </label>
                                 <input
                                     type="url"
+                                    value={linkedIn}
                                     onChange={(e) => setLinkedIn(e.target.value)}
                                     className='form-control'
                                     placeholder='https://www.linkedin.com/yourusername'
@@ -444,20 +584,21 @@ const RecruiterProfile = () => {
                         <div className='form-row mt-3'>
                             <div className='form-group col-md-12'>
                                 <label htmlFor="companyDescription"> About Company <span className='text-danger'>*</span></label>
-                                {/* <ReactQuill
-                                    theme="snow"
-                                    modules={modules}
-                                    onChange={(e) => setCompanyDescription(e)}
-                                    // formats={formats}
-                                    placeholder='Write something about your company'
-                                /> */}
                                 <textarea
-                                className='form-control'
-                                rows={5}
-                                cols={10}
-                                onChange={(e) => setCompanyDescription(e.target.value)}
+                                    className='form-control'
+                                    value={CompanyDescription}
+                                    rows={5}
+                                    cols={10}
+                                    onChange={(e) => setCompanyDescription(e.target.value)}
+                                    placeholder='Write something about your company'
+                                />
+                                {/* <ReactQuill
+                                theme="snow"
+                                modules={modules}
+                                onChange={(e) => setCompanyDescription(e)}
+                                // formats={formats}
                                 placeholder='Write something about your company'
-                            />
+                            /> */}
                             </div>
                             {/* <div className='form-group col-md-6'>
                                 <label htmlFor="companyLogo"> Company Logo </label>
@@ -481,8 +622,9 @@ const RecruiterProfile = () => {
                         </button>
                     </form>
                 </div>
-            </>
+            )}
+        </>
     )
 }
 
-export default RecruiterProfile
+export default UpdateRecProfileForm
