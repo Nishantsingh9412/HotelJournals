@@ -8,7 +8,7 @@ import PuffLoader from "react-spinners/PuffLoader";
 import ReactQuill from 'react-quill';
 
 import { fetchSingleUser } from '../../../redux/actions/users.js';
-import { getRecProfileAction } from '../../../redux/actions/recProfile.js';
+import { getRecProfileAction, setRecProfileAction, updateRecProfileAction } from '../../../redux/actions/recProfile.js';
 import Profile from '../../Recruiters_profile/ImageCropperForRecProfile/Profile.jsx';
 import SideBar from './Sidebar/SideBar.jsx';
 import ViewProfile from './ViewProfile.jsx';
@@ -41,7 +41,7 @@ const UpdateRecProfileForm = () => {
     const recruiterProfile = useSelector((state) => state.getRecProfileReducer);
     const singleRecruiterData = recruiterProfile?.data?.result[0];
 
-    
+
     const industryTypes = [
         "Select Industry Type",
         "3D Printing",
@@ -319,14 +319,17 @@ const UpdateRecProfileForm = () => {
         console.log("This is ProfileData");
         console.log(profileData);
 
-        // const response = await dispatch(setRecProfileAction(profileData))
-        // if (response.success) {
-        // toast.success(response.message)
-        // setLoading(false);
-        // } else {
-        // toast.error(response.message)
-        // setLoading(false);
-        // }
+
+        const response = await dispatch(updateRecProfileAction(localUserId, profileData))
+        if (response.success) {
+            getRecProfileAction(localUserId);
+            toast.success(response.message)
+            setLoading(false);
+        } else {
+            toast.error(response.message)
+            setLoading(false);
+        }
+
     }
 
     console.log(singleRecruiterData);

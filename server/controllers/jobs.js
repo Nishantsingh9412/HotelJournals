@@ -4,24 +4,120 @@ import RecruiterProfile from "../models/profiles/recruiter.js";
 import Jobs from '../models/jobs.js'
 import User from "../models/auth.js";
 
+// Jobs According to status
+// Hired Candidates for a particular job
+// export const hiredCandParticularJob = async (req, res) => {
+//     try {
+//         const { id: jobId } = req.params;
+//         if (!mongoose.Types.ObjectId.isValid(jobId)) {
+//             return res.status(400).json({ success: false, message: 'Invalid ID' })
+//         }
+//         const job = await Jobs.findById(jobId).populate('applicants.user', '-password -joinedOn');
+//         if (!job) {
+//             return res.status(400).json({ success: false, message: 'No Job Found' });
+//         } else {
+//             const hiredCandidates = job.applicants.filter(applicant => applicant.status === 'Hired');
+//             if(hiredCandidates.length === 0){
+//                 return res.status(400).json({ success: false, message: 'No Hired Candidates Found' });
+//             }else{
+//                 res.status(200).json({ success: true, message: 'Hired Candidates Fetched Successfully', result: hiredCandidates });
+//             }
+//         }
+//     } catch (error) {
+//         console.log("Error from hiredCandidatesParticularJob Controller ", error.message)
+//         res.status(500).json({ success: false, message: error.message });
+//     }
+// }
+// Rejected Candidates for a particular job
+// export const rejCandParticularJob = async (req, res) => {
+//     try {
+//         const { id: jobId } = req.params;
+//         if (!mongoose.Types.ObjectId.isValid(jobId)) {
+//             return res.status(400).json({ success: false, message: 'Invalid ID' })
+//         }
+//         const job = await Jobs.findById(jobId).populate('applicants.user', '-password -joinedOn');
+//         if (!job) {
+//             return res.status(400).json({ success: false, message: 'No Job Found' });
+//         } else {
+//             const rejectedCandidates = job.applicants.filter(applicant => applicant.status === 'Rejected');
+//             if(rejectedCandidates.length === 0){
+//                 return res.status(400).json({ success: false, message: 'No Rejected Candidates Found' });
+//             }else{
+//                 res.status(200).json({ success: true, message: 'Rejected Candidates Fetched Successfully', result: rejectedCandidates });
+//             }
+//         }
+//     } catch (error) {
+//         console.log("Error from rejectedCandidatesParticularJob Controller ", error.message)
+//         res.status(500).json({ success: false, message: error.message });
+//     }
+// }
+// Offered Candidates for a particular job
+// export const offeredCandParticularJob = async (req, res) => {
+//     try {
+//         const { id: jobId } = req.params;
+//         if (!mongoose.Types.ObjectId.isValid(jobId)) {
+//             return res.status(400).json({ success: false, message: 'Invalid ID' })
+//         }
+//         const job = await Jobs.findById(jobId).populate('applicants.user', '-password -joinedOn');
+//         if(!job){
+//             return res.status(400).json({ success: false, message: 'No Job Found' });
+//         }else{
+//             const offeredCandidates = job.applicants.filter(applicant => applicant.status === 'Offered');
+//             if(offeredCandidates.length === 0){
+//                 return res.status(400).json({ success: false, message: 'No Offered Candidates Found' });
+//             }else{
+//                 res.status(200).json({ success: true, message: 'Offered Candidates Fetched Successfully', result: offeredCandidates });
+//             }
+//         }
+//     } catch (error) {
+//         console.log("Error from offeredCandidatesParticularJob Controller ", error.message)
+//         res.status(500).json({ success: false, message: error.message });
+//     }
+// }
 
+// Not Offered Candidates for a particular job
+// export const notOfferedCandPartJob = async (req, res) => {
+//     try {
+//         const { id: jobId } = req.params;
+//         if (!mongoose.Types.ObjectId.isValid(jobId)) {
+//             return res.status(400).json({ success: false, message: 'Invalid ID' })
+//         }
+//         const job = await Jobs.findById(jobId).populate('applicants.user', '-password -joinedOn');
+//         if(!job){
+//             return res.status(400).json({ success: false, message: 'No Job Found' });
+//         }else{
+//             const notOfferedCandidates = job.applicants.filter(applicant => applicant.status === 'Not_Offered');
+//             if(notOfferedCandidates.length === 0){
+//                 return res.status(400).json({ success: false, message: 'No Not Offered Candidates Found' });
+//             }else{
+//                 res.status(200).json({ success: true, message: 'Not Offered Candidates Fetched Successfully', result: notOfferedCandidates });
+//             }
+//         }
+//     } catch (error) {
+//         console.log("Error from notOfferedCandPartJob Controller ", error.message)
+//         res.status(500).json({ success: false, message: error.message });
+//     }
+// }
+
+
+// Verify Job by SuperAdmin 
 export const VerifyJobs = async (req, res) => {
-    const { id : jobId } = req.params;
+    const { id: jobId } = req.params;
 
     if (!mongoose.Types.ObjectId.isValid(jobId)) {
         return res.status(400).json({ success: false, message: 'Invalid ID' })
     }
     try {
         let verifiedJobStatus = await Jobs.findOneAndUpdate(
-            { _id: jobId},
+            { _id: jobId },
             {
                 $set: {
-                    'isVerifiedJob':true
+                    'isVerifiedJob': true
                 }
-            },{ new: true });
+            }, { new: true });
         if (!verifiedJobStatus) {
             return res.status(404).json({ success: false, message: 'Job not found' });
-        }else{
+        } else {
             res.status(200).json({ success: true, message: 'Job Verified SuccessFully', result: verifiedJobStatus });
         }
     } catch (error) {
@@ -30,24 +126,25 @@ export const VerifyJobs = async (req, res) => {
     }
 }
 
+// Reject Job by SuperAdmin
 export const rejectJobs = async (req, res) => {
-    const { id : jobId } = req.params;
+    const { id: jobId } = req.params;
 
     if (!mongoose.Types.ObjectId.isValid(jobId)) {
         return res.status(400).json({ success: false, message: 'Invalid ID' })
     }
     try {
         let rejectedJobStatus = await Jobs.findOneAndUpdate(
-            { _id: jobId},
+            { _id: jobId },
             {
                 $set: {
-                    'isVerifiedJob':false
+                    'isVerifiedJob': false
                 }
-            },{ new: true });
+            }, { new: true });
 
         if (!rejectedJobStatus) {
             return res.status(404).json({ success: false, message: 'Job not found' });
-        }else{
+        } else {
             res.status(200).json({ success: true, message: 'Job Rejected SuccessFully', result: rejectedJobStatus });
         }
     } catch (error) {
@@ -56,7 +153,7 @@ export const rejectJobs = async (req, res) => {
     }
 
 }
-
+// Filter Section jobs
 export const filterJobs = async (req, res) => {
     try {
         const {
@@ -120,6 +217,7 @@ export const filterJobs = async (req, res) => {
     }
 }
 
+// Update candidate status for a job Offered, Hired, Rejected
 export const updateCandidateStatus = async (req, res) => {
     const { jobId, userId, status } = req.body;
     if (!mongoose.Types.ObjectId.isValid(jobId) || !mongoose.Types.ObjectId.isValid(userId)) {
@@ -145,7 +243,7 @@ export const updateCandidateStatus = async (req, res) => {
         res.status(500).json({ success: false, message: error.message });
     }
 }
-
+// Apply for a job
 export const applyJob = async (req, res) => {
     const { jobId, userId } = req.body;
 
@@ -175,7 +273,7 @@ export const applyJob = async (req, res) => {
         res.status(500).json({ success: false, message: error.message });
     }
 }
-
+// Post a new job
 export const postJobs = async (req, res) => {
     try {
         const {
@@ -211,7 +309,7 @@ export const postJobs = async (req, res) => {
             if (!recruiterCompanyLogo) {
                 console.log("No Company Logo Found")
             }
-            if(!recruiterCompanyName){
+            if (!recruiterCompanyName) {
                 console.log("No Company Name Found")
             }
             const newJob = await Jobs.create({
@@ -233,7 +331,7 @@ export const postJobs = async (req, res) => {
                 jobDescription: job_description,
                 isExternal,
                 jobLink: job_link,
-                company_name:recruiterCompanyName.companyName,
+                company_name: recruiterCompanyName.companyName,
                 company_logo: recruiterCompanyLogo ? recruiterCompanyLogo.company_logo : undefined,
                 created_by,
             });
@@ -252,7 +350,7 @@ export const postJobs = async (req, res) => {
 // Get all Jobs (Verified Only)
 export const getAllJobs = async (req, res) => {
     try {
-        const AllJobs = await Jobs.find({isVerifiedJob:true});
+        const AllJobs = await Jobs.find({ isVerifiedJob: true });
         const AllJobsArray = [];
         AllJobs.forEach(singleJob => {
             AllJobsArray.push({
@@ -286,11 +384,25 @@ export const getAllJobs = async (req, res) => {
         res.status(500).json({ success: false, message: error.message });
     }
 }
+// get all jobs for recruiter (filter by id)
+export const getAllJobsRecruiter = async (req, res) => {
+    try {
+        const { id: _id } = req.params;
+        if (!mongoose.Types.ObjectId.isValid(_id)) {
+            return res.status(400).json({ success: false, message: 'Invalid ID' })
+        }
+        const AllJobsRecruiter = await Jobs.find({ created_by: _id });
+        res.status(200).json({ success: true, message: 'All jobs Data Fetched Successfully', result: AllJobsRecruiter })
+    } catch (error) {
+        console.log("Error from getAllJobsRecruiter Controller ", error.message)
+        res.status(500).json({ success: false, message: 'something went wrong' })
+    }
+}
 
 // Get all Jobs (Both Verified and unverified)
 export const getAllJobsForSuperAdmin = async (req, res) => {
     try {
-        const AllJobs = await Jobs.find();
+        const AllJobs = await Jobs.find().populate('created_by', 'email');
         const AllJobsArray = [];
         AllJobs.forEach(singleJob => {
             AllJobsArray.push({

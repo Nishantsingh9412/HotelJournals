@@ -14,6 +14,7 @@ import languages from '../AdminCourses/languages.js'
 import { CreateJob } from '../../../redux/actions/jobsAdmin.js';
 import SideBar from '../RecruiterDashboard/Sidebar/SideBar.jsx';
 import JobStyles from './CreateJob.module.css';
+import RecruiterSidebarFinal from '../../Miscellaneous/RecruiterSidebarFinal.jsx';
 
 const CreateJobs = () => {
   let localUser;
@@ -344,7 +345,7 @@ const CreateJobs = () => {
     <>
       <div className={JobStyles.containerJobs}>
         <div className={JobStyles.sidebar}>
-          <SideBar />
+          <RecruiterSidebarFinal />
         </div>
         <div className={JobStyles.content} >
           <div className='mt-2 p-5'>

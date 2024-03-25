@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, useNavigate } from 'react-router-dom';
+import PuffLoader from 'react-spinners/PuffLoader.js';
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
 
 // Icons 
 import { FaPencil } from "react-icons/fa6";
@@ -14,31 +14,40 @@ import { HiDotsVertical } from "react-icons/hi";
 // import { IoMdTime } from "react-icons/io";
 // import { FaArrowUpRightDots } from "react-icons/fa6";
 
-
 // Modules 
-import { DeleteJobAction, GetJobs } from '../../../redux/actions/jobsAdmin.js';
+import { DeleteJobAction, GetJobs, getJobsRecruiterAction } from '../../../redux/actions/jobsAdmin.js';
 import SideBar from './Sidebar/SideBar.jsx';
 import ManageAllStyles from './ManageAllJobs.module.css';
+import RecruiterSidebarFinal from '../../Miscellaneous/RecruiterSidebarFinal.jsx';
 
 const ManageAllJobs = () => {
-
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const [componentLoad,setComponentLoad] = useState(true);
     const [showDropDown, setShowDropDown] = useState(false);
 
-    const AllJobs = useSelector((state) => state.AllJobsReducer)
+    const AllJobs = useSelector((state) => state.AllJobsRecruiterReducer)
+    const MyJobs = AllJobs?.result;
+    console.log("these are all jobs \n")
     console.log(AllJobs);
 
     const localStorageData = JSON.parse(localStorage.getItem('Profile'));
     const local_user_id = localStorageData?.result?._id;
-    console.log(`LocalUSERID :  ${local_user_id}`);
+    console.log(`local_user_id :  ${local_user_id}`);
 
-    const MyJobs = AllJobs?.result?.filter((jobs) => jobs.created_by === local_user_id);
-    console.log(MyJobs);
+    // const MyJobs = AllJobs?.result?.filter((jobs) => jobs.created_by === local_user_id);
+    // console.log(MyJobs);
 
     useEffect(() => {
-        dispatch(GetJobs())
-    }, [dispatch]);
+        dispatch(getJobsRecruiterAction(local_user_id));
+    }, [dispatch])
+
+
+    useEffect(() => {
+        if(MyJobs){
+            setComponentLoad(false);
+        }
+    },[MyJobs])
 
     // Deletion of Job
     const handleConfirmedDelete = (id) => {
@@ -59,15 +68,22 @@ const ManageAllJobs = () => {
     }
 
     return (
-
         <>
-            <div className='mb-5'>
-                <ToastContainer />
-                <div className={ManageAllStyles.sidebar}>
-                    <SideBar />
+            {componentLoad ? (
+                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+                    <PuffLoader
+                        color="red"
+                        size={70}
+                    />
                 </div>
+            ) : (
+                <div className='mb-5'>
+                    <ToastContainer />
+                    <div className={ManageAllStyles.sidebar}>
+                        <RecruiterSidebarFinal />
+                    </div>
 
-                {/* <div className='container d-flex mt-2 '>
+                    {/* <div className='container d-flex mt-2 '>
                         <h2 className='pt-4 mb-4'> Recruiter Dashboard  </h2>
                         <div className='ml-4 mt-4'>
                             <button className='btn btn-warning text-white'>
@@ -80,70 +96,74 @@ const ManageAllJobs = () => {
                     </div> */}
 
 
-                <div className={ManageAllStyles.content} >
-                    <div className='col'>
-                        <div className={`alert alert-primary text-center mt-2 `}>
-                            <h1> My Jobs  </h1>
-                            {/* <hr /> */}
-                        </div>
-                        {
-                            MyJobs?.map((job, index) => (
-                                <div className="col-md-6 col-lg-6 " style={{ marginTop: '1vw' }}>
-                                    <div className="card shadow">
+                    <div className={ManageAllStyles.content} >
+                        <div className='col'>
+                            <div className={`alert alert-primary text-center mt-2 `}>
+                                <h1> My Jobs  </h1>
+                                {/* <hr /> */}
+                            </div>
+                            {
+                                MyJobs?.map((job, index) => (
+                                    <div className="col-md-6 col-lg-6 " style={{ marginTop: '1vw' }}>
+                                        <div className="card shadow">
 
-                                        <div className="card-body ">
-                                            <h5 className="card-title">{job.jobTitle}</h5>
-                                            <p className="card-text text-muted mb-2">{job.created_at}</p>
-                                            <div className="d-flex justify-content-between align-items-center">
-                                                <span className="badge badge-success">Active</span>
-                                                {/* <span className="badge badge-success">Active</span> */}
-                                                <div>
-                                                    <button className="btn btn-sm btn-light mr-2" >
-                                                        <IoShareSocial />
-                                                    </button>
-                                                    <button className='btn btn-sm btn-light mr-2'>
-                                                        <HiDotsVertical />
-                                                    </button>
-                                                    {/* <button className='btn btn-sm btn-light mr-2'>
+                                            <div className="card-body ">
+                                                <h5 className="card-title">{job.jobTitle}</h5>
+                                                <p className="card-text text-muted mb-2">{job.created_at}</p>
+                                                <div className="d-flex justify-content-between align-items-center">
+                                                    {
+                                                        job.isVerifiedJob ?
+                                                            <span className="badge badge-success">Active</span> :
+                                                            <span className="badge badge-warning">Under Review</span>
+                                                    }
+                                                    {/* <span className="badge badge-success">Active</span> */}
+                                                    <div>
+                                                        <button className="btn btn-sm btn-light mr-2" >
+                                                            <IoShareSocial />
+                                                        </button>
+                                                        <button className='btn btn-sm btn-light mr-2'>
+                                                            <HiDotsVertical />
+                                                        </button>
+                                                        {/* <button className='btn btn-sm btn-light mr-2'>
                                                         <FaPencil />
                                                     </button> */}
 
-                                                    <NavLink style={{ textDecoration: 'none' }} to={`/jobs/dashboard/update/${job._id}`} >
-                                                        <button className='btn btn-sm btn-light mr-2' > <FaPencil /> </button>
-                                                    </NavLink>
-                                                    <NavLink style={{ textDecoration: 'none' }} to={`/jobs/dashboard/`}>
-                                                        <button className='btn btn-sm btn-light mr-2' onClick={() => { handleDelete(job._id) }} ><IoTrashBin /></button>
-                                                    </NavLink>
+                                                        <NavLink style={{ textDecoration: 'none' }} to={`/jobs/dashboard/update/${job._id}`} >
+                                                            <button className='btn btn-sm btn-light mr-2' > <FaPencil /> </button>
+                                                        </NavLink>
+                                                        <NavLink style={{ textDecoration: 'none' }} to={`/jobs/dashboard/`}>
+                                                            <button className='btn btn-sm btn-light mr-2' onClick={() => { handleDelete(job._id) }} ><IoTrashBin /></button>
+                                                        </NavLink>
+                                                    </div>
+                                                </div>
+                                                <div className="mb-2">
+                                                    {/* <p className="mb-1"><strong>Skills:</strong></p> */}
+                                                    <div className="d-flex flex-wrap mt-2">
+                                                        {job.mandatorySkills.map((skill, index) => (
+                                                            <span key={index} className="badge badge-pill badge-light mr-2 mb-1 p-2">{skill}</span>
+                                                        ))}
+                                                        {job.optionalSkills.map((skill, index) => (
+                                                            <span key={index} className="badge badge-pill badge-light mr-2 mb-1 p-2">{skill}</span>
+                                                        ))}
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div className="mb-2">
-                                                {/* <p className="mb-1"><strong>Skills:</strong></p> */}
-                                                <div className="d-flex flex-wrap mt-2">
-                                                    {job.mandatorySkills.map((skill, index) => (
-                                                        <span key={index} className="badge badge-pill badge-light mr-2 mb-1 p-2">{skill}</span>
-                                                    ))}
-                                                    {job.optionalSkills.map((skill, index) => (
-                                                        <span key={index} className="badge badge-pill badge-light mr-2 mb-1 p-2">{skill}</span>
-                                                    ))}
-                                                </div>
+                                            <div className="card-footer bg-transparent border-top-0 p-0">
+                                                <button
+                                                    className="btn btn-sm btn-block"
+                                                    onClick={() => navigate(`/jobs/recruiter/${job._id}/job/manage/`)}
+                                                    style={{ backgroundColor: '#E4B49D' }}
+                                                >
+                                                    View Applicants
+                                                </button>
                                             </div>
-                                        </div>
-                                        <div className="card-footer bg-transparent border-top-0 p-0">
-                                            <button
-                                                className="btn btn-sm btn-block"
-                                                onClick={() => navigate(`/jobs/recruiter/${job._id}/job/manage/`)}
-                                                style={{ backgroundColor: '#E4B49D' }}
-                                            >
-                                                View Applicants
-                                            </button>
                                         </div>
                                     </div>
-                                </div>
-                            ))}
+                                ))}
+                        </div>
                     </div>
-                </div>
-
-            </div >
+                </div >
+            )}
         </>
     )
 }

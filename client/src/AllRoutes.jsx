@@ -57,6 +57,8 @@ import UpdateJobDashboard from './components/superAdmin/jobs/UpdateJobDashboard'
 import ProfilePageMain from './components/Recruiters_profile/ProfilePageMain';
 import RecruiterProfile from './components/Recruiters_profile/RecruiterProfile';
 import RecruiterFinalDashboard from './components/admin/AdminJobs/RecruiterFinalDashboard';
+import EmailTemp from './components/Miscellaneous/EmailTemp';
+import RecruiterDashboardTest from './components/Miscellaneous/RecruiterSidebarFinal';
 
 const AllRoutes = () => {
   return (
@@ -145,7 +147,8 @@ const AllRoutes = () => {
                 {/* For Recruiter and Educator Profile  Testing */}
             <Route path='/test/profilepagmain' element={<ProfilePageMain />} > </Route>
             <Route path='/test/recprofile/:id' element={<RecruiterProfile />} > </Route>
-
+            <Route path='/test/emailTemp' element={<EmailTemp />} > </Route>
+            <Route path='/test/rec' element={<RecruiterDashboardTest />} > </Route>
             
             {/* <Route path='/superadmin' element={<Supe />} > </Route> */}
 

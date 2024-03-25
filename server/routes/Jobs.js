@@ -11,10 +11,31 @@ import {
     filterJobs,
     VerifyJobs,
     rejectJobs,
-    getAllJobsForSuperAdmin
+    getAllJobsForSuperAdmin,
+    getAllJobsRecruiter,
+    // hiredCandParticularJob,
+    // notOfferedCandPartJob,
+    // offeredCandParticularJob,
+    // rejCandParticularJob,
 } from '../controllers/jobs.js';
 
 const router = express.Router();
+
+// get jobs for recruiter
+router.get('/recruiter/:id', getAllJobsRecruiter)
+
+
+// Get Jobs for recruiter status Wise (Hired Jobs)
+// router.get('/recruiter/hired/:id', hiredCandParticularJob)
+
+// Get Jobs for recruiter status Wise (Rejected Jobs)
+// router.get('/recruiter/rejected/:id', rejCandParticularJob)
+
+// Get Jobs for recruiter status Wise (Offered Jobs)
+// router.get('/recruiter/offered/:id', offeredCandParticularJob)
+
+// Get Jobs for recruiter status Wise (Not Offered Jobs)
+// router.get('/recruiter/notOffered/:id', notOfferedCandPartJob)
 
 // Verify Jobs SuperAdmin
 router.patch('/verifyjob/:id', VerifyJobs)

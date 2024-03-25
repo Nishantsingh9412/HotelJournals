@@ -1,5 +1,59 @@
 import * as api from '../../api/index.js'
 
+// export const getHiredCandidatesAction = (jobId) => async (dispatch) => {
+//     try {
+//         const { data } = await api.HiredCandidates(jobId);
+//         dispatch({ type: 'GET_HIRED_CANDIDATES', data });
+//         return { success: true, message: "Hired Candidates Fetched Successfully" };
+//     } catch (error) {
+//         console.log("Error from getHiredCandidates Action: ", error.message, error.stack);
+//         return { success: false, message: error.response.data.message };
+//     }
+// }
+
+// export const getRejectedCandidatesAction = (jobId) => async (dispatch) => {
+//     try {
+//         const { data } = await api.RejectedCandidates(jobId);
+//         dispatch({ type: 'GET_REJECTED_CANDIDATES', data });
+//         return { success: true, message: "Rejected Candidates Fetched Successfully" };
+//     } catch (error) {
+//         console.log("Error from getRejectedCandidates Action: ", error.message, error.stack);
+//         return { success: false, message: error.response.data.message };
+//     }
+// }
+
+// export const getOfferedCandidatesAction = (jobId) => async (dispatch) => {
+//     try {
+//         const { data } = await api.OfferedCandidates(jobId);
+//         dispatch({ type: 'GET_OFFERED_CANDIDATES', data });
+//         return { success: true, message: "Offered Candidates Fetched Successfully" };
+//     } catch (error) {
+//         console.log("Error from AllOfferedCandidates Action: ", error.message, error.stack);
+//         return { success: false, message: error.response.data.message };
+//     }
+// }
+
+// export const notOfferedCandidatesAction = (jobId) => async (dispatch) => {
+//     try{
+//         const {data} = await api.notOfferedCandidates(jobId);
+//         dispatch({type:'NOT_OFFERED_CANDIDATES',data});
+//         return { success: true, message: "Not Offered Candidates Fetched Successfully" };
+//     }catch(error){
+//         console.log("Error from notOfferedCandidates Action: ", error.message, error.stack);
+//         return { success: false, message: error.response.data.message };
+//     }
+// }
+
+export const getJobsRecruiterAction = (id) => async (dispatch) => {
+    try {
+        const { data } = await api.GetRecruiterJobs(id);
+        dispatch({ type: 'GET_JOBS_RECRUITER', data });
+        return { success: true, message: "Jobs Fetched Successfully" };
+    } catch (error) {
+        console.log("Error from getJobsRecruiter Action: ", error.message, error.stack);
+        return { success: false, message: error.response.data.message };
+    }
+}
 
 export const getJobsSuperAdminAction = () => async (dispatch) => {
     try {

@@ -88,6 +88,20 @@ export const PostNewJob = (JobData) => API.post('/jobs/createjob',JobData)
 // Job Data (Job fetching)  For All Jobs (Verified Jobs)
 export const GetAllJobs = () =>  API.get('jobs/allJobs')
 
+// Job Data( Only Hired Candidates ) For Recruiter Jobs (For Recruiter) By Job Id
+// export const HiredCandidates = (id) => API.get(`/jobs/recruiter/hired/${id}`)
+
+// Job Data( Only Rejected Candidates ) For Recruiter Jobs (For Recruiter) By Job Id
+// export const RejectedCandidates = (id) => API.get(`/jobs/recruiter/rejected/${id}`)
+
+// Job Data( Only Offered Candidates ) For Recruiter Jobs (For Recruiter) By Job Id
+// export const OfferedCandidates = (id) => API.get(`/jobs/recruiter/offered/${id}`)
+
+// export const notOfferedCandidates = (id) => API.get(`/jobs/recruiter/notOffered/${id}`)
+
+// Job Data (Job fetching)  For Recruiter Jobs (For Recruiter) By Recruiter Id
+export const GetRecruiterJobs = (id) => API.get(`/jobs/recruiter/${id}`)
+
 // Accept jobs SuperAdmin  (For SuperAdmin)
 export const AcceptJob = (id) => API.patch(`/jobs/verifyjob/${id}`)
 

@@ -12,7 +12,7 @@ import 'react-image-crop/dist/ReactCrop.css';
 import { useParams } from "react-router-dom";
 
 import setCanvasPreview from "./setCanvasPreview";
-import { deleteRecruiterPicAction, updateRecProfilePicAction, getRecProfilePicAction } from "../../../redux/actions/recProfile";
+import { deleteRecruiterPicAction, updateRecProfilePicAction, getRecProfilePicAction, getRecProfileAction } from "../../../redux/actions/recProfile";
 import { Button } from "@chakra-ui/react";
 
 const ASPECT_RATIO = 1;
@@ -68,7 +68,8 @@ const ImageCropper = ({ closeModal, updateAvatar, oldImageURL, dummyImage, id })
       if (response2?.success) {
         updateAvatar(response2?.data?.result?.company_logo);
         const response3 = await dispatch(getRecProfilePicAction(id));
-        if (response3.success) {
+        const response4 = await dispatch(getRecProfileAction(id))
+        if (response4.success) {
           updateAvatar(response3?.data?.result?.company_logo);
           console.log("This is response2", response2);
           setTimeout(async () => {

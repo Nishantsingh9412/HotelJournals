@@ -11,6 +11,7 @@ import SideBar from './Sidebar/SideBar.jsx';
 import ViewProfile from './ViewProfile.jsx';
 import ManageAllStyles from './ManageAllJobs.module.css';
 import UpdateRecProfileForm from './UpdateRecProfileForm.jsx';
+import RecruiterSidebarFinal from '../../Miscellaneous/RecruiterSidebarFinal.jsx';
 
 const MainRecruiterDashboard = () => {
 
@@ -52,12 +53,12 @@ const MainRecruiterDashboard = () => {
   console.log(43, singleRecruiterData)
   console.log(44, oldProfilePic)
 
-  useEffect(()=> {
+  useEffect(() => {
     // for logout redirect to login page
-    if(!localStorage.getItem('Profile')) {
+    if (!localStorage.getItem('Profile')) {
       navigate('/login');
     }
-  },[])
+  }, [])
 
 
   return (
@@ -77,7 +78,8 @@ const MainRecruiterDashboard = () => {
         <div className='mb-5'>
           <ToastContainer />
           <div className={ManageAllStyles.sidebar}>
-            <SideBar />
+            {/* <SideBar /> */}
+            <RecruiterSidebarFinal />
           </div>
           <div className={ManageAllStyles.content} >
             <div
@@ -87,8 +89,8 @@ const MainRecruiterDashboard = () => {
                 flexDirection: 'column'
               }}
             >
-              <h3 className='mt-2' > Welcome  {singleRecruiterData?.created_by?.fname} To 
-              Hotel Journals </h3>
+              <h3 className='mt-2' > Welcome  {singleRecruiterData?.created_by?.fname} To
+                Hotel Journals </h3>
               {/* h2 */}
               <FaEdit
                 size={30}
@@ -99,7 +101,7 @@ const MainRecruiterDashboard = () => {
             {
               editProfile ?
                 (
-                  <UpdateRecProfileForm /> 
+                  <UpdateRecProfileForm />
                 ) : (
                   <>
                     <ViewProfile

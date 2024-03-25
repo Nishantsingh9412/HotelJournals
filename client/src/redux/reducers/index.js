@@ -19,6 +19,13 @@ import AllJobsReducer from "./jobsReducers/allJobsReducer";
 import AllJobsSuperAdmin from "./jobsReducers/allJobsSuperAdmin";
 import UpdateJobsReducer from "./jobsReducers/updateJobsReducer";
 import getSingleJobReducer from "./jobsReducers/getSingleJobReducer";
+import AllJobsRecruiterReducer from "./jobsReducers/alljobsRecruiter";
+
+import HiredCandidatesReducer from "./jobsReducers/statusWise/HiredCandidates";
+import notOfferedCandidates from "./jobsReducers/statusWise/notOfferedCandidates";
+import OfferedCandidatesReducer from "./jobsReducers/statusWise/offeredCandidates";
+import RejectedCandidatesReducer from "./jobsReducers/statusWise/rejectedCandidates";
+import CombinedCandidatesReducer from './jobsReducers/statusWise/CombinedStatus'
 
 import getProfileReducer from "./profile/getProfileReducer";
 import setProfileReducer from "./profile/setProfileReducer";
@@ -76,6 +83,14 @@ export default combineReducers({
     AllJobsSuperAdmin,
     UpdateJobsReducer,
     getSingleJobReducer,
+    AllJobsRecruiterReducer,
+    // Candiddates status
+    HiredCandidatesReducer,
+    notOfferedCandidates,
+    OfferedCandidatesReducer,
+    RejectedCandidatesReducer,
+    CombinedCandidatesReducer,
+    // Profile User
     getProfileReducer,
     setProfileReducer,
     updateProfileReducer,

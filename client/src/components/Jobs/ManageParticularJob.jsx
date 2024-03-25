@@ -22,7 +22,7 @@ import {
 } from '@chakra-ui/react'
 
 import { Modal, Button as ButtonBoots } from 'react-bootstrap';
-import { IoMdMail } from 'react-icons/io';
+import { IoIosCheckmarkCircle, IoMdMail } from 'react-icons/io';
 import DOMPurify from 'dompurify';
 import ReactQuill from 'react-quill';
 import PuffLoader from 'react-spinners/PuffLoader';
@@ -35,13 +35,21 @@ import { Image as ImageChakra } from '@chakra-ui/react';
 import { useDispatch, useSelector } from 'react-redux';
 import GridTable from '@nadavshaar/react-grid-table';
 
-import './ManageParticularJob.css'
-import { UpdateCandidStatsAction, getJobSingleAction } from '../../redux/actions/jobsAdmin';
+import {
+    UpdateCandidStatsAction,
+    // getHiredCandidatesAction,
+    getJobSingleAction,
+    // getOfferedCandidatesAction,
+    // getRejectedCandidatesAction,
+    // notOfferedCandidatesAction
+} from '../../redux/actions/jobsAdmin';
 import { fetchAllUsers } from '../../redux/actions/users';
 import ProfilePic from '../User_profile/ProfilePic';
 import SideDrawerProfile from './SideDrawerProfile';
 import { sendMailAction } from '../../redux/actions/mail';
 import SideBar from '../../components/admin/RecruiterDashboard/Sidebar/SideBar';
+import RecruiterSidebarFinal from '../Miscellaneous/RecruiterSidebarFinal';
+import './ManageParticularJob.css'
 
 
 
@@ -96,16 +104,12 @@ const IconCell = ({ tableManager, value, field, data, column, colIndex, rowIndex
     const { id } = useParams();
     const [showModal, setModalShow] = useState(false);
 
-
-    const handleEye = (e) => {
-        e.preventDefault();
-        // console.log(`Applicant ID: ${data._id}, Icon Name: Eye`)
-    }
-
+    // Sending mail to candidate functionality
     const handleNotepad = async (e) => {
         e.preventDefault();
-        console.log("this is notepad", data, data._id)
+        console.log("this is notepad uiududiudiudiui", data, data._id);
         setModalShow(true);
+
         // const updatedStatsUser = {
         //     jobId:id,
         //     userId:data._id,
@@ -138,19 +142,33 @@ const IconCell = ({ tableManager, value, field, data, column, colIndex, rowIndex
             status: 'Rejected'
         }
         const response = await dispatch(UpdateCandidStatsAction(updatedStatsUser))
-
         if (response.success) {
+            dispatch(getJobSingleAction(id))
             toast.success('Applicant Rejected Successfully')
         } else {
             toast.error('Applicant Not Rejected Try Again')
         }
-
-        console.log("All params")
-        const allParams = [id, data._id, 'Rejected'];
-        console.log(allParams)
-        console.log(`Applicant ID: ${data._id}, Icon Name: UserTimes`)
+        // console.log("All params")
+        // const allParams = [id, data._id, 'Rejected'];
+        // console.log(allParams)
+        // console.log(`Applicant ID: ${data._id}, Icon Name: UserTimes`)
     }
 
+    const handleSelected = async (e) => {
+        e.preventDefault();
+        const updatedStatsUser = {
+            jobId: id,
+            userId: data._id,
+            status: 'Hired'
+        }
+        const response = await dispatch(UpdateCandidStatsAction(updatedStatsUser));
+        if (response.success) {
+            await dispatch(getJobSingleAction(id))
+            toast.success('Applicant Hired Successfully')
+        } else {
+            toast.error('Applicant Not Hired Try Again')
+        }
+    }
 
     return (
         <div>
@@ -166,7 +184,7 @@ const IconCell = ({ tableManager, value, field, data, column, colIndex, rowIndex
                     margin: '20px',
                 }}
             >
-                {/* <FaEye onClick={handleEye} style={{marginLeft:'20px',cursor:'pointer'}}/> */}
+                {/* For Getting User Details Eye Icon Click */}
                 <SizeExample
                     fname={data?.fname}
                     id={data?._id}
@@ -181,12 +199,17 @@ const IconCell = ({ tableManager, value, field, data, column, colIndex, rowIndex
 
                 <Button
                     ml={2}
+                    onClick={handleSelected}
+                >
+                    <IoIosCheckmarkCircle style={{ color: 'blue' }} />
+                </Button>
+
+                <Button
+                    ml={2}
                     onClick={handleRejected}
                 >
                     <FcCancel style={{ color: 'red' }} />
                 </Button>
-                {/* <PiNotepad onClick={handleSelected} style={{ marginLeft: '20px', cursor: 'pointer' }} /> */}
-                {/* <FcCancel onClick={handleRejected} style={{ marginLeft: '20px', cursor: 'pointer' }} /> */}
             </div>
         </div>
     )
@@ -220,6 +243,7 @@ const columns = [
         id: 5,
         field: 'actionStatus',
         label: 'Action / Status',
+        width: '400px',
         cellRenderer: IconCell
 
     },
@@ -277,6 +301,9 @@ function SizeExample(props) {
 }
 
 // Mail Popup Modal
+const a = async () => {
+
+}
 
 function UserEmailModal(props) {
 
@@ -285,6 +312,7 @@ function UserEmailModal(props) {
     const [message, setMessage] = useState('');
     const [loading, setLoading] = useState(false);
 
+    const { id } = useParams();
     const userId = props.userid;
     const applicant = props.applicant;
     // const OneAndOnlyOneApplicant = applicants?.filter((applicant) => applicant?._id === userId)[0];
@@ -342,12 +370,22 @@ function UserEmailModal(props) {
         }
         const response = await dispatch(sendMailAction(mailData));
         if (response.success) {
-            toast.success(response.message);
-            props.onHide()
+            const updatedStatsUser = {
+                jobId: id,
+                userId: userId,
+                status: 'Offered'
+            }
+            const responseNext = await dispatch(UpdateCandidStatsAction(updatedStatsUser))
+            if (responseNext.success) {
+                await dispatch(getJobSingleAction(id))
+                toast.success(response.message);
+                props.onHide()
+            } else {
+                toast.error(response.message);
+            }
         } else {
-            toast.error(response.message);
+            toast.error(response.message)
         }
-        setLoading(false);
     }
 
     return (
@@ -357,7 +395,6 @@ function UserEmailModal(props) {
             aria-labelledby="contained-modal-title-vcenter"
             centered
             onHide={props.onHide}
-
         >
             <Modal.Header closeButton>
                 <div style={{ textAlign: 'center' }}>
@@ -367,14 +404,11 @@ function UserEmailModal(props) {
 
                     <p className='text-muted'> <b>Note:</b> Sending promotional emails can lead to serious repercussions like debarment from listing future events on Hotel Journals.</p>
                 </div>
-
             </Modal.Header>
             <Modal.Body>
-
                 <h1></h1>
                 <div className='container'>
                     <form onSubmit={handleSubmitMail}>
-
                         <div className="form-group">
                             <div>
                                 <label className='ml-2 mt-3' htmlFor="to"> To <small className='text-danger'>*</small></label>
@@ -439,16 +473,55 @@ function UserEmailModal(props) {
 
 const ManageParticularJob = () => {
     const { id } = useParams();
+    const [loading, setLoading] = useState(true);
     const dispatch = useDispatch();
     const [selected, setSelected] = useState('All');
+
 
     useEffect(() => {
         dispatch(getJobSingleAction(id))
     }, [dispatch])
 
-    useEffect(() => {
-        dispatch(fetchAllUsers())
-    }, [dispatch])
+
+    // useEffect(() => {
+    //     dispatch(getHiredCandidatesAction(id))
+    // }, [dispatch])
+
+    // useEffect(() => {
+    //     dispatch(getRejectedCandidatesAction(id))
+    // }, [dispatch])
+
+    // useEffect(() => {
+    //     dispatch(getOfferedCandidatesAction(id))
+    // }, [dispatch])
+
+    // useEffect(() => {
+    //     dispatch(notOfferedCandidatesAction(id))
+    // }, [dispatch])
+
+    // const hiredCandidatesReducer = useSelector((state) => state?.HiredCandidatesReducer);
+    // const offeredCandidatesReducer = useSelector((state) => state?.OfferedCandidatesReducer);
+    // const notOfferedCandidatesReducer = useSelector((state) => state?.notOfferedCandidates);
+    // const RejectedCandidatesReducer = useSelector((state) => state?.RejectedCandidatesReducer);
+
+    // const hiredCandidates = hiredCandidatesReducer.map((applicant) => applicant?.user);
+    // const offeredCandidates = offeredCandidatesReducer.map((applicant) => applicant?.user);
+    // const notOfferedCandidates = notOfferedCandidatesReducer.map((applicant) => applicant?.user);
+    // const RejectedCandidates = RejectedCandidatesReducer.map((applicant) => applicant?.user);
+    // // console.log(RejectedCandidates);
+
+    // console.log("Hired Candidates Reducer : ", hiredCandidatesReducer);
+    // console.log("Offered Candidates Reducer : ", offeredCandidatesReducer);
+    // console.log("Not Offered Candidates Reducer : ", notOfferedCandidatesReducer);
+    // console.log("Rejected Candidates Reducer : ", RejectedCandidatesReducer);
+
+
+    // console.log("Hired Candidates : ", hiredCandidates);
+    // console.log("Offered Candidates : ", offeredCandidates);
+    // console.log("Not Offered Candidates : ", notOfferedCandidates);
+    // console.log("Rejected Candidates : ", RejectedCandidates);
+
+
 
     const singleJobReducer = useSelector((state) => state?.getSingleJobReducer);
     console.log("THis is single JobReducer \n ", singleJobReducer)
@@ -459,22 +532,60 @@ const ManageParticularJob = () => {
     console.log(jobApplicants);
     const appliedUsers = jobApplicants;
 
+    const hiredCandidates = singleJobReducer?.result?.applicants?.filter((applicant) => applicant?.status === 'Hired');
+    const allHiredCandidates = hiredCandidates?.map((applicant) => applicant?.user);
+    console.log("Hired Candidates: ", allHiredCandidates);
+
+    const offeredCandidates = singleJobReducer?.result?.applicants?.filter((applicant) => applicant?.status === 'Offered');
+    const allOfferedCandidates = offeredCandidates?.map((applicant) => applicant?.user);
+    console.log("Offered Candidates: ", allOfferedCandidates);
+
+    const notOfferedCandidates = singleJobReducer?.result?.applicants?.filter((applicant) => applicant?.status !== 'Offered');
+    const allNotOfferedCandidates = notOfferedCandidates?.map((applicant) => applicant?.user);
+    console.log("Not Offered Candidates: ", allNotOfferedCandidates);
+
+    const RejectedCandidates = singleJobReducer?.result?.applicants?.filter((applicant) => applicant?.status === 'Rejected');
+    const allRejectedCandidates = RejectedCandidates?.map((applicant) => applicant?.user);
+    console.log("Rejected Candidates: ", allRejectedCandidates);
+
+
+    // useEffect(() => {
+    //     if (appliedUsers && hiredCandidates && offeredCandidates && notOfferedCandidates && RejectedCandidates) {
+    //         setLoading(false);
+    //     }
+    // }, [appliedUsers, hiredCandidates, offeredCandidates, notOfferedCandidates, RejectedCandidates])
+
+    useEffect(() => {
+        setLoading(false);
+    }, [])
 
     const handleClick = (item) => {
         setSelected(item);
     }
 
     return (
-        <div>
-            <ToastContainer />
-            <div className='ManageParticularSidebar'>
-                <SideBar />
-            </div>
-            <div className='ManageParticularContent'>
-                <div className='alert alert-primary text-center'>
-                    {jobTitle} | Select
+        <>
+
+            {loading ? (
+
+                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+                    <PuffLoader
+                        color="red"
+                        size={70}
+                    />
                 </div>
-                {/* <div>
+
+            ) : (
+                <div>
+                    <ToastContainer />
+                    <div className='ManageParticularSidebar'>
+                        <RecruiterSidebarFinal />
+                    </div>
+                    <div className='ManageParticularContent'>
+                        <div className='alert alert-primary text-center'>
+                            {jobTitle} | Select
+                        </div>
+                        {/* <div>
                 <ul
                     style={{
                         display: 'flex',
@@ -498,33 +609,48 @@ const ManageParticularJob = () => {
                 </ul>
             </div> */}
 
-                <Tabs>
-                    <TabList>
-                        <Tab>All ({appliedUsers?.length})</Tab>
-                        <Tab>Not Offered</Tab>
-                        <Tab>Offered</Tab>
-                        <Tab>Hired</Tab>
-                        <Tab>Rejected</Tab>
-                    </TabList>
+                        <Tabs>
+                            <TabList>
+                                <Tab>All ({appliedUsers?.length})</Tab>
+                                <Tab>Not Offered ({allNotOfferedCandidates?.length}) </Tab>
+                                <Tab>Offered  ({allOfferedCandidates?.length}) </Tab>
+                                <Tab>Hired ({allHiredCandidates?.length}) </Tab>
+                                <Tab>Rejected ({allRejectedCandidates?.length}) </Tab>
+                            </TabList>
 
-                    <TabPanels>
-                        <TabPanel>
-                            {/* <p>one!</p> */}
-                            <ApplicantsList2 applicants={appliedUsers} />
-                        </TabPanel>
-                        <TabPanel>
-                            <p>two!</p>
-                            <ApplicantsList2 applicants={appliedUsers} />
-                        </TabPanel>
-                        <TabPanel>
-                            <ApplicantsList2 applicants={appliedUsers} />
-                        </TabPanel>
-                    </TabPanels>
-                </Tabs>
-            </div>
-            {/* <ApplicantsList applicants={appliedUsers} /> */}
-            {/* <ApplicantsList2 applicants={appliedUsers} /> */}
-        </div>
+                            <TabPanels>
+                                <TabPanel>
+                                    All Okay
+                                    <ApplicantsList2 applicants={appliedUsers} />
+                                </TabPanel>
+                                <TabPanel>
+                                    Not Offered
+                                    {/* <ApplicantsList2 applicants={notOfferedCandidates} /> */}
+                                    <ApplicantsList2 applicants={allNotOfferedCandidates} />
+                                </TabPanel>
+                                <TabPanel>
+                                    Offered
+                                    {/* <ApplicantsList2 applicants={offeredCandidates} /> */}
+                                    <ApplicantsList2 applicants={allOfferedCandidates} />
+                                </TabPanel>
+                                <TabPanel>
+                                    HIred
+                                    {/* <ApplicantsList2 applicants={hiredCandidates} /> */}
+                                    <ApplicantsList2 applicants={allHiredCandidates} />
+                                </TabPanel>
+                                <TabPanel>
+                                    Rejected
+                                    {/* <ApplicantsList2 applicants={RejectedCandidates} /> */}
+                                    <ApplicantsList2 applicants={allRejectedCandidates} />
+                                </TabPanel>
+                            </TabPanels>
+                        </Tabs>
+                    </div>
+                    {/* <ApplicantsList applicants={appliedUsers} /> */}
+                    {/* <ApplicantsList2 applicants={appliedUsers} /> */}
+                </div>
+            )}
+        </>
     )
 }
 
