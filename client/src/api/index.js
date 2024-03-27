@@ -224,6 +224,7 @@ export const deleteUserCV = (id) => API.delete(`/user/profile/deleteCV/${id}`)
 export const setRecruiterProfile = (profileData) => API.post('/recruiter/profile/setrecprofile',profileData)
 // Getting Recruiter Profile
 export const getRecruiterProfile = (id) => API.get(`/recruiter/profile/getrecprofile/${id}`)
+
 // Updating Recruiter Profile
 export const updateRecruiterProfile = (id,profileData) => API.patch(`/recruiter/profile/updaterecprofile/${id}`,profileData)
 // Deleting Recruiter Profile

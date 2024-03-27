@@ -582,8 +582,8 @@ const ManageParticularJob = () => {
                         <RecruiterSidebarFinal />
                     </div>
                     <div className='ManageParticularContent'>
-                        <div className='alert alert-primary text-center'>
-                            {jobTitle} | Select
+                        <div className='alert alert-primary mt-2 ml-1 mr-1 text-dark text-center '>
+                            {jobTitle}
                         </div>
                         {/* <div>
                 <ul

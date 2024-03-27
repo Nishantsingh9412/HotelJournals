@@ -19,8 +19,7 @@ import Carousel from './Carousel';
 import { login } from '../../redux/actions/auth';
 
 const Login = () => {
-
-    const messagebackend = useSelector((state) => (state.authReducer.message));
+    // const messagebackend = useSelector((state) => (state.authReducer.message));
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [email, setEmail] = useState('');
@@ -36,17 +35,22 @@ const Login = () => {
             setLoading(false);
             return false;
         }
-        console.log(email, password);
-        dispatch(login({ email, password }, navigate));
-
-        // setLoading(false);
-
-        if (!loading && messagebackend) {
-            setLoading(true);
-            setTimeout(() => {
-                toast.error(messagebackend);
-            }, 1000); // Wait for 1 second
+        const loginData = {
+            email,
+            password
         }
+        dispatch(login(loginData,navigate)).then((repsonse) => {
+            if(!(repsonse.success)){
+                toast.error(repsonse.message);
+            }   
+        })
+        // setLoading(false);
+        // if (!loading && messagebackend) {
+        //     setLoading(true);
+        //     setTimeout(() => {
+        //         toast.error(messagebackend);
+        //     }, 1000); // Wait for 1 second
+        // }
         setLoading(false);
     }
     return (

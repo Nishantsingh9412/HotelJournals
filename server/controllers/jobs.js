@@ -250,6 +250,11 @@ export const applyJob = async (req, res) => {
     if (!mongoose.Types.ObjectId.isValid(jobId) || !mongoose.Types.ObjectId.isValid(userId)) {
         return res.status(400).json({ success: false, message: ' Invalid ID"s ' })
     }
+
+    const alreadyAppliedToJob = await Jobs.findOne({ _id: jobId, "applicants.user": userId });
+    if (alreadyAppliedToJob) {
+        return res.status(400).json({ success: false, message: 'already applied to job' })
+    }
     try {
         let jobApplicants = await Jobs.findOneAndUpdate(
             { _id: jobId },
@@ -263,6 +268,7 @@ export const applyJob = async (req, res) => {
         if (!jobApplicants) {
             return res.status(404).json({ success: false, message: 'Job not found' });
         }
+
 
         // Manually populate the updated document
         jobApplicants = await Jobs.populate(jobApplicants, { path: 'applicants.user' });
@@ -282,7 +288,7 @@ export const postJobs = async (req, res) => {
             joining_date, is_immediate, work_experience_min,
             work_experience_max, salary_specification, salary_start,
             salary_end, no_of_openings, extra_benifits,
-            job_description, isExternal, job_link, created_by
+            job_description, isExternal, job_link, created_by, recruiter_info
         } = req.body;
 
         if (
@@ -303,15 +309,14 @@ export const postJobs = async (req, res) => {
             return res.status(400).json({ success: false, message: "Please Fill all the fieldsssss" });
         }
         else {
-            const recruiterCompanyLogo = await RecruiterProfile.findOne({ created_by: created_by }).select('company_logo');
-            const recruiterCompanyName = await RecruiterProfile.findOne({ created_by: created_by }).select('companyName');
-
-            if (!recruiterCompanyLogo) {
-                console.log("No Company Logo Found")
-            }
-            if (!recruiterCompanyName) {
-                console.log("No Company Name Found")
-            }
+            // const recruiterCompanyLogo = await RecruiterProfile.findOne({ created_by: created_by }).select('company_logo');
+            // const recruiterCompanyName = await RecruiterProfile.findOne({ created_by: created_by }).select('companyName');
+            // if (!recruiterCompanyLogo) {
+            //     console.log("No Company Logo Found")
+            // }
+            // if (!recruiterCompanyName) {
+            //     console.log("No Company Name Found")
+            // }
             const newJob = await Jobs.create({
                 jobTitle: job_title,
                 jobCategory: job_category,
@@ -331,12 +336,14 @@ export const postJobs = async (req, res) => {
                 jobDescription: job_description,
                 isExternal,
                 jobLink: job_link,
-                company_name: recruiterCompanyName.companyName,
-                company_logo: recruiterCompanyLogo ? recruiterCompanyLogo.company_logo : undefined,
+                // company_name: recruiterCompanyName.companyName,
+                // company_logo: recruiterCompanyLogo ? recruiterCompanyLogo.company_logo : undefined,
                 created_by,
+                recruiter_info,
             });
             if (newJob) {
-                res.status(201).json({ success: true, message: 'Job Added Successfully', result: newJob });
+                const populatedJob = await Jobs.findById(newJob._id).populate('recruiter_info');
+                res.status(201).json({ success: true, message: 'Job Added Successfully', result: populatedJob })
             } else {
                 res.status(400).json({ success: false, message: 'failed to create user' })
             }
@@ -350,7 +357,7 @@ export const postJobs = async (req, res) => {
 // Get all Jobs (Verified Only)
 export const getAllJobs = async (req, res) => {
     try {
-        const AllJobs = await Jobs.find({ isVerifiedJob: true });
+        const AllJobs = await Jobs.find({ isVerifiedJob: true }).populate('recruiter_info');
         const AllJobsArray = [];
         AllJobs.forEach(singleJob => {
             AllJobsArray.push({
@@ -376,7 +383,8 @@ export const getAllJobs = async (req, res) => {
                 jobLink: singleJob.jobLink,
                 company_logo: singleJob.company_logo,
                 company_name: singleJob.company_name,
-                created_by: singleJob.created_by
+                created_by: singleJob.created_by,
+                recruiter_info: singleJob.recruiter_info
             })
         });
         res.status(200).json({ success: true, message: 'All jobs Data Fetched Successfully', result: AllJobsArray })
@@ -391,7 +399,7 @@ export const getAllJobsRecruiter = async (req, res) => {
         if (!mongoose.Types.ObjectId.isValid(_id)) {
             return res.status(400).json({ success: false, message: 'Invalid ID' })
         }
-        const AllJobsRecruiter = await Jobs.find({ created_by: _id });
+        const AllJobsRecruiter = await Jobs.find({ created_by: _id }).populate('recruiter_info');
         res.status(200).json({ success: true, message: 'All jobs Data Fetched Successfully', result: AllJobsRecruiter })
     } catch (error) {
         console.log("Error from getAllJobsRecruiter Controller ", error.message)
@@ -402,7 +410,7 @@ export const getAllJobsRecruiter = async (req, res) => {
 // Get all Jobs (Both Verified and unverified)
 export const getAllJobsForSuperAdmin = async (req, res) => {
     try {
-        const AllJobs = await Jobs.find().populate('created_by', 'email');
+        const AllJobs = await Jobs.find().populate('created_by', 'email').populate('recruiter_info');
         const AllJobsArray = [];
         AllJobs.forEach(singleJob => {
             AllJobsArray.push({
@@ -429,7 +437,8 @@ export const getAllJobsForSuperAdmin = async (req, res) => {
                 jobLink: singleJob.jobLink,
                 company_logo: singleJob.company_logo,
                 company_name: singleJob.company_name,
-                created_by: singleJob.created_by
+                created_by: singleJob.created_by,
+                recruiter_info: singleJob.recruiter_info
             })
         });
         res.status(200).json({ success: true, message: 'All jobs Data Fetched Successfully', result: AllJobsArray })
@@ -441,7 +450,7 @@ export const getAllJobsForSuperAdmin = async (req, res) => {
 export const getSingleJob = async (req, res) => {
     try {
         const { id } = req.params;
-        const singleJob = await Jobs.findById(id).populate('applicants.user', '-password -joinedOn')
+        const singleJob = await Jobs.findById(id).populate('applicants.user', '-password -joinedOn').populate('recruiter_info');
         res.status(200).json({ success: true, message: 'Single Job Data', result: singleJob })
     } catch (err) {
         res.status(500).json({ success: false, message: err.message })

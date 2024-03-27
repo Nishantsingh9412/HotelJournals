@@ -151,7 +151,7 @@ const ManageAllJobs = () => {
                                             <div className="card-footer bg-transparent border-top-0 p-0">
                                                 <button
                                                     className="btn btn-sm btn-block"
-                                                    onClick={() => navigate(`/jobs/recruiter/${job._id}/job/manage/`)}
+                                                    onClick={() => navigate(`/recruiter/jobs/${job._id}/job/manage/`)}
                                                     style={{ backgroundColor: '#E4B49D' }}
                                                 >
                                                     View Applicants

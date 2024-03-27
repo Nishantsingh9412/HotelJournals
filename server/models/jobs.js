@@ -35,6 +35,7 @@ const jobsSchema  = new Schema({
         required:false,
     },
     created_by : {type:Schema.Types.ObjectId,ref:'User',required:true},
+    recruiter_info : {type:Schema.Types.ObjectId,ref:'RecruiterProfile',required:true},
     company_name:{type:String,required:false},
     company_logo: {
         // type: Schema.Types.ObjectId, 

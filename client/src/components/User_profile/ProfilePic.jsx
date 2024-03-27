@@ -12,6 +12,7 @@ import PrCss from './userProfile.module.css';
 import { fetchAllUsers, fetchSingleUser } from '../../redux/actions/users';
 import ImageCropperReal from '../Recruiters_profile/ImageCropperReal';
 import { useStatStyles } from '@chakra-ui/react';
+import { IoMdMail } from 'react-icons/io';
 
 
 const ProfilePic = () => {
@@ -134,7 +135,7 @@ const ProfilePic = () => {
 
                   <div className='row'>
                     <p class="card-text mr-2 mt-1">
-                      <IoLocationOutline />
+                      <IoMdMail />
                     </p>
                     <p class="card-text p-0 m-0">
                       {currentUser?.email}

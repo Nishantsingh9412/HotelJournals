@@ -167,7 +167,7 @@ export const UpdateAJobAction = (id, jobData) => async (dispatch) => {
 export const DeleteJobAction = (id) => async (dispatch) => {
     try {
         const { data } = await api.DeleteJob(id);
-        dispatch(GetJobs());
+        return { success: true, message: "Job Updated Successfully" };
     } catch (error) {
         console.log("Error from DeleteJob Action: ", error.message, error.stack);
         return { success: false, message: error.response.data.message };

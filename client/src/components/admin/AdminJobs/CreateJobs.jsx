@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import axios from 'axios';
 import Select from 'react-select'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 // import cities from 'cities.json';
 import DOMPurify from 'dompurify';
 import ReactQuill from 'react-quill';
@@ -15,6 +15,7 @@ import { CreateJob } from '../../../redux/actions/jobsAdmin.js';
 import SideBar from '../RecruiterDashboard/Sidebar/SideBar.jsx';
 import JobStyles from './CreateJob.module.css';
 import RecruiterSidebarFinal from '../../Miscellaneous/RecruiterSidebarFinal.jsx';
+import { getRecProfileAction } from '../../../redux/actions/recProfile.js';
 
 const CreateJobs = () => {
   let localUser;
@@ -243,6 +244,17 @@ const CreateJobs = () => {
   console.log(localUser);
 
   useEffect(() => {
+    if (localUser) {
+     dispatch(getRecProfileAction(localUser));
+    }
+  }, [localUser])
+
+  const RecruiterProfileReducer = useSelector((state) => state.getRecProfileReducer);
+  console.log(RecruiterProfileReducer);
+  const recruiter_info_id = RecruiterProfileReducer?.data?.result[0]?._id;
+  console.log(recruiter_info_id);
+
+  useEffect(() => {
     if (isImmediate) {
       const today = new Date().toISOString().split('T')[0];
       setJoiningDate(today);
@@ -320,7 +332,8 @@ const CreateJobs = () => {
         job_description: sanitizedJobDescription,
         isExternal: isExternalLink,
         job_link: jobLink,
-        created_by: localUser
+        created_by: localUser,
+        recruiter_info:recruiter_info_id
       }
 
       console.log(jobsData)

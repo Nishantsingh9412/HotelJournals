@@ -38,6 +38,13 @@ const MainRecruiterDashboard = () => {
   const recruiterProfile = useSelector((state) => state.getRecProfileReducer);
   const singleRecruiterData = recruiterProfile?.data?.result[0];
 
+  useEffect(() => {
+    if(recruiterProfile){
+      setLoading(false);
+    }
+
+  },[recruiterProfile])
+
   const handleProfileClick = () => {
     dispatch(getRecProfileAction(localUserId));
   }
@@ -46,6 +53,8 @@ const MainRecruiterDashboard = () => {
     if (singleRecruiterData) {
       setOldProfilePic(singleRecruiterData?.company_logo);
       setLoading(false);
+    }else{
+      navigate('/login');
     }
   }, [singleRecruiterData])
 

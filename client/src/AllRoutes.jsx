@@ -137,11 +137,11 @@ const AllRoutes = () => {
             {/* Routes for recruiter dashboard */}
             {/* <Route path='/test/recruiter/sidebarNew' element = {<RecruiterSidebar />} > </Route> */}
             <Route path='/test/recruiter/sidebar' element = {<Sidebar />} > </Route>
-
-            <Route path='/test/recruiter' element={<MainRecruiterDashboard />} > </Route>
-            <Route path='/jobs/recruiter/post' element={<CreateJobs />} ></Route>
-            <Route path='/test/recruiter/manageJobs' element={<ManageAllJobs />} > </Route>
-            <Route path='/jobs/recruiter/:id/job/manage/' element={<ManageParticularJob />} > </Route> 
+            
+            <Route path='/recruiter' element={<MainRecruiterDashboard />} > </Route>
+            <Route path='/recruiter/jobs/post' element={<CreateJobs />} ></Route>
+            <Route path='/recruiter/manageJobs' element={<ManageAllJobs />} > </Route>
+            <Route path='/recruiter/jobs/:id/job/manage/' element={<ManageParticularJob />} > </Route> 
             {/* <Route path='/test/imageCropper' element={<ImageCropperReal />} > </Route> */}
 
                 {/* For Recruiter and Educator Profile  Testing */}

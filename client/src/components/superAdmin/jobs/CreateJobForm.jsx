@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import axios from 'axios';
 import Select from 'react-select'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 // import cities from 'cities.json';
 import DOMPurify from 'dompurify';
 import ReactQuill from 'react-quill';
@@ -15,6 +15,7 @@ import languages from '../../admin/AdminCourses/languages.js';
 import { CreateJob } from '../../../redux/actions/jobsAdmin.js';
 import JobStyles from './CreateJob.module.css';
 import { useNavigate } from 'react-router-dom';
+import { getRecProfileAction } from '../../../redux/actions/recProfile.js';
 
 const CreateJobForm = () => {
   let localUser;
@@ -72,7 +73,7 @@ const CreateJobForm = () => {
   useEffect(() => {
     if (jobType === 'Remote') {
       setJobLocation('Remote');
-    }else{
+    } else {
       setJobLocation([]);
     }
   }, [jobType])
@@ -243,10 +244,22 @@ const CreateJobForm = () => {
   ]
 
 
-
   const storedProfile = JSON.parse(localStorage.getItem('Profile'));
   localUser = storedProfile?.result?._id;
   console.log(localUser);
+
+  useEffect(() => {
+    if (localUser) {
+      dispatch(getRecProfileAction(localUser));
+    }
+  }, [localUser])
+
+  const RecruiterProfileReducer = useSelector((state) => state.getRecProfileReducer);
+  console.log(RecruiterProfileReducer);
+  const recruiter_info_id = RecruiterProfileReducer?.data?.result[0]?._id;
+  console.log(recruiter_info_id);
+
+
 
   useEffect(() => {
     if (isImmediate) {
@@ -333,7 +346,8 @@ const CreateJobForm = () => {
         job_description: sanitizedJobDescription,
         isExternal: isExternalLink,
         job_link: jobLink,
-        created_by: localUser
+        created_by: localUser,
+        recruiter_info:recruiter_info_id,
       }
       console.log(jobsData)
 

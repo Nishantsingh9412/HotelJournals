@@ -44,16 +44,15 @@ export const setRecruiterProfile = async (req, res) => {
                 created_by
             });
             if (newRecruiterProfile) {
-                res.status(201).json({ success: true, message: "Recruiter Profile Created Successfully", result: newRecruiterProfile })
+                return res.status(201).json({ success: true, message: "Recruiter Profile Created Successfully", result: newRecruiterProfile })
             } else {
-                res.status(400).json({ success: false, message: "Failed to create Recruiter Profile" })
+                return res.status(400).json({ success: false, message: "Failed to create Recruiter Profile" })
             }
         }
     } catch (error) {
         console.log("Error From Recruiter Profile Controller", error.message);
-        res.status(500).json({ success: false, message: `Something went wrong from server ${error.message}` })
+        return  res.status(500).json({ success: false, message: `Something went wrong from server ${error.message}` })
     }
-    return res.status(200).json({ message: "Recruiter Profile SET" })
 }
 // Get Profile
 export const getRecruiterProfile = async (req, res) => {
@@ -63,14 +62,14 @@ export const getRecruiterProfile = async (req, res) => {
     }
     try {
         const singleRecProfile = await RecruiterProfile.find({ "created_by": _id }).populate('created_by','-password');
-        res.status(200).json({
+        return res.status(200).json({
             success: true,
             message: "Recruiter Profile Fetched Successfully",
             result: singleRecProfile
         })
     } catch (error) {
         console.log("Error From Recruiter Profile Controller", error.message);
-        res.status(500).json({ success: false, message: `Something went wrong from server ${error.message}` })
+        return res.status(500).json({ success: false, message: `Something went wrong from server ${error.message}` })
     }
 }
 
@@ -123,21 +122,21 @@ export const updateRecruiterProfile = async (req, res) => {
                 }
             }, { new: true })
         if (RecruiterProfileupdated) {
-            res.status(200).json({
+            return res.status(200).json({
                 success: true,
                 message: "Recruiter Profile Updated Successfully",
                 result: RecruiterProfileupdated
             })
         }
         else {
-            res.status(400).json({
+            return res.status(400).json({
                 success: false,
                 message: "Failed to Update Recruiter Profile"
             })
         }
     } catch (error) {
         console.log("Error From Recruiter Profile Controller", error.message);
-        res.status(500).json({ success: false, message: `Something went wrong from server ${error.message}` })
+        return res.status(500).json({ success: false, message: `Something went wrong from server ${error.message}` })
     }
 }
 
@@ -151,11 +150,11 @@ export const deleteRecruiterProfile = async (req, res) => {
         if (!recruiterDeleted) {
             return res.status(400).json({ success: false, message: 'Failed to delete Recruiter Profile' })
         } else {
-            res.status(200).json({ success: true, message: 'Recruiter Profile DELETED' })
+            return res.status(200).json({ success: true, message: 'Recruiter Profile DELETED' })
         }
     } catch (error) {
         console.log("Error From Recruiter Profile Controller", error.message);
-        res.status(500).json({ success: false, message: `Something went wrong from server ${error.message}` })
+        return res.status(500).json({ success: false, message: `Something went wrong from server ${error.message}` })
     }
 
 }
@@ -182,7 +181,7 @@ export const updateRecruiterProfilePic = async (req, res) => {
             return res.status(200).json({ success: true, message: 'Recruiter Profile Pic Updated', result: recruiterPic })
         }
     } catch {
-        res.status(500).json({ success: false, message: `Something went wrong` });
+        return res.status(500).json({ success: false, message: `Something went wrong` });
     }
 }
 
@@ -200,7 +199,7 @@ export const getRecruiterProfilePic = async (req, res) => {
         }
     } catch (error) {
         console.log("Error From Get Recruiter Profile Controller", error.message);
-        res.status(500).json({ success: false, message: `Something went wrong` });
+        return res.status(500).json({ success: false, message: `Something went wrong` });
     }
 }
 
@@ -223,7 +222,7 @@ export const deleteRecruiterProfilePic = async (req, res) => {
 
     } catch (error) {
         console.log("Error From Delete Recruiter Profile Controller", error.message);
-        res.status(500).json({ success: false, message: `Something went wrong` })
+        return res.status(500).json({ success: false, message: `Something went wrong` })
     }
 }
 

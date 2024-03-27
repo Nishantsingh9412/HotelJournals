@@ -44,7 +44,7 @@ const ViewProfile = ({ data }) => {
                                             alt="Company Logo"
                                         />
                                         <h1 className="mt-3">{data?.created_by?.fname}</h1>
-                                        <p className="mt-2 text-white" style={{fontSize:'1rem'}}> {data?.created_by?.email}</p>
+                                        <p className="mt-2 text-white" style={{ fontSize: '1rem' }}> {data?.created_by?.email}</p>
                                     </div>
                                     {/* <ul className="nav nav-pills flex-column flex-sm-row">
                                         <li className="nav-item active">
@@ -109,9 +109,14 @@ const ViewProfile = ({ data }) => {
                         </footer>
                     </div> */}
                                 <div className="panel">
-                                    <div className={styles.bioGraphHeading}>
-                                        {`“${data.CompanysTagline}”`}
-                                    </div>
+                                    {
+                                        data.CompanysTagline && (
+                                            <div className={styles.bioGraphHeading}>
+                                                {`“${data.CompanysTagline}”`}
+                                            </div>
+                                        )
+                                    }
+
                                     <div className="panel-body bio-graph-info">
                                         {/* <div> */}
                                         {/* <h1>Bio Graph</h1> */}

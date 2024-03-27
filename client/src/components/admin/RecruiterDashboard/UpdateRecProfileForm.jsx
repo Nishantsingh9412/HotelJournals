@@ -613,7 +613,7 @@ const UpdateRecProfileForm = () => {
                                 <ImageCropper />
                             </div> */}
                         </div>
-                        <button className='btn btn-warning'>
+                        <button className='btn btn-dark w-100 mt-2 mb-2'>
                             {loading ? <>
                                 <div className='d-flex '>
                                     <PuffLoader
@@ -621,7 +621,7 @@ const UpdateRecProfileForm = () => {
                                         color="#ffffff"
                                     /> <span className='pl-2'> Loading ... </span>
                                 </div>
-                            </> : 'Submit'}
+                            </> : 'Save Details'}
                         </button>
                     </form>
                 </div>

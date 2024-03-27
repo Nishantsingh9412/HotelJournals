@@ -3,11 +3,11 @@ import ReactQuill from 'react-quill';
 import { useDispatch, useSelector } from 'react-redux';
 // Purify About Company
 import DOMPurify from 'dompurify';
+import PuffLoader from "react-spinners/PuffLoader";
 // ToastContainer
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 // Loader
-import PuffLoader from 'react-spinners/PuffLoader';
 
 import { getRecProfileAction, setRecProfileAction } from '../../redux/actions/recProfile';
 import RecruiterCSS from './recruiterProfile.module.css';
@@ -17,6 +17,8 @@ import RecruiterFinalDashboard from '../admin/AdminJobs/RecruiterFinalDashboard'
 import Profile from './ImageCropperForRecProfile/Profile';
 
 import { PiSelectionSlashDuotone } from 'react-icons/pi';
+import { useNavigate } from 'react-router-dom';
+import MainRecruiterDashboard from '../admin/RecruiterDashboard/MainRecruiterDashboard';
 
 
 const RecruiterProfile = () => {
@@ -173,6 +175,7 @@ const RecruiterProfile = () => {
     };
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [companyName, setCompanyName] = useState('');
     const [Designation, setDesignation] = useState('');
     const [numberOfEmployees, setNumberOfEmployees] = useState('');
@@ -186,9 +189,11 @@ const RecruiterProfile = () => {
     const [companyLogo, setCompanyLogo] = useState('');
     const [CompanyDescription, setCompanyDescription] = useState('');
     const [loading, setLoading] = useState(false);
+    const [loadingPage, setLoadingPage] = useState(true);
 
     const localUser = JSON.parse(localStorage.getItem('Profile'));
     const localuserId = localUser?.result?._id;
+    const [currentRecProfile, setCurrentRecProfile] = useState(null);
 
     // const loadedImage = useEffect(() => {
 
@@ -197,10 +202,31 @@ const RecruiterProfile = () => {
     useEffect(() => {
         dispatch(getRecProfileAction(localuserId))
     }, [])
-
+    
     const currentUserProfileFromDB = useSelector(state => state.getRecProfileReducer);
-    const currentRecProfile = currentUserProfileFromDB?.data?.result[0];
-    // console.log(currentRecProfile);
+    console.log(currentUserProfileFromDB);
+    
+    const currentProfileData = currentUserProfileFromDB?.data?.result[0];
+    console.log(currentProfileData);
+
+    useEffect(() => {
+        if (currentProfileData) {
+            setCurrentRecProfile(currentProfileData);
+        } 
+    }, [currentProfileData]);
+
+    useEffect(() => {
+        if(currentRecProfile){
+            navigate('/recruiter');
+        }else{
+            setTimeout(() => {
+                setLoadingPage(false);
+            },5000);
+        }
+    },[currentRecProfile])
+
+
+    // const currentRecProfile = currentUserProfileFromDB?.data?.result[0];
 
     const isValidUrl = (url) => {
         const pattern = new RegExp('^(https?:\\/\\/)?' + // protocol
@@ -213,7 +239,6 @@ const RecruiterProfile = () => {
     }
 
     // const postCompanyLogo = (pics) => {
-
     //     setLoading(true);
     //     if (pics === undefined) {
     //         toast.error("This didn't work.")
@@ -290,7 +315,10 @@ const RecruiterProfile = () => {
         const response = await dispatch(setRecProfileAction(profileData))
         if (response.success) {
             toast.success(response.message)
+            dispatch(getRecProfileAction(localuserId));
             setLoading(false);
+            navigate('/recruiter');
+            // onFormSubmit(); // Redirect to RecruiterFinalDashboard
         } else {
             toast.error(response.message)
             setLoading(false);
@@ -299,18 +327,28 @@ const RecruiterProfile = () => {
 
 
     return (
-        currentRecProfile ?
-            <RecruiterFinalDashboard /> :
-            <>
+        <>
+
+            {loadingPage ? (
+
+                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+                    <PuffLoader
+                        color="red"
+                        size={70}
+                    />
+                </div>
+
+            ) : (
                 <div className='container'
                     style={{
                         height: 'auto',
                         borderRadius: '10px',
-                        padding: '10vw',
+                        // padding: '10vw',
                     }}
                 >
-                <ToastContainer />
+                    <ToastContainer />
 
+                    <div className='alert alert-primary mt-2 text-center'> Company Information </div>
 
                     <form onSubmit={handleProfileSubmit}
                         onKeyDown={(e) => {
@@ -452,12 +490,12 @@ const RecruiterProfile = () => {
                                     placeholder='Write something about your company'
                                 /> */}
                                 <textarea
-                                className='form-control'
-                                rows={5}
-                                cols={10}
-                                onChange={(e) => setCompanyDescription(e.target.value)}
-                                placeholder='Write something about your company'
-                            />
+                                    className='form-control'
+                                    rows={5}
+                                    cols={10}
+                                    onChange={(e) => setCompanyDescription(e.target.value)}
+                                    placeholder='Write something about your company'
+                                />
                             </div>
                             {/* <div className='form-group col-md-6'>
                                 <label htmlFor="companyLogo"> Company Logo </label>
@@ -469,7 +507,7 @@ const RecruiterProfile = () => {
                                 <ImageCropper />
                             </div> */}
                         </div>
-                        <button className='btn btn-warning'>
+                        <button className='btn btn-dark w-100 mt-2 mb-2'>
                             {loading ? <>
                                 <div className='d-flex '>
                                     <PuffLoader
@@ -477,11 +515,12 @@ const RecruiterProfile = () => {
                                         color="#ffffff"
                                     /> <span className='pl-2'> Loading ... </span>
                                 </div>
-                            </> : 'Submit'}
+                            </> : 'Save Details'}
                         </button>
                     </form>
                 </div>
-            </>
+            )}
+        </>
     )
 }
 
