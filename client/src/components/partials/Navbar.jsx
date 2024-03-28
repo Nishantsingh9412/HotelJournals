@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import decode from 'jwt-decode'
@@ -64,6 +64,7 @@ const Navbar = () => {
 
 
     // console.log("From Navbar: "+ User);
+    const [navbarOpen, setNavbarOpen] = useState(false);
 
     return (
         <div>
@@ -72,13 +73,12 @@ const Navbar = () => {
                     <img src={logo} height={54} width={72} alt="" />
                 </Link>
                 <button
-                    className="navbar-toggler"
-                    type="button"
-                    data-toggle="collapse"
-                    data-target="#navbarSupportedContent"
-                    aria-controls="navbarSupportedContent"
-                    aria-expanded="false"
-                    aria-label="Toggle navigation"
+                     className={`navbar-toggler ${navbarOpen ? 'collapsed' : ''}`}
+                     type="button"
+                     onClick={() => setNavbarOpen(!navbarOpen)}
+                     aria-controls="navbarSupportedContent"
+                     aria-expanded={navbarOpen}
+                     aria-label="Toggle navigation"
                 >
                     <span className="navbar-toggler-icon"></span>
                 </button>

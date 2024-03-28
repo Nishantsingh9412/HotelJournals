@@ -30,19 +30,40 @@
 // export default ProfileWrapper
 
 import React, { useState, useEffect } from 'react'
+import PuffLoader from 'react-spinners/PuffLoader'
 
 import EducatorProfile from '../Educator_Profile/EducatorProfile'
 import RecruiterProfile from '../Recruiters_profile/RecruiterProfile'
 import UserProfile from '../User_profile/UserProfile'
+
 // import MainRecruiterDashboard from '../admin/RecruiterDashboard/MainRecruiterDashboard'
 
 const ProfileWrapper = () => {
     const [userType, setUserType] = useState(null);
+
     useEffect(() => {
         const localUser = JSON.parse(localStorage.getItem('Profile'));
         const localUserType = localUser?.result?.userType;
         setUserType(localUserType);
     }, []);
+
+    if (!userType) {
+        return (
+            <div
+                style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    height: '100vh'
+                }}
+            >
+                <PuffLoader
+                    color="red"
+                    size={70}
+                />
+            </div>
+        )
+    }
 
     if (userType == 'educator') {
         return <EducatorProfile />;

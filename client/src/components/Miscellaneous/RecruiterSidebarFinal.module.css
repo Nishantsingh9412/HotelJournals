@@ -1,9 +1,9 @@
 .sidebarRec {
     position: sticky;
     top: 0;
-    height: 100vh;
+    height: 170vh;
     width: 10vw;
-    overflow: auto;
+    /* overflow: auto; */
     background-color:#e4b49d;
     color: aliceblue;
     border-radius: 0 1vw 1vw 0;

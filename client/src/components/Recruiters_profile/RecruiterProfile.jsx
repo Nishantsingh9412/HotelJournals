@@ -9,16 +9,16 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 // Loader
 
-import { getRecProfileAction, setRecProfileAction } from '../../redux/actions/recProfile';
-import RecruiterCSS from './recruiterProfile.module.css';
-import ProfilePic from '../User_profile/ProfilePic';
 // import ImageCropper from './ImageCropper';
-import RecruiterFinalDashboard from '../admin/AdminJobs/RecruiterFinalDashboard';
-import Profile from './ImageCropperForRecProfile/Profile';
 
 import { PiSelectionSlashDuotone } from 'react-icons/pi';
 import { useNavigate } from 'react-router-dom';
 import MainRecruiterDashboard from '../admin/RecruiterDashboard/MainRecruiterDashboard';
+import { getRecProfileAction, setRecProfileAction } from '../../redux/actions/recProfile';
+import Profile from './ImageCropperForRecProfile/Profile';
+import RecruiterFinalDashboard from '../admin/AdminJobs/RecruiterFinalDashboard';
+import ProfilePic from '../User_profile/ProfilePic';
+import RecruiterCSS from './recruiterProfile.module.css';
 
 
 const RecruiterProfile = () => {

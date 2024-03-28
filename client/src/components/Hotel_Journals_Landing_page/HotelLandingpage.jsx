@@ -10,6 +10,9 @@ import testimonialImg2 from '../../assets/img/testimonials/gaten_meo_testimonial
 import testimonialImg3 from '../../assets/img/testimonials/stephania_testimonial3.jpeg'
 import pinkimg from "../../assets/img/aboutme_lannding_page.png";
 
+import jobGraphImg from '../../assets/img/career_gif_landing_page.gif'
+
+
 import bestbokkimg from "../../assets/img/book7.jpg";
 import bookimg2 from '../../assets/img/book8.jpg'
 import bookimg3 from '../../assets/img/book_large.png'
@@ -45,6 +48,9 @@ import Slider from "react-slick";
 import styles from './HotelLandingPage.module.css'
 
 const HotelLandingpage = () => {
+
+
+  const baseURl = 'http://localhost:3000'
 
   useEffect(() => {
     AOS.init({
@@ -159,10 +165,10 @@ const HotelLandingpage = () => {
       name: "STEPHANIA AYALA",
       role: "FRONT OFFICE MANAGER",
       pairagraph:
-      `Hotel Journals met one of the largest and never recognized needs of the hotel sector... 
+        `Hotel Journals met one of the largest and never recognized needs of the hotel sector... 
       To have an identity, a tool that represents us and that's something that gives us a sense 
       of belonging`,
-        // "Hotel Journals cubrió una de las necesidades más grandes y nunca reconocidas del sector hotelero... La de tener una identidad, una herramienta que nos represente y ese algo que nos de un sentido de pertenencia",
+      // "Hotel Journals cubrió una de las necesidades más grandes y nunca reconocidas del sector hotelero... La de tener una identidad, una herramienta que nos represente y ese algo que nos de un sentido de pertenencia",
       profile_link: 'https://www.linkedin.com/in/stephania-ayala-ornelas-424b19218/'
     },
     {
@@ -194,7 +200,7 @@ const HotelLandingpage = () => {
       //   compañeros para así aprender mucho mas de ellos.
       //   `,
       pairagraph:
-      `
+        `
       Thanks to Hotel Journals I have known other fields within 
       the sector as well as incredible testimonies and anecdotes 
       of colleagues to learn much more about them
@@ -251,7 +257,7 @@ const HotelLandingpage = () => {
     ],
   };
 
-  
+
   return (
     <>
       <div className={styles.maincontainer}>
@@ -339,9 +345,6 @@ const HotelLandingpage = () => {
         {/*talent section  */}
         <div className={styles.tailentcontainer}>
           <div className={styles.tailentcontainerleft}>
-            <Link to={'/jobs'} style={{ textDecoration: 'none', color: 'white' }}>
-              <div className={styles.tailentcontainerleftbutton} data-aos="fade-up" > Find Job </div>
-            </Link>
             <h1 data-aos="fade-up" data-aos-delay="100" className={styles.tailentcontainerleftheding}>
               where talent meets opportunity
             </h1>
@@ -349,9 +352,12 @@ const HotelLandingpage = () => {
               Find your first job or look for the job that really makes you happy.
               Opportunities don't disappear, they just change.
             </p>
+            <Link to={'/jobs'} style={{ textDecoration: 'none', color: 'white' }}>
+              <div className={styles.tailentcontainerleftbutton} data-aos="fade-up" > Find Job </div>
+            </Link>
           </div>
 
-          <div className={styles.tailentcontainerright}>
+          {/* <div className={styles.tailentcontainerright}>
             <div className={styles.tailentcontainerrightleft}>
 
               {Job_left_data.map((e) => (
@@ -381,7 +387,13 @@ const HotelLandingpage = () => {
               </div>
             </div>
 
+          </div> */}
+
+          <div className='col-md-6' >
+            <img src={jobGraphImg} alt="career-img" className="img-responsive mt-3" />
           </div>
+
+
           {/* 
           <div> 
               <img src={careerImg} 
@@ -443,11 +455,11 @@ const HotelLandingpage = () => {
               Get to know me (where read more is)
             </p>
 
-            <Link to='/about' style={{ textDecoration: 'none', color: 'white' }}>
+            <a href={`${baseURl}/about`} style={{ textDecoration: 'none', color: 'white' }}>
               <div data-aos="fade-up" data-aos-delay="200" className={styles.authorbutton} >
                 Read More
               </div>
-            </Link>
+            </a>
           </div>
         </div>
 
@@ -461,11 +473,11 @@ const HotelLandingpage = () => {
             <div className={styles.bookdetail}>
               <h1>Front Office</h1>
               <p>By Naira Siverio</p>
-              <Link to='/journals' style={{ textDecoration: 'none', color: 'white' }}>
+              <a href={`${baseURl}/journals`} style={{ textDecoration: 'none', color: 'white' }}>
                 <div className={styles.bookbutton}>
                   View More
                 </div>
-              </Link>
+              </a>
             </div>
 
 

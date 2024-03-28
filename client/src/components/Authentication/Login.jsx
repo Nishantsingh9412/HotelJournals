@@ -131,7 +131,7 @@ const Login = () => {
                                     type="text"
                                     required
                                     spellCheck="false"
-                                    autoComplete="off"
+                                    autoComplete="on"
                                     onChange={(e) => setEmail(e.target.value)}
                                 />
                                 <label>Email</label>
@@ -143,7 +143,7 @@ const Login = () => {
                                     type="text"
                                     required
                                     spellCheck="false"
-                                    autoComplete="off"
+                                    autoComplete="on"
                                     onChange={(e) =>
                                         setPassword(e.target.value)
                                     }

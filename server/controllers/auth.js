@@ -41,13 +41,10 @@ export const login = async (req, res) => {
             console.log("Please fill all the fields . ");
             return res.status(401).json({ success: false, message: 'Please fill all the fields ' })
         }
-
         if (!existingUser) {
             return res.status(404).json({ success: false, message: 'Please Create Account' });
         }
-
         const isPasswordCorrect = await bcrypt.compare(password, existingUser.password);
-
         if (!isPasswordCorrect) {
             return res.status(401).json({ success: false, message: 'Invalid Credentials' });
         } else {

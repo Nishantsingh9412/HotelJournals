@@ -12,6 +12,8 @@ const userSchema = mongoose.Schema({
         type:String,
         default:"https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
     },
+    dob:{type:String,required:false},
+    location:{type:String,required:false},
     joinedOn : {type:Date, default:Date.now}  
 });
 

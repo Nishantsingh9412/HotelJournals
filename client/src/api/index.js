@@ -25,6 +25,9 @@ export const Profile = () => API.get('/user/profile')
 // Getting single user data from database
 export const singleProfile = (id) => API.get(`/user/profile/${id}`)
 
+// updating single user data from database
+export const updateSingleProfile = (id,updatedData) => API.patch(`/user/profile/${id}`,updatedData)
+
 // Updating user profile pic
 export const updateUserProfilePics = (id,profileData) => API.patch(`/user/profile/updatepic/${id}`,profileData)
 // Deleting user profile pic

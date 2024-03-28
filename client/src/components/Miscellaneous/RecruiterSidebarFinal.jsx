@@ -26,11 +26,6 @@ const activeLink = () => {
 
 const RecruiterSidebarFinal = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-
-  <Route path='/recruiter' element={<MainRecruiterDashboard />} > </Route>
-            <Route path='/recruiter/jobs/post' element={<CreateJobs />} ></Route>
-            <Route path='/recruiter/manageJobs' element={<ManageAllJobs />} > </Route>
-            <Route path='/recruiter/jobs/:id/job/manage/' element={<ManageParticularJob />} > </Route> 
   const routes = [
     {
       path: "/recruiter",

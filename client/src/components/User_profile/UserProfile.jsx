@@ -157,10 +157,8 @@ const UserProfile = () => {
 
   const { id } = useParams();
   const users = useSelector((state) => state.usersReducer)
-  const currentUser = users?.allUserDetails?.filter((user) => user._id === id)[0];
   // console.log(currentUser);
   // Getting current User Profile Data of various fields from DB  from the database
-
   // const allStates = useSelector((state) => state);
   // console.log(allStates)
 
@@ -168,9 +166,6 @@ const UserProfile = () => {
   const currentUserProfileData = getProfileState?.data?.result;
   const holaUserIntro = currentUserProfileData?.introduction;
   console.log("Current User Introduction: ", holaUserIntro);
-
-
-
 
   useEffect(() => {
     const storedProfile = JSON.parse(localStorage.getItem('Profile'));
@@ -439,9 +434,8 @@ const UserProfile = () => {
                 borderRadius: '25px 25px 25px 25px'
               }}
             >
-              <div class="card-body border-0">
+              {/* <div class="card-body border-0">
                 <h5 class="card-title">Education</h5>
-                {/* Repeater */}
                 <div className='mt-1'>
                   <div style={{ display: 'flex', alignItems: 'center' }}>
                     Axis institute of technology and management
@@ -458,7 +452,8 @@ const UserProfile = () => {
                 </div>
 
 
-              </div>
+              </div> */}
+
             </div>
 
             {/* About Me Section */}

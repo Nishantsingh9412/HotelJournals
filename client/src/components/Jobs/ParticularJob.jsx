@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import PuffLoader from "react-spinners/PuffLoader";
 // Library for date and time
 import { formatDistanceToNow } from 'date-fns';
@@ -42,6 +42,7 @@ import { IoLogoLinkedin } from 'react-icons/io5';
 
 
 const ParticularJob = () => {
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const { id } = useParams();
     const localUser = JSON.parse(localStorage.getItem('Profile'));
@@ -55,6 +56,13 @@ const ParticularJob = () => {
     useEffect(() => {
         dispatch(getJobSingleAction(id))
     }, [dispatch]);
+
+
+    useEffect(() => {
+        if(!userId) {
+            navigate('/login');
+        }
+    },[userId])
 
     const handleJobApply = async (jobId) => {
         setLoading(true);
@@ -245,8 +253,9 @@ const ParticularJob = () => {
                             <div className={jobdescriptionCSS.details}>
                                 <div className={jobdescriptionCSS.openinginformation}>
                                     {/* <div className={jobdescriptionCSS.opening"></div>
-<div className={jobdescriptionCSS.opening"></div>
-<div className={jobdescriptionCSS.opening"></div> */}
+                                            <div className={jobdescriptionCSS.opening"></div>
+                                            <div className={jobdescriptionCSS.opening"></div> */
+                                    }
 
                                     <p>Posted: <span>{singleJobsData?.result?.created_at &&
                                         `${formatDistanceToNow(posted_at)} ago`} </span> </p>
@@ -277,8 +286,7 @@ const ParticularJob = () => {
                                                     />
                                                 </button>
                                             </a> :
-
-                                            appliedToJob ?
+                                            !appliedToJob ?
                                                 <button className='btn btn-info mt-2 mb-2 w-50 '
                                                     onClick={() => {
                                                         handleJobApply(singleJobsData?.result?._id);
