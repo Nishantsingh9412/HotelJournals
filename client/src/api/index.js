@@ -19,6 +19,8 @@ export const signUp = (authData) => API.post('/user/signup',authData)
 
 export const Login = (authData) => API.post('/user/login',authData)
 
+export const SuperAdminAuth = (authData) => API.post('/superadmin/login',authData)
+
 // Getting all users data from database
 export const Profile = () => API.get('/user/profile')
 

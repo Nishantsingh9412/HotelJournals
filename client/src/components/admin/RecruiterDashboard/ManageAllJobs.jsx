@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate, useParams } from 'react-router-dom';
 import PuffLoader from 'react-spinners/PuffLoader.js';
+import copy from 'copy-to-clipboard';
+import Swal from 'sweetalert2';
+import { Image, IconButton, Box, Text } from '@chakra-ui/react';
+
+import GridTable from '@nadavshaar/react-grid-table';
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -11,6 +16,7 @@ import { FaPencil } from "react-icons/fa6";
 import { IoTrashBin } from "react-icons/io5";
 import { IoShareSocial } from "react-icons/io5";
 import { HiDotsVertical } from "react-icons/hi";
+import { IoMdEye } from 'react-icons/io';
 // import { IoMdTime } from "react-icons/io";
 // import { FaArrowUpRightDots } from "react-icons/fa6";
 
@@ -19,11 +25,12 @@ import { DeleteJobAction, GetJobs, getJobsRecruiterAction } from '../../../redux
 import SideBar from './Sidebar/SideBar.jsx';
 import ManageAllStyles from './ManageAllJobs.module.css';
 import RecruiterSidebarFinal from '../../Miscellaneous/RecruiterSidebarFinal.jsx';
+import { FaCheckCircle } from 'react-icons/fa';
 
 const ManageAllJobs = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const [componentLoad,setComponentLoad] = useState(true);
+    const [componentLoad, setComponentLoad] = useState(true);
     const [showDropDown, setShowDropDown] = useState(false);
 
     const AllJobs = useSelector((state) => state.AllJobsRecruiterReducer)
@@ -35,24 +42,25 @@ const ManageAllJobs = () => {
     const local_user_id = localStorageData?.result?._id;
     console.log(`local_user_id :  ${local_user_id}`);
 
-    // const MyJobs = AllJobs?.result?.filter((jobs) => jobs.created_by === local_user_id);
-    // console.log(MyJobs);
-
     useEffect(() => {
         dispatch(getJobsRecruiterAction(local_user_id));
     }, [dispatch])
 
 
     useEffect(() => {
-        if(MyJobs){
+        if (MyJobs) {
             setComponentLoad(false);
         }
-    },[MyJobs])
+    }, [MyJobs])
+
+    useEffect(() =>{
+        window.scrollTo(0, 0)
+    },[])
 
     // Deletion of Job
     const handleConfirmedDelete = (id) => {
         dispatch(DeleteJobAction(id));
-        navigate('/job/dashboard');
+        // navigate('/job/dashboard');
         console.log('Job Deleted successfully')
         toast.success('Job Deleted Successfully')
     }
@@ -66,6 +74,214 @@ const ManageAllJobs = () => {
             console.log('Cancelled')
         }
     }
+
+    const baseURL = "http://localhost:3000/"
+
+    const handleShare = (jobId) => {
+        copy(`${baseURL}alljobs/${jobId}`);
+        // alert(`Copied Url : ${baseURL}alljobs/${jobId}`)
+        Swal.fire({
+            title: "Job Copied To Clipboard!",
+            // text: `Copied Url : ${baseURL}alljobs/${jobId}`,
+            icon: "success"
+        });
+    }
+
+    const FnameCell = ({ tableManager, value, field, data, column, colIndex, rowIndex }) => {
+        return (
+            <div className='rgt-cell-inner'
+                style={{
+                    display: 'flex',
+                }}
+            >
+                {/* <ImageChakra
+                    borderRadius='full'
+                    boxSize='50px'
+                    src={data?.pic}
+                    alt='user-image'
+                /> */}
+                <span className='rgt-text-truncate row-hover' style={{ marginLeft: 10, marginTop: 15 }}>
+                    {data?.jobTitle}
+                </span>
+            </div>
+        )
+    }
+
+    const ViewCell = ({ tableManager, value, field, data, column, colIndex, rowIndex }) => {
+        return (
+            <div className='rgt-cell-inner' >
+                <div className='mt-2 mb-1'>
+                    <a
+                        href={`/alljobs/${data._id}`}
+                        target='_blank'
+                        rel='noopener noreferrer'
+                        style={{ textDecoration: 'none' }}
+                    >
+                        <button
+                            className="btn btn-sm btn-block w-50"
+                            style={{ backgroundColor: '#E4B49D' }}
+                        >
+                            Job
+                        </button>
+                    </a>
+                    <button
+                        className="btn btn-sm btn-block w-50 mt-2"
+                        onClick={() => navigate(`/recruiter/jobs/${data._id}/job/manage/`)}
+                        style={{ backgroundColor: '#E4B49D' }}
+                    >
+                        Applicants
+                    </button>
+                </div>
+            </div>
+        )
+    }
+
+
+    const VerifiedCell = ({ tableManager, value, field, data, column, colIndex, rowIndex }) => {
+        return (
+            <div className='rgt-cell-inner'
+                style={{
+                    display: 'flex',
+
+                }}
+            >
+                <span className='rgt-text-truncate row-hover' style={{ marginLeft: 10, marginTop: 15 }}>
+                    {data.isVerifiedJob ?
+                        <>
+                            <span className="badge badge-success">
+                                Active
+                            </span>
+                        </>
+                        :
+                        <>
+                            <span className="badge badge-danger">
+                                Inactive
+                            </span>
+                        </>
+                    }
+                </span>
+            </div>
+        )
+    }
+
+    const CompanyNameCell = ({ tableManager, value, field, data, column, colIndex, rowIndex }) => {
+        return (
+            <div className='rgt-cell-inner'
+                style={{
+                    display: 'flex',
+
+                }}
+            >
+                <span className='rgt-text-truncate row-hover' style={{ marginLeft: 10, marginTop: 15 }}>
+                    {data.recruiter_info.companyName ?
+                        <>
+                            {/* <span className="badge badge-success"> */}
+                            {data.recruiter_info.companyName}
+                            {/* </span> */}
+                        </>
+                        :
+                        <>
+                            {/* <span className="badge badge-danger"> */}
+
+                            {/* </span> */}
+                        </>
+                    }
+                </span>
+            </div>
+        )
+    }
+
+
+
+
+    const IconCell = ({ tableManager, value, field, data, column, colIndex, rowIndex }) => {
+        const dispatch = useDispatch();
+        const { id } = useParams();
+        const [showModal, setModalShow] = useState(false);
+        return (
+            <div>
+                <div className='rgt-cell-inner'
+                    style={{
+                        display: 'flex',
+                        margin: '20px',
+                        marginLeft: '10px'
+                    }}
+                >
+                    <button
+                        className="btn btn-sm btn-light mr-2"
+                        onClick={() => handleShare(data._id)}
+                    >
+                        <IoShareSocial />
+                    </button>
+                    <NavLink
+                        style={{ textDecoration: 'none' }}
+                        to={`/recruiter/job/update/${data._id}`}
+                    >
+                        <button className='btn btn-sm btn-light mr-2' > <FaPencil /> </button>
+                    </NavLink>
+
+                    <button
+                        className='btn btn-sm btn-light mr-2'
+                        onClick={() => { handleDelete(data._id) }}
+                    >
+                        <IoTrashBin />
+                    </button>
+                </div>
+            </div>
+        )
+    }
+
+
+
+
+    const columns = [
+        {
+            id: 1,
+            field: 'jobTitle',
+            label: 'Job Title',
+            cellRenderer: FnameCell
+        },
+        {
+            id: 2,
+            field: 'isVerifiedJob',
+            label: 'Status',
+            cellRenderer: VerifiedCell,
+        },
+        {
+            id: 3,
+            field: 'ComapnyName',
+            label: 'Company Name',
+            cellRenderer: CompanyNameCell
+        },
+        {
+            id: 4,
+            field: 'actionStatus',
+            label: 'Action / Status',
+            cellRenderer: IconCell
+
+        },
+        {
+            id: 5,
+            field: 'view',
+            label: 'View',
+            width: '350px',
+            cellRenderer: ViewCell
+        },
+
+    ];
+
+    const JobsAll = ({ MyJobs }) => {
+        return (
+            <div className='container mt-2 responsive-table' >
+                <GridTable
+                    // isLoading={TableLoading}
+                    columns={columns}
+                    rows={MyJobs}
+                />
+            </div>
+        );
+    };
+
 
     return (
         <>
@@ -82,85 +298,23 @@ const ManageAllJobs = () => {
                     <div className={ManageAllStyles.sidebar}>
                         <RecruiterSidebarFinal />
                     </div>
-
-                    {/* <div className='container d-flex mt-2 '>
-                        <h2 className='pt-4 mb-4'> Recruiter Dashboard  </h2>
-                        <div className='ml-4 mt-4'>
-                            <button className='btn btn-warning text-white'>
-                                <NavLink to='/jobs/post' target='_blank' style={{ textDecoration: 'none', color: 'white' }} >
-                                    Add a new Job
-                                </NavLink>
-                            </button>
-                        </div>
-
-                    </div> */}
-
-
-                    <div className={ManageAllStyles.content} >
-                        <div className='col'>
-                            <div className={`alert alert-primary text-center mt-2 `}>
-                                <h1> My Jobs  </h1>
-                                {/* <hr /> */}
-                            </div>
-                            {
-                                MyJobs?.map((job, index) => (
-                                    <div className="col-md-6 col-lg-6 " style={{ marginTop: '1vw' }}>
-                                        <div className="card shadow">
-
-                                            <div className="card-body ">
-                                                <h5 className="card-title">{job.jobTitle}</h5>
-                                                <p className="card-text text-muted mb-2">{job.created_at}</p>
-                                                <div className="d-flex justify-content-between align-items-center">
-                                                    {
-                                                        job.isVerifiedJob ?
-                                                            <span className="badge badge-success">Active</span> :
-                                                            <span className="badge badge-warning">Under Review</span>
-                                                    }
-                                                    {/* <span className="badge badge-success">Active</span> */}
-                                                    <div>
-                                                        <button className="btn btn-sm btn-light mr-2" >
-                                                            <IoShareSocial />
-                                                        </button>
-                                                        <button className='btn btn-sm btn-light mr-2'>
-                                                            <HiDotsVertical />
-                                                        </button>
-                                                        {/* <button className='btn btn-sm btn-light mr-2'>
-                                                        <FaPencil />
-                                                    </button> */}
-
-                                                        <NavLink style={{ textDecoration: 'none' }} to={`/jobs/dashboard/update/${job._id}`} >
-                                                            <button className='btn btn-sm btn-light mr-2' > <FaPencil /> </button>
-                                                        </NavLink>
-                                                        <NavLink style={{ textDecoration: 'none' }} to={`/jobs/dashboard/`}>
-                                                            <button className='btn btn-sm btn-light mr-2' onClick={() => { handleDelete(job._id) }} ><IoTrashBin /></button>
-                                                        </NavLink>
-                                                    </div>
-                                                </div>
-                                                <div className="mb-2">
-                                                    {/* <p className="mb-1"><strong>Skills:</strong></p> */}
-                                                    <div className="d-flex flex-wrap mt-2">
-                                                        {job.mandatorySkills.map((skill, index) => (
-                                                            <span key={index} className="badge badge-pill badge-light mr-2 mb-1 p-2">{skill}</span>
-                                                        ))}
-                                                        {job.optionalSkills.map((skill, index) => (
-                                                            <span key={index} className="badge badge-pill badge-light mr-2 mb-1 p-2">{skill}</span>
-                                                        ))}
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="card-footer bg-transparent border-top-0 p-0">
-                                                <button
-                                                    className="btn btn-sm btn-block"
-                                                    onClick={() => navigate(`/recruiter/jobs/${job._id}/job/manage/`)}
-                                                    style={{ backgroundColor: '#E4B49D' }}
-                                                >
-                                                    View Applicants
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                ))}
-                        </div>
+                    <div className={ManageAllStyles.content}>
+                        <Box
+                            bgGradient="linear(to-r, #f7f7f7 100%, transparent 50%)"
+                            h="50px"
+                            w="100%"
+                            pl={2}
+                            pr={2}
+                            mt={2}
+                            display="flex"
+                            alignItems="center"
+                            justifyContent="center"
+                        >
+                            <Text fontSize="lg" fontWeight="bold">
+                                My Jobs
+                            </Text>
+                        </Box>
+                        <JobsAll MyJobs={MyJobs} />
                     </div>
                 </div >
             )}

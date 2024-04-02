@@ -36,18 +36,23 @@ const JobsDashboard = () => {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
     const rejectedHtmlTemplate = `
-        <div style="background-color:#ffece5;; color: #333; font-family: Arial, sans-serif; margin: 0 auto; max-width: 600px;">
+        <div style="background-color:#fff2e6;; color: #333; font-family: Arial, sans-serif; margin: 0 auto; max-width: 600px;">
             <img src="https://res.cloudinary.com/dezifvepx/image/upload/v1711390575/Hotel%20Journals/b5icroi6uetoui9uno1j.png" alt="Hotel Journals" height="200" style="margin-bottom: 20px; object-fit: cover; width: 100%;">
-                <div style="padding: 20px;">
-                    <h1 style="font-size: 24px; font-weight: bold; margin-bottom: 20px; text-align: center;">¡BIENVENIDA/O A HOTEL JOURNALS!</h1>
-                    <p style="font-size: 16px; line-height: 1.5; margin-bottom: 20px;">Hola Compi!</p>
-                    <p style="font-size: 16px; line-height: 1.5; margin-bottom: 20px;">Sentimos comunicarte que tu oferta de trabajo
+                <div style="padding: 40px;">
+                    <h1 style="font-size: 24px; font-weight: bold; margin-bottom: 20px; text-align: center;"> iLo SENTIMOS! </h1>
+                    <p style="font-size: 16px; line-height: 1.5; margin-bottom: 20px;"><b> Hola Compi! </b> </p>
+                    <p style="font-size: 16px; line-height: 1.5; margin-bottom: 20px;">
+
+                        Sentimos comunicarte que tu oferta de trabajo
                         no ha Sido publicada debido a que consideramos
                         que no cumple con los datos minimos
-                        necesarios o no la hemos considerado veridica.</p>
+                        necesarios o no la hemos considerado veridica.
+                    </p>
                     <p style="font-size: 16px; line-height: 1.5; margin-bottom: 20px;">Ponte en contacto con nosotros si crees que es
-                        un error y Io solucionaremos</p>
+                        un error y Io solucionaremos :)
+                    </p>
                     <p style="font-size: 16px; font-weight: bold; line-height: 1.5; margin-bottom: 20px; text-align:center;">¡Un abrazo!<br />Equipo de Hotel Journals</p>
                     <p style="font-size: 14px; font-style: italic; line-height: 1.5; margin-bottom: 20px; text-align:center;">Hotel Journals, en busca de un sector más justo.</p>
                     <hr style="border: 0; border-bottom: 2px solid #ccc; margin-bottom: 20px;">
@@ -71,43 +76,47 @@ const JobsDashboard = () => {
                         <p style="font-size: 14px; line-height: 1.5; text-align: center;">Copyright © 2024 Hotel Journals</p>
                 </div>
         </div>
+    `
+    const acceptedHtmlTemplate =
         `
-    const acceptedHtmlTemplate = `
-        <div style="background-color: #f5f5f0; color: #333; font-family: Arial, sans-serif; margin: 0 auto; max-width: 600px;">
+        <div style="background-color: #fff2e6; color: #333; font-family: Arial, sans-serif; margin: 0 auto; max-width: 600px;">
             <img src="https://res.cloudinary.com/dezifvepx/image/upload/v1711390575/Hotel%20Journals/b5icroi6uetoui9uno1j.png" alt="Hotel Journals" height="200" style="margin-bottom: 20px; object-fit: cover; width: 100%;">
-                <div style="padding: 20px;">
+                <div style="padding: 50px;">
                     <h1 style="font-size: 24px; font-weight: bold; margin-bottom: 20px; text-align: center;">  iFELlClDADES! </h1>
-                    <p style="font-size: 24px; line-height: 1.5; margin-bottom: 20px;"> Hola Compi! </p> <br />
+                    <p style="font-size: 24px; line-height: 1.5; margin-bottom: 20px;"> <b>Hola Compi! </b> </p> <br />
                     <p style="font-size: 16px; line-height: 1.5; margin-bottom: 20px;">
-                        Nos alegra comunicarte que tu oferta de trabajO
-                        ha Sido publicada.</p>
+                        Nos alegra comunicarte que tu oferta de trabajo
+                        ha sido publicada.</p>
                     <p style="font-size: 16px; line-height: 1.5; margin-bottom: 40px;">Te deseamos Io mejor en los siguientes pasos
                         que vienen.
-                        <p style="font-size: 16px; font-weight: bold; line-height: 1.5; margin-bottom: 20px; text-align:center;">¡Un abrazo!<br />Equipo de Hotel Journals</p>
+                        <p style="font-size: 16px; font-weight: bold; line-height: 1.5; margin-bottom: 20px; text-align:center;">iUn abrazo y mucha suerte!
+                            <br />Equipo de Hotel Journals</p>
                         <p style="font-size: 14px; font-style: italic; line-height: 1.5; margin-bottom: 20px; text-align:center;">Hotel Journals, en busca de un sector más justo.</p>
                         <hr style="border: 0; border-bottom: 2px solid #ccc; margin-bottom: 20px;">
-                        <div style="margin-bottom: 20px; text-align: center;">
-                            <a href="https://www.youtube.com/@Hoteljournals">
-                                <img src="https://res.cloudinary.com/dezifvepx/image/upload/v1711394098/Hotel%20Journals/YT.png" style="height: 50px; width: 50px;" alt="Icon 1">
-                            </a>
-                            <a href="https://www.instagram.com/hoteljournals">
-                                <img src="https://res.cloudinary.com/dezifvepx/image/upload/v1711394098/Hotel%20Journals/insta.png" style="height: 50px; width: 50px;" alt="Icon 1">
-                            </a>
-                            <a href="https://www.linkedin.com/company/hotel-journals">
-                                <img src="https://res.cloudinary.com/dezifvepx/image/upload/v1711394098/Hotel%20Journals/LinkedIn.png" style="height: 50px; width: 50px;" alt="Icon 1">
-                            </a>
-                            <a href="https://open.spotify.com/show/3xOjX5LUyM4XUhL9FRTkOo?si=qxabYKhHRD2Aea_utnQYYg">
-                                <img src="https://res.cloudinary.com/dezifvepx/image/upload/v1711394098/Hotel%20Journals/spotify.png" style="height: 50px; width: 50px;" alt="Icon 1">
-                            </a>
-                            <a href="https://www.tiktok.com/@hoteljournals">
-                                <img src="https://res.cloudinary.com/dezifvepx/image/upload/v1711394098/Hotel%20Journals/tiktok.png" style="height: 50px; width: 50px;" alt="Icon 1">
-                            </a>
+                            <div style="margin-bottom: 20px; text-align: center;">
+                                <a href="https://www.youtube.com/@Hoteljournals">
+                                    <img src="https://res.cloudinary.com/dezifvepx/image/upload/v1711394098/Hotel%20Journals/YT.png" style="height: 50px; width: 50px;" alt="Icon 1">
+                                </a>
+                                <a href="https://www.instagram.com/hoteljournals">
+                                    <img src="https://res.cloudinary.com/dezifvepx/image/upload/v1711394098/Hotel%20Journals/insta.png" style="height: 50px; width: 50px;" alt="Icon 1">
+                                </a>
+                                <a href="https://www.linkedin.com/company/hotel-journals">
+                                    <img src="https://res.cloudinary.com/dezifvepx/image/upload/v1711394098/Hotel%20Journals/LinkedIn.png" style="height: 50px; width: 50px;" alt="Icon 1">
+                                </a>
+                                <a href="https://open.spotify.com/show/3xOjX5LUyM4XUhL9FRTkOo?si=qxabYKhHRD2Aea_utnQYYg">
+                                    <img src="https://res.cloudinary.com/dezifvepx/image/upload/v1711394098/Hotel%20Journals/spotify.png" style="height: 50px; width: 50px;" alt="Icon 1">
+                                </a>
+                                <a href="https://www.tiktok.com/@hoteljournals">
+                                    <img src="https://res.cloudinary.com/dezifvepx/image/upload/v1711394098/Hotel%20Journals/tiktok.png" style="height: 50px; width: 50px;" alt="Icon 1">
+                                </a>
+                            </div>
+                            <p style="font-size: 14px; line-height: 1.5; text-align: center;">Copyright © 2024 Hotel Journals</p>
                         </div>
-                        <p style="font-size: 14px; line-height: 1.5; text-align: center;">Copyright © 2024 Hotel Journals</p>
-                    </div>
                 </div>
         </div>
     `
+
+
     const [TableLoading, setTableLoading] = useState(true);
     const baseURL = "http://localhost:3000/"
     const AllJobs = useSelector((state) => state.AllJobsSuperAdmin)

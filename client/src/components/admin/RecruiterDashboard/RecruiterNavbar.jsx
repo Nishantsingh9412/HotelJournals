@@ -30,7 +30,7 @@ const RecruiterNavbar = () => {
                         onClick={() => navigate(-1)}
                         colorScheme="blue"
                     />
-                    <a class="navbar-brand" href="#">
+                    <a class="navbar-brand" href="/">
                         <img
                             src={logo}
                             width="40"

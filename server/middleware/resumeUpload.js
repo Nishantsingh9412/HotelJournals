@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import { CV } from "../models/profiles/user.js"
+
 const checkForExistingCV = async (req, res, next) => {
     const {id} = req.params;
     const alreadyExistCV = await CV.findOne({ "userId": id });

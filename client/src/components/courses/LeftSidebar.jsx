@@ -35,7 +35,6 @@ const LeftSidebar = ({ onClose }) => {
       Diploma: false,
       Professional: false,
       ShortCourse: false,
-      Bootcamp: false,
   });
 
   const [courseLangFilter, setCourseLangFilter] = useState({
@@ -83,7 +82,6 @@ const LeftSidebar = ({ onClose }) => {
           Diploma: false,
           Professional: false,
           ShortCourse: false,
-          Bootcamp: false,
       });
 
 

@@ -5,7 +5,7 @@ import { CgSandClock } from "react-icons/cg";
 import { FaArrowUpRightDots } from "react-icons/fa6";
 import { IoIosRocket } from "react-icons/io";
 import { NavLink, useParams } from 'react-router-dom';
-import ClipLoader from "react-spinners/ClipLoader";
+import PuffLoader from 'react-spinners/PuffLoader';
 
 import { GetCourseSingle } from '../../redux/actions/courseAdmin';
 import Cards from './Cards';
@@ -49,7 +49,7 @@ const CourseDescription = () => {
       {loading ? (
 
         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-          <ClipLoader
+          <PuffLoader
             color="red"
             size={70}
           />
@@ -67,7 +67,7 @@ const CourseDescription = () => {
               </div>
               <div className="col-md-8">
                 <div className="card-body">
-                  <h3 className="card-title">
+                  <h3 className="card-title w-75" >
                     {course?.result?.title}
                   </h3>
                   <p className="card-text w-100">

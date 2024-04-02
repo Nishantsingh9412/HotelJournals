@@ -12,14 +12,17 @@ import JoditEditor from 'jodit-react';
 
 import languages from '../AdminCourses/languages.js'
 import { CreateJob } from '../../../redux/actions/jobsAdmin.js';
-import SideBar from '../RecruiterDashboard/Sidebar/SideBar.jsx';
+import SideBar from './Sidebar/SideBar.jsx';
 import JobStyles from './CreateJob.module.css';
 import RecruiterSidebarFinal from '../../Miscellaneous/RecruiterSidebarFinal.jsx';
 import { getRecProfileAction } from '../../../redux/actions/recProfile.js';
+import { useNavigate } from 'react-router-dom';
 
 const CreateJobs = () => {
+  
   let localUser;
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const predefinedJd = ``
   const [jobDecription, setJobDescription] = useState('');
   const [showJobLink, setShowJobLink] = useState(false);
@@ -340,6 +343,7 @@ const CreateJobs = () => {
       if (jobsData) {
         const response = await dispatch(CreateJob(jobsData));
         if (response.success) {
+          navigate('/recruiter/manageJobs')
           toast.success('Job Posted Successfully');
         } else {
           console.log(response)
@@ -350,6 +354,9 @@ const CreateJobs = () => {
       console.log(`this is from console.log ${error}`);
       // toast.error(`Job Posting Failed: ${error}`)
     }
+
+
+  
   }
 
 
@@ -663,8 +670,7 @@ const CreateJobs = () => {
                 </div>
               </div>
 
-              <button type='submit' className='btn btn-success w-100 mt-3 mb-2'>  Post Job </button>
-
+              <button type='submit' className='btn btn-dark w-100 mt-3 mb-2'>  Post Job </button>
             </form >
           </div >
         </div>

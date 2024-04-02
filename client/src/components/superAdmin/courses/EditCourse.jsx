@@ -1,22 +1,28 @@
 import React, { useEffect, useState } from 'react'
-import { MdDashboard, MdLocalMall, MdStackedLineChart } from "react-icons/md";
-import { MdCancel } from "react-icons/md";
+import { useNavigate } from 'react-router-dom';
+
+import { MdCancel, MdDashboard, MdLocalMall, MdStackedLineChart } from "react-icons/md";
 import { MdAnalytics } from "react-icons/md";
+import { FaGraduationCap, FaBriefcase } from 'react-icons/fa';
+import { RiLogoutBoxLine } from 'react-icons/ri';
 import { IoIosSunny } from "react-icons/io";
-import { CiShoppingCart } from "react-icons/ci";
 import { FaPencilAlt, FaPencilRuler, FaRegMoon } from "react-icons/fa";
 import { HiOutlineMenu, HiPencilAlt } from "react-icons/hi";
-import { FaCheck, FaGear, FaInfo, FaMessage, FaNoteSticky, FaPlus, FaUser } from "react-icons/fa6";
-import { IoAnalyticsOutline, IoBarChart } from "react-icons/io5";
 
 import logoImg from '../../../assets/img/logo.png'
 import styles from '../AddTipSuperAdmin.module.css'
 import CourseDashboard from './CourseDashboard';
 import AddCourseForm from './AddCourseForm';
 import EditCourseForm from './EditCourseForm';
+import { setCurrentUser } from '../../../redux/actions/CurrentUser'
+import { useDispatch } from 'react-redux';
+
 
 
 const EditCourse = () => {
+
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isDarkMode, setIsDarkMode] = useState(true);
 
@@ -36,9 +42,16 @@ const EditCourse = () => {
         console.log('theme toggled');
     }
 
+    const handleLogout = () => {
+        dispatch({ type: 'LOGOUT' });
+        navigate('/login/superadmin')
+        dispatch(setCurrentUser(null));
+    }
+
+
     return (
         <div className={styles.dashContainer}>
-            <aside
+              <aside
                 // className={styles.asideComponentDash}
                 className={`${styles.asideComponentDash} ${isMenuOpen ? styles.show : ''}`}
             >
@@ -46,21 +59,22 @@ const EditCourse = () => {
                     <img className={styles.imageClass} src={logoImg} alt="logo" />
                     <h2 className={` ${styles.heading2}  ${styles.textMuted}`}>Hotel
                         <span style={{
-                            color:'#e4b49d',
+                            color: '#e4b49d',
                             marginLeft: '2px'
                         }}>Journals</span>
                     </h2>
+                    <div
+                        className={styles.close}
+                        id='close-btn'
+                        onClick={handleMenuClose}
+                    >
+                        {/* <div id="close-btn"></div> */}
+                        <MdCancel size={25} />
+                    </div>
                 </div>
-                <div
-                    className={styles.close}
-                    id='close-btn'
-                    onClick={handleMenuClose}
-                >
-                    {/* <div id="close-btn"></div> */}
-                    <MdCancel size={25} />
-                </div>
+
                 <div className={styles.sidebar}>
-                    <a className={styles.anchorTag} href="#">
+                    <a className={styles.anchorTag} href="/superadmin">
                         <MdDashboard />
                         <h3 className={styles.heading3}> Dashboard </h3>
                     </a>
@@ -68,15 +82,20 @@ const EditCourse = () => {
                         <HiPencilAlt />
                         <h3 className={styles.heading3}> Tips </h3>
                     </a>
-                    <a className={styles.anchorTag} href="/superadmin/courses"> 
-                        <FaNoteSticky />
+                    <a className={styles.anchorTag} href="/superadmin/courses">
+                        <FaGraduationCap />
                         <h3 className={styles.heading3}> Courses </h3>
                     </a>
-                    <a className={styles.anchorTag} href="#">
-                        <IoAnalyticsOutline />
-                        <h3 className={styles.heading3}> Analytics </h3>
+                    <a className={styles.anchorTag} href="/superadmin/jobs">
+                        <FaBriefcase />
+                        <h3 className={styles.heading3}> Jobs </h3>
                     </a>
-                    <a className={styles.anchorTag} href="#">
+
+                    <a className={styles.anchorTag} style={{cursor:'pointer'}} onClick={handleLogout}>
+                        <RiLogoutBoxLine />
+                        <h3 className={styles.heading3}> Logout </h3>
+                    </a>
+                    {/* <a className={styles.anchorTag} href="#">
                         <FaMessage />
                         <h3 className={styles.heading3}> Messages </h3>
                         <span className={styles.messages}> 26 </span>
@@ -97,7 +116,7 @@ const EditCourse = () => {
                     <a className={styles.anchorTag} href="#">
                         <FaPlus />
                         <h3 className={styles.heading3}> Add Product </h3>
-                    </a>
+                    </a> */}
 
                 </div>
             </aside>

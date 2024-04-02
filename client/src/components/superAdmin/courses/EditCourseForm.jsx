@@ -57,6 +57,7 @@ const EditCourseForm = () => {
             setCourseTitle(singleCourse?.result?.title);
             setCourseDesc(singleCourse?.result?.description);
             // setCourseLanguage(singleCourse?.result?.languages.map(lang => lang.value));
+            setCourseLanguage(singleCourse?.result?.languages);
             setCourseLink(singleCourse?.result?.course_link);
             setCourseCategory(singleCourse?.result?.course_category);
             setCourseType(singleCourse?.result?.course_type);
@@ -169,16 +170,94 @@ const EditCourseForm = () => {
         })
     }
 
+    const fieldsValidate = () => {
+        if (!courseTitle) {
+            toast.error('Please fill the course title');
+            return false;
+        }
+        if (!difficulty) {
+            toast.error('Please fill the difficulty');
+            return false;
+
+        }
+        if (!courseDesc) {
+            toast.error('Please fill the course description');
+            return false;
+
+        }
+        if (courseLanguage.length === 0) {
+            toast.error('Please fill the course language');
+            return false;
+
+        }
+        if (!courseLink) {
+            toast.error('Please fill the course link');
+            return false;
+
+        }
+        if (!courseFormat) {
+            toast.error('Please fill the course format');
+            return false;
+
+        }
+        if (isFree === null) {
+            toast.error('Please specify if the course is free');
+            return false;
+
+        }
+        if (isFree === false && coursePrice === "") {
+            toast.error('Please fill the course price');
+            return false;
+
+        }
+        if (!courseDurationValue || !courseDurationUnit) {
+            toast.error('Please fill the course duration');
+            return false;
+
+        }
+        if (!courseCompany) {
+            toast.error('Please fill the company name');
+            return false;
+
+        }
+        if (!courseCategory) {
+            toast.error('Please fill the course category');
+            return false;
+
+        }
+        if (!courseType) {
+            toast.error('Please fill the course type');
+            return false;
+
+        }
+        if (!picThumb) {
+            toast.error('Please upload a thumbnail picture');
+            return false;
+
+        }
+        if (!picLogo) {
+            toast.error('Please upload a logo picture');
+            return false;
+        }
+        return true;
+    }
+
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true)
         // console.log(courseTitle, courseDesc, courseLanguage, courseLink, courseFormat, isFree,
         // coursePrice, courseDuration, courseCompany,  picThumb, picLogo);
-        if (!courseTitle || !difficulty || !courseDesc || courseLanguage.length === 0 || !courseLink || !courseFormat || isFree === null || (isFree === false && coursePrice === "")
-            || !courseDurationValue || !courseDurationUnit || !courseCompany || !courseCategory || !courseType || !picThumb || !picLogo) {
-            setLoading(false);
-            return toast.error('Please fill all fields');
+        // if (!courseTitle || !difficulty || !courseDesc || courseLanguage.length === 0 || !courseLink || !courseFormat || isFree === null || (isFree === false && coursePrice === "")
+        //     || !courseDurationValue || !courseDurationUnit || !courseCompany || !courseCategory || !courseType || !picThumb || !picLogo) {
+        //     setLoading(false);
+        //     return toast.error('Please fill all fields');
+        // }
+
+        if(!fieldsValidate()){
+            return;
         }
+
         if (courseDesc.length < 200) {
             setLoading(false);
             return toast.error('Course Description must be more than 200 characters');
@@ -259,7 +338,15 @@ const EditCourseForm = () => {
                 <div className='form-row'>
                     <div class="form-group col-md-6">
                         <label htmlFor="inputLanguages"> Course Language </label>
-                        <Select options={languages} isMulti onChange={(selectedOptions) => setCourseLanguage(selectedOptions.map(option => option.value))} />
+                        {/* <Select options={languages} isMulti onChange={(selectedOptions) => setCourseLanguage(selectedOptions.map(option => option.value))} /> */}
+                        <Select
+                            options={languages}
+                            isMulti
+                            value={courseLanguage.map(lang => ({ value: lang, label: lang }))}
+                            onChange={(selectedOptions) =>
+                                setCourseLanguage(selectedOptions.map(option => option.value))
+                            }
+                        />
                     </div>
 
 
@@ -369,7 +456,6 @@ const EditCourseForm = () => {
                             <option value="Diploma"> Diploma </option>
                             <option value="Professional"> Professional </option>
                             <option value="Short Course"> Short Course </option>
-                            <option value="Bootcamp"> Bootcamp </option>
                         </select>
                     </div>
                 </div>

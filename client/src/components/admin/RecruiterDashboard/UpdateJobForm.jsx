@@ -14,7 +14,7 @@ import languages from '../../admin/AdminCourses/languages.js';
 import { useNavigate, useParams } from 'react-router-dom';
 
 
-const UpdateJobsSuperAdmin = () => {
+const UpdateJobForm = () => {
     const { id } = useParams();
     console.log(id);
 
@@ -309,7 +309,7 @@ const UpdateJobsSuperAdmin = () => {
                 return toast.error('Please fill all the required fields');
             }
             if (jobType === 'InOffice' || jobType === 'Hybrid') {
-                if(jobLocation.length === 0 || jobLocation === 'Remote'){
+                if (jobLocation.length === 0 || jobLocation === 'Remote') {
                     return toast.error('Please select Atleast one Job Location');
                 }
             }
@@ -372,7 +372,7 @@ const UpdateJobsSuperAdmin = () => {
                 const response = await dispatch(UpdateAJobAction(id, jobsData));
                 if (response.success) {
                     toast.success('Job Updated Successfully');
-                    navigate('/superadmin/jobs');
+                    navigate('/recruiter/manageJobs');
                 } else {
                     console.log(response)
                     toast.error(response.message); // err.response.data.message
@@ -573,7 +573,7 @@ const UpdateJobsSuperAdmin = () => {
                                 id='isImmediate'
                                 className='pt-2'
                                 value={isImmediate ? true : false}
-                                onClick={() => setDisableJoiningDate(prevState => !prevState)} 
+                                onClick={() => setDisableJoiningDate(prevState => !prevState)}
                                 onChange={() => setIsImmediate(!isImmediate)}
                                 style={{ transform: 'scale(1.6)' }}
                             />
@@ -744,4 +744,4 @@ const UpdateJobsSuperAdmin = () => {
     )
 }
 
-export default UpdateJobsSuperAdmin
+export default UpdateJobForm

@@ -47,7 +47,7 @@ const UpdateJobDashboard = () => {
 
     const handleLogout = () => {
         dispatch({ type: 'LOGOUT' });
-        navigate('/login');
+        navigate('/login/superadmin');
         dispatch(setCurrentUser(null));
     }
     useEffect(() => {
@@ -101,7 +101,7 @@ const UpdateJobDashboard = () => {
                         <h3 className={styles.heading3}> Jobs </h3>
                     </a>
 
-                    <a className={styles.anchorTag} onClick={handleLogout}>
+                    <a className={styles.anchorTag} style={{cursor:'pointer'}} onClick={handleLogout}>
                         <RiLogoutBoxLine />
                         <h3 className={styles.heading3}> Logout </h3>
                     </a>

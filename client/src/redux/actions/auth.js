@@ -34,3 +34,19 @@ export const login = (authData, navigate) => async (dispatch) => {
         }
     }
 }
+
+export const authSA = (authData, navigate) => async (dispatch) => {
+    try {
+        const { data } = await api.SuperAdminAuth(authData);
+        localStorage.setItem('Profile', JSON.stringify(data));
+        dispatch({ type: 'AUTH', data });
+        dispatch(setCurrentUser(JSON.parse(localStorage.getItem('Profile'))));
+        return { success: true, message: 'Logged In Successfuly' }
+    } catch (error) {
+        if (error.response && error.response.data.message) {
+            return { success: false, message: error.response.data.message }
+        } else {
+            return { success: false, message: 'Something went wrong' }
+        }
+    }
+}

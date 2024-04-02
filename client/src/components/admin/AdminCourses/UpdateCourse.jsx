@@ -52,13 +52,6 @@ const UpdateCourse = () => {
     console.log(` UPDATECOURSE.JSX`, singleCourse);
     const [hasUserChangedValue, setHasUserChangedValue] = useState(false);
 
-
-
-
-
-
-
-
     useEffect(() => {
         if (singleCourse?.result) {
             setCourseTitle(singleCourse?.result?.title);
@@ -352,7 +345,7 @@ const UpdateCourse = () => {
                             <option value="Diploma"> Diploma </option>
                             <option value="Professional"> Professional </option>
                             <option value="Short Course"> Short Course </option>
-                            <option value="Bootcamp"> Bootcamp </option>
+                          
                         </select>
                     </div>
                 </div>

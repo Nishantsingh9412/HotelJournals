@@ -9,15 +9,12 @@ import {
   Button,
   Box,
 } from '@chakra-ui/react';
-import { IoMdClose } from 'react-icons/io';
-import { RiLogoutBoxFill } from "react-icons/ri";
 import { FaBars, FaBriefcase, FaUser } from 'react-icons/fa';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { FaHome, FaPlusSquare } from 'react-icons/fa';
-import { setCurrentUser } from '../../redux/actions/CurrentUser';
+import { IoMdClose } from 'react-icons/io';
 
-import styles from './RecruiterSidebarFinal.module.css'
-import { useDispatch } from 'react-redux';
+import styles from './EducatorSidebar.module.css'
 
 const activeLink = () => {
   return {
@@ -27,22 +24,14 @@ const activeLink = () => {
   };
 };
 
-const RecruiterSidebarFinal = () => {
-
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-
-  const handleLogout = () => {
-    dispatch({ type: 'LOGOUT' });
-    navigate('/login');
-    dispatch(setCurrentUser(null));
-  }
-
+const EducatorSidebar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const localUserProfile = JSON.parse(localStorage.getItem('Profile'));
+  const localUserId = localUserProfile?.result?._id;
 
   const routes = [
     {
-      path: "/recruiter",
+      path: `/profile/${localUserId}`,
       name: "Dashboard",
       icon: <FaHome size={'22px'} />,
     },
@@ -51,16 +40,20 @@ const RecruiterSidebarFinal = () => {
     //   name: "Users",
     //   icon: <FaUser size={'22px'} />,
     // },
+    // {
+    //   path: "/educator/courses",
+    //   name: "Your Course",
+    //   icon: <FaBriefcase size={'22px'} />,
+    // },
     {
-      path: "/recruiter/manageJobs",
-      name: "All Jobs",
-      icon: <FaBriefcase size={'22px'} />,
-    },
-    {
-      path: "/recruiter/jobs/post",
-      name: "Add Jobs",
+      path: "/educator/course/post",
+      name: "Add Course",
       icon: <FaPlusSquare size={'22px'} />,
+      
     },
+    // {
+      // path:'/'
+    // }
   ];
 
   return (
@@ -109,7 +102,7 @@ const RecruiterSidebarFinal = () => {
         <div className='p-2'>
           {routes.map((route, index) => (
             <NavLink
-              style={{ textDecoration: 'none', color: 'white' }}
+              style={{ textDecoration: 'none', color: 'white'}}
               key={index}
               to={route.path}
               activeStyle={activeLink()}
@@ -120,25 +113,10 @@ const RecruiterSidebarFinal = () => {
               </div>
             </NavLink>
           ))}
-          <div
-            className='d-flex mt-3'
-            style={{ cursor: 'pointer' }}
-            onClick={handleLogout}
-          >
-            <div className={styles.iconRec}>
-              <RiLogoutBoxFill size={'22px'} />
-            </div>
-            <span
-              className={styles.textRec}
-              style={{ marginLeft: '10px', fontSize: '1rem' }}
-            >
-              Logout
-            </span>
-          </div>
         </div>
       </div>
     </div>
   );
 };
 
-export default RecruiterSidebarFinal;
+export default EducatorSidebar;

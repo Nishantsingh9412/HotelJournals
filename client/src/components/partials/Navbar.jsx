@@ -103,13 +103,13 @@ const Navbar = () => {
                             </NavLink>
 
                         </li>
-                        <li className="nav-item">
+                        {/* <li className="nav-item">
 
                             <NavLink to='/admin/courses' className={`nav-link ${NavCSS.header_nav_links}`} activeClassName={NavCSS.active} >
                                 Add new Course
                             </NavLink>
 
-                        </li>
+                        </li> */}
                         <li className="nav-item">
 
                             <NavLink to='/journals' className={`nav-link ${NavCSS.header_nav_links}`} activeClassName={NavCSS.active}>
@@ -134,13 +134,13 @@ const Navbar = () => {
                         </li>
 
 
-                        <li className="nav-item">
+                        {/* <li className="nav-item">
 
                             <NavLink to='/dashboard' className={`nav-link ${NavCSS.header_nav_links}`} activeClassName={NavCSS.active} >
                                 Admin Panel
                             </NavLink>
 
-                        </li>
+                        </li> */}
 {/* 
                         <li className="nav-item">
                             <div className='btn btn-primary stylesheet' id='google_element'></div>

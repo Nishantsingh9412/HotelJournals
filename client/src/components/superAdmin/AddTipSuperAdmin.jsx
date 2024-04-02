@@ -45,7 +45,7 @@ const AddTipSuperAdmin = () => {
 
     const handleLogout = () => {
         dispatch({ type: 'LOGOUT' });
-        navigate('/login');
+        navigate('/login/superadmin')
         dispatch(setCurrentUser(null));
     }
     useEffect(() => {
@@ -86,7 +86,7 @@ const AddTipSuperAdmin = () => {
                 </div>
 
                 <div className={styles.sidebar}>
-                    <a className={styles.anchorTag} href="#">
+                    <a className={styles.anchorTag} href="/superadmin">
                         <MdDashboard />
                         <h3 className={styles.heading3}> Dashboard </h3>
                     </a>
@@ -103,7 +103,7 @@ const AddTipSuperAdmin = () => {
                         <h3 className={styles.heading3}> Jobs </h3>
                     </a>
 
-                    <a className={styles.anchorTag} onClick={handleLogout}>
+                    <a className={styles.anchorTag}  style={{cursor:'pointer'}} onClick={handleLogout}>
                         <RiLogoutBoxLine />
                         <h3 className={styles.heading3}> Logout </h3>
                     </a>

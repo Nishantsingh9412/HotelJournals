@@ -9,7 +9,10 @@ import coursesRoutes from './routes/Courses.js'
 import jobsRoutes from './routes/Jobs.js'
 import userProfileRoutes from './routes/userProfile.js'
 import recruiterProfileRoutes from './routes/recruiterProfile.js'
+import superadminRoutes from './routes/superadminRoutes.js'
 import { mailFunction } from "./controllers/mail.js";
+
+
 
 
 const app = express()
@@ -31,6 +34,7 @@ app.use('/courses',coursesRoutes)
 app.use('/jobs',jobsRoutes)
 app.use('/user/profile',userProfileRoutes)
 app.use('/recruiter/profile',recruiterProfileRoutes)
+app.use('/superadmin',superadminRoutes)
 app.post('/mail',mailFunction)
 
 app.get('/', (req, res) => {
@@ -38,7 +42,7 @@ app.get('/', (req, res) => {
 })
 
 const PORT = 5000
-const DATABASE_URL = "mongodb+srv://nishantsingh9412ns:Eelh0531VLLuTSrv@cluster0.k7trmzk.mongodb.net/"
+const DATABASE_URL = process.env.DATABASE_URL
 
 mongoose.connect(DATABASE_URL , {useNewUrlParser:true,useUnifiedTopology:true})
 .then(

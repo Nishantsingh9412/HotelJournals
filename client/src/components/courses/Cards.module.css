@@ -1,5 +1,10 @@
+.courseCards:hover{
+    box-shadow: 0 0 0 0.1rem #e5bda6 !important;
+    transition: box-shadow 0.8s, transform 0.8s;
+    transform: translateY(-10px);
+}
 
-.customBtn{
+.customBtn {
     font-weight: 600;
     background-color: #E4B49D;
     border: #E4B49D 3px solid;
@@ -13,24 +18,26 @@
 }
 
 
-.cardContainer{
+.cardContainer {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     gap: 0.5rem;
 }
+
 @media (max-width:1200px) {
-    .cardContainer{
+    .cardContainer {
         grid-template-columns: 1fr 1fr;
     }
 }
 
 @media (max-width:777px) {
-    .filterBox{
+    .filterBox {
         display: none;
-    }  
+    }
 }
+
 @media (max-width:400px) {
-    .cardContainer{
-        grid-template-columns: 1fr ;
+    .cardContainer {
+        grid-template-columns: 1fr;
     }
 }

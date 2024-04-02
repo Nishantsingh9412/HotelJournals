@@ -35,6 +35,7 @@ import PuffLoader from 'react-spinners/PuffLoader'
 import EducatorProfile from '../Educator_Profile/EducatorProfile'
 import RecruiterProfile from '../Recruiters_profile/RecruiterProfile'
 import UserProfile from '../User_profile/UserProfile'
+import ManageCourses from '../Educator_Profile/ManageCourses'
 
 // import MainRecruiterDashboard from '../admin/RecruiterDashboard/MainRecruiterDashboard'
 
@@ -66,7 +67,8 @@ const ProfileWrapper = () => {
     }
 
     if (userType == 'educator') {
-        return <EducatorProfile />;
+        // return <EducatorProfile />;
+        return <ManageCourses />
     }
     else if (userType == 'recruiter') {
         return <RecruiterProfile />
