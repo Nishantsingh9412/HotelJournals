@@ -19,7 +19,21 @@ export const signUp = (authData) => API.post('/user/signup',authData)
 
 export const Login = (authData) => API.post('/user/login',authData)
 
+// Auth SuperAdmin
 export const SuperAdminAuth = (authData) => API.post('/superadmin/login',authData)
+
+// Count SuperAdmin Jobs
+export const countSuperAdminJobs = () => API.get('/superadmin/jobs-count')
+// Count SuperAdmin Courses
+export const countSuperAdminCourses = () => API.get('/superadmin/courses-count')
+// Count SuperAdmin Tips
+export const countSuperAdminTips = () => API.get('/superadmin/tips-count')
+// Recent Unverified Jobs
+export const recentUnverifiedJobs = () => API.get('/superadmin/recent-unverified-jobs')
+// Recent Courses
+export const recentCourses = () => API.get('/superadmin/recent-courses')
+
+
 
 // Getting all users data from database
 export const Profile = () => API.get('/user/profile')

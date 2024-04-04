@@ -352,7 +352,6 @@ const AddCourseForm = () => {
                             <label htmlFor="course category" > Course Category </label>
                             <select className='form-control' onChange={(e) => setCourseCategory(e.target.value)}>
                                 <option value=""> Select Course Category </option>
-                                <option value=""> Select Course Category </option>
                                 <option value="Culinary"> Culinary </option>
                                 <option value="Business"> Business </option>
                                 <option value="Personal Development"> Personal Development </option>

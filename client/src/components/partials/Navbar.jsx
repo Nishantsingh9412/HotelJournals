@@ -12,23 +12,23 @@ import { setCurrentUser } from '../../redux/actions/CurrentUser'
 const Navbar = () => {
 
     // Start Language Translation
-  const loadGoogleTranslate = () => {
-    if (window.google && window.google.translate && window.google.translate.TranslateElement) {
-      new window.google.translate.TranslateElement(
-        { pageLanguage: 'en' },
-        'google_element'
-      );
-    }
-  };
+    const loadGoogleTranslate = () => {
+        if (window.google && window.google.translate && window.google.translate.TranslateElement) {
+            new window.google.translate.TranslateElement(
+                { pageLanguage: 'en' },
+                'google_element'
+            );
+        }
+    };
 
-  useEffect(() => {
-    // Make the function globally accessible
-    window.loadGoogleTranslate = loadGoogleTranslate;
-    // Call the function once the component is mounted
-    window.loadGoogleTranslate();
-  }, []);
+    useEffect(() => {
+        // Make the function globally accessible
+        window.loadGoogleTranslate = loadGoogleTranslate;
+        // Call the function once the component is mounted
+        window.loadGoogleTranslate();
+    }, []);
 
-  // End of Language Translation
+    // End of Language Translation
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -73,12 +73,12 @@ const Navbar = () => {
                     <img src={logo} height={54} width={72} alt="" />
                 </Link>
                 <button
-                     className={`navbar-toggler ${navbarOpen ? 'collapsed' : ''}`}
-                     type="button"
-                     onClick={() => setNavbarOpen(!navbarOpen)}
-                     aria-controls="navbarSupportedContent"
-                     aria-expanded={navbarOpen}
-                     aria-label="Toggle navigation"
+                    className={`navbar-toggler ${navbarOpen ? 'collapsed' : ''}`}
+                    type="button"
+                    onClick={() => setNavbarOpen(!navbarOpen)}
+                    aria-controls="navbarSupportedContent"
+                    aria-expanded={navbarOpen}
+                    aria-label="Toggle navigation"
                 >
                     <span className="navbar-toggler-icon"></span>
                 </button>
@@ -133,6 +133,12 @@ const Navbar = () => {
 
                         </li>
 
+                        <li className="nav-item">
+                            <NavLink to='/superadmin' className={`nav-link ${NavCSS.header_nav_links}`} activeClassName={NavCSS.active} >
+                                SuperAdmin
+                            </NavLink>
+                        </li>
+
 
                         {/* <li className="nav-item">
 
@@ -141,7 +147,7 @@ const Navbar = () => {
                             </NavLink>
 
                         </li> */}
-{/* 
+                        {/* 
                         <li className="nav-item">
                             <div className='btn btn-primary stylesheet' id='google_element'></div>
                         </li> */}

@@ -424,25 +424,26 @@ const UpdateCourseForm = () => {
                                 <label htmlFor="course category" > Course Category </label>
                                 <select className='form-control' value={courseCategory} onChange={(e) => setCourseCategory(e.target.value)}>
                                     <option value=""> Select Course Category </option>
-                                    <option value="IT and Software"> IT & Software </option>
+                                    <option value="Culinary"> Culinary </option>
                                     <option value="Business"> Business </option>
-                                    <option value="Development and Computing"> Development & Computing </option>
-                                    <option value="Finance and Accounting"> Finance & Accounting </option>
-                                    <option value="Office Productivity"> Office Productivity </option>
                                     <option value="Personal Development"> Personal Development </option>
-                                    <option value="Design"> Design </option>
                                     <option value="Marketing"> Marketing </option>
-                                    <option value="Lifestyle"> Lifestyle </option>
-                                    <option value="Health and Safety"> Health & Safety </option>
-                                    <option value="Human Resources"> Human Resources </option>
-                                    <option value="Leadership and Management"> Leadership & Management </option>
-                                    <option value="Legal"> Legal </option>
-                                    <option value="Photography and Video"> Photography </option>
-                                    <option value="Health and Fitness"> Health & Fitness </option>
-                                    <option value="Music"> Music </option>
-                                    <option value="Teacher and Academics"> Teacher & Academics </option>
+                                    <option value="Human Resource"> Human Resource </option>
+                                    <option value="Leadership And Management"> Leadership And Management </option>
                                     <option value="Language"> Language </option>
-                                    <option value="Test Prep"> Test Preparation </option>
+                                    <option value="Test Preparation"> Test Preparation </option>
+                                    <option value="Pastry"> Pastry </option>
+                                    <option value="Cruises Management"> Cruises Management </option>
+                                    <option value="Oenology"> Oenology </option>
+                                    <option value="Hospitality Management"> Hospitality Management </option>
+                                    <option value="Sales And Marketing"> Sales And Marketing </option>
+                                    <option value="Event Management"> Event Management </option>
+                                    <option value="Revenue Management"> Revenue Management </option>
+                                    <option value="Reception"> Reception </option>
+                                    <option value="Food And Beverages"> Food And Beverages </option>
+                                    <option value="Spa"> Spa </option>
+                                    <option value="Tourism"> Tourism </option>
+                                    <option value="Business Skills"> Business Skills </option>
                                 </select>
 
                             </div>

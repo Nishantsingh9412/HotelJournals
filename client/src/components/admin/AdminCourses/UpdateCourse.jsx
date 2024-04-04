@@ -101,7 +101,7 @@ const UpdateCourse = () => {
 
     useEffect(() => {
         setCourseDuration(courseDurationValue + " " + courseDurationUnit);
-    },[courseDurationValue, courseDurationUnit])
+    }, [courseDurationValue, courseDurationUnit])
 
 
     const postThumbnail = (pics) => {
@@ -161,17 +161,17 @@ const UpdateCourse = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         // console.log(courseTitle, courseDesc, courseLanguage, courseLink, courseFormat, isFree,
-            // coursePrice, courseDuration, courseCompany,  picThumb, picLogo);
-        if (!courseTitle || !difficulty || !courseDesc || courseLanguage.length === 0 || !courseLink || !courseFormat || isFree === null ||  (isFree === false && coursePrice === "")
-            || !courseDurationValue || !courseDurationUnit || !courseCompany || !courseCategory || !courseType ||  !picThumb || !picLogo ) {
+        // coursePrice, courseDuration, courseCompany,  picThumb, picLogo);
+        if (!courseTitle || !difficulty || !courseDesc || courseLanguage.length === 0 || !courseLink || !courseFormat || isFree === null || (isFree === false && coursePrice === "")
+            || !courseDurationValue || !courseDurationUnit || !courseCompany || !courseCategory || !courseType || !picThumb || !picLogo) {
             return toast.error('Please fill all fields');
         }
         if (courseDesc.length < 200) {
             return toast.error('Course Description must be more than 200 characters');
         }
-        if(isFree){
+        if (isFree) {
             setCoursePrice(0);
-        }if(!isValidURL(courseLink)){
+        } if (!isValidURL(courseLink)) {
             return toast.error(' Enter a Valid Course Link');
         }
 
@@ -262,11 +262,11 @@ const UpdateCourse = () => {
                         <label htmlFor="course_option"> Is this course free <small className='text-danger'> * </small> </label>
                         <div className='col-md-2'>
                             <div class="custom-control custom-radio">
-                                <input type="radio" id="freeYes" name="isFree" defaultChecked className="custom-control-input" onChange={() => {setIsFree(true) ; setCoursePrice(''); } } />
+                                <input type="radio" id="freeYes" name="isFree" defaultChecked className="custom-control-input" onChange={() => { setIsFree(true); setCoursePrice(''); }} />
                                 <label class="custom-control-label" for="freeYes">Yes</label>
                             </div>
                             <div class="custom-control custom-radio">
-                                <input type="radio" id="freeNo" name="isFree"  className="custom-control-input" onChange={() => setIsFree(false)} />
+                                <input type="radio" id="freeNo" name="isFree" className="custom-control-input" onChange={() => setIsFree(false)} />
                                 <label class="custom-control-label" for="freeNo">No</label>
                             </div>
                         </div>
@@ -313,25 +313,26 @@ const UpdateCourse = () => {
                         <label htmlFor="course category" > Course Category </label>
                         <select className='form-control' value={courseCategory} onChange={(e) => setCourseCategory(e.target.value)}>
                             <option value=""> Select Course Category </option>
-                            <option value="IT and Software"> IT & Software </option>
+                            <option value="Culinary"> Culinary </option>
                             <option value="Business"> Business </option>
-                            <option value="Development and Computing"> Development & Computing </option>
-                            <option value="Finance and Accounting"> Finance & Accounting </option>
-                            <option value="Office Productivity"> Office Productivity </option>
                             <option value="Personal Development"> Personal Development </option>
-                            <option value="Design"> Design </option>
                             <option value="Marketing"> Marketing </option>
-                            <option value="Lifestyle"> Lifestyle </option>
-                            <option value="Health and Safety"> Health & Safety </option>
-                            <option value="Human Resources"> Human Resources </option>
-                            <option value="Leadership and Management"> Leadership & Management </option>
-                            <option value="Legal"> Legal </option>
-                            <option value="Photography and Video"> Photography </option>
-                            <option value="Health and Fitness"> Health & Fitness </option>
-                            <option value="Music"> Music </option>
-                            <option value="Teacher and Academics"> Teacher & Academics </option>
+                            <option value="Human Resource"> Human Resource </option>
+                            <option value="Leadership And Management"> Leadership And Management </option>
                             <option value="Language"> Language </option>
-                            <option value="Test Prep"> Test Preparation </option>
+                            <option value="Test Preparation"> Test Preparation </option>
+                            <option value="Pastry"> Pastry </option>
+                            <option value="Cruises Management"> Cruises Management </option>
+                            <option value="Oenology"> Oenology </option>
+                            <option value="Hospitality Management"> Hospitality Management </option>
+                            <option value="Sales And Marketing"> Sales And Marketing </option>
+                            <option value="Event Management"> Event Management </option>
+                            <option value="Revenue Management"> Revenue Management </option>
+                            <option value="Reception"> Reception </option>
+                            <option value="Food And Beverages"> Food And Beverages </option>
+                            <option value="Spa"> Spa </option>
+                            <option value="Tourism"> Tourism </option>
+                            <option value="Business Skills"> Business Skills </option>
                         </select>
 
                     </div>
@@ -345,7 +346,7 @@ const UpdateCourse = () => {
                             <option value="Diploma"> Diploma </option>
                             <option value="Professional"> Professional </option>
                             <option value="Short Course"> Short Course </option>
-                          
+
                         </select>
                     </div>
                 </div>

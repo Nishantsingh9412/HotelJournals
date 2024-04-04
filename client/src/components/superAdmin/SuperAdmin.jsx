@@ -1,26 +1,41 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { Image } from '@chakra-ui/react'
 import decode from 'jwt-decode';
+import { formatDistanceToNow } from 'date-fns';
 
 // Icons start
-import { MdDashboard, MdLocalMall, MdStackedLineChart } from "react-icons/md";
+import { MdDashboard, MdLocalMall } from "react-icons/md";
 import { MdCancel } from "react-icons/md";
-import { MdAnalytics } from "react-icons/md";
 import { IoIosSunny } from "react-icons/io";
 import { CiShoppingCart } from "react-icons/ci";
-import { FaBriefcase,FaRegMoon } from "react-icons/fa";
+import { FaBriefcase, FaEdit, FaRegMoon } from "react-icons/fa";
 import { HiOutlineMenu, HiPencilAlt } from "react-icons/hi";
-import { FaGraduationCap, FaPlus, FaUser } from "react-icons/fa6";
-import { IoAnalyticsOutline, IoBarChart } from "react-icons/io5";
+import { FaEye, FaGraduationCap, FaPlus, FaUser } from "react-icons/fa6";
 import { RiLogoutBoxLine } from "react-icons/ri";
 // Icons End
 
 import logoImg from '../../assets/img/logo.png'
 import { setCurrentUser } from '../../redux/actions/CurrentUser'
 import styles from './SuperAdmin.module.css'
+import CircleChart from './charts/CircleChart';
+import {
+    countSuperAdminCourses,
+    countSuperAdminJobs,
+    countSuperAdminTips,
+    recentUnverifiedJobs,
+    recentCourses
+} from '../../api';
+
 
 const SuperAdmin = () => {
+
+    const [totalJobs, setTotalJobs] = useState(0);
+    const [totalCourses, setTotalCourses] = useState(0);
+    const [totalTips, setTotalTips] = useState(0);
+    const [allUnverifiedJobs, setAllUnverifiedJobs] = useState([{}]);
+    const [allCoursesRecent, setAllCoursesRecent] = useState([{}])
 
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isDarkMode, setIsDarkMode] = useState(true);
@@ -44,9 +59,52 @@ const SuperAdmin = () => {
     }
 
 
-    
-    const User = useSelector((state) => (state.currentuserReducer)); 
+
+    const User = useSelector((state) => (state.currentuserReducer));
     console.log(User);
+
+    const AllFiveCourses = async () => {
+        const { data } = await recentCourses();
+        console.log(data);
+        setAllCoursesRecent(data.result);
+    }
+
+    const recentUnvJobs = async () => {
+        const { data } = await recentUnverifiedJobs();
+        console.log(data);
+        setAllUnverifiedJobs(data.result);
+    }
+
+    console.log(allUnverifiedJobs);
+
+    const SuperAdminJobsCount = async () => {
+        const { data } = await countSuperAdminJobs();
+        console.log(data);
+        setTotalJobs(data.result);
+    }
+
+    const SuperAdminCoursesCount = async () => {
+        const { data } = await countSuperAdminCourses();
+        console.log(data);
+        setTotalCourses(data.result);
+
+    }
+
+    const SuperAdminTipsCount = async () => {
+        const { data } = await countSuperAdminTips();
+        console.log(data);
+        setTotalTips(data.result);
+    }
+
+    useEffect(() => {
+        AllFiveCourses();
+        recentUnvJobs();
+        SuperAdminCoursesCount();
+        SuperAdminTipsCount();
+        SuperAdminJobsCount();
+    }, [])
+
+
 
     const handleLogout = () => {
         dispatch({ type: 'LOGOUT' });
@@ -63,9 +121,6 @@ const SuperAdmin = () => {
         }
         dispatch(setCurrentUser(JSON.parse(localStorage.getItem('Profile'))));
     }, [dispatch])
-
-
-
 
     return (
         <div className={styles.dashContainer}>
@@ -108,7 +163,7 @@ const SuperAdmin = () => {
                         <h3 className={styles.heading3}> Jobs </h3>
                     </a>
 
-                    <a className={styles.anchorTag} style={{cursor:'pointer'}} onClick={handleLogout}>
+                    <a className={styles.anchorTag} style={{ cursor: 'pointer' }} onClick={handleLogout}>
                         <RiLogoutBoxLine />
                         <h3 className={styles.heading3}> Logout </h3>
                     </a>
@@ -142,33 +197,38 @@ const SuperAdmin = () => {
             {/* Start of main section */}
             <main className={styles.mainComp}>
                 <h1 className={styles.heading1}>Dashboard</h1>
-                <div className={styles.date}>
+                {/* <div className={styles.date}>
                     <input type='date' />
-                </div>
+                </div> */}
                 <div className={styles.insights}>
                     {/* // Start of sales */}
                     <div className={styles.sales}>
                         <span>
-                            <MdAnalytics
+                            <FaBriefcase
                                 size={25}
                             />
                         </span>
                         <div className={styles.middle}>
-                            <div className={styles.left}>
-                                <h3 className={styles.heading3}>Total Sales</h3>
-                                <h1 className={styles.heading1} >$25,024</h1>
-                            </div>
-                            <div className={styles.progress}>
+                            {/* <div className={styles.left}> */}
+                            <h3 className={styles.heading3}>Total Jobs</h3>
+                            <h1 className={styles.heading1}>{totalJobs}</h1>
+                            {/* </div> */}
+                            {/* <div className={styles.progress}>
                                 <svg className={styles.svgcircleIcon}>
                                     <circle cx="38" cy="38" r="36"></circle>
                                 </svg>
                                 <div className={styles.number}>
                                     <p>81%</p>
                                 </div>
-                            </div>
+                            </div> */}
+                            {/* <CircleChart size={90} percentage={50} strokeWidth={15} strokeColor="#7380EC" /> */}
+
                         </div>
-                        <small className={styles.textMuted}>
+                        {/* <small className={styles.textMuted}>
                             Last 24 Hours
+                        </small> */}
+                        <small className={styles.textMuted}>
+                            Posted Until Now
                         </small>
                     </div>
                     {/* // End of Sales */}
@@ -176,26 +236,27 @@ const SuperAdmin = () => {
                     {/* // Start of Expenses */}
                     <div className={styles.expenses}>
                         <span>
-                            <IoAnalyticsOutline
+                            <FaGraduationCap
                                 size={25}
                             />
                         </span>
                         <div className={styles.middle}>
-                            <div className={styles.left}>
-                                <h3 className={styles.heading3}>Total Expenses</h3>
-                                <h1 className={styles.heading1} >$25,024</h1>
-                            </div>
-                            <div className={styles.progress}>
+                            {/* <div className={styles.left}> */}
+                            <h3 className={styles.heading3}>Total Courses</h3>
+                            <h1 className={styles.heading1} > {totalCourses} </h1>
+                            {/* </div> */}
+                            {/* <div className={styles.progress}>
                                 <svg className={styles.svgcircleIcon}>
                                     <circle cx="38" cy="38" r="36"></circle>
                                 </svg>
                                 <div className={styles.number}>
-                                    <p>81%</p>
+                                    <p>40%</p>
                                 </div>
-                            </div>
+                            </div> */}
+                            {/* <CircleChart size={90} percentage={60} strokeWidth={15} strokeColor="#7380EC" /> */}
                         </div>
                         <small className={styles.textMuted}>
-                            Last 24 Hours
+                            Posted Until Now
                         </small>
                     </div>
                     {/* // End of Expenses */}
@@ -203,45 +264,71 @@ const SuperAdmin = () => {
                     {/* // Start of Income */}
                     <div className={styles.income}>
                         <span>
-                            <MdStackedLineChart
+                            <FaEdit
                                 size={25}
                             />
                         </span>
                         <div className={styles.middle}>
-                            <div className={styles.left}>
-                                <h3 className={styles.heading3}>Total Income</h3>
-                                <h1 className={styles.heading1}>$41,120</h1>
-                            </div>
-                            <div className={styles.progress}>
+                            {/* <div className={styles.left}> */}
+                            <h3 className={styles.heading3}>Total Tips</h3>
+                            <h1 className={styles.heading1}> {totalTips} </h1>
+                            {/* </div> */}
+                            {/* <div className={styles.progress}>
                                 <svg className={styles.svgcircleIcon}>
                                     <circle cx="38" cy="38" r="36"></circle>
                                 </svg>
                                 <div className={styles.number}>
                                     <p>44%</p>
                                 </div>
-                            </div>
+                            </div> */}
+                            {/* <div >
+                                <CircleChart size={90} percentage={40} strokeWidth={15} strokeColor="#7380EC" />
+                            </div> */}
                         </div>
                         <small className={styles.textMuted}>
-                            Last 24 Hours
+                            Posted Until Now
                         </small>
                     </div>
                     {/* // End of Income */}
                 </div>
                 {/* // End of insights */}
                 <div className={styles.recentOrder}>
-                    <h2 className={styles.heading2}> Recent Orders </h2>
+                    <h2 className={styles.heading2}> Recent Unverified Jobs </h2>
                     <table>
                         <thead>
                             <tr>
-                                <th>Product name </th>
-                                <th>prid nu</th>
-                                <th>Payment</th>
-                                <th>status</th>
-                                <th></th>
+                                <th>Logo</th>
+                                <th>Job Title </th>
+                                <th>Company Name</th>
+                                <th>JobType</th>
+                                {/* <th></th> */}
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
+                            {
+                                allUnverifiedJobs?.map((job, index) => {
+                                    return (
+                                        <tr key={index}>
+                                            <td >
+                                                <Image
+                                                    marginLeft={50}
+                                                    borderRadius='full'
+                                                    boxSize='30px'
+                                                    // src='https://bit.ly/dan-abramov'
+                                                    src={job?.recruiter_info?.company_logo}
+                                                    alt='Dan Abramov'
+                                                />
+                                            </td>
+                                            <td>{job?.jobTitle}</td>
+                                            <td>{job?.recruiter_info?.companyName}</td>
+                                            <td>{job?.jobType}</td>
+                                            {/* <td className={styles.warning}>Pending</td> */}
+                                            {/* <td className={styles.primary}> Details </td> */}
+                                        </tr>
+                                    )
+                                })
+                            }
+                            {/* <tr>
                                 <td>Foldable Mini Drone</td>
                                 <td>10245</td>
                                 <td>Hippi</td>
@@ -275,16 +362,16 @@ const SuperAdmin = () => {
                                 <td>Hippi</td>
                                 <td className={styles.warning}>Pending</td>
                                 <td className={styles.primary}> Details </td>
-                            </tr>
+                            </tr> */}
                         </tbody>
                     </table>
-                    <a className={styles.anchorTag} href="#"> Show All</a>
+                    <a className={styles.anchorTag} href="/superadmin/jobs" target='__blank'> Show All</a>
                 </div>
-            </main>
+            </main >
             {/* // End of main section  */}
 
 
-            <div className={styles.right}>
+            <div div className={styles.right} >
                 <div className={styles.top}>
                     <button
                         id='menu-btn'
@@ -310,7 +397,7 @@ const SuperAdmin = () => {
                         </div>
                     </div>
                 </div>
-                <div className={styles.recentUpdates}>
+                {/* <div className={styles.recentUpdates}>
                     <h2 className={styles.heading2}> Recent Updates </h2>
                     <div className={styles.updates}>
                         <div className={styles.update}>
@@ -349,26 +436,42 @@ const SuperAdmin = () => {
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> */}
                 <div className={styles.salesAnalytics}>
-                    <h2 className={styles.heading2}>  Sales Analytics  </h2>
-                    <div className={`${styles.item} ${styles.online}`}>
-                        <div className={styles.icon}>
-                            <span>
-                                <CiShoppingCart />
-                            </span>
-                        </div>
-                        <div className={styles.right}>
-                            <div className={styles.info}>
-                                <h3 className={styles.heading3}>Online Orders</h3>
-                                <small className='text-muted'>Last 24 hours</small>
+                    <h2 className={styles.heading2}>  Recent Courses </h2>
+                    {allCoursesRecent.map((course, index) => {
+                        return (
+                            <div className={`${styles.item} ${styles.online}`}>
+                                <Image
+                                    // marginLeft={50}
+                                    borderRadius='full'
+                                    boxSize='50px'
+                                    // src='https://bit.ly/dan-abramov'
+                                    src={course?.banner_image && course?.banner_image}
+                                    alt='Dan Abramov'
+                                />
+                                <div className={styles.right}>
+                                    <div className={styles.info}>
+                                        <h3 className={styles.heading3}>
+                                            {course?.title &&
+                                                course?.title?.length > 15 ?
+                                                course?.title?.substr(0, 15) + '.....' :
+                                                course?.title
+                                            }
+                                        </h3>
+                                        <small className='text-muted'>
+                                            {course?.createdAt &&
+                                                `${formatDistanceToNow(course?.createdAt)} ago`}
+                                        </small>
+                                    </div>
+                                    {/* <h5 className={`${styles.heading5}  ${styles.success}`}> + 25% </h5> */}
+                                    <h4 className={`${styles.heading5}  ${styles.primary}`}> {course?.difficulty} </h4>
+                                    {/* <h3 className={styles.heading3}>3849</h3> */}
+                                </div>
                             </div>
-                            <h5 className={`${styles.heading5}  ${styles.success}`}> + 25% </h5>
-                            <h3 className={styles.heading3}>3849</h3>
-                        </div>
-                    </div>
-
-                    <div className={`${styles.item} ${styles.offline}`}>
+                        )
+                    })}
+                    {/* <div className={`${styles.item} ${styles.offline}`}>
                         <div className={styles.icon}>
                             <span>
                                 <MdLocalMall />
@@ -382,9 +485,9 @@ const SuperAdmin = () => {
                             <h5 className={`${styles.heading5} ${styles.danger}`}> -17% </h5>
                             <h3 className={styles.heading3}>1100</h3>
                         </div>
-                    </div>
+                    </div> */}
 
-                    <div className={`${styles.item} ${styles.customers}`}>
+                    {/* <div className={`${styles.item} ${styles.customers}`}>
                         <div className={styles.icon}>
                             <span>
                                 <FaUser />
@@ -398,20 +501,22 @@ const SuperAdmin = () => {
                             <h5 className={`${styles.heading5} ${styles.danger}`}> +30% </h5>
                             <h3 className={styles.heading3}>849</h3>
                         </div>
-                    </div>
+                    </div> */}
 
-                    <div className={`${styles.item} ${styles.addProduct}`}>
-                        <div>
-                            <span>
-                                <FaPlus />
-                            </span>
-                            <h3 className={styles.heading3}> Add Product </h3>
+                    <a href="/superadmin/courses/" target='__blank'>
+                        <div className={`${styles.item} ${styles.addProduct}`}>
+                            <div>
+                                <span>
+                                    <FaEye />
+                                </span>
+                                <h3 className={styles.heading3}> View All </h3>
 
+                            </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
-            </div>
-        </div>
+            </div >
+        </div >
     )
 }
 
