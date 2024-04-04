@@ -8,11 +8,15 @@ import {
     editCourse,
     AllCompaniesName,
     courseSearch,
-    AllCourseFilters
+    AllCourseFilters,
+    paginatedCourses
 } from "../controllers/courses.js"
 
 const router = express.Router();
 
+// Paginate Courses
+
+router.get('/paginateCourses', paginatedCourses)
 // Filter Courses 
 router.get('/courseFilter', AllCourseFilters)
 // Search courses 

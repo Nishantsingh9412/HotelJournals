@@ -1,6 +1,17 @@
 import * as api from '../../api/index.js';
 
 
+export const coursePaginateAction = (page,limit) => async (dispatch) => {
+    try{
+        const {data} = await api.paginateCourses(page,limit);
+        return {success:true,message:'Courses paginated successfully',data}
+    }catch(error){
+        console.log("Error from coursePaginate Action: " + error.message, error.stack);
+        return {success:false,message:'Error paginating Courses'}
+    }
+}
+
+
 export const courseFilterAction = (filteredData) => async (dispatch) => {
     try{    
         const {data} = await api.courseFilter(filteredData);

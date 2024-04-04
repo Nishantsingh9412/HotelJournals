@@ -5,11 +5,14 @@ import { CgSandClock } from "react-icons/cg";
 import { FaArrowUpRightDots } from "react-icons/fa6";
 import { IoIosRocket } from "react-icons/io";
 import { NavLink, useParams } from 'react-router-dom';
+import { Tooltip } from 'react-tooltip';
+import 'react-tooltip/dist/react-tooltip.css'
 import PuffLoader from 'react-spinners/PuffLoader';
 
 import { GetCourseSingle } from '../../redux/actions/courseAdmin';
 import Cards from './Cards';
 import Styles from './CourseDescription.module.css';
+import TooltipParagraph from '../Jobs/TooltipParagraph';
 
 
 
@@ -34,7 +37,7 @@ const CourseDescription = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-  },[])
+  }, [])
 
   const readMoreStyles = {
     WebkitLineClamp: 5,
@@ -61,9 +64,9 @@ const CourseDescription = () => {
           <div className="card mb-3" style={{ boxShadow: '0px 0px 15px rgba(0, 0, 0, 0.5)' }}>
             <div className="row g-0">
               <div className="col-md-4 col-sm-12">
-                <img 
-                style={{borderRadius: '20px'}}
-                className='img-fluid p-2 d-block mx-auto w-100 h-100' src={course?.result?.banner_image} alt="" />
+                <img
+                  style={{ borderRadius: '20px' }}
+                  className='img-fluid p-2 d-block mx-auto w-100 h-100' src={course?.result?.banner_image} alt="" />
               </div>
               <div className="col-md-8">
                 <div className="card-body">
@@ -85,28 +88,43 @@ const CourseDescription = () => {
 
                 {/* Course details section: time, language..etc */}
 
-                <div className="row mt-2 mb-3 justify-content-around p-4">
-                  <div className="col-md-2 text-center border border-dark rounded p-2 " style={{ background: '#F5F6FB', minWidth: '140px', height: 'fit-content' }}>
-                    <div className="col" style={{ opacity: 0.7 }}><TbLanguageHiragana size={20} alignmentBaseline='' /> </div>
-                    <div className="col" style={{ opacity: 0.7, fontSize: '15px' }}> <small> Languages </small> </div>
-                    <div className="col" > 
-                      <small> {course?.result?.languages}   </small> 
+                <div className="row mt-2 mb-3 justify-content-around p-4 ">
+                  <div className="col-md-2 text-center border border-dark rounded p-2 d-flex flex-column justify-content-center" style={{ background: '#F5F6FB', minWidth: '140px', height: 'fit-content' }}>
+                    <div className="col d-flex justify-content-center" style={{ opacity: 0.7 }}><TbLanguageHiragana size={20} alignmentBaseline='' /> </div>
+                    <div className="col d-flex justify-content-center" style={{ opacity: 0.7, fontSize: '15px' }}> <small> Languages </small> </div>
+                    <div className="col d-flex justify-content-center">
+                      
+                      {
+                        course.result.languages.length === 1 ? (
+                          <small>
+                            {course.result.languages[0]}
+                          </small>
+                        ) : (
+                          <small className='my-anchor-element'>
+                          {course.result.languages[0]}
+                            &nbsp; +{course.result.languages.length-1} more
+                          </small>
+                        )
+                      }
+                      <Tooltip anchorSelect=".my-anchor-element" place="top">
+                        {course.result.languages.slice(1).join(', ')}
+                      </Tooltip>
                     </div>
                   </div>
-                  <div className="col-md-2 text-center border border-dark rounded p-2 " style={{ background: '#F5F6FB', minWidth: '140px', height: 'fit-content' }}>
-                    <div className="col" style={{ opacity: 0.7 }}><CgSandClock size={20} alignmentBaseline='' /> </div>
-                    <div className="col" style={{ opacity: 0.7, fontSize: '15px' }}> <small> Duration </small> </div>
-                    <div className="col"><small> {course?.result?.duration} </small> </div>
+                  <div className="col-md-2 text-center border border-dark rounded p-2 d-flex flex-column justify-content-center" style={{ background: '#F5F6FB', minWidth: '140px', height: 'fit-content' }}>
+                    <div className="col d-flex justify-content-center" style={{ opacity: 0.7 }}><CgSandClock size={20} alignmentBaseline='' /> </div>
+                    <div className="col d-flex justify-content-center" style={{ opacity: 0.7, fontSize: '15px' }}> <small> Duration </small> </div>
+                    <div className="col d-flex justify-content-center"><small> {course?.result?.duration} </small> </div>
                   </div>
-                  <div className="col-md-2 text-center border border-dark rounded p-2 " style={{ background: '#F5F6FB', minWidth: '140px', height: 'fit-content' }}>
-                    <div className="col" style={{ opacity: 0.7 }}><FaArrowUpRightDots size={20} alignmentBaseline='' /> </div>
-                    <div className="col" style={{ opacity: 0.7, fontSize: '15px' }}> <small> Difficulty </small> </div>
-                    <div className="col"><small> {course?.result?.difficulty} </small> </div>
+                  <div className="col-md-2 text-center border border-dark rounded p-2 d-flex flex-column justify-content-center" style={{ background: '#F5F6FB', minWidth: '140px', height: 'fit-content' }}>
+                    <div className="col d-flex justify-content-center" style={{ opacity: 0.7 }}><FaArrowUpRightDots size={20} alignmentBaseline='' /> </div>
+                    <div className="col d-flex justify-content-center" style={{ opacity: 0.7, fontSize: '15px' }}> <small> Difficulty </small> </div>
+                    <div className="col d-flex justify-content-center"><small> {course?.result?.difficulty} </small> </div>
                   </div>
-                  <div className="col-md-2 text-center border border-dark rounded p-2 " style={{ background: '#F5F6FB', minWidth: '140px', height: 'fit-content' }}>
-                    <div className="col" style={{ opacity: 0.7 }}><IoIosRocket size={20} alignmentBaseline='' /> </div>
-                    <div className="col" style={{ opacity: 0.7, fontSize: '15px' }}> <small> Format </small> </div>
-                    <div className="col"><small> {course?.result?.format} </small> </div>
+                  <div className="col-md-2 text-center border border-dark rounded p-2 d-flex flex-column justify-content-center " style={{ background: '#F5F6FB', minWidth: '140px', height: 'fit-content' }}>
+                    <div className="col d-flex justify-content-center" style={{ opacity: 0.7 }}><IoIosRocket size={20} alignmentBaseline='' /> </div>
+                    <div className="col d-flex justify-content-center" style={{ opacity: 0.7, fontSize: '15px' }}> <small> Format </small> </div>
+                    <div className="col d-flex justify-content-center"><small> {course?.result?.format} </small> </div>
                   </div>
                   {course?.result?.isFree ? (
                     <div className='text-left rounded' style={{ position: 'absolute', top: 10, right: 0, background: 'green', color: 'white', padding: '10px', paddingLeft: '100px' }}>
@@ -147,7 +165,7 @@ const CourseDescription = () => {
                   </>
                 }
 
-                
+
               </div>
             </div>
           </div>

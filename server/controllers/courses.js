@@ -1,5 +1,34 @@
 import Courses from "../models/courses.js";
 import mongoose from "mongoose";
+import user from "../models/profiles/user.js";
+
+export const paginatedCourses = async (req, res) => {
+    const allCourses = await Courses.find({});
+    const page = parseInt(req.query.page);
+    const limit = parseInt(req.query.limit);
+    const startIndex = (page - 1) * limit;
+    const lastIndex = page * limit;
+
+    const results = {};
+    results.totalCourse = allCourses.length;
+    results.pageCount = Math.ceil(allCourses.length / limit);
+
+    if (lastIndex < allCourses.length) {
+        results.next = {
+            page: page + 1,
+        }
+    }
+
+    if(startIndex > 0){
+        results.prev = {
+            page:page - 1,
+        }
+    }
+
+    results.pageinatedData = allCourses.slice(startIndex, lastIndex);
+
+    res.status(200).json({ success: true, message: `Paginated-courses` , result:results})
+}
 
 export const AllCompaniesName = async (req, res) => {
     try {
@@ -60,7 +89,7 @@ export const AllCourseFilters = async (req, res) => {
                         'Catalan'
                     ]
                 };
-            }else{
+            } else {
                 filter.languages = { $in: selectedCourseLanguages };
             }
         }

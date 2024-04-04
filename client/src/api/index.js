@@ -55,6 +55,8 @@ export const UpdateTip = (id,tipsdata) => API.patch(`/admin/tips/${id}`,tipsdata
 
 //  ----------------------------  For Creating a Course---------------
 
+// Paginating the courses
+export const paginateCourses = (page,limit) => API.get(`/courses/paginateCourses?page=${page}&limit=${limit}`)
 
 // Setting  up courses Filter API
 export const courseFilter = (filterData) => API.get(`/courses/courseFilter?${filterData}`)

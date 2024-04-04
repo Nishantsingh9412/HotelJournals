@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { IoIosCloseCircle, IoMdTime } from 'react-icons/io';
 import { FaArrowUpRightDots } from 'react-icons/fa6';
 import { useDispatch, useSelector } from 'react-redux';
-import { GetCourse, courseFilterAction } from '../../redux/actions/courseAdmin';
 import { Link } from 'react-router-dom';
+import ReactPaginate from 'react-paginate';
+
 import CheckBox from "./CheckBox";
 import CSS from './Cards.module.css';
+import { GetCourse, courseFilterAction, coursePaginateAction } from '../../redux/actions/courseAdmin';
 
 const cardImageStyle = {
     width: '100%',
@@ -16,6 +18,12 @@ const cardImageStyle = {
 
 const Cards = ({ filter }) => {
     const dispatch = useDispatch();
+
+    // const [currentPage, setCurrentPage] = useState(2);
+    const [paginatedCourses, setPaginatedCourses] = useState()
+    const [limit, setLimit] = useState(12);
+    const [pageCount, setPageCount] = useState(1);
+    const currentPage = useRef()
 
     const [courseValueFilter, setCourseValueFilter] = useState({
         isFree: false,
@@ -43,7 +51,7 @@ const Cards = ({ filter }) => {
         Portuguese: false,
         German: false,
         Catalan: false,
-        Other:false
+        Other: false
     });
 
     const [categoriesFilter, setCategoriesFilter] = useState({
@@ -69,9 +77,9 @@ const Cards = ({ filter }) => {
         BusinessSkills: false
     })
 
-    useEffect(() => {
-        dispatch(GetCourse());
-    }, [dispatch]);
+    // useEffect(() => {
+    //     dispatch(GetCourse());
+    // }, [dispatch]);
 
 
     const handleClearAllFilters = () => {
@@ -157,8 +165,39 @@ const Cards = ({ filter }) => {
         locationTypeFilter,
     ])
 
+
+    useEffect(() => {
+        currentPage.current = 1
+        getPaginatedUsers();
+    }, [currentPage, limit])
+
+    // const changeLimit = () => {
+    //     currentPage.current = 1;
+    //     getPaginatedUsers();
+    // }
+
+
+    const handlePageClick = (e) => {
+        console.log(e);
+        // setCurrentPage(e.selected + 1);
+        currentPage.current = e.selected + 1;
+        getPaginatedUsers()
+    }
+
+    const getPaginatedUsers = () => {
+        dispatch(coursePaginateAction(currentPage.current, limit)).then((res) => {
+            if (res.success) {
+                console.log(res.data);
+                setPageCount(res.data.result.pageCount);
+                setPaginatedCourses(res.data.result.pageinatedData);
+            } else {
+                console.log(res.message);
+            }
+        })
+    }
+
     const AllCoursesData = useSelector((state) => state.getCoursesReducer);
-    console.log(AllCoursesData);
+    // console.log(AllCoursesData);
 
     return (
         <div className='container'>
@@ -527,7 +566,7 @@ const Cards = ({ filter }) => {
 
                 <div className="container mt-5 col">
                     <div className={CSS.cardContainer} >
-                        {AllCoursesData?.result?.map((course, index) => (
+                        {paginatedCourses?.map((course, index) => (
                             <div className={CSS.courseCards} key={course._id} style={{ minWidth: "" }}>
                                 <div className="card" style={{ border: '1px solid #E4B49D' }}>
                                     <img className="card-img-top" src={`${course.banner_image}`} alt="CardImageCap" style={cardImageStyle} />
@@ -562,7 +601,32 @@ const Cards = ({ filter }) => {
                     </div>
                 </div>
             </div>
+            <div className='mt-4 ml-5'> 
+                <ReactPaginate
+                    breakLabel="..."
+                    nextLabel="next >"
+                    onPageChange={handlePageClick}
+                    pageRangeDisplayed={5}
+                    pageCount={pageCount}
+                    previousLabel="< previous"
+                    renderOnZeroPageCount={null}
+                    // CSS
+                    containerClassName='pagination justify-content-center'
+                    pageClassName='page-item'
+                    pageLinkClassName='page-link'
+                    previousClassName='page-item'
+                    previousLinkClassName='page-link'
+                    nextClassName='page-item'
+                    nextLinkClassName='page-link'
+                    activeClassName='active'
+                    forcePage={currentPage.current - 1}
+                />
+            </div>
 
+            {/* <input placeholder='limit' onChange={(e) => setLimit(parseInt(e.target.value))} /> */}
+            {/* <button
+                onClick={changeLimit}
+            >  Set Limit  </button> */}
         </div >
 
     );
