@@ -13,6 +13,7 @@ import {
     rejectJobs,
     getAllJobsForSuperAdmin,
     getAllJobsRecruiter,
+    getAllJobsLazyLoading
     // hiredCandParticularJob,
     // notOfferedCandPartJob,
     // offeredCandParticularJob,
@@ -20,6 +21,10 @@ import {
 } from '../controllers/jobs.js';
 
 const router = express.Router();
+
+// get Alljobs Verified Lazy Loading Main Page
+router.get('/lazy-loading-jobs', getAllJobsLazyLoading)
+
 
 // get jobs for recruiter
 router.get('/recruiter/:id', getAllJobsRecruiter)

@@ -59,6 +59,7 @@ import UpdateCVReducer from "./profile/CVReducer/updateCVReducer";
 import setRecProfileReducer from "./recruiterProfile/setProfile";
 import getRecProfileReducer from "./recruiterProfile/getProfile";
 import updateRecProfileReducer from "./recruiterProfile/updateProfile";
+import AllPaginatedJobsReducer from './jobsReducers/AllPaginatedJobs';
 
 import recruiterImages from "./recruiterProfile/recruiterimage/RecruiterPic";
 
@@ -68,16 +69,17 @@ export default combineReducers({
     usersReducer,
     singleUserReducer,
     userProfilePicReducer,
-//  For Tips  
+    //  For Tips  
     TipsReducer,
     getTipsReducer,
     singleTipReducer,
-//   For Courses 
+    //   For Courses 
     courseReducer,
     getCoursesReducer,
     GetCourseSingleReducer,
     UpdateCourseReducer,
-// For Jobs
+    // For Jobs
+    AllPaginatedJobsReducer,
     setJobs,
     AllJobsReducer,
     AllJobsSuperAdmin,

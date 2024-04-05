@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import {
     Button as ButtonChakra,
     Tabs, TabList, TabPanels, Tab, TabPanel
@@ -25,7 +25,7 @@ import { BsBuildingFill, BsBuildings } from 'react-icons/bs';
 
 // Modules 
 // import { DeleteJobAction, GetJobs } from '../../../redux/actions/jobsAdmin.js';
-import { GetJobs } from '../../redux/actions/jobsAdmin.js';
+import { GetJobs, GetJobsPaginatedAction } from '../../redux/actions/jobsAdmin.js';
 import JobsBgImg from '../../assets/img/brief2.png'
 import newJobHeaderImg from '../../assets/img/job2_new.png'
 import 'animate.css';
@@ -39,6 +39,11 @@ const AllJobs = () => {
     const navigate = useNavigate();
     const [alljobsValue, setAllJobsValue] = useState(true);
     const [applied, setApplied] = useState(false);
+    // for Pagination
+    const [items, setItems] = useState([]);
+    const [index, setIndex] = useState(1);
+    const [limit, setLimit] = useState(5);
+    // end for pagination
     const [IsFilteredCheck, setIsFilteredCheck] = useState(false);
 
     const serverURL = 'http://localhost:5000';
@@ -150,6 +155,59 @@ const AllJobs = () => {
     }
 
 
+    const fetchData = useCallback(async () => {
+        if (loadingPage) return;
+
+        setLoadingPage(true);
+
+        // Increment the index state before fetching data
+        setIndex((prevIndex) => prevIndex + 1);
+
+        // Use the updated index state for fetching data
+        dispatch(GetJobsPaginatedAction(index + 1, limit))
+            .then((res) => {
+                console.log(164);
+                console.log(res)
+                setItems((prevItems) => [...prevItems, ...res.data]);
+            }).catch((err) => console.log(err));
+
+        setLoadingPage(false);
+    }, [index, loadingPage]);
+
+
+    useEffect(() => {
+        const getData = async () => {
+            setLoadingPage(true);
+            try {
+                dispatch(GetJobsPaginatedAction(index, limit)).then((response) => {
+                    setItems(response.data);
+                })
+            } catch (error) {
+                console.log(error);
+            }
+            setLoadingPage(false);
+        };
+
+        getData();
+    }, []);
+
+
+
+    useEffect(() => {
+        const handleScroll = () => {
+            const { scrollTop, clientHeight, scrollHeight } =
+                document.documentElement;
+            if (scrollTop + clientHeight >= scrollHeight - 20) {
+                fetchData();
+            }
+        };
+
+        window.addEventListener("scroll", handleScroll);
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+        };
+    }, [fetchData]);
+
     useEffect(() => {
         if (selectedCountry) {
             loadStates();
@@ -167,10 +225,10 @@ const AllJobs = () => {
     }, []);
 
     useEffect(() => {
-        if(MyJobs){
+        if (MyJobs) {
             setLoadingPage(false);
         }
-    },[MyJobs])
+    }, [MyJobs])
 
     const options = [
         { value: 'Salary', label: 'Salary' },
@@ -250,6 +308,8 @@ const AllJobs = () => {
     const handleClearFilter = () => {
         console.log('Clarity Aa gyi hai');
     }
+
+    console.log(items)
 
     return (
 
@@ -578,10 +638,10 @@ const AllJobs = () => {
                     </div>
 
                     {
-                        alljobsValue &&
+                        items &&
                         <div className={styles.jobContainer}>
                             <div className="row ">
-                                {MyJobs?.map((job, index) => (
+                                {items?.map((job, index) => (
                                     <div className={`col-xl-4 col-lg-6 col-md-6 col-sm-12 `}
                                         style={{ marginTop: '1vw', cursor: 'pointer' }}
                                         onClick={() => window.open(`/AllJobs/${job._id}`, '_blank')}
@@ -658,6 +718,11 @@ const AllJobs = () => {
                                     </div>
                                 ))}
                             </div>
+                            {loadingPage && 
+                            <PuffLoader
+                                color="red"
+                                size={70}
+                            />}
                         </div>
                     }
 
@@ -739,8 +804,25 @@ const AllJobs = () => {
                             </div>
                         </div>
                     }
-                </div >
+                </div>
             )}
+            {/* <h4> Items Start  </h4>
+            <div className='container'>
+                <div className='row'>
+                    {items?.map((item) => (
+                        // <ProductCard data={item} key={item.id} />
+                        <>
+                            <h3> {item.jobTitle} </h3>
+                            <h5>  {item.jobDescription}  </h5>
+                        </>
+
+
+
+                    ))}
+                </div>
+                {loadingPage && <PuffLoader />}
+            </div>
+            <h4> Items End  </h4> */}
         </>
     )
 }

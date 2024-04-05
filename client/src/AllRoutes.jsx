@@ -185,6 +185,7 @@ const AllRoutes = () => {
             <Route path='/test/emailTemp' element={<EmailTemp />} > </Route>
             <Route path='/test/rec' element={<RecruiterDashboardTest />} > </Route>
 
+
             {/* Error 404 Route */}
             <Route path='*' element={<h1> 404 Not Found </h1>} > </Route>
             {/* <Route path='/superadmin' element={<Supe />} > </Route> */}

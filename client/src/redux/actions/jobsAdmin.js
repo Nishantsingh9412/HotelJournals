@@ -140,6 +140,18 @@ export const GetJobs = () => async (dispatch) => {
     }
 }
 
+export const GetJobsPaginatedAction = (page,limit) => async (dispatch) => {
+    try{
+        const {data} = await api.GetJobsPaginated(page,limit);
+        dispatch({type:'GET_ALL_JOBS_PAGINATED',data});
+        console.log("GetJobsPaginated Action : ",data);
+        return { success:true,message:'Jobs Loaded Successfully',data:data.result?.paginatedData};
+    }catch(error){
+        console.log("Error from GetJobsPaginated Action: ",error.message,error.stack);
+        return {success:false,message:'Error Loading Jobs'};
+    }
+}
+
 export const getJobSingleAction = (id) => async (dispatch) => {
     try {
         const { data } = await api.GetSingleJob(id);
@@ -149,8 +161,6 @@ export const getJobSingleAction = (id) => async (dispatch) => {
         console.log("Error from GetJobSingle Action: ", err.message, err.stack);
     }
 }
-
-
 
 export const UpdateAJobAction = (id, jobData) => async (dispatch) => {
     try {

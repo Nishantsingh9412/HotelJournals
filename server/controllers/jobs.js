@@ -100,6 +100,40 @@ import User from "../models/auth.js";
 // }
 
 
+
+// All Jobs Verified Lazy Loading 
+export const getAllJobsLazyLoading = async (req, res) => {
+    try {
+        const page = parseInt(req.query.page) || 1;
+        const limit = parseInt(req.query.limit) || 10;
+        const startIndex = (page - 1) * limit;
+
+        const totalJobs = await Jobs.countDocuments({isVerifiedJob:true});
+        const jobs = await Jobs.find({isVerifiedJob:true}).populate('recruiter_info').skip(startIndex).limit(limit);
+
+        const results = {
+            totalJobs,
+            pageCount: Math.ceil(totalJobs / limit),
+            paginatedData: jobs,
+        };
+
+        if (page < results.pageCount) {
+            results.next = {
+                page: page + 1,
+            };
+        }
+
+        if (page > 1) {
+            results.prev = {
+                page: page - 1,
+            };
+        }
+        res.status(200).json({ success: true, message: 'Paginated jobs', result: results });
+    } catch (error) {
+        res.status(500).json({ success: false, message: error.message });
+    }
+}
+
 // Verify Job by SuperAdmin 
 export const VerifyJobs = async (req, res) => {
     const { id: jobId } = req.params;

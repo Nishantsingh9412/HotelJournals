@@ -109,6 +109,9 @@ export const PostNewJob = (JobData) => API.post('/jobs/createjob',JobData)
 // Job Data (Job fetching)  For All Jobs (Verified Jobs)
 export const GetAllJobs = () =>  API.get('jobs/allJobs')
 
+export const GetJobsPaginated = (page,limit) => API.get(`jobs/lazy-loading-jobs?page=${page}&limit=${limit}`)
+
+
 // Job Data( Only Hired Candidates ) For Recruiter Jobs (For Recruiter) By Job Id
 // export const HiredCandidates = (id) => API.get(`/jobs/recruiter/hired/${id}`)
 
