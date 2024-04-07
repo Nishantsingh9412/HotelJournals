@@ -14,7 +14,7 @@ const FindJobs = () => {
           </div>
         </div>
         <div className='col-md-6 col-sm-12 pt-5 pl-5 pr-5 FJoC'>
-          <p> CONOCEME  </p>
+          <p> CONÓCEME  </p>
           <h1 className="card-title text-dark" > De turismóloga a fundadora de una marca para profesionales del turismo  </h1>
           <p className='mt-4' style={{ textAlign: 'justify' }} >
             Llevo en el mundo del turismo desde los 19 años. Pasando por puestos como Animación, Recepción, Guest Experience Manager y Dirección.
