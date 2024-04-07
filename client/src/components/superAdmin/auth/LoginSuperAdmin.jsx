@@ -40,16 +40,9 @@ const LoginSuperAdmin = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // const response = await axios.post(
-    //   'http://localhost:5000/superadmin/login', 
-    //   { secretToken: secretTokenUser }, 
-    //   { headers: { 'Content-Type': 'application/json' } }
-    // );
-
     const SuperAdminToken = {
       secretToken: secretTokenUser
     }
-
     dispatch(authSA(SuperAdminToken)).then((res) => {
       if (res.success) {
         toast.success(res.message)

@@ -7,7 +7,7 @@ import './FindJobs.css'
 const FindJobs = () => {
   return (
     <div className='mt-5'>
-      <div className="row m-0 pt-4 pb-4 w-100 justify-content-sm-center FJo1" style={{ background: '#EBECE6' }}>
+      <div className="row m-0 pt-4 pb-4 w-100 justify-content-sm-center FJo1" style={{ background: '#fff2e6' }}>
         <div className="col-md-6 col-sm-12 FJoC" style={{ minWidth: "50%" }}>
           <div className="card">
             <img src={authorImg} className={`img-responsive imageRespStyleAboutMe`} alt="author-image" />

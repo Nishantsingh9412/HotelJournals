@@ -36,7 +36,7 @@ const EducatorDashboard = () => {
     }
 
     const baseURL = "http://localhost:3000/"
-    const serverURL = "http://localhost:5000/"
+    const serverURL = process.env.REACT_APP_SERVER_URL_XTRA_SLASH;
 
     useEffect(() => {
         dispatch(GetCourse());

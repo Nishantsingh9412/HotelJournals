@@ -11,7 +11,7 @@ const SingleTip = () => {
   console.log("This is id from single Tip: ", id);
   const dispatch = useDispatch();
   const SingleTip = useSelector((state) => state.singleTipReducer);
-  const baseURL = "http://localhost:5000/"
+
 
   useEffect(() => {
     dispatch(GetSingleTips(id))

@@ -29,7 +29,7 @@ const Dashboard = () => {
     const dispatch = useDispatch();
     const AllTips = useSelector((state) => state.getTipsReducer)
     const baseURL = "http://localhost:3000/"
-    const serverURL = "http://localhost:5000/"
+    const serverURL = process.env.REACT_APP_SERVER_URL_XTRA_SLASH;
 
     useEffect(() => {
         dispatch(GetTips());

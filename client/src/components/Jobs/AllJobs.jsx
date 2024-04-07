@@ -46,7 +46,7 @@ const AllJobs = () => {
     // end for pagination
     const [IsFilteredCheck, setIsFilteredCheck] = useState(false);
 
-    const serverURL = 'http://localhost:5000';
+    const serverURL = process.env.REACT_APP_SERVER_URL;
 
     const [AllFilters, setAllFilters] = useState({
         yearsOfExperience: '',

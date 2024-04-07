@@ -23,7 +23,7 @@ const SearchBar = () => {
     })
     let CourseNames = [];
 
-    const serverURL = 'http://localhost:5000'
+    const serverURL = process.env.REACT_APP_SERVER_URL;
 
     const handleApplyFilter = async () => {
         const params = new URLSearchParams(AllFilter).toString();

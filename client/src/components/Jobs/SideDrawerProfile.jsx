@@ -54,7 +54,7 @@ const SideDrawerProfile = (props) => {
 
 
     // Copying start
-    const serverUrl = 'http://localhost:5000/';
+    const serverUrl = process.env.REACT_APP_SERVER_URL_XTRA_SLASH
 
     const CVUser = useSelector((state) => state.CVsettergetterReducer);
     const singleCV = CVUser?.data?.result?.cv_db;

@@ -26,7 +26,7 @@ const UploadUserCV = () => {
     const [loading, setLoading] = useState(false);
     const dispatch = useDispatch();
 
-    const serverUrl = 'http://localhost:5000/';
+    const serverUrl = process.env.REACT_APP_SERVER_URL_XTRA_SLASH;
     useEffect(() => {
         dispatch(getUserCVAction(id))
     }, [dispatch, id])
