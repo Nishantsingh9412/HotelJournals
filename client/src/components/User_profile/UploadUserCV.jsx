@@ -17,6 +17,7 @@ import { FaDownload } from "react-icons/fa6";
 import { MdDelete } from "react-icons/md";
 // Redux
 import { deleteUserCVAction, getUserCVAction, setUserCVAction, updateUserCVAction } from '../../redux/actions/userProfile/userCV';
+import { IconButton } from '@chakra-ui/react';
 
 
 const UploadUserCV = () => {

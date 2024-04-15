@@ -101,6 +101,39 @@ import User from "../models/auth.js";
 
 
 
+export const getSimilarJobs = async (req, res) => {
+    const { id: _id } = req.params;
+    if (!mongoose.Types.ObjectId.isValid(_id)) {
+        return res.status(400).json({ success: false, message: 'Invalid ID' })
+    }
+    try {
+        const job = await Jobs.findById(_id).populate('recruiter_info')
+        // console.log(job);
+        // Find similar jobs based on category and skills
+        let similarJobs = await Jobs.find({
+            _id:{$ne: _id},
+            isVerifiedJob: true,
+            jobTitle: job.jobTitle,
+            // jobCategory: job.jobCategory,
+            mandatorySkills: { $in: job.mandatorySkills }
+        }).populate('recruiter_info').limit(5);
+
+        if (similarJobs.length < 5) {
+            const additionalJobs = await Jobs.aggregate([{ $sample: { size: 5 - similarJobs.length } }]);
+            const populatedAdditionalJobs = await Jobs.populate(additionalJobs, { path: 'recruiter_info' });
+            similarJobs = similarJobs.concat(populatedAdditionalJobs);
+        }
+
+        console.log("this is similar jobs : \n");
+        console.log(similarJobs);
+
+        // res.json(similarJobs);
+        res.status(200).json({ success: true, message: 'Similar Jobs Fetched Successfully', result: similarJobs })
+    } catch (error) {
+        res.status(500).json({ success: false, message: 'Internal Server Error' })
+    }
+}
+
 // All Jobs Verified Lazy Loading 
 export const getAllJobsLazyLoading = async (req, res) => {
     try {
@@ -108,8 +141,8 @@ export const getAllJobsLazyLoading = async (req, res) => {
         const limit = parseInt(req.query.limit) || 10;
         const startIndex = (page - 1) * limit;
 
-        const totalJobs = await Jobs.countDocuments({isVerifiedJob:true});
-        const jobs = await Jobs.find({isVerifiedJob:true}).populate('recruiter_info').skip(startIndex).limit(limit);
+        const totalJobs = await Jobs.countDocuments({ isVerifiedJob: true });
+        const jobs = await Jobs.find({ isVerifiedJob: true }).populate('recruiter_info').skip(startIndex).limit(limit);
 
         const results = {
             totalJobs,
@@ -133,7 +166,6 @@ export const getAllJobsLazyLoading = async (req, res) => {
         res.status(500).json({ success: false, message: error.message });
     }
 }
-
 // Verify Job by SuperAdmin 
 export const VerifyJobs = async (req, res) => {
     const { id: jobId } = req.params;

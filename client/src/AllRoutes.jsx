@@ -188,6 +188,7 @@ const AllRoutes = () => {
 
             {/* Error 404 Route */}
             <Route path='*' element={<h1> 404 Not Found </h1>} > </Route>
+            <Route path='/test/resume' element={<Resume />} > </Route>
             {/* <Route path='/superadmin' element={<Supe />} > </Route> */}
 
         </Routes>

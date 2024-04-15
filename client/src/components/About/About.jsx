@@ -11,8 +11,8 @@ import ImageGallery from './ImageGallery';
 const About = () => {
 
   useEffect(() => {
-    window.scrollTo(0,0);
-  },[])
+    window.scrollTo(0, 0);
+  }, [])
 
 
   return (
@@ -23,7 +23,7 @@ const About = () => {
         <div className='row'>
           <div className='col-md-12'>
             <div className={`${CSS.smallHeading}`}>
-              SE EL CAMBIO
+              SÉ EL CAMBIO
             </div>
             <div className={`mt-4 ${CSS.bigHeading}`}>
               Presumir de tu trabajo crea un camino de éxito que inspira a otros a seguir tus pasos
@@ -43,14 +43,16 @@ const About = () => {
         {/* Section 3 Start */}
         <div className='row mt-5  mb-5'>
           <div className='col-md-12'>
-            <p className={`${CSS.bigHeading}`}> Y tu, ¿Presumes de tu trabajo? </p>
+            <p className={`${CSS.bigHeading}`}>
+              Y TÚ, ¿PRESUMES DE TU TRABAJO?
+            </p>
           </div>
         </div>
         {/* Section 3 End */}
 
       </div>
-        {/* Section 4 Start */}
-        {/* <div className='row mt-5 mb-2 text-white' style={{ background: '#363434', paddingTop: '5rem', paddingBottom: '4rem' }}>
+      {/* Section 4 Start */}
+      {/* <div className='row mt-5 mb-2 text-white' style={{ background: '#363434', paddingTop: '5rem', paddingBottom: '4rem' }}>
           <div className='col-md-6'>
             <p className={`${CSS.blackbgHeading} `}>  Lo que busco   </p>
           </div>
@@ -72,10 +74,10 @@ const About = () => {
             </div>
           </div>
         </div> */}
-        {/* Section 4 End */}
+      {/* Section 4 End */}
 
-        {/* Section 5 Start */}
-        {/* <div className='container-fluid text-justify' style={{ background: '#EBECE6', padding: '9rem' }}>
+      {/* Section 5 Start */}
+      {/* <div className='container-fluid text-justify' style={{ background: '#EBECE6', padding: '9rem' }}>
           <div className='row'>
             <div className='col'>
               <p className='mb-4'> Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
@@ -98,32 +100,32 @@ const About = () => {
             </div>
           </div>
         </div> */}
-        {/* Section 5 End */}
+      {/* Section 5 End */}
 
-        {/* Section 6 Start */}
-        <div className={`d-flex flex-wrap justify-content-around text-white p-5 ${CSS.A_s1b}`} >
-          <div className=''>
-            <p className={`${CSS.blackbgHeading} `}>Lo que busco</p>
-          </div>
-          <div className={`d-flex flex-wrap justify-content-around text-white ${CSS.A_s2b}`} >
-            <ul className='' style={{ listStyleType: 'none' }}>
-              <li> Un sector más justo </li>
-              <li> Mejora de las condiciones  </li>
-              <li> Cambios en el sector </li>
-              <li> Oportunidades de estudio  </li>
-            </ul>
+      {/* Section 6 Start */}
+      <div className={`d-flex flex-wrap justify-content-around text-white p-5 ${CSS.A_s1b}`} >
+        <div className=''>
+          <p className={`${CSS.blackbgHeading} `}>Lo que busco</p>
+        </div>
+        <div className={`d-flex flex-wrap justify-content-around text-white ${CSS.A_s2b}`} >
+          <ul className='' style={{ listStyleType: 'none' }}>
+            <li> Un sector más justo </li>
+            <li> Mejora de las condiciones  </li>
+            <li> Cambios en el sector </li>
+            <li> Oportunidades de estudio  </li>
+          </ul>
 
-            <ul className='' style={{ listStyleType: 'none' }}>
-              <li> Un sector más unido </li>
-              <li> Igualdad   </li>
-              <li> Equilibrio  </li>
-              <li> Orgullo  </li>
-            </ul>
-          </div>
-
+          <ul className='' style={{ listStyleType: 'none' }}>
+            <li> Un sector más unido </li>
+            <li> Igualdad   </li>
+            <li> Equilibrio  </li>
+            <li> Orgullo  </li>
+          </ul>
         </div>
 
-    <div className='container'>
+      </div>
+
+      <div className='container'>
         <div className='row'>
           <div className='col-md-12'>
             <ImageGallery />

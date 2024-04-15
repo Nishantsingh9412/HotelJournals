@@ -29,8 +29,8 @@ import { Button, background } from '@chakra-ui/react';
 const Jobs = () => {
 
     useEffect(() => {
-        window.scrollTo(0,0);
-    },[])
+        window.scrollTo(0, 0);
+    }, [])
 
     const arrowIcon = 'https://via.placeholder.com/150';
     const searchIcon = 'https://via.placeholder.com/150';
@@ -41,16 +41,20 @@ const Jobs = () => {
                 <div className="container">
                     <div className="header">
                         <div className="avatars-small">
-                            <img 
-                                src={mainJobImage} 
-                                alt="mainJobImage" 
-                                style={{borderRadius:'60px', marginBottom:'20px'}}
+                            <img
+                                src={mainJobImage}
+                                alt="mainJobImage"
+                                style={{ borderRadius: '60px', marginBottom: '20px' }}
                             />
                         </div>
                         <div className="title">
-                            <h1>Find & Hire Top Talented From The World.</h1>
+                            {/* <h1>Find & Hire Top Talented From The World.</h1> */}
+                            <h1>
+                                Da el siguiente paso en tu carrera.
+
+                            </h1>
                             <p>
-                                Most talented employees and world class companies here
+                                Grandes puestos y empresas las encontrarás aquí
                             </p>
                             {/* <form id="looking-for-job" className="form" action="#">
                                 <p className="radio-text">Looking for a job?</p>
@@ -71,21 +75,22 @@ const Jobs = () => {
                                 <Button
                                     // colorScheme='linkedin'
                                     p={7}
-                                    width={'10rem'}
+                                    width={'12rem'}
                                     marginTop={'2rem'}
                                     borderRadius={'50px'}
                                     bgColor={'#E4B49D'}
                                 >
-                                    Find Jobs
+                                    {/* Find Jobs */}
+                                    Encuentra tu empleo
                                 </Button>
                             </NavLink>
                         </div>
 
                         <div className="avatars">
-                            <img 
-                                src={mainJobImage} 
-                                alt="mainJobImage" 
-                                style={{borderRadius:'60px'}}
+                            <img
+                                src={mainJobImage}
+                                alt="mainJobImage"
+                                style={{ borderRadius: '60px' }}
                             />
                         </div>
                     </div>

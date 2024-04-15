@@ -26,55 +26,88 @@ const Cards = ({ filter }) => {
     const currentPage = useRef()
 
     const [courseValueFilter, setCourseValueFilter] = useState({
-        isFree: false,
-        isPaid: false
+        // isFree: false,
+        Gratis: false,
+        // isPaid: false
+        Pago: false
     })
 
     const [locationTypeFilter, setLocationTypeFilter] = useState({
         Online: false,
-        Offline: false,
+        // Offline: false,
+        Presencia: false
     })
 
     const [courseTypesFilter, setCourseTypesFilter] = useState({
-        Bachelors: false,
-        Masters: false,
+        // Bachelors: false,
+        Licenciatura: false,
+        // Masters: false,
+        Máster: false,
         Diploma: false,
-        Professional: false,
-        ShortCourse: false,
+        // Professional: false,
+        CertificadosProfesionales: false,
+        // ShortCourse: false,
+        Curso: false,
     });
 
     const [courseLangFilter, setCourseLangFilter] = useState({
-        English: false,
-        Spanish: false,
-        French: false,
+        // English: false,
+        Inglés: false,
+        // Spanish: false,
+        Español: false,
+        // French: false,
+        Francés: false,
         Italian: false,
-        Portuguese: false,
-        German: false,
-        Catalan: false,
-        Other: false
+        // Portuguese: false,
+        Portugués: false,
+        // German: false,
+        Alemán: false,
+        // Catalan: false,.
+        Catalán: false,
+        // Other: false
+        Otros: false
     });
 
     const [categoriesFilter, setCategoriesFilter] = useState({
-        Culinary: false,
-        Business: false,
-        PersonalDevelopment: false,
+        // Culinary: false,
+        Cocina: false,
+        // Business: false,
+        Negocios: false,
+        // PersonalDevelopment: false,
+        DesarrolloPersonal: false,
         Marketing: false,
-        HumanResource: false,
-        LeadershipAndManagement: false,
-        Language: false,
-        TestPreparation: false,
-        Pastry: false,
-        CruisesManagement: false,
-        Oenology: false,
-        HospitalityManagement: false,
-        SalesAndMarketing: false,
-        EventManagement: false,
+        // HumanResource: false,
+        RecursosHumanos: false,
+        // LeadershipAndManagement: false,
+        LiderazgoYGestión: false,
+        // Language: false,
+        Idiomas: false,
+        // TestPreparation: false,
+        PreparaciónDeExámenes: false,
+        // Pastry: false,
+        Pastelería: false,
+        // CruisesManagement: false,
+        GestiónDeCruceros: false,
+        // Oenology: false,
+        Enología: false,
+        // HospitalityManagement: false,
+        DirecciónHotelera: false,
+        // SalesAndMarketing: false,
+        VentasYMarketing: false,
+        // EventManagement: false,
+        GestiónDeEventos: false,
         RevenueManagement: false,
-        Reception: false,
+        // Reception: false,
+        Recepción: false,
         FoodAndBeverages: false,
         Spa: false,
-        Tourism: false,
-        BusinessSkills: false
+        // Tourism: false,
+        Turismo: false,
+        // BusinessSkills: false
+        HabilidadesEmpresariales: false,
+        GuíaTurístico: false,
+        Pisos: false,
+        Otros: false,
     })
 
     // useEffect(() => {
@@ -84,55 +117,88 @@ const Cards = ({ filter }) => {
 
     const handleClearAllFilters = () => {
         setCourseTypesFilter({
-            Bachelors: false,
-            Masters: false,
+            // Bachelors: false,
+            Licenciatura: false,
+            // Masters: false,
+            Máster: false,
             Diploma: false,
-            Professional: false,
-            ShortCourse: false,
+            // Professional: false,
+            CertificadosProfesionales: false,
+            // ShortCourse: false,
+            Curso: false,
         });
 
 
         setCourseLangFilter({
-            English: false,
-            Spanish: false,
-            French: false,
-            Italian: false,
-            Portuguese: false,
-            German: false,
-            Catalan: false,
+            // English: false,
+            Inglés: false,
+            // Spanish: false,
+            Español: false,
+            // French: false,
+            Francés: false,
+            // Italian: false,
+            Italiano: false,
+            // Portuguese: false,
+            Portugués: false,
+            // German: false,
+            Alemán: false,
+            // Catalan: false,
+            Catalán: false,
         });
 
         setCategoriesFilter({
-            Culinary: false,
-            Business: false,
-            PersonalDevelopment: false,
+            // Culinary: false,
+            Cocina: false,
+            // Business: false,
+            Negocios: false,
+            // PersonalDevelopment: false,
+            DesarrolloPersonal: false,
             Marketing: false,
-            HumanResource: false,
-            LeadershipAndManagement: false,
-            Language: false,
-            TestPreparation: false,
-            Pastry: false,
-            CruisesManagement: false,
-            Oenology: false,
-            HospitalityManagement: false,
-            SalesAndMarketing: false,
-            EventManagement: false,
+            // HumanResource: false,
+            RecursosHumanos: false,
+            // LeadershipAndManagement: false,
+            LiderazgoYGestión: false,
+            // Language: false,
+            Idiomas: false,
+            // TestPreparation: false,
+            PreparaciónDeExámenes: false,
+            // Pastry: false,
+            Pastelería: false,
+            // CruisesManagement: false,
+            GestiónDeCruceros: false,
+            // Oenology: false,
+            Enología: false,
+            // HospitalityManagement: false,
+            DirecciónHotelera: false,
+            // SalesAndMarketing: false,
+            VentasYMarketing: false,
+            // EventManagement: false,
+            GestiónDeEventos: false,
             RevenueManagement: false,
-            Reception: false,
+            // Reception: false,
+            Recepción: false,
             FoodAndBeverages: false,
             Spa: false,
-            Tourism: false,
-            BusinessSkills: false
+            // Tourism: false,
+            Turismo: false,
+            // BusinessSkills: false
+            HabilidadesEmpresariales: false,
+            GuíaTurístico: false,
+            Pisos: false,
+            Otros: false,
         })
 
         setLocationTypeFilter({
             Online: false,
-            Offline: false,
+            // Offline: false,
+            Presencia: false
         })
 
         setCourseValueFilter({
-            isFree: false,
-            isPaid: false
+            // isFree: false,
+            Gratis: false,
+            // isPaid: false
+            Pago: false
         })
     }
 
@@ -171,12 +237,6 @@ const Cards = ({ filter }) => {
         getPaginatedUsers();
     }, [currentPage, limit])
 
-    // const changeLimit = () => {
-    //     currentPage.current = 1;
-    //     getPaginatedUsers();
-    // }
-
-
     const handlePageClick = (e) => {
         console.log(e);
         // setCurrentPage(e.selected + 1);
@@ -206,13 +266,17 @@ const Cards = ({ filter }) => {
                     <div className={`${CSS.filterBox} col`} style={{ maxWidth: "20rem" }}>
                         <div>
                             <div className="d-flex">
-                                <h5 className='ml-2'>FILTER BY</h5>
+                                <h5 className='ml-2'>
+                                    {/* Filter By */}
+                                    Filtrar por
+                                </h5>
                                 <div
                                     style={{ marginLeft: '2vw', cursor: 'pointer' }}
                                     onClick={handleClearAllFilters}
                                 >
                                     <p>
-                                        Clear All
+                                        {/* Clear All */}
+                                        Eliminar Filtros
                                     </p>
                                 </div>
                             </div>
@@ -223,19 +287,31 @@ const Cards = ({ filter }) => {
                                     <h6 className="font-weight-bold">Course Types</h6>
                                     <div className="ml-3">
                                         <CheckBox
-                                            content={"Bachelors"}
-                                            checked={courseTypesFilter.Bachelors}
+                                            // content={"Bachelors"}
+                                            content={"Licenciatura"}
+                                            // checked={courseTypesFilter.Bachelors}
+                                            checked={courseTypesFilter.Licenciatura}
                                             onChange={(e) =>
                                                 setCourseTypesFilter(
-                                                    { ...courseTypesFilter, Bachelors: e.target.checked }
+                                                    {
+                                                        ...courseTypesFilter,
+                                                        // Bachelors: e.target.checked
+                                                        Licenciatura: e.target.checked
+                                                    }
                                                 )}
                                         />
                                         <CheckBox
-                                            content={"Masters"}
-                                            checked={courseTypesFilter.Masters}
+                                            // content={"Masters"}
+                                            content={"Máster"}
+                                            // checked={courseTypesFilter.Masters}
+                                            checked={courseTypesFilter.Máster}
                                             onChange={(e) =>
                                                 setCourseTypesFilter(
-                                                    { ...courseTypesFilter, Masters: e.target.checked }
+                                                    {
+                                                        ...courseTypesFilter,
+                                                        // Masters: e.target.checked
+                                                        Máster: e.target.checked
+                                                    }
                                                 )}
                                         />
                                         <CheckBox
@@ -247,32 +323,51 @@ const Cards = ({ filter }) => {
                                                 )}
                                         />
                                         <CheckBox
-                                            content={"Professional"}
-                                            checked={courseTypesFilter.Professional}
+                                            // content={"Professional"}
+                                            content={"Certificados Profesionales"}
+                                            // checked={courseTypesFilter.Professional}
+                                            checked={courseTypesFilter.CertificadosProfesionales}
                                             onChange={(e) =>
                                                 setCourseTypesFilter(
-                                                    { ...courseTypesFilter, Professional: e.target.checked }
+                                                    {
+                                                        ...courseTypesFilter,
+                                                        // Professional: e.target.checked
+                                                        CertificadosProfesionales: e.target.checked
+                                                    }
                                                 )}
                                         />
                                         <CheckBox
-                                            content={"Short Course"}
-                                            checked={courseTypesFilter.ShortCourse}
+                                            // content={"Short Course"}
+                                            content={"Curso"}
+                                            // checked={courseTypesFilter.ShortCourse}
+                                            checked={courseTypesFilter.Curso}
                                             onChange={(e) =>
                                                 setCourseTypesFilter(
-                                                    { ...courseTypesFilter, ShortCourse: e.target.checked }
+                                                    {
+                                                        ...courseTypesFilter,
+                                                        Curso: e.target.checked
+                                                        // ShortCourse: e.target.checked
+                                                    }
                                                 )}
                                         />
                                     </div>
 
-                                    <h6 className='font-weight-bold mt-3'> Course Value </h6>
+                                    <h6 className='font-weight-bold mt-3'>
+                                        {/* Course Value */}
+                                        Valor del Curso
+                                    </h6>
                                     <div className="ml-3">
                                         <div class="form-check">
                                             <input
                                                 onChange={
                                                     (e) => setCourseValueFilter(
-                                                        { isFree: e.target.checked }
+                                                        {
+                                                            // isFree: e.target.checked
+                                                            Gratis: e.target.checked
+                                                        }
                                                     )}
-                                                checked={courseValueFilter.isFree}
+                                                // checked={courseValueFilter.isFree
+                                                checked={courseValueFilter.Gratis}
                                                 class="form-check-input"
                                                 name="exampleRadios"
                                                 type="radio"
@@ -280,16 +375,19 @@ const Cards = ({ filter }) => {
                                                 value="option1"
                                             />
                                             <label class="form-check-label" for="exampleRadios1">
-                                                Free
+                                                {/* Free */}
+                                                Gratis
                                             </label>
                                         </div>
                                         <div class="form-check">
                                             <input
                                                 onChange={
                                                     (e) => setCourseValueFilter(
-                                                        { isPaid: e.target.checked }
+                                                        // { isPaid: e.target.checked }
+                                                        { Pago: e.target.checked }
                                                     )}
-                                                checked={courseValueFilter.isPaid}
+                                                // checked={courseValueFilter.isPaid}
+                                                checked={courseValueFilter.Pago}
                                                 class="form-check-input"
                                                 name="exampleRadios"
                                                 type="radio"
@@ -297,81 +395,137 @@ const Cards = ({ filter }) => {
                                                 value="option2"
                                             />
                                             <label class="form-check-label" for="exampleRadios2">
-                                                Paid
+                                                {/* Paid */}
+                                                Pago
                                             </label>
                                         </div>
                                     </div>
-                                    <h6 className="font-weight-bold mt-3">Course Languages</h6>
+                                    <h6 className="font-weight-bold mt-3">
+                                        {/* Course Languages */}
+                                        Idioma del Curso
+                                    </h6>
                                     <div className="ml-3">
                                         <CheckBox
-                                            content={"English"}
-                                            checked={courseLangFilter.English}
+                                            // content={"English"}
+                                            content={"Inglés"}
+                                            // checked={courseLangFilter.English}
+                                            checked={courseLangFilter.Inglés}
                                             onChange={(e) =>
                                                 setCourseLangFilter(
-                                                    { ...courseLangFilter, English: e.target.checked }
+                                                    {
+                                                        ...courseLangFilter,
+                                                        // English: e.target.checked
+                                                        Inglés: e.target.checked
+                                                    }
                                                 )}
                                         />
                                         <CheckBox
-                                            content={"Spanish"}
-                                            checked={courseLangFilter.Spanish}
+                                            // content={"Spanish"}
+                                            content={"Español"}
+                                            // checked={courseLangFilter.Spanish}
+                                            checked={courseLangFilter.Español}
                                             onChange={(e) =>
                                                 setCourseLangFilter(
-                                                    { ...courseLangFilter, Spanish: e.target.checked }
+                                                    {
+                                                        ...courseLangFilter,
+                                                        // Spanish: e.target.checked
+                                                        Español: e.target.checked
+                                                    }
+
                                                 )}
                                         />
                                         <CheckBox
-                                            content={"French"}
-                                            checked={courseLangFilter.French}
+                                            // content={"French"}
+                                            content={"Francés"}
+                                            // checked={courseLangFilter.French}
+                                            checked={courseLangFilter.Francés}
                                             onChange={(e) =>
                                                 setCourseLangFilter(
-                                                    { ...courseLangFilter, French: e.target.checked }
+                                                    {
+                                                        ...courseLangFilter,
+                                                        // French: e.target.checked
+                                                        Francés: e.target.checked
+                                                    }
                                                 )}
                                         />
                                         <CheckBox
-                                            content={"Catalan"}
-                                            checked={courseLangFilter.Catalan}
+                                            // content={"Catalan"}
+                                            content={"Catalán"}
+                                            // checked={courseLangFilter.Catalan}
+                                            checked={courseLangFilter.Catalán}
                                             onChange={(e) =>
                                                 setCourseLangFilter(
-                                                    { ...courseLangFilter, Catalan: e.target.checked }
+                                                    {
+                                                        ...courseLangFilter,
+                                                        // Catalan: e.target.checked
+                                                        Catalán: e.target.checked
+                                                    }
                                                 )
                                             }
                                         />
                                         <CheckBox
-                                            content={"Italian"}
-                                            checked={courseLangFilter.Italian}
+                                            // content={"Italian"}
+                                            content={"Italiano"}
+                                            // checked={courseLangFilter.Italian}
+                                            checked={courseLangFilter.Italiano}
                                             onChange={(e) =>
                                                 setCourseLangFilter(
-                                                    { ...courseLangFilter, Italian: e.target.checked }
+                                                    {
+                                                        ...courseLangFilter,
+                                                        // Italian: e.target.checked
+                                                        Italiano: e.target.checked
+                                                    }
                                                 )}
                                         />
                                         <CheckBox
-                                            content={"Portuguese"}
-                                            checked={courseLangFilter.Portuguese}
+                                            // content={"Portuguese"}
+                                            content={"Portugués"}
+                                            // checked={courseLangFilter.Portuguese}
+                                            checked={courseLangFilter.Portugués}
                                             onChange={(e) =>
                                                 setCourseLangFilter(
-                                                    { ...courseLangFilter, Portuguese: e.target.checked }
+                                                    {
+                                                        ...courseLangFilter,
+                                                        // Portuguese: e.target.checked
+                                                        Portugués: e.target.checked
+                                                    }
                                                 )}
                                         />
                                         <CheckBox
-                                            content={"German"}
-                                            checked={courseLangFilter.German}
+                                            // content={"German"}
+                                            content={"Alemán"}
+                                            // checked={courseLangFilter.German}
+                                            checked={courseLangFilter.Alemán}
                                             onChange={(e) =>
                                                 setCourseLangFilter(
-                                                    { ...courseLangFilter, German: e.target.checked }
+                                                    {
+                                                        ...courseLangFilter,
+                                                        // German: e.target.checked
+                                                        Alemán: e.target.checked
+                                                    }
                                                 )}
                                         />
 
                                         <CheckBox
-                                            content={"Other"}
-                                            checked={courseLangFilter.Other}
+                                            // content={"Other"}
+                                            content={"Otros"}
+                                            // checked={courseLangFilter.Other}
+                                            checked={courseLangFilter.Otros}
                                             onChange={(e) =>
                                                 setCourseLangFilter(
-                                                    { ...courseLangFilter, Other: e.target.checked }
+                                                    {
+                                                        ...courseLangFilter,
+                                                        // Other: e.target.checked
+                                                        Otros: e.target.checked
+                                                    }
                                                 )}
                                         />
                                     </div>
 
-                                    <h6 className="font-weight-bold mt-3">Location Type</h6>
+                                    <h6 className="font-weight-bold mt-3">
+                                        {/* Location Type */}
+                                        Localización
+                                    </h6>
                                     <div className="ml-3">
                                         <CheckBox
                                             content={"Online"}
@@ -382,40 +536,67 @@ const Cards = ({ filter }) => {
                                                 )}
                                         />
                                         <CheckBox
-                                            content={"Offline"}
-                                            checked={locationTypeFilter.Offline}
+                                            // content={"Offline"}
+                                            content={"Presencia"}
+                                            // checked={locationTypeFilter.Offline}
+                                            checked={locationTypeFilter.Presencia}
                                             onChange={(e) =>
                                                 setLocationTypeFilter(
-                                                    { ...locationTypeFilter, Offline: e.target.checked }
+                                                    {
+                                                        ...locationTypeFilter,
+                                                        // Offline: e.target.checked
+                                                        Presencia: e.target.checked
+                                                    }
                                                 )}
                                         />
                                     </div>
 
-                                    <h6 className="font-weight-bold mt-3">Categories</h6>
+                                    <h6 className="font-weight-bold mt-3">
+                                        {/* Categories */}
+                                        Categorías
+                                    </h6>
                                     <div className="ml-3">
                                         <CheckBox
-                                            content={"Culinary"}
-                                            checked={categoriesFilter.Culinary}
+                                            // content={"Culinary"}
+                                            content={"Cocina"}
+                                            // checked={categoriesFilter.Culinary}
+                                            checked={categoriesFilter.Cocina}
                                             onChange={(e) =>
                                                 setCategoriesFilter(
-                                                    { ...categoriesFilter, Culinary: e.target.checked }
+                                                    {
+                                                        ...categoriesFilter,
+                                                        // Culinary: e.target.checked
+                                                        Cocina: e.target.checked
+                                                    }
                                                 )}
                                         />
                                         <CheckBox
                                             onChange={(e) =>
                                                 setCategoriesFilter(
-                                                    { ...categoriesFilter, Business: e.target.checked }
+                                                    {
+                                                        ...categoriesFilter,
+                                                        // Business: e.target.checked
+                                                        Negocios: e.target.checked
+                                                    }
                                                 )}
-                                            content={"Business"}
-                                            checked={categoriesFilter.Business}
+                                            // content={"Business"}
+                                            content={"Negocios"}
+                                            // checked={categoriesFilter.Business}
+                                            checked={categoriesFilter.Negocios}
                                         />
                                         <CheckBox
                                             onChange={(e) =>
                                                 setCategoriesFilter(
-                                                    { ...categoriesFilter, PersonalDevelopment: e.target.checked }
+                                                    {
+                                                        ...categoriesFilter,
+                                                        // PersonalDevelopment: e.target.checked
+                                                        DesarrolloPersonal: e.target.checked
+                                                    }
                                                 )}
-                                            content={"Personal Development"}
-                                            checked={categoriesFilter.PersonalDevelopment}
+                                            // content={"Personal Development"}
+                                            content={"Desarrollo Personal"}
+                                            // checked={categoriesFilter.PersonalDevelopment}
+                                            checked={categoriesFilter.DesarrolloPersonal}
                                         />
                                         <CheckBox
                                             onChange={(e) =>
@@ -428,85 +609,144 @@ const Cards = ({ filter }) => {
                                         <CheckBox
                                             onChange={(e) =>
                                                 setCategoriesFilter(
-                                                    { ...categoriesFilter, HumanResource: e.target.checked }
+                                                    {
+                                                        ...categoriesFilter,
+                                                        // HumanResource: e.target.checked
+                                                        RecursosHumanos: e.target.checked
+                                                    }
                                                 )}
-                                            content={"Human Resource"}
-                                            checked={categoriesFilter.HumanResource}
+                                            content={"Recursos Humanos"}
+                                            // checked={categoriesFilter.HumanResource}
+                                            checked={categoriesFilter.RecursosHumanos}
                                         />
                                         <CheckBox
                                             onChange={(e) =>
                                                 setCategoriesFilter(
-                                                    { ...categoriesFilter, LeadershipAndManagement: e.target.checked }
+                                                    {
+                                                        ...categoriesFilter,
+                                                        LiderazgoYGestión: e.target.checked
+                                                        // LeadershipAndManagement: e.target.checked
+                                                    }
                                                 )}
-                                            content={"Leadership and Management"}
-                                            checked={categoriesFilter.LeadershipAndManagement}
+                                            // content={"Leadership and Management"}
+                                            content={"Liderazgo y Gestión"}
+                                            // checked={categoriesFilter.LeadershipAndManagement}
+                                            checked={categoriesFilter.LiderazgoYGestión}
                                         />
                                         <CheckBox
                                             onChange={
                                                 (e) => setCategoriesFilter(
-                                                    { ...categoriesFilter, Language: e.target.checked }
+                                                    {
+                                                        ...categoriesFilter,
+                                                        // Language: e.target.checked
+                                                        Idiomas: e.target.checked
+                                                    }
                                                 )}
-                                            content={"Language"}
-                                            checked={categoriesFilter.Language}
+                                            // content={"Language"}
+                                            content={"Idiomas"}
+                                            // checked={categoriesFilter.Language}
+                                            checked={categoriesFilter.Idiomas}
                                         />
                                         <CheckBox
                                             onChange={
                                                 (e) => setCategoriesFilter(
-                                                    { ...categoriesFilter, TestPreparation: e.target.checked }
+                                                    {
+                                                        ...categoriesFilter,
+                                                        // TestPreparation: e.target.checked
+                                                        PreparaciónDeExámenes: e.target.checked
+                                                    }
                                                 )}
-                                            content={"Test Preparation"}
-                                            checked={categoriesFilter.TestPreparation}
+                                            // content={"Test Preparation"}
+                                            content={"Preparación de exámenes"}
+                                            // checked={categoriesFilter.TestPreparation}
+                                            checked={categoriesFilter.PreparaciónDeExámenes}
+
                                         />
                                         <CheckBox
                                             onChange={
                                                 (e) => setCategoriesFilter(
-                                                    { ...categoriesFilter, Pastry: e.target.checked }
+                                                    {
+                                                        ...categoriesFilter,
+                                                        // Pastry: e.target.checked
+                                                        Pastelería: e.target.checked
+                                                    }
                                                 )
                                             }
-                                            content={"Pastry"}
-                                            checked={categoriesFilter.Pastry}
+                                            // content={"Pastry"}
+                                            content={"Pastelería"}
+                                            // checked={categoriesFilter.Pastry}
+                                            checked={categoriesFilter.Pastelería}
                                         />
                                         <CheckBox
                                             onChange={
                                                 (e) => setCategoriesFilter(
-                                                    { ...categoriesFilter, CruisesManagement: e.target.checked }
+                                                    {
+                                                        ...categoriesFilter,
+                                                        // CruisesManagement: e.target.checked
+                                                        GestiónDeCruceros: e.target.checked
+                                                    }
                                                 )
                                             }
                                             content={"Cruises Management"}
-                                            checked={categoriesFilter.CruisesManagement}
+                                            // checked={categoriesFilter.CruisesManagement}
+                                            checked={categoriesFilter.GestiónDeCruceros}
                                         />
                                         <CheckBox
                                             onChange={
                                                 (e) => setCategoriesFilter(
-                                                    { ...categoriesFilter, Oenology: e.target.checked }
+                                                    {
+                                                        ...categoriesFilter,
+                                                        // Oenology: e.target.checked
+                                                        Enología: e.target.checked
+                                                    }
                                                 )
                                             }
-                                            content={"Oenology"}
-                                            checked={categoriesFilter.Oenology}
+                                            // content={"Oenology"}
+                                            content={"Enología"}
+                                            // checked={categoriesFilter.Oenology}
+                                            checked={categoriesFilter.Enología}
                                         />
                                         <CheckBox
                                             onChange={
                                                 (e) => setCategoriesFilter(
-                                                    { ...categoriesFilter, HospitalityManagement: e.target.checked }
+                                                    {
+                                                        ...categoriesFilter,
+                                                        // HospitalityManagement: e.target.checked
+                                                        DirecciónHotelera: e.target.checked
+                                                    }
                                                 )}
-                                            content={"Hospitality Management"}
-                                            checked={categoriesFilter.HospitalityManagement}
+                                            // content={"Hospitality Management"}
+                                            content={"Dirección Hotelera"}
+                                            // checked={categoriesFilter.HospitalityManagement}
+                                            checked={categoriesFilter.DirecciónHotelera}
                                         />
                                         <CheckBox
                                             onChange={
                                                 (e) => setCategoriesFilter(
-                                                    { ...categoriesFilter, SalesAndMarketing: e.target.checked }
+                                                    {
+                                                        ...categoriesFilter,
+                                                        // SalesAndMarketing: e.target.checked
+                                                        VentasYMarketing: e.target.checked
+                                                    }
                                                 )}
-                                            content={"Sales and Marketing"}
-                                            checked={categoriesFilter.SalesAndMarketing}
+                                            // content={"Sales and Marketing"}
+                                            content={"Ventas y Marketing"}
+                                            // checked={categoriesFilter.SalesAndMarketing}
+                                            checked={categoriesFilter.VentasYMarketing}
                                         />
                                         <CheckBox
                                             onChange={
                                                 (e) => setCategoriesFilter(
-                                                    { ...categoriesFilter, EventManagement: e.target.checked }
+                                                    {
+                                                        ...categoriesFilter,
+                                                        // EventManagement: e.target.checked
+                                                        GestiónDeEventos: e.target.checked
+                                                    }
                                                 )}
-                                            content={"Event Management"}
-                                            checked={categoriesFilter.EventManagement}
+                                            // content={"Event Management"}
+                                            content={"Gestión de Eventos"}
+                                            // checked={categoriesFilter.EventManagement}
+                                            checked={categoriesFilter.GestiónDeEventos}
                                         />
                                         <CheckBox
                                             onChange={
@@ -519,10 +759,16 @@ const Cards = ({ filter }) => {
                                         <CheckBox
                                             onChange={
                                                 (e) => setCategoriesFilter(
-                                                    { ...categoriesFilter, Reception: e.target.checked }
+                                                    {
+                                                        ...categoriesFilter,
+                                                        // Reception: e.target.checked
+                                                        Recepción: e.target.checked
+                                                    }
                                                 )}
-                                            content={"Reception"}
-                                            checked={categoriesFilter.Reception}
+                                            // content={"Reception"}
+                                            content={"Recepción"}
+                                            // checked={categoriesFilter.Reception}
+                                            checked={categoriesFilter.Recepción}
                                         />
                                         <CheckBox
                                             onChange={
@@ -543,19 +789,68 @@ const Cards = ({ filter }) => {
                                         <CheckBox
                                             onChange={
                                                 (e) => setCategoriesFilter(
-                                                    { ...categoriesFilter, Tourism: e.target.checked }
+                                                    {
+                                                        ...categoriesFilter,
+                                                        // Tourism: e.target.checked
+                                                        Turismo: e.target.checked
+                                                    }
                                                 )}
-                                            content={"Tourism"}
-                                            checked={categoriesFilter.Tourism}
+                                            // content={"Tourism"}
+                                            content={"Turismo"}
+                                            // checked={categoriesFilter.Tourism}
+                                            checked={categoriesFilter.Turismo}
                                         />
                                         <CheckBox
                                             onChange={
                                                 (e) => setCategoriesFilter(
-                                                    { ...categoriesFilter, BusinessSkills: e.target.checked }
+                                                    {
+                                                        ...categoriesFilter,
+                                                        // BusinessSkills: e.target.checked
+                                                        HabilidadesEmpresariales: e.target.checked
+                                                    }
                                                 )}
-                                            content={"Business Skills"}
-                                            checked={categoriesFilter.BusinessSkills}
+                                            // content={"Business Skills"}
+                                            content={"Habilidades Empresariales"}
+                                            // checked={categoriesFilter.BusinessSkills}
+                                            checked={categoriesFilter.HabilidadesEmpresariales}
                                         />
+
+                                        <CheckBox
+                                            onChange={
+                                                (e) => setCategoriesFilter(
+                                                    {
+                                                        ...categoriesFilter,
+                                                        GuíaTurístico: e.target.checked
+                                                    }
+                                                )}
+                                            content={"Guía Turístico"}
+                                            checked={categoriesFilter.GuíaTurístico}
+                                        />
+
+                                        <CheckBox
+                                            onChange={
+                                                (e) => setCategoriesFilter(
+                                                    {
+                                                        ...categoriesFilter,
+                                                        Pisos: e.target.checked
+                                                    }
+                                                )}
+                                            content={"Pisos"}
+                                            checked={categoriesFilter.Pisos}
+                                        />
+
+                                        <CheckBox
+                                            onChange={
+                                                (e) => setCategoriesFilter(
+                                                    {
+                                                        ...categoriesFilter,
+                                                        Otros: e.target.checked
+                                                    }
+                                                )}
+                                            content={"Otros"}
+                                            checked={categoriesFilter.Otros}
+                                        />
+
                                     </div>
                                 </div>
                             </div>
@@ -570,11 +865,27 @@ const Cards = ({ filter }) => {
                             <div className={CSS.courseCards} key={course._id} style={{ minWidth: "" }}>
                                 <div className="card" style={{ border: '1px solid #E4B49D' }}>
                                     <img className="card-img-top" src={`${course.banner_image}`} alt="CardImageCap" style={cardImageStyle} />
+                                    {course.isFree &&
+                                        <span style={{
+                                            position: 'absolute',
+                                            top: '10px',
+                                            right: '-5px',
+                                            backgroundColor: '#15803d',
+                                            color: 'white',
+                                            padding: '5px 20px',
+                                            borderRadius: '5px',
+                                            textAlign: 'right'
+                                        }}>
+                                            {/* Free */}
+                                            Gratis
+                                        </span>
+                                    }
                                     <div className="card-body" style={{ padding: "10px" }}>
                                         <div style={{ minHeight: "11rem", overflow: "hidden" }}>
                                             <h6 className="card-title" style={{ fontWeight: 'bold' }}>
                                                 {course.title}
                                             </h6>
+
                                             <p className="card-text" style={{ opacity: 0.9, fontSize: "16px!important" }}>
 
                                                 {course.description.substr(0, 150)}...
@@ -601,14 +912,16 @@ const Cards = ({ filter }) => {
                     </div>
                 </div>
             </div>
-            <div className='mt-4 ml-5'> 
+            <div className='mt-4 ml-5'>
                 <ReactPaginate
                     breakLabel="..."
-                    nextLabel="next >"
+                    // nextLabel="next >"
+                    nextLabel="Siguiente >"
                     onPageChange={handlePageClick}
                     pageRangeDisplayed={5}
                     pageCount={pageCount}
-                    previousLabel="< previous"
+                    // previousLabel="< previous"
+                    previousLabel="< Anterior"
                     renderOnZeroPageCount={null}
                     // CSS
                     containerClassName='pagination justify-content-center'

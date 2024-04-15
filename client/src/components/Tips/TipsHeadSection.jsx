@@ -17,7 +17,10 @@ const TipsHeadSection = () => {
             en el sector como si estás buscando tu primera oportunidad, encontrarás en este
             espacio un lugar donde nos ayudaremos entre todos para seguir progresando de la mano.
           </p>
-          <button className='btn btn-dark mt-3'> Check Tips  </button>
+          <button className='btn btn-dark mt-3'>
+            {/* Check Tips */}
+            Descubrir secretos 
+          </button>
         </div>
         <div className='col'>
           <img className='w-75 pt-4 ml-5 pl-5 ' src={blogheaderImg} alt="" style={{ borderRadius: '10%' }} />

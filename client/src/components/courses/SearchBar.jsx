@@ -29,9 +29,9 @@ const SearchBar = () => {
         const params = new URLSearchParams(AllFilter).toString();
         console.log(params);
         const response = await dispatch(courseSearchAction(params));
-        if(response.success){
+        if (response.success) {
             console.log(response.data);
-        }else{
+        } else {
             console.log(response.message);
         }
     }
@@ -58,15 +58,22 @@ const SearchBar = () => {
             <div className={`${CSS.mainContainer} d-flex justify-content-center align-items-center`}>
                 <div className="d-flex w-100">
                     <div className='col-md-4'>
-                        <label className="mt-2 ml-2" htmlFor="courseProvider"> Course Provider </label>
-                        <Select     
+                        <label className="mt-2 ml-2" htmlFor="courseProvider">
+                            {/* Course Provider */}
+                            Organizador del curso
+                        </label>
+                        <Select
                             options={courseCompany}
+                            placeholder='Seleccionar..'
                             onChange={(e) => setAllFilter({ ...AllFilter, courseProvider: e.value })}
                         />
                     </div>
                     {/* keyword */}
                     <div className='ml-3 flex-grow-1'>
-                        <label className="mt-2" htmlFor="keyword"> KeyWord </label>
+                        <label className="mt-2" htmlFor="keyword">
+                            {/* KeyWord */}
+                            Palabras clave
+                        </label>
                         <input
                             className='form-control'
                             type="text"
@@ -89,7 +96,10 @@ const SearchBar = () => {
                                 className={`${CSS.btnP} mr-2 ml-2`}
                             >
                                 <Flex align="center" justify="center">
-                                    <CiSearch size={25} />Find Course </Flex>
+                                    <CiSearch size={25} />
+                                    {/* Find Course */}
+                                    Buscar
+                                </Flex>
                             </button>
                             {
                                 isOpen ? <LeftSidebar onClose={onClose} /> :

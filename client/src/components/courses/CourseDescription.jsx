@@ -81,7 +81,8 @@ const CourseDescription = () => {
                   <p> {course?.result?.isFree ? (<></>) : (<p> Price : {course?.result?.price} </p>)}</p>
                   <NavLink to={`${course?.result?.course_link}`} target='_blank'>
                     <button className='mt-3 btn  ' style={{ background: '#E4B49D', fontWeight: 600 }}>
-                      Explore More
+                      {/* Explore More */}
+                      Saber más
                     </button>
                   </NavLink>
                 </div>
@@ -91,9 +92,12 @@ const CourseDescription = () => {
                 <div className="row mt-2 mb-3 justify-content-around p-4 ">
                   <div className="col-md-2 text-center border border-dark rounded p-2 d-flex flex-column justify-content-center" style={{ background: '#F5F6FB', minWidth: '140px', height: 'fit-content' }}>
                     <div className="col d-flex justify-content-center" style={{ opacity: 0.7 }}><TbLanguageHiragana size={20} alignmentBaseline='' /> </div>
-                    <div className="col d-flex justify-content-center" style={{ opacity: 0.7, fontSize: '15px' }}> <small> Languages </small> </div>
+                    <div className="col d-flex justify-content-center" style={{ opacity: 0.7, fontSize: '15px' }}>
+                      {/* <small> Languages </small> */}
+                      <small> Idioma  </small>
+                    </div>
                     <div className="col d-flex justify-content-center">
-                      
+
                       {
                         course.result.languages.length === 1 ? (
                           <small>
@@ -101,8 +105,8 @@ const CourseDescription = () => {
                           </small>
                         ) : (
                           <small className='my-anchor-element'>
-                          {course.result.languages[0]}
-                            &nbsp; +{course.result.languages.length-1} more
+                            {course.result.languages[0]}
+                            &nbsp; +{course.result.languages.length - 1} more
                           </small>
                         )
                       }
@@ -113,17 +117,26 @@ const CourseDescription = () => {
                   </div>
                   <div className="col-md-2 text-center border border-dark rounded p-2 d-flex flex-column justify-content-center" style={{ background: '#F5F6FB', minWidth: '140px', height: 'fit-content' }}>
                     <div className="col d-flex justify-content-center" style={{ opacity: 0.7 }}><CgSandClock size={20} alignmentBaseline='' /> </div>
-                    <div className="col d-flex justify-content-center" style={{ opacity: 0.7, fontSize: '15px' }}> <small> Duration </small> </div>
+                    <div className="col d-flex justify-content-center" style={{ opacity: 0.7, fontSize: '15px' }}>
+                      {/* <small> Duration </small> */}
+                      <small> Duración  </small>
+                    </div>
                     <div className="col d-flex justify-content-center"><small> {course?.result?.duration} </small> </div>
                   </div>
                   <div className="col-md-2 text-center border border-dark rounded p-2 d-flex flex-column justify-content-center" style={{ background: '#F5F6FB', minWidth: '140px', height: 'fit-content' }}>
                     <div className="col d-flex justify-content-center" style={{ opacity: 0.7 }}><FaArrowUpRightDots size={20} alignmentBaseline='' /> </div>
-                    <div className="col d-flex justify-content-center" style={{ opacity: 0.7, fontSize: '15px' }}> <small> Difficulty </small> </div>
+                    <div className="col d-flex justify-content-center" style={{ opacity: 0.7, fontSize: '15px' }}>
+                      <small> Dificultad  </small>
+                      {/* <small> Difficulty </small> */}
+                    </div>
                     <div className="col d-flex justify-content-center"><small> {course?.result?.difficulty} </small> </div>
                   </div>
                   <div className="col-md-2 text-center border border-dark rounded p-2 d-flex flex-column justify-content-center " style={{ background: '#F5F6FB', minWidth: '140px', height: 'fit-content' }}>
                     <div className="col d-flex justify-content-center" style={{ opacity: 0.7 }}><IoIosRocket size={20} alignmentBaseline='' /> </div>
-                    <div className="col d-flex justify-content-center" style={{ opacity: 0.7, fontSize: '15px' }}> <small> Format </small> </div>
+                    <div className="col d-flex justify-content-center" style={{ opacity: 0.7, fontSize: '15px' }}>
+                      {/* <small> Format </small> */}
+                      <small> Formato </small>
+                    </div>
                     <div className="col d-flex justify-content-center"><small> {course?.result?.format} </small> </div>
                   </div>
                   {course?.result?.isFree ? (
@@ -144,7 +157,10 @@ const CourseDescription = () => {
 
           <div className='border rounded mb-4' style={{ boxShadow: '0px 0px 15px rgba(0, 0, 0, 0.5)' }}>
             <div className='p-4'>
-              <h5 className='font-weight-bold'> What Yo'll Learn </h5>
+              <h5 className='font-weight-bold'>
+                {/* What Yo'll Learn */}
+                Lo que aprenderás
+              </h5>
               <div style={{ opacity: '0.85' }}>
                 {course?.result?.description.length > 728 ?
                   <>
@@ -173,10 +189,19 @@ const CourseDescription = () => {
           {/* section  3 Start*/}
           <div className='border rounded mb-3' style={{ boxShadow: '0px 0px 15px rgba(0, 0, 0, 0.5)' }}>
             <div className='p-4'>
-              <h3 > Keep learning. Keep growing. </h3>
-              <p style={{ fontWeight: 600 }}> Discover this selection of interesting courses </p>
+              <h3 >
+                {/* Keep learning. Keep growing. */}
+                Sigue aprendiendo, sigue creciendo.
+              </h3>
+              <p style={{ fontWeight: 600 }}>
+                {/* Discover this selection of interesting courses */}
+                Descubre nuestra selección de los mejores cursos para tí.
+              </p>
               <div style={{ opacity: '0.85' }}>
-                <span>We have a range of courses available: from online courses to short courses and master's degrees. Start your search by checking out our most popular courses below.</span>
+                <span>
+                  {/* We have a range of courses available: from online courses to short courses and master's degrees. Start your search by checking out our most popular courses below. */}
+                  Disponemos de una amplia gama de cursos: desde cursos en línea hasta cursos cortos y másteres. Empieza tu búsqueda echando un vistazo a nuestros cursos más populares aquí.
+                </span>
                 <Cards filter={false} />
               </div>
             </div>

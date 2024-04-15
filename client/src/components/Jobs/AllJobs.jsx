@@ -5,7 +5,7 @@ import {
     Tabs, TabList, TabPanels, Tab, TabPanel
 } from '@chakra-ui/react';
 import PuffLoader from 'react-spinners/PuffLoader.js';
-
+import { formatDistanceToNow } from 'date-fns';
 import TooltipParagraph from './TooltipParagraph';
 import Select from 'react-select'
 import { useDispatch, useSelector } from 'react-redux';
@@ -418,7 +418,8 @@ const AllJobs = () => {
                             marginRight={'5vw'}
                             onClick={() => setIsFilteredCheck(!IsFilteredCheck)}
                         >
-                            Filter
+                            {/* Filter */}
+                            Filtros
                         </ButtonChakra>
                     </div>
                     {/* Filter Section End */}
@@ -622,7 +623,8 @@ const AllJobs = () => {
                                     setApplied(false);
                                 }}
                             >
-                                <p> All Jobs </p>
+                                {/* <p> All Jobs </p> */}
+                                <p> Todas las ofertas  </p>
                             </div>
                             <div className='ml-3'
                                 style={{ cursor: 'pointer' }}
@@ -631,7 +633,8 @@ const AllJobs = () => {
                                     setApplied(true);
                                 }}
                             >
-                                <p> Applied </p>
+                                {/* <p> Applied </p> */}
+                                <p> Solicitadas  </p>
                             </div>
                         </div>
                         <hr />
@@ -667,7 +670,11 @@ const AllJobs = () => {
                                                     }
                                                     <div>
                                                         <Card.Title>{job.jobTitle}</Card.Title>
-                                                        <p className="card-text text-muted mb-2">{job.created_at}</p>
+                                                        {/* <p className="card-text text-muted mb-2">{job.created_at}</p> */}
+                                                        <p className="card-text text-muted mb-2">
+                                                            Posted:{job?.created_at &&
+                                                                `${formatDistanceToNow(job.created_at)} ago`}
+                                                        </p>
                                                         <small> {job.company_name} </small>
                                                         <Card.Subtitle className="mb-2 text-muted"></Card.Subtitle>
                                                     </div>
@@ -682,7 +689,9 @@ const AllJobs = () => {
                                                     <div className='d-flex '>
                                                         <TbBriefcase className={styles.jobIconSmall} />
                                                         <p className={styles.paraSmallHeading}>
-                                                            {job.workExperienceMin}-{job.workExperienceMax} years
+                                                            {job.workExperienceMin}-{job.workExperienceMax}
+                                                             {/* years */}
+                                                                &nbsp;años
                                                         </p>
                                                     </div>
                                                     <div className='d-flex ml-2'>
@@ -700,7 +709,10 @@ const AllJobs = () => {
                                                 </Card.Text>
                                                 <hr />
                                                 <div className='d-flex'>
-                                                    <small style={{ flex: '1' }}> Apply by : {new Date(job.joiningDate).toLocaleDateString()}</small>
+                                                    <small style={{ flex: '1' }}>
+                                                        {/* Apply by : */}
+                                                        Subido el
+                                                        {new Date(job.joiningDate).toLocaleDateString()}</small>
                                                     {/* <Button variant="success" style={{ flex: '1' }}>View</Button> */}
                                                     <ButtonChakra
                                                         // colorScheme='linkedin'
@@ -718,11 +730,11 @@ const AllJobs = () => {
                                     </div>
                                 ))}
                             </div>
-                            {loadingPage && 
-                            <PuffLoader
-                                color="red"
-                                size={70}
-                            />}
+                            {loadingPage &&
+                                <PuffLoader
+                                    color="red"
+                                    size={70}
+                                />}
                         </div>
                     }
 
@@ -765,7 +777,10 @@ const AllJobs = () => {
                                                     <div className='d-flex '>
                                                         <TbBriefcase className={styles.jobIconSmall} />
                                                         <p className={styles.paraSmallHeading}>
-                                                            {job.workExperienceMin}-{job.workExperienceMax} years
+                                                            {job.workExperienceMin}-{job.workExperienceMax} 
+                                                            {/* years */}
+                                                            &nbsp;años
+                                                            {/* akjdfjskfjsk sdfk sfsjf sfs sk sfs  */}
                                                         </p>
                                                     </div>
                                                     <div className='d-flex ml-2'>

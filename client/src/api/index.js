@@ -99,6 +99,9 @@ export const DeleteCourse = (id) => API.delete(`/courses/singleCourse/${id}`)
 
 
 //  ----------------------------  For Creating a Job---------------
+// Getting similar jobs
+export const getSimilarJobs = (id) => API.get(`/jobs/similarJobs/${id}`)
+
 // Updating Candidate Status
 export const updateCandidateStatus = (updatedStatus) => API.patch('/jobs/updatestatus',updatedStatus)
 // Job Apply (Applicants)

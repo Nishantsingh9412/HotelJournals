@@ -13,7 +13,8 @@ import {
     rejectJobs,
     getAllJobsForSuperAdmin,
     getAllJobsRecruiter,
-    getAllJobsLazyLoading
+    getAllJobsLazyLoading,
+    getSimilarJobs,
     // hiredCandParticularJob,
     // notOfferedCandPartJob,
     // offeredCandParticularJob,
@@ -21,6 +22,10 @@ import {
 } from '../controllers/jobs.js';
 
 const router = express.Router();
+
+// get similar jobs 
+router.get('/similarjobs/:id', getSimilarJobs)
+
 
 // get Alljobs Verified Lazy Loading Main Page
 router.get('/lazy-loading-jobs', getAllJobsLazyLoading)

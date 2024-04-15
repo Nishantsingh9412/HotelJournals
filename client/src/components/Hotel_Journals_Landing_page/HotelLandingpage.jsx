@@ -8,6 +8,7 @@ import courseImage from '../../assets/img/courses_large.png'
 import testimonialImg1 from '../../assets/img/testimonials/ana_mantero_testimonial_1.jpeg'
 import testimonialImg2 from '../../assets/img/testimonials/gaten_meo_testimonial2.jpeg'
 import testimonialImg3 from '../../assets/img/testimonials/stephania_testimonial3.jpeg'
+import testimonialImg4 from '../../assets/img/testimonials/rita_medina.jpeg'
 import pinkimg from "../../assets/img/aboutme_lannding_page.png";
 
 import jobGraphImg from '../../assets/img/career_gif_landing_page.gif'
@@ -49,7 +50,6 @@ import styles from './HotelLandingPage.module.css'
 
 const HotelLandingpage = () => {
 
-
   const baseURl = 'http://localhost:3000'
 
   useEffect(() => {
@@ -61,15 +61,18 @@ const HotelLandingpage = () => {
   const card_items = [
     {
       icon: <FaHeart />,
-      pairagraph: " Be proud of your job and love what you do"
+      // pairagraph: " Be proud of your job and love what you do"
+      pairagraph: "Presume de tu trabajo"
     },
     {
       icon: <FaStar />,
-      pairagraph: "Stand out for your knowledge and your passion",
+      // pairagraph: "Stand out for your knowledge and your passion",
+      pairagraph: "Destaca por tus conocimientos y tu pasión"
     },
     {
       icon: <FaGoogleWallet />,
-      pairagraph: "Plan the path you want to follow to achieve your goals",
+      // pairagraph: "Plan the path you want to follow to achieve your goals",
+      pairagraph: "Planifica el camino que quieres seguir para conseguir tus objetivos."
     },
   ];
 
@@ -164,29 +167,35 @@ const HotelLandingpage = () => {
       img: testimonialImg1,
       name: "STEPHANIA AYALA",
       role: "FRONT OFFICE MANAGER",
+      // pairagraph:
+      //   `Hotel Journals met one of the largest and never recognized needs of the hotel sector... 
+      // To have an identity, a tool that represents us and that's something that gives us a sense 
+      // of belonging`,
       pairagraph:
-        `Hotel Journals met one of the largest and never recognized needs of the hotel sector... 
-      To have an identity, a tool that represents us and that's something that gives us a sense 
-      of belonging`,
-      // "Hotel Journals cubrió una de las necesidades más grandes y nunca reconocidas del sector hotelero... La de tener una identidad, una herramienta que nos represente y ese algo que nos de un sentido de pertenencia",
+        `
+        Hotel Journals cubrió una de las necesidades más grandes y 
+        nunca reconocidas del sector hotelero...
+        La de tener una identidad, una herramienta que nos represente y 
+        ese algo que nos dé un sentido de pertenencia.
+        `,
       profile_link: 'https://www.linkedin.com/in/stephania-ayala-ornelas-424b19218/'
     },
     {
       img: testimonialImg2,
       name: "Gaëtan Meo",
       role: "Front Desk Agent",
-      // pairagraph:
-      //   ` La gran comunidad que es hotel journals permite conectar a todos los que trabajamos en el mundo hostelero y los que 
-      //     quieren hacer parte de este mundo increíble. Además de consejos y recomendaciones la comunidad siempre comparte experiencias
-      //     y momentos divertidos que permiten traer ese toque de humor que es lo que marca la diferencia en un universo muy profesional 
-      //     y con muchas responsabilidades
-      //   `,
       pairagraph:
-        `
-        The large community that is Hotel Journals allows to connect all those 
-        who work in the hospitality world and those who want to be part of this
-        incredible world.
+        ` La gran comunidad que es hotel journals permite conectar a todos los que trabajamos en el mundo hostelero y los que 
+          quieren hacer parte de este mundo increíble. Además de consejos y recomendaciones la comunidad siempre comparte experiencias
+          y momentos divertidos que permiten traer ese toque de humor que es lo que marca la diferencia en un universo muy profesional 
+          y con muchas responsabilidades
         `,
+      // pairagraph:
+      //   `
+      //   The large community that is Hotel Journals allows to connect all those 
+      //   who work in the hospitality world and those who want to be part of this
+      //   incredible world.
+      //   `,
       profile_link: 'https://www.linkedin.com/in/gaetanmeo/'
 
     },
@@ -194,26 +203,32 @@ const HotelLandingpage = () => {
       img: testimonialImg3,
       name: "Ana Mantero García",
       role: "Receptionist",
-      // pairagraph:
-      //   ` Gracias a Hotel Journals he conocido otros campos dentro 
-      //   del sector además de testimonios y anécdotas increíbles de 
-      //   compañeros para así aprender mucho mas de ellos.
-      //   `,
       pairagraph:
-        `
-      Thanks to Hotel Journals I have known other fields within 
-      the sector as well as incredible testimonies and anecdotes 
-      of colleagues to learn much more about them
-      `,
+        ` Gracias a Hotel Journals he conocido otros campos dentro 
+        del sector además de testimonios y anécdotas increíbles de 
+        compañeros para así aprender mucho mas de ellos.
+        `,
+      // pairagraph:
+      //   `
+      // Thanks to Hotel Journals I have known other fields within 
+      // the sector as well as incredible testimonies and anecdotes 
+      // of colleagues to learn much more about them
+      // `,
       profile_link: 'https://www.linkedin.com/in/ana-mantero-garc%C3%ADa-32b750171/'
     },
-    // {
-    //   img: "../assets/hotaljournalimg/testmonial/img1.avif",
-    //   name: "only Soery",
-    //   role: "Dark plane member",
-    //   pairagraph:
-    //     "Lorem ipsum dolor sit amet consectetur, adipisicing ique faj hsh  kjhdh d adha  k hd ah o ahh  ah dh  h  ahd al h ",
-    // },
+    {
+      img: testimonialImg4,
+      name: "Rita Medina",
+      role: "Blank",
+      pairagraph:
+        `
+        La comunidad de Hotel Journals es única y muy necesaria para todas aquellas personas que,
+        como yo, se dedican al sector turístico.
+        Te da herramientas para crecer profesionalmente, 
+        estés donde estés… ¡me encanta!
+        `,
+      profile_link: 'https://www.linkedin.com/in/ritamedinapaez/'
+    },
   ];
 
   // const book_data = [
@@ -270,22 +285,37 @@ const HotelLandingpage = () => {
               >
                 Hotel Journals </h1>
             </h1>
-            <p data-aos="fade-up" data-aos-delay="300" >
+            {/* <p data-aos="fade-up" data-aos-delay="300" >
               Find the best hotel and tourism studies you need to continue
               growing in the sector professionally.
               You will find courses to start your career in the sector.
               Having good training will help you to open the first doors
               or to continue opening the best doors into the future.
+            </p> */}
+            <p data-aos="fade-up" data-aos-delay="300" >
+              Amplía tus conocimientos con Hotel Journals.
+              Encuentra los mejores estudios de hotelería y turismo que necesitas
+              para seguir creciendo profesionalmente dentro del sector.
+              Encontrarás cursos para iniciar tu carrera en el sector.
+              Tener una buena formación te ayudará a abrir las primeras puertas
+              o a seguir abriendo las mejores puertas hacia el futuro.
             </p>
+
             <div className={styles.firstectionbuttoncontainer}>
               <Link to='/courses' style={{ textDecoration: 'none', color: 'white' }}>
-                <div className={styles.button} data-aos="fade-right" data-aos-delay="400"> Join Class</div>
+                {/* <div className={styles.button} data-aos="fade-right" data-aos-delay="400"> Join Class</div> */}
+                <div className={styles.button} data-aos="fade-right" data-aos-delay="400">
+                  Únete a nuestras clases
+                </div>
+
               </Link>
               {/* <div className={styles.button} data-aos="fade-left" data-aos-delay="500" >Get Started</div> */}
             </div>
             <div className={styles.detail}>
-              <h1> Flexible Classes  </h1>
-              <h1> Experienced Universities </h1>
+              {/* <h1> Flexible Classes  </h1> */}
+              <h1> Clases Flexibles  </h1>
+              {/* <h1> Experienced Universities </h1> */}
+              <h1> Universidades Reconocidas </h1>
             </div>
 
           </div>
@@ -346,14 +376,20 @@ const HotelLandingpage = () => {
         <div className={styles.tailentcontainer}>
           <div className={styles.tailentcontainerleft}>
             <h1 data-aos="fade-up" data-aos-delay="100" className={styles.tailentcontainerleftheding}>
-              where talent meets opportunity
+              {/* where talent meets opportunity */}
+              Donde el talento y la oportunidad se unen.
             </h1>
             <p data-aos="fade-up" data-aos-delay="100">
-              Find your first job or look for the job that really makes you happy.
-              Opportunities don't disappear, they just change.
+              {/* Find your first job or look for the job that really makes you happy.
+              Opportunities don't disappear, they just change. */}
+              Encuentra tu primer trabajo o busca el trabajo que realmente te haga feliz.
+              Las oportunidades no desaparecen, solo cambian.
             </p>
             <Link to={'/jobs'} style={{ textDecoration: 'none', color: 'white' }}>
-              <div className={styles.tailentcontainerleftbutton} data-aos="fade-up" > Find Job </div>
+              <div className={styles.tailentcontainerleftbutton} data-aos="fade-up" >
+                {/* Find Job */}
+                Encuentra tu trabajo perfecto.
+              </div>
             </Link>
           </div>
 
@@ -407,14 +443,19 @@ const HotelLandingpage = () => {
         <div className={styles.testinomialcontainer}>
           <div className={styles.testinomialcontainerleft}>
             <h1 data-aos="fade-right">
-              Testimonials from our colleagues
+              {/* Testimonials from our colleagues */}
+              Testimonios de nuestras/os Compis
+
               {/* <span > courTyz'z</span> */}
               {/* member */}
             </h1>
             <p data-aos="fade-left" >
-              The Hotel Journals community would be
+              {/* The Hotel Journals community would be
               nothing without the colleagues who accompany
-              and encourage us along the way.
+              and encourage us along the way. */}
+              La comunidad de Hotel Journals no sería nada sin
+              los compis que nos acompañan
+              y animan en el camino.
             </p>
           </div>
           <div className={styles.testinomialcontainerright}>
@@ -446,18 +487,25 @@ const HotelLandingpage = () => {
             </div>
           </div>
           <div className={styles.authorcontainerright}>
-            <h1 data-aos="fade-up"  >  A Little Bit About Me </h1>
+            {/* <h1 data-aos="fade-up"  >  A Little Bit About Me </h1> */}
+            <h1 data-aos="fade-up"  >
+              Un poco sobre mí
+            </h1>
             {/* <h1 >  A Little Bit About Me </h1> */}
             <p data-aos="fade-up" data-aos-delay="100" >
               {/* <p> */}
-              I have always been in love with hotels and tourism, I studied and worked for my dream.
+              {/* I have always been in love with hotels and tourism, I studied and worked for my dream.
               Now my dream is that more people can work in what they love and they can be proud of it.
-              Get to know me (where read more is)
+              Get to know me (where read more is) */}
+              Siempre estuve enamorada de los hoteles, estudié y trabajé por mi sueño.
+              Ahora mi sueño es que más personas puedan trabajar de lo que
+              sueñan y puedan presumir de ello.
             </p>
 
             <a href={`${baseURl}/about`} style={{ textDecoration: 'none', color: 'white' }}>
               <div data-aos="fade-up" data-aos-delay="200" className={styles.authorbutton} >
-                Read More
+                {/* Read More */}
+                Conóceme
               </div>
             </a>
           </div>

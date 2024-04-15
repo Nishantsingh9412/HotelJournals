@@ -44,6 +44,18 @@ import * as api from '../../api/index.js'
 //     }
 // }
 
+
+export const getJobsSimilarAction = (id) => async(dispatch) => {
+    try{
+        const {data} = await api.getSimilarJobs(id);
+        return {success:true,message:"Similar Jobs Fetched Successfully",data:data};
+    }catch(err){
+        console.log("Error from getJobsSimilar Action: ",err.message,err.stack);
+        return {success:false,message:err.response.data.message};
+    }
+}
+
+
 export const getJobsRecruiterAction = (id) => async (dispatch) => {
     try {
         const { data } = await api.GetRecruiterJobs(id);
