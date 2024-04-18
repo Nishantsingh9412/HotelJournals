@@ -6,7 +6,7 @@ const TipsHeadSection = () => {
   return (
     <div className='container mt-2'>
       <div className='row' >
-        <div className='col' style={{ marginTop: '9vw' }}>
+        <div className='col-md-4 col-lg-6 order-md-1 order-2' style={{ marginTop: '9vw' }}>
           <h1 style={{ fontWeight: '700' }}> Descubre los secretos del Back Office  </h1>
           <p className='mt-4' style={{ fontSize: 'larger', fontWeight: 400 }}>
             En la industria del turismo y la hotelería, el éxito radica en la armonía
@@ -22,8 +22,8 @@ const TipsHeadSection = () => {
             Descubrir secretos 
           </button>
         </div>
-        <div className='col'>
-          <img className='w-75 pt-4 ml-5 pl-5 ' src={blogheaderImg} alt="" style={{ borderRadius: '10%' }} />
+        <div className='col-md-8 col-lg-6 order-md-2 order-1'>
+          <img className='w-75 pt-4 ml-5 pl-5 img-fluid' src={blogheaderImg} alt="" style={{ borderRadius: '10%' }} />
         </div>
       </div>
     </div>

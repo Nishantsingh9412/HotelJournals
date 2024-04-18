@@ -39,11 +39,11 @@ const MainRecruiterDashboard = () => {
   const singleRecruiterData = recruiterProfile?.data?.result[0];
 
   useEffect(() => {
-    if(recruiterProfile){
+    if (recruiterProfile) {
       setLoading(false);
     }
 
-  },[recruiterProfile])
+  }, [recruiterProfile])
 
   const handleProfileClick = () => {
     dispatch(getRecProfileAction(localUserId));
@@ -53,7 +53,7 @@ const MainRecruiterDashboard = () => {
     if (singleRecruiterData) {
       setOldProfilePic(singleRecruiterData?.company_logo);
       setLoading(false);
-    }else{
+    } else {
       navigate('/login');
     }
   }, [singleRecruiterData])
@@ -98,8 +98,14 @@ const MainRecruiterDashboard = () => {
                 flexDirection: 'column'
               }}
             >
-              <h3 className='mt-2' > Welcome  {singleRecruiterData?.created_by?.fname} To
-                Hotel Journals </h3>
+              {/* <h3 className='mt-2' >
+                Welcome  {singleRecruiterData?.created_by?.fname} To
+                Hotel Journals </h3> */}
+              <h3 className='mt-2'>
+                Bienvenido/a {singleRecruiterData?.created_by?.fname}  a Hotel Journals
+              </h3>
+
+
               {/* h2 */}
               <FaEdit
                 size={30}

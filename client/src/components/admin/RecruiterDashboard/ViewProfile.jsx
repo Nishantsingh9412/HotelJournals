@@ -122,15 +122,34 @@ const ViewProfile = ({ data }) => {
                                         {/* <h1>Bio Graph</h1> */}
                                         <div className="row">
                                             <div className="col-12 col-sm-6">
-                                                <h4 className="mb-3 mt-2 card-header">Personal Information</h4>
+                                                <h4 className="mb-3 mt-2 card-header">
+                                                    {/* Personal Information */}
+                                                    Información Personal
+                                                </h4>
                                                 <div className="ml-2">
-                                                    <p className="mb-1"><strong>First Name:</strong> {data?.created_by?.fname}</p>
-                                                    <p className="mb-1"><strong>Last Name:</strong> {data?.created_by?.lname}</p>
-                                                    <p className="mb-1"><strong>Mobile:</strong> {data?.created_by?.country_code} {data?.created_by?.phone}</p>
+                                                    <p className="mb-1"><strong>
+                                                        {/* First Name: */}
+                                                        Nombre :
+                                                    </strong> {data?.created_by?.fname}</p>
+                                                    <p className="mb-1"><strong>
+                                                        {/* Last Name: */}
+                                                        Apellido :
+                                                    </strong>
+                                                        &nbsp;
+                                                        {data?.created_by?.lname}
+                                                    </p>
+                                                    <p className="mb-1">
+                                                        <strong>
+                                                            {/* Mobile: */}
+                                                            Número de Teléfono :
+                                                        </strong> {data?.created_by?.country_code} {data?.created_by?.phone}</p>
                                                 </div>
                                             </div>
                                             <div className="col-12 col-sm-6">
-                                                <h4 className="mb-2 mt-2 card-header"> Company Information </h4>
+                                                <h4 className="mb-2 mt-2 card-header">
+                                                    {/* Company Information */}
+                                                    Información Empresarial 
+                                                </h4>
                                                 <div className="d-flex justify-content-start ml-2">
                                                     {
                                                         data?.companyWebsite && (
@@ -157,9 +176,18 @@ const ViewProfile = ({ data }) => {
                                                     }
                                                 </div>
                                                 <div className="ml-2">
-                                                    <p className="mb-1 mt-3"><strong>Company </strong> {data?.companyName}  </p>
-                                                    <p className="mb-1"><strong>Designation </strong> {data?.Designation}  </p>
-                                                    <p className="mb-1" ><strong>Head Quarters </strong>: {data?.HeadQuarters}</p>
+                                                    <p className="mb-1 mt-3"><strong>
+                                                        {/* Company */}
+                                                        Empresa: 
+                                                         </strong> {data?.companyName}  </p>
+                                                    <p className="mb-1"><strong>
+                                                        {/* Designation  */}
+                                                        Puesto: 
+                                                        </strong> {data?.Designation}  </p>
+                                                    <p className="mb-1" ><strong>
+                                                        {/* Head Quarters  */}
+                                                        Sede central: 
+                                                        </strong>: {data?.HeadQuarters}</p>
                                                 </div>
 
                                                 {/* <p><span>Mobile </span>: (12) 03 4567890</p> */}

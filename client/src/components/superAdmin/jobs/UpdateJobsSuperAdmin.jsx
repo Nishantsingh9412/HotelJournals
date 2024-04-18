@@ -309,7 +309,7 @@ const UpdateJobsSuperAdmin = () => {
                 return toast.error('Please fill all the required fields');
             }
             if (jobType === 'InOffice' || jobType === 'Hybrid') {
-                if(jobLocation.length === 0 || jobLocation === 'Remote'){
+                if (jobLocation.length === 0 || jobLocation === 'Remote') {
                     return toast.error('Please select Atleast one Job Location');
                 }
             }
@@ -397,7 +397,7 @@ const UpdateJobsSuperAdmin = () => {
                         <label htmlFor="job_title"> Job Title  <small className='text-danger'> * </small> </label>
                         {/* <input type='text' className='form-control' placeholder='Job Title' onChange={(e) => setJobTitle(e.target.value)} /> */}
                         <select className='form-control' value={jobTitle} onChange={(e) => setJobTitle(e.target.value)} >
-                            <option value="" > Select </option>
+                            {/* <option value="" > Select </option>
                             <option value="F & B Kitchen">F & B Kitchen</option>
                             <option value="F & B Services">F & B Services</option>
                             <option value="Finance & Marketing">Finance & Marketing</option>
@@ -437,7 +437,55 @@ const UpdateJobsSuperAdmin = () => {
                             <option value="Customer Services">Customer Services</option>
                             <option value="Data & Analytics">Data & Analytics</option>
                             <option value="Event">Event</option>
-                            <option value="F & B Management">F & B Management</option>
+                            <option value="F & B Management">F & B Management</option> */}
+                            <option value=""> Seleccionar ... </option>
+                            <option value="Administración">Administración</option>
+                            <option value="Adjunto/a Dirección">Adjunto/a Dirección</option>
+                            <option value="Agente de Viajes">Agente de Viajes</option>
+                            <option value="Animación">Animación</option>
+                            <option value="Asistente de Dirección">Asistente de Dirección</option>
+                            <option value="Asistente ejecutivo/a">Asistente ejecutivo/a</option>
+                            <option value="Azafata">Azafata</option>
+                            <option value="Bar">Bar</option>
+                            <option value="Botones">Botones</option>
+                            <option value="Compras">Compras</option>
+                            <option value="Concierge / Conserje">Concierge / Conserje</option>
+                            <option value="Consulting">Consulting</option>
+                            <option value="Contenido y Comunicación">Contenido y Comunicación</option>
+                            <option value="Datos y Análisis">Datos y Análisis</option>
+                            <option value="Deportes">Deportes</option>
+                            <option value="Departamento Legal">Departamento Legal</option>
+                            <option value="Dirección">Dirección</option>
+                            <option value="Eventos">Eventos</option>
+                            <option value="F&B Cocina">F&B Cocina</option>
+                            <option value="F&B Management">F&B Management</option>
+                            <option value="F&B Servicio">F&B Servicio</option>
+                            <option value="Finanzas y Marketing">Finanzas y Marketing</option>
+                            <option value="Gestión de Ingresos">Gestión de Ingresos</option>
+                            <option value="Guía Turístico">Guía Turístico</option>
+                            <option value="Guest Relations">Guest Relations</option>
+                            <option value="Housekeeping">Housekeeping</option>
+                            <option value="Host/ Hostess">Host/ Hostess</option>
+                            <option value="Jefe de cuentas">Jefe de cuentas</option>
+                            <option value="Lavandería">Lavandería</option>
+                            <option value="Mantenimiento">Mantenimiento</option>
+                            <option value="Marketing">Marketing</option>
+                            <option value="Otros">Otros</option>
+                            <option value="Pastelería">Pastelería</option>
+                            <option value="Portero">Portero</option>
+                            <option value="Project Management">Project Management</option>
+                            <option value="Recursos Humanos">Recursos Humanos</option>
+                            <option value="Recepción">Recepción</option>
+                            <option value="Relaciones Públicas">Relaciones Públicas</option>
+                            <option value="Reservas">Reservas</option>
+                            <option value="Revenue Management">Revenue Management</option>
+                            <option value="Room Division Management">Room Division Management</option>
+                            <option value="Seguridad">Seguridad</option>
+                            <option value="Servicio al Cliente">Servicio al Cliente</option>
+                            <option value="Sommelier">Sommelier</option>
+                            <option value="Spa">Spa</option>
+                            <option value="Subdirección">Subdirección</option>
+                            <option value="Ventas">Ventas</option>
                         </select>
                     </div>
 
@@ -573,7 +621,7 @@ const UpdateJobsSuperAdmin = () => {
                                 id='isImmediate'
                                 className='pt-2'
                                 value={isImmediate ? true : false}
-                                onClick={() => setDisableJoiningDate(prevState => !prevState)} 
+                                onClick={() => setDisableJoiningDate(prevState => !prevState)}
                                 onChange={() => setIsImmediate(!isImmediate)}
                                 style={{ transform: 'scale(1.6)' }}
                             />

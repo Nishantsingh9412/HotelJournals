@@ -1,10 +1,9 @@
-
+/* 
 @import url('https://fonts.googleapis.com/css2?family=Inter&family=Roboto&display=swap');
 
 .job-card{
     border: 1px solid grey !important;
     border-radius: 5px !important;
-    /* max-width: 300px !important; */
     font-family: 'Inter', sans-serif !important;
     min-height: 250px !important;
     box-sizing: border-box !important;
@@ -90,9 +89,6 @@
     font-size: 14px !important;
 }
 
-/* .organization {
-    width: 55% !important;
-} */
 
 .organization small {
     font-size: 12px !important;
@@ -124,4 +120,4 @@
     .card-body{
         padding: 0;
     }
-}
+} */

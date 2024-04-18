@@ -43,7 +43,8 @@ const RecruiterSidebarFinal = () => {
   const routes = [
     {
       path: "/recruiter",
-      name: "Dashboard",
+      // name: "Dashboard",
+      name:'Panel',
       icon: <FaHome size={'22px'} />,
     },
     // {
@@ -53,12 +54,14 @@ const RecruiterSidebarFinal = () => {
     // },
     {
       path: "/recruiter/manageJobs",
-      name: "All Jobs",
+      // name: "All Jobs",
+      name:'Todos los Empleos',
       icon: <FaBriefcase size={'22px'} />,
     },
     {
       path: "/recruiter/jobs/post",
-      name: "Add Jobs",
+      // name: "Add Jobs",
+      name:'Subir Empleo',
       icon: <FaPlusSquare size={'22px'} />,
     },
   ];
@@ -132,7 +135,8 @@ const RecruiterSidebarFinal = () => {
               className={styles.textRec}
               style={{ marginLeft: '10px', fontSize: '1rem' }}
             >
-              Logout
+              {/* Logout */}
+              Salir 
             </span>
           </div>
         </div>

@@ -229,7 +229,12 @@ const UpdateRecProfileForm = () => {
     }, [singleRecruiterData])
 
     const handleProfileClick = () => {
-        dispatch(getRecProfileAction(localUserId));
+        setLoading(true);
+        dispatch(getRecProfileAction(localUserId)).then((res) => {
+            if (res.success) {
+                setLoading(false);
+            }
+        })
     }
 
 
@@ -322,9 +327,12 @@ const UpdateRecProfileForm = () => {
 
         const response = await dispatch(updateRecProfileAction(localUserId, profileData))
         if (response.success) {
-            getRecProfileAction(localUserId);
-            toast.success(response.message)
-            setLoading(false);
+            dispatch(getRecProfileAction(localUserId)).then((res) => {
+                if(res.success){
+                    setLoading(false);
+                    toast.success(response.message);
+                }
+            })
         } else {
             toast.error(response.message)
             setLoading(false);

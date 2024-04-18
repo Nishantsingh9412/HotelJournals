@@ -51,7 +51,12 @@ const CourseDescription = () => {
     <>
       {loading ? (
 
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+        <div style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: '100vh'
+        }}>
           <PuffLoader
             color="red"
             size={70}

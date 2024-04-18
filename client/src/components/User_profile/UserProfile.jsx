@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, lazy, Suspense } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Modal from 'react-bootstrap/Modal'
@@ -19,13 +19,20 @@ import PrCss from './userProfile.module.css';
 import { fetchAllUsers } from '../../redux/actions/users'
 import { DeleteUserProfile, createProfileAction, getProfileAction, updateUserProfileAction } from '../../redux/actions/userProfile';
 // Divided components into different files
-import UserExperience from './UserExperience';
-import UserEducation from './UserEducation';
-import KeySkills from './KeySkills';
-import UserCertifications from './UserCertifications';
-import UserLanguages from './UserLanguages';
-import AdditionalUserInfo from './AdditionalUserInfo';
-import UploadUserCV from './UploadUserCV';
+const UserExperience = lazy(() => import('./UserExperience'));
+// import UserExperience from './UserExperience';
+// import UserEducation from './UserEducation';
+const UserEducation = lazy(() => import('./UserEducation'));
+// import KeySkills from './KeySkills';
+const KeySkills = lazy(() => import('./KeySkills'));
+// import UserCertifications from './UserCertifications';
+const UserCertifications = lazy(() => import('./UserCertifications'));
+// import UserLanguages from './UserLanguages';
+const UserLanguages = lazy(() => import('./UserLanguages'));
+// import AdditionalUserInfo from './AdditionalUserInfo';
+const AdditionalUserInfo = lazy(() => import('./AdditionalUserInfo'));
+// import UploadUserCV from './UploadUserCV';
+const UploadUserCV = lazy(() => import('./UploadUserCV'));
 
 
 
@@ -38,38 +45,68 @@ function MyVerticallyCenteredModal(props) {
       centered
       onHide={props.onHide}
     >
-      <Modal.Header closeButton  >
-        <Modal.Title id="contained-modal-title-vcenter">
-          <span ><FaRegUser /> About Me </span>
+      <Modal.Header
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+        }}
+        closeButton
+      >
+        <Modal.Title id="contained-modal-title-vcenter"
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
+        >
+          <FaRegUser
+            size={'20'}
+          />
+          {/* About Me  */}
+          <h5 className='mt-2'>
+            Sobre mi
+          </h5>
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <h6><b> Wow the recruiters </b></h6>
+        <h6><b>
+          {/* Wow the recruiters */}
+          Impresiona a los reclutadores
+        </b></h6>
         <p>
-          Imagine that you're meeting the CEO of your dream company. What should you say to amaze them?
+          {/* Imagine that you're meeting the CEO of your dream company. What should you say to amaze them? */}
+          Imagina que te encuentras con el CEO de tu empresa soñada. ¿Qué deberías decir para impresionarlos?
         </p>
         <form>
           <div class="form-group">
             <textarea
               class="form-control"
               onChange={(e) => props.setintrodesc(e.target.value)}
-              placeholder='Write a short and sweet introduction about yourself to catch recruiters attention.'
+              // placeholder='Write a short and sweet introduction about yourself to catch recruiters attention.'
+              placeholder='Escribe una introducción corta y dulce sobre ti para captar la atención de los reclutadores.'
               rows="3">
             </textarea>
           </div>
         </form>
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={(event) => { event.stopPropagation(); props.onHide(); }} className='btn btn-secondary'> Close</Button>
+        <Button onClick={(event) => { event.stopPropagation(); props.onHide(); }} className='btn btn-secondary'>
+          {/* Close */}
+          Cerrar
+        </Button>
         <Button onClick={props.submitintro}>
           {props.loading ? <>
             <div className='d-flex'>
               <PuffLoader
                 size={25}
                 color="#ffffff"
-              /> <span className='pl-2'> Submitting... </span>
+              /> <span className='pl-2'>  </span>
             </div>
-          </> : 'Submit'}
+          </> :
+            // 'Submit'
+            //Save
+            'Guardar'
+          }
         </Button>
       </Modal.Footer>
     </Modal>
@@ -87,15 +124,37 @@ function MyVerticallyCenteredModalForEdit(props) {
       centered
       onHide={props.onHide}
     >
-      <Modal.Header closeButton  >
-        <Modal.Title id="contained-modal-title-vcenter">
-          <span ><FaRegUser /> About Me </span>
+      <Modal.Header
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+        }}
+        closeButton
+      >
+        <Modal.Title id="contained-modal-title-vcenter"
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
+        >
+          <FaRegUser
+            size={'20'}
+          />
+          {/* About Me  */}
+          <h5 className='mt-2'>
+            Sobre mi
+          </h5>
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <h6><b> Wow the recruiters </b></h6>
+        <h6>
+          {/* <b> Wow the recruiters </b> */}
+          <b> Impresiona a los reclutadores </b>
+        </h6>
         <p>
-          Imagine that you're meeting the CEO of your dream company. What should you say to amaze them?
+          {/* Imagine that you're meeting the CEO of your dream company. What should you say to amaze them? */}
+          Imagina que te encuentras con el CEO de tu empresa soñada. ¿Qué deberías decir para impresionarlos?
         </p>
         <form>
           <div class="form-group">
@@ -104,7 +163,8 @@ function MyVerticallyCenteredModalForEdit(props) {
               id="exampleFormControlTextarea1"
               value={props.value}
               onChange={(e) => props.changevalue(e.target.value)}
-              placeholder='Write a short and sweet introduction about yourself to catch recruiters attention.'
+              // placeholder='Write a short and sweet introduction about yourself to catch recruiters attention.'
+              placeholder='Escribe una introducción corta y dulce sobre ti para captar la atención de los reclutadores.'
               rows="3"
             >
             </textarea>
@@ -112,16 +172,22 @@ function MyVerticallyCenteredModalForEdit(props) {
         </form>
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={(event) => { event.stopPropagation(); props.onHide(); }} className='btn btn-secondary'> Close</Button>
+        <Button onClick={(event) => { event.stopPropagation(); props.onHide(); }} className='btn btn-secondary'>
+          {/* Close */}
+          Cerrar
+        </Button>
         <Button onClick={props.deletevalue} className='btn btn-danger' >
           {props.loadingdel ? <>
             <div className='d-flex'>
               <PuffLoader
                 size={25}
                 color="#ffffff"
-              /> <span className='pl-2'> Removing ... </span>
+              /> <span className='pl-2'> </span>
             </div>
-          </> : 'Remove Intro'}
+          </> :
+            // 'Remove Intro'
+            'Eliminar Introducción'
+          }
 
         </Button>
         <Button onClick={props.submithandler}>
@@ -130,9 +196,12 @@ function MyVerticallyCenteredModalForEdit(props) {
               <PuffLoader
                 size={25}
                 color="#ffffff"
-              /> <span className='pl-2'> Submitting... </span>
+              /> <span className='pl-2'> </span>
             </div>
-          </> : 'Edit'}
+          </> :
+            // 'Save'
+            'Guardar'
+          }
         </Button>
       </Modal.Footer>
     </Modal>
@@ -304,7 +373,10 @@ const UserProfile = () => {
           <div className='mt-3 col-md-4' style={{ position: 'sticky', top: '0', height: '100vh', marginTop: '2vw' }}>
             <div class="card" style={{ width: '18rem' }}>
               <div class="card-body">
-                <h5 class="card-title">Quick Links</h5>
+                <h5 class="card-title">
+                  {/* Quick Links */}
+                  Acceso rápido
+                </h5>
                 {/* All Links */}
                 <ul className="list-group list-group-flush">
                   <li className="list-group-item">
@@ -315,7 +387,8 @@ const UserProfile = () => {
                       className="card-link"
                       style={{ cursor: 'pointer' }}
                     >
-                      Profile
+                      {/* Profile */}
+                      Perfil
                     </Link>
                   </li>
                   <li className="list-group-item">
@@ -326,7 +399,8 @@ const UserProfile = () => {
                       className="card-link"
                       style={{ cursor: 'pointer' }}
                     >
-                      Experience
+                      {/* Experience */}
+                      Experiencia
                     </Link>
                   </li>
                   <li className="list-group-item">
@@ -337,7 +411,8 @@ const UserProfile = () => {
                       className="card-link"
                       style={{ cursor: 'pointer' }}
                     >
-                      Education
+                      {/* Education */}
+                      Educación
                     </Link>
                   </li>
                   <li className="list-group-item">
@@ -348,21 +423,22 @@ const UserProfile = () => {
                       className="card-link"
                       style={{ cursor: 'pointer' }}
                     >
-                      Skills
+                      {/* Skills */}
+                      Habilidades
                     </Link>
                   </li>
                   {
-                  /* <li className="list-group-item">
-                    <Link
-                      to="projectscroll"
-                      smooth={true}
-                      duration={1000}
-                      className="card-link"
-                      style={{ cursor: 'pointer' }}
-                    >
-                      Projects
-                    </Link>
-                  </li> */
+                    /* <li className="list-group-item">
+                      <Link
+                        to="projectscroll"
+                        smooth={true}
+                        duration={1000}
+                        className="card-link"
+                        style={{ cursor: 'pointer' }}
+                      >
+                        Projects
+                      </Link>
+                    </li> */
                   }
 
                   <li className="list-group-item">
@@ -373,7 +449,8 @@ const UserProfile = () => {
                       className="card-link"
                       style={{ cursor: 'pointer' }}
                     >
-                      Liscence and Certification
+                      {/* Liscence and Certification */}
+                      Certificados y Titulaciones
                     </Link>
                   </li>
 
@@ -386,7 +463,8 @@ const UserProfile = () => {
                       className="card-link"
                       style={{ cursor: 'pointer' }}
                     >
-                      Languages
+                      {/* Languages */}
+                      Idiomas
                     </Link>
                   </li>
 
@@ -399,7 +477,8 @@ const UserProfile = () => {
                       className="card-link"
                       style={{ cursor: 'pointer' }}
                     >
-                      Additional Information
+                      {/* Additional Information */}
+                      Información Adicional
                     </Link>
                   </li>
 
@@ -412,7 +491,8 @@ const UserProfile = () => {
                       className="card-link"
                       style={{ cursor: 'pointer' }}
                     >
-                      Resume
+                      {/* Resume */}
+                      Currículum
                     </Link>
                   </li>
                 </ul>
@@ -469,7 +549,10 @@ const UserProfile = () => {
                     <div className="card w-100">
                       <div className="card-body text-center">
                         <i className='fa-solid fa-plus'></i>
-                        <p className='card-text'> Briefly Introduce Yourself  </p>
+                        <p className='card-text'>
+                          {/* Briefly Introduce Yourself */}
+                          Preséntese brevemente
+                        </p>
 
 
                         {/* Modal Start  */}
@@ -495,7 +578,10 @@ const UserProfile = () => {
                   >
                     <div className="card-body ">
                       <div className='row'>
-                        <h5 className="card-title ml-3 ">About Me</h5>
+                        <h5 className="card-title ml-3 ">
+                          {/* About Me */}
+                          Sobre mi
+                        </h5>
                         <div className='mt-1' style={{ cursor: 'pointer' }} onClick={() => setModalShow(true)}>
                           <RxPencil1 style={{ marginLeft: '10px' }} />
                         </div>
@@ -525,13 +611,116 @@ const UserProfile = () => {
                 )
             }
 
-            <UserExperience />
-            <UserEducation />
-            <KeySkills />
-            <UserCertifications />
-            <UserLanguages />
-            <AdditionalUserInfo />
-            <UploadUserCV />
+            {/* <UserExperience /> */}
+            <Suspense fallback={
+              <div style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                marginTop: '30px'
+              }}>
+                <PuffLoader
+                  size={60}
+                  color="#f50057"
+                />
+              </div>
+            }>
+              <UserExperience />
+            </Suspense>
+            <Suspense fallback={
+              <div style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                marginTop: '30px'
+              }}>
+                <PuffLoader
+                  size={60}
+                  color="#f50057"
+                />
+              </div>
+            }>
+              <UserEducation />
+            </Suspense>
+
+
+            <Suspense fallback={
+              <div style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                marginTop: '30px'
+              }}>
+                <PuffLoader
+                  size={60}
+                  color="#f50057"
+                />
+              </div>
+            }>
+              <KeySkills />
+            </Suspense>
+
+
+            <Suspense fallback={
+              <div style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                marginTop: '30px'
+              }}>
+                <PuffLoader
+                  size={60}
+                  color="#f50057"
+                />
+              </div>
+            }>
+              <UserCertifications />
+            </Suspense>
+            <Suspense fallback={
+              <div style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                marginTop: '30px'
+              }}>
+                <PuffLoader
+                  size={60}
+                  color="#f50057"
+                />
+              </div>
+            }>
+              <UserLanguages />
+            </Suspense>
+            <Suspense fallback={
+              <div style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                marginTop: '30px'
+              }}>
+                <PuffLoader
+                  size={60}
+                  color="#f50057"
+                />
+              </div>
+            }>
+              <AdditionalUserInfo />
+            </Suspense>
+            <Suspense fallback={
+              <div style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                marginTop: '30px'
+              }}>
+                <PuffLoader
+                  size={60}
+                  color="#f50057"
+                />
+              </div>
+            }>
+              <UploadUserCV />
+            </Suspense>
           </div>
         </div>
         <div className='row'>

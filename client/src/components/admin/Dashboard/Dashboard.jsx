@@ -6,6 +6,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import { Button, ButtonGroup } from '@chakra-ui/react'
 
 // files
+import styles from './Dashboard.module.css'
 import { DeleteATip } from '../../../redux/actions/tipsAdmin';
 import { GetTips } from '../../../redux/actions/tipsAdmin'
 
@@ -58,53 +59,16 @@ const Dashboard = () => {
 
 
     return (
-
-        // <div>
-        //     <div className='container'>
-        //         <h2 className='pt-4 mb-4'> Admin Dashboard  </h2>
-        //         <button className='btn btn-primary'>
-        //             <NavLink to='/admintips'  >
-        //                 Add a new Tip
-        //             </NavLink>
-        //         </button>
-        //         <button className='ml-2 btn btn-primary'> 
-        //             <NavLink to='/adminjobs'  >
-        //                 Update existing Tip
-        //             </NavLink>
-        //         </button>
-
-        //     </div>
-
-        // </div>
-
-
-
-        // Get all states 
-        // const state = useSelector((state) => state)
-
-        // const state = useSelector((state) => state)
-        // console.log("This is currentTip \n : ")
-        // console.log(state);
-
-        // Check for first Tip 
-        // if (AllTips.result) {
-        //     console.log("The first tip is: ", AllTips.result[0]);
-        // }
-
         <>
             <Toaster />
             <div className='container'>
-                <div>
-                </div>
-
-
                 <h2 className='pt-1 mb-1'> Tips Dashboard  </h2>
                 <NavLink to='/superadmin/tips/post' style={{ textDecoration: 'none', color: 'white' }} >
                     <button className='btn btn-success text-white mt-2'>
                         {/* <NavLink to='/admintips' style={{ textDecoration: 'none', color: 'white' }} > */}
                         <span style={{ fontSize: '20px' }}> + </span> Add New Tip
                     </button>
-                </NavLink>  
+                </NavLink>
             </div>
             <div className='container flex flex-wrap justify-center gap-4 mb-4 mt-5 pt-3'>
                 <div className="row">
@@ -112,7 +76,7 @@ const Dashboard = () => {
                         <div className="col-12 col-sm-6 col-md-6 col-lg-4" key={tip._id}>
                             <div className="card m-2" style={{ border: '1px solid #E4B49D' }}>
                                 <img className="card-img-top img-fluid" src={`${serverURL + tip.image}`} alt="Card image cap" style={imgStyleTipsSection} />
-                                <div className="card-body">
+                                <div className={`card-body ${styles.TipsParaDesc}`}>
                                     <h5 className="card-title text-center">{tip.title}</h5>
                                     <p className="card-text fw-light" style={{ opacity: 0.9 }}>{tip.shortDescription.substr(0, 150)}....</p>
                                     <div className='d-flex '>
@@ -120,8 +84,8 @@ const Dashboard = () => {
                                             colorScheme='red'
                                             onClick={() => handleDelete(tip._id)}
                                         >
-                                            Delete
-                                            <IoTrashBin style={{ marginLeft: '4px' }} />
+                                            {/* Delete */}
+                                            <IoTrashBin />
                                         </Button>
 
                                         <NavLink
@@ -130,9 +94,9 @@ const Dashboard = () => {
                                             to={`/superadmin/tips/update/${tip._id}`}
                                         >
                                             <Button colorScheme='blue' ml='4'>
-                                                Edit
+                                                {/* Edit */}
                                                 <FaPencil
-                                                    style={{ marginLeft: '6px' }}
+
                                                 />
                                             </Button>
                                         </NavLink>
@@ -143,9 +107,8 @@ const Dashboard = () => {
                                             target='_blank'
                                         >
                                             <Button colorScheme='messenger' ml='4'>
-                                                View
+                                                {/* View */}
                                                 <FaEye
-                                                    style={{ marginLeft: '6px' }}
                                                 />
                                             </Button>
                                         </NavLink>

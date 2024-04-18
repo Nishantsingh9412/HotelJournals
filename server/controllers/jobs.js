@@ -353,7 +353,7 @@ export const postJobs = async (req, res) => {
             job_location, mandatory_skills, optional_skills,
             joining_date, is_immediate, work_experience_min,
             work_experience_max, salary_specification, salary_start,
-            salary_end, no_of_openings, extra_benifits,
+            salary_end, no_of_openings,
             job_description, isExternal, job_link, created_by, recruiter_info
         } = req.body;
 
@@ -398,7 +398,6 @@ export const postJobs = async (req, res) => {
                 salaryStart: salary_start,
                 salaryEnd: salary_end,
                 no_of_openings,
-                extraBenifits: extra_benifits,
                 jobDescription: job_description,
                 isExternal,
                 jobLink: job_link,
@@ -443,7 +442,6 @@ export const getAllJobs = async (req, res) => {
                 salaryStart: singleJob.salaryStart,
                 salaryEnd: singleJob.salaryEnd,
                 no_of_openings: singleJob.no_of_openings,
-                extraBenifits: singleJob.extraBenifits,
                 jobDescription: singleJob.jobDescription,
                 isExternal: singleJob.isExternal,
                 jobLink: singleJob.jobLink,
@@ -496,7 +494,6 @@ export const getAllJobsForSuperAdmin = async (req, res) => {
                 salaryStart: singleJob.salaryStart,
                 salaryEnd: singleJob.salaryEnd,
                 no_of_openings: singleJob.no_of_openings,
-                extraBenifits: singleJob.extraBenifits,
                 jobDescription: singleJob.jobDescription,
                 isExternal: singleJob.isExternal,
                 isVerifiedJob: singleJob.isVerifiedJob,
@@ -546,7 +543,7 @@ export const editJob = async (req, res) => {
         job_location, mandatory_skills, optional_skills,
         joining_date, is_immediate, work_experience_min,
         work_experience_max, salary_specification, salary_start,
-        salary_end, no_of_openings, extra_benifits,
+        salary_end, no_of_openings,
         job_description, isExternal, job_link
     } = req.body;
 
@@ -568,7 +565,6 @@ export const editJob = async (req, res) => {
                 'salaryStart': salary_start,
                 'salaryEnd': salary_end,
                 'no_of_openings': no_of_openings,
-                'extraBenifits': extra_benifits,
                 'jobDescription': job_description,
                 'isExternal': isExternal,
                 'jobLink': job_link

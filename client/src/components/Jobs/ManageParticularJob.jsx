@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { FaEye, FaUserCheck, FaUserTimes } from 'react-icons/fa';
+import { FaTelegramPlane } from "react-icons/fa";
 // Toast
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -19,6 +20,7 @@ import {
     DrawerCloseButton,
     useDisclosure,
     Button,
+    Heading,
 } from '@chakra-ui/react'
 
 import { Modal, Button as ButtonBoots } from 'react-bootstrap';
@@ -131,7 +133,7 @@ const IconCell = ({ tableManager, value, field, data, column, colIndex, rowIndex
         //     applicants={data}
         // />
         // </div>
-        console.log(`Applicant ID: ${data._id}, Icon Name: UserCheck`)
+        // console.log(`Applicant ID: ${data._id}, Icon Name: UserCheck`)
     }
 
     const handleRejected = async (e) => {
@@ -144,9 +146,12 @@ const IconCell = ({ tableManager, value, field, data, column, colIndex, rowIndex
         const response = await dispatch(UpdateCandidStatsAction(updatedStatsUser))
         if (response.success) {
             dispatch(getJobSingleAction(id))
-            toast.success('Applicant Rejected Successfully')
+            // toast.success('Applicant Rejected Successfully')
+            toast.success('Candidato/a Rechazado/a Correctamente')
         } else {
-            toast.error('Applicant Not Rejected Try Again')
+            // toast.error('Applicant Not Rejected Try Again')
+            toast.error('Candidato/a No Rechazado/a Inténtalo de Nuevo')
+
         }
         // console.log("All params")
         // const allParams = [id, data._id, 'Rejected'];
@@ -164,9 +169,11 @@ const IconCell = ({ tableManager, value, field, data, column, colIndex, rowIndex
         const response = await dispatch(UpdateCandidStatsAction(updatedStatsUser));
         if (response.success) {
             await dispatch(getJobSingleAction(id))
-            toast.success('Applicant Hired Successfully')
+            // toast.success('Applicant Hired Successfully')
+            toast.success('Candidato/a Seleccionado/a Correctamente')
         } else {
-            toast.error('Applicant Not Hired Try Again')
+            // toast.error('Applicant Not Hired Try Again')
+            toast.error('Candidato/a No Seleccionado/a Inténtalo de Nuevo')
         }
     }
 
@@ -220,29 +227,34 @@ const columns = [
     {
         id: 1,
         field: 'image/fname',
-        label: 'Image /First Name',
+        // label: 'Image /First Name',
+        label: 'Foto / Nombre',
         cellRenderer: FnameCell
     },
     {
         id: 2,
         field: 'lname',
-        label: 'Last Name',
+        // label: 'Last Name',
+        label:'Apellido'
     },
     {
         id: 3,
         field: 'email',
-        label: 'Email',
+        // label: 'Email',
+        label: 'Correo'
     },
     {
         id: 4,
         field: 'phone',
-        label: 'Phone Number',
+        // label: 'Phone Number',
+        label: 'Teléfono',
         cellRenderer: PhoneCell
     },
     {
         id: 5,
         field: 'actionStatus',
-        label: 'Action / Status',
+        // label: 'Action / Status',
+        label: 'Acción / Estado',
         width: '400px',
         cellRenderer: IconCell
 
@@ -319,19 +331,30 @@ function UserEmailModal(props) {
     const OneAndOnlyOneApplicant = applicant;
 
     const dispatch = useDispatch();
+    // const predefinedMessage =
+    //     `
+    // <p>Dear <b>${OneAndOnlyOneApplicant?.fname} ${OneAndOnlyOneApplicant?.lname}</b> </p>
+    // <p>We are delighted to share that your application has advanced to the next stage for the position of <strong>[Position Name]</strong> at <strong>[Company Name]</strong>.</p>
+    // <p>You have been selected for the <strong>[Next Round Name]</strong>. We encourage you to prepare thoroughly to make the most of this opportunity.</p>
+    // <p>Should you have any questions or need further information, please do not hesitate to contact us.</p>
+    // <p>Best Regards,</p>
+    // [Your Name]<br>
+    // [Your Position]<br>
+    // [Company Name]
+    // `;
+
+
     const predefinedMessage =
-        `
-    <p>Dear <b>${OneAndOnlyOneApplicant?.fname} ${OneAndOnlyOneApplicant?.lname}</b> </p>
-    <p>We are delighted to share that your application has advanced to the next stage for the position of <strong>[Position Name]</strong> at <strong>[Company Name]</strong>.</p>
-    <p>You have been selected for the <strong>[Next Round Name]</strong>. We encourage you to prepare thoroughly to make the most of this opportunity.</p>
-    <p>Should you have any questions or need further information, please do not hesitate to contact us.</p>
-    <p>Best Regards,</p>
-    [Your Name]<br>
-    [Your Position]<br>
-    [Company Name]
-    `;
-
-
+        `       
+    <p>Estimado <b>${OneAndOnlyOneApplicant?.fname} ${OneAndOnlyOneApplicant?.lname}</b> </p>
+    <p>Estamos encantados de compartir que su solicitud ha avanzado a la siguiente etapa para el puesto de <strong>[Nombre del puesto]</strong> en <strong>[Nombre de la empresa]</strong>.</p>
+    <p>Ha sido seleccionado para el <strong>[Nombre de la siguiente ronda]</strong>. Le animamos a prepararse a fondo para aprovechar al máximo esta oportunidad.</p>
+    <p>Si tiene alguna pregunta o necesita más información, no dude en ponerse en contacto con nosotros.</p>
+    <p>Atentamente,</p>
+    [Su nombre]<br>
+    [Su posición]<br>
+    [Nombre de la empresa]
+    `
 
 
     const modules = {
@@ -399,10 +422,33 @@ function UserEmailModal(props) {
             <Modal.Header closeButton>
                 <div style={{ textAlign: 'center' }}>
                     <Modal.Title id="contained-modal-title-vcenter">
-                        <p> <IoMdMail /> <p className='mt-1'>Send Mail </p>  </p>
+                        <div
+                            style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                flexDirection: 'column',
+                            }}
+                        >
+                            <div>
+                                <IoMdMail
+                                    style={{
+                                        color: '#00008B'
+                                    }}
+                                />
+                            </div>
+                            <h5 className='mt-1'>
+                                {/* Send Mail */}
+                                Enviar Correo
+                            </h5>
+                        </div>
                     </Modal.Title>
 
-                    <p className='text-muted'> <b>Note:</b> Sending promotional emails can lead to serious repercussions like debarment from listing future events on Hotel Journals.</p>
+                    <p className='text-muted'>
+                        {/* <b>Note:</b> */}
+                        {/* Sending promotional emails can lead to serious repercussions like debarment from listing future events on Hotel Journals. */}
+                        <b> Nota: </b>
+                        El envío de correos electrónicos promocionales puede acarrear graves repercusiones, como la exclusión de la lista de eventos futuros en Hotel Journals.
+                    </p>
                 </div>
             </Modal.Header>
             <Modal.Body>
@@ -411,7 +457,11 @@ function UserEmailModal(props) {
                     <form onSubmit={handleSubmitMail}>
                         <div className="form-group">
                             <div>
-                                <label className='ml-2 mt-3' htmlFor="to"> To <small className='text-danger'>*</small></label>
+                                <label className='ml-2 mt-3' htmlFor="to">
+                                    {/* To */}
+                                    Para
+                                    <small className='text-danger'>*</small>
+                                </label>
                                 <input
                                     type="email"
                                     className="form-control"
@@ -421,7 +471,11 @@ function UserEmailModal(props) {
                                 />
                             </div>
                             <div>
-                                <label className='ml-2 mt-3' htmlFor="subject"> Subject <small className='text-danger'>*</small> </label>
+                                <label className='ml-2 mt-3' htmlFor="subject">
+                                    {/* Subject */}
+                                    Asunto
+                                    <small className='text-danger'>*</small>
+                                </label>
                                 <input
                                     type='text'
                                     className="form-control"
@@ -430,7 +484,11 @@ function UserEmailModal(props) {
                                 />
                             </div>
                             <div>
-                                <label className='ml-2 mt-3' htmlFor="message"> Message <small className='text-danger'>*</small> </label>
+                                <label className='ml-2 mt-3' htmlFor="message">
+                                    {/* Message */}
+                                    Mensaje
+                                    <small className='text-danger'>*</small>
+                                </label>
                                 {/* <textarea
                                     className="form-control"
                                     onChange={(e) => setMessage(e.target.value)}
@@ -457,14 +515,27 @@ function UserEmailModal(props) {
                                         color="#ffffff"
                                     /> <span className='pl-2'> Sending ... </span>
                                 </div>
-                            </> : 'Send Mail'}
+                            </> :
+                                // 'Send Mail'
+                                <div className='d-flex'
+                                    style={{
+                                        alignItems: 'center',
+                                        gap: '4px'
+                                    }}>
+                                    <FaTelegramPlane/>
+                                    Enviar Correo
+                                </div>
+                            }
                         </button>
                     </form>
                 </div>
 
             </Modal.Body>
             <Modal.Footer>
-                <ButtonBoots onClick={props.onHide}>Close</ButtonBoots>
+                <ButtonBoots onClick={props.onHide}>
+                    {/* Close */}
+                    Cerrar
+                </ButtonBoots>
             </Modal.Footer>
         </Modal >
     );
@@ -611,35 +682,55 @@ const ManageParticularJob = () => {
 
                         <Tabs>
                             <TabList>
-                                <Tab>All ({appliedUsers?.length})</Tab>
-                                <Tab>Not Offered ({allNotOfferedCandidates?.length}) </Tab>
-                                <Tab>Offered  ({allOfferedCandidates?.length}) </Tab>
-                                <Tab>Hired ({allHiredCandidates?.length}) </Tab>
-                                <Tab>Rejected ({allRejectedCandidates?.length}) </Tab>
+                                <Tab>
+                                    {/* All */}
+                                    Todo
+                                    ({appliedUsers?.length})
+                                </Tab>
+                                <Tab>
+                                    {/* Not Offered */}
+                                    Sin Respuesta
+                                    ({allNotOfferedCandidates?.length})
+                                </Tab>
+                                <Tab>
+                                    {/* Offered */}
+                                    Respondidos
+                                    ({allOfferedCandidates?.length})
+                                </Tab>
+                                <Tab>
+                                    {/* Hired */}
+                                    Contratado/a
+                                    ({allHiredCandidates?.length})
+                                </Tab>
+                                <Tab>
+                                    {/* Rejected */}
+                                    Rechazado/a
+                                    ({allRejectedCandidates?.length})
+                                </Tab>
                             </TabList>
 
                             <TabPanels>
                                 <TabPanel>
-                                    All Okay
+                                    {/* All Okay */}
                                     <ApplicantsList2 applicants={appliedUsers} />
                                 </TabPanel>
                                 <TabPanel>
-                                    Not Offered
+                                    {/* Not Offered */}
                                     {/* <ApplicantsList2 applicants={notOfferedCandidates} /> */}
                                     <ApplicantsList2 applicants={allNotOfferedCandidates} />
                                 </TabPanel>
                                 <TabPanel>
-                                    Offered
+                                    {/* Offered */}
                                     {/* <ApplicantsList2 applicants={offeredCandidates} /> */}
                                     <ApplicantsList2 applicants={allOfferedCandidates} />
                                 </TabPanel>
                                 <TabPanel>
-                                    HIred
+                                    {/* HIred */}
                                     {/* <ApplicantsList2 applicants={hiredCandidates} /> */}
                                     <ApplicantsList2 applicants={allHiredCandidates} />
                                 </TabPanel>
                                 <TabPanel>
-                                    Rejected
+                                    {/* Rejected */}
                                     {/* <ApplicantsList2 applicants={RejectedCandidates} /> */}
                                     <ApplicantsList2 applicants={allRejectedCandidates} />
                                 </TabPanel>

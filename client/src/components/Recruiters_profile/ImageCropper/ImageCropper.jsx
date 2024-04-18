@@ -216,12 +216,16 @@ const ImageCropper = ({ closeModal, updateAvatar , oldImageURL}) => {
           }}
         />
       </label>
-      <p className="text-white">Supported file format: png, jpg, jpeg, gif - up to 2MB</p>
+      <p className="text-white">
+        {/* Supported file format: png, jpg, jpeg, gif - up to 2MB */}
+        Formato : png, jpg, jpeg, gif - hasta 2MB
+        </p>
       <Button
         onClick={handleDeleteImage}
         isLoading={delLoading}
       >
-        Delete Current Image
+        {/* Delete Current Image */}
+        Eliminar Imagen Actual
       </Button>
       {error && <p style={{ color: '#FC8181', fontSize: '0.75rem' }}>{error}</p>}
       {imgSrc && (

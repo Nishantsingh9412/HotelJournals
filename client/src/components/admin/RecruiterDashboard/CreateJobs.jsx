@@ -19,7 +19,7 @@ import { getRecProfileAction } from '../../../redux/actions/recProfile.js';
 import { useNavigate } from 'react-router-dom';
 
 const CreateJobs = () => {
-  
+
   let localUser;
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -44,7 +44,7 @@ const CreateJobs = () => {
   const [salaryCurrency, setSalaryCurrency] = useState('');
   const [maxSalary, setMaxSalary] = useState(0);
   const [noOfOpenings, setNoOfOpenings] = useState(0);
-  const [extraBenifitsVal, setExtraBenifitsVal] = useState([]);
+  // const [extraBenifitsVal, setExtraBenifitsVal] = useState([]);
   const [isExternalLink, setIsExternalLink] = useState(false);
   const [jobLink, setJobLink] = useState('');
 
@@ -58,7 +58,7 @@ const CreateJobs = () => {
   const [selectedState, setSelectedState] = useState('');
 
   const [citiesAll, setCitiesAll] = useState([]);
-  const [citiesLoading, setCitiesLoading] = useState(false);
+  // const [citiesLoading, setCitiesLoading] = useState(false);
 
   const [selectedCity, setSelectedCity] = useState('');
 
@@ -72,87 +72,93 @@ const CreateJobs = () => {
     }
   }
 
+  // useEffect(() => {
+  //   if (jobType === 'Remote') {
+  //     setJobLocation('Remote');
+  //   }
+  // }, [jobType])
+
   useEffect(() => {
-    if (jobType === 'Remote') {
-      setJobLocation('Remote');
+    if (jobType === 'Remoto') {
+      setJobLocation('Remoto');
     }
   }, [jobType])
 
-  const loadCountries = async () => {
+  // const loadCountries = async () => {
 
-    const response = await axios.get('https://api.countrystatecity.in/v1/countries', {
-      headers: {
-        'X-CSCAPI-KEY': process.env.REACT_APP_CSC_API_KEY
-      }
-    });
-    console.log('countres')
-    console.log(response);
-    const countriesData = response?.data?.map((country) =>
-    ({
-      value: country.name,
-      label: country.name,
-      iso2: country.iso2
-    }));
+  //   const response = await axios.get('https://api.countrystatecity.in/v1/countries', {
+  //     headers: {
+  //       'X-CSCAPI-KEY': process.env.REACT_APP_CSC_API_KEY
+  //     }
+  //   });
+  //   console.log('countres')
+  //   console.log(response);
+  //   const countriesData = response?.data?.map((country) =>
+  //   ({
+  //     value: country.name,
+  //     label: country.name,
+  //     iso2: country.iso2
+  //   }));
 
-    setCountriesAll(countriesData);
-  }
+  //   setCountriesAll(countriesData);
+  // }
 
-  const loadStates = async () => {
-    setStatesLoading(true);
-    const response = await axios.get(`https://api.countrystatecity.in/v1/countries/${selectedCountry}/states`, {
-      headers: {
-        'X-CSCAPI-KEY': process.env.REACT_APP_CSC_API_KEY
-      }
-    });
-    if (response) {
-      const statesData = response?.data?.map((state) =>
-      ({
-        value: state.name,
-        label: state.name,
-        iso2: state.iso2
-      }));
-      setStatesAll(statesData);
-      setStatesLoading(false);
-    }
-  }
+  // const loadStates = async () => {
+  //   setStatesLoading(true);
+  //   const response = await axios.get(`https://api.countrystatecity.in/v1/countries/${selectedCountry}/states`, {
+  //     headers: {
+  //       'X-CSCAPI-KEY': process.env.REACT_APP_CSC_API_KEY
+  //     }
+  //   });
+  //   if (response) {
+  //     const statesData = response?.data?.map((state) =>
+  //     ({
+  //       value: state.name,
+  //       label: state.name,
+  //       iso2: state.iso2
+  //     }));
+  //     setStatesAll(statesData);
+  //     setStatesLoading(false);
+  //   }
+  // }
 
-  const loadCities = async () => {
-    setCitiesLoading(true);
-    const response = await axios.get(`https://api.countrystatecity.in/v1/countries/${selectedCountry}/states/${selectedState}/cities`, {
-      headers: {
-        'X-CSCAPI-KEY': process.env.REACT_APP_CSC_API_KEY
-      }
-    });
+  // const loadCities = async () => {
+  //   setCitiesLoading(true);
+  //   const response = await axios.get(`https://api.countrystatecity.in/v1/countries/${selectedCountry}/states/${selectedState}/cities`, {
+  //     headers: {
+  //       'X-CSCAPI-KEY': process.env.REACT_APP_CSC_API_KEY
+  //     }
+  //   });
 
-    if (response) {
-      const citiesData = response.data.map((city) =>
-      ({
-        value: city.name,
-        label: city.name
-      }));
+  //   if (response) {
+  //     const citiesData = response.data.map((city) =>
+  //     ({
+  //       value: city.name,
+  //       label: city.name
+  //     }));
 
-      setCitiesAll(citiesData);
-      setCitiesLoading(false);
-    }
-  }
+  //     setCitiesAll(citiesData);
+  //     setCitiesLoading(false);
+  //   }
+  // }
 
 
-  useEffect(() => {
-    if (selectedCountry) {
-      loadStates();
-    }
-  }, [selectedCountry])
+  // useEffect(() => {
+  //   if (selectedCountry) {
+  //     loadStates();
+  //   }
+  // }, [selectedCountry])
 
-  useEffect(() => {
-    if (selectedState) {
-      loadCities();
-    }
-  }, [selectedState])
+  // useEffect(() => {
+  //   if (selectedState) {
+  //     loadCities();
+  //   }
+  // }, [selectedState])
 
-  useEffect(() => {
-    loadCountries();
-    // dispatch(GetJobs())
-  }, [dispatch]);
+  // useEffect(() => {
+  //   loadCountries();
+  //   // dispatch(GetJobs())
+  // }, [dispatch]);
 
   // const getCities = async () => {
   //   const response = await axios.get('https://countriesnow.space/api/v0.1/countries/cities/q?country=germany');
@@ -183,64 +189,156 @@ const CreateJobs = () => {
   // }));
 
 
+  // const skills = [
+  //   { value: 'Administrative Skills', label: 'Administrative Skills' },
+  //   { value: 'Attention to Detail', label: 'Attention to Detail' },
+  //   { value: 'Bartending Skills', label: 'Bartending Skills' },
+  //   { value: 'Budgeting', label: 'Budgeting' },
+  //   { value: 'Cash Handling', label: 'Cash Handling' },
+  //   { value: 'Cleaning Techniques', label: 'Cleaning Techniques' },
+  //   { value: 'Client Relationship Management', label: 'Client Relationship Management' },
+  //   { value: 'Communication Skills', label: 'Communication Skills' },
+  //   { value: 'Contract Management', label: 'Contract Management' },
+  //   { value: 'Culinary Skills', label: 'Culinary Skills' },
+  //   { value: 'Customer Service', label: 'Customer Service' },
+  //   { value: 'Data Analysis', label: 'Data Analysis' },
+  //   { value: 'Decision-Making', label: 'Decision-Making' },
+  //   { value: 'Destination Knowledge', label: 'Destination Knowledge' },
+  //   { value: 'Employee Relations', label: 'Employee Relations' },
+  //   { value: 'Event Planning', label: 'Event Planning' },
+  //   { value: 'Financial Analysis', label: 'Financial Analysis' },
+  //   { value: 'Financial Reporting', label: 'Financial Reporting' },
+  //   { value: 'Front Office Operations', label: 'Front Office Operations' },
+  //   { value: 'HR Policies and Procedures', label: 'HR Policies and Procedures' },
+  //   { value: 'Housekeeping Management', label: 'Housekeeping Management' },
+  //   { value: 'Inventory Management', label: 'Inventory Management' },
+  //   { value: 'Leadership', label: 'Leadership' },
+  //   { value: 'Market Research', label: 'Market Research' },
+  //   { value: 'Marketing Strategy', label: 'Marketing Strategy' },
+  //   { value: 'Menu Knowledge', label: 'Menu Knowledge' },
+  //   { value: 'Menu Planning', label: 'Menu Planning' },
+  //   { value: 'Negotiation Skills', label: 'Negotiation Skills' },
+  //   { value: 'Order Taking', label: 'Order Taking' },
+  //   { value: 'Organization', label: 'Organization' },
+  //   { value: 'Performance Management', label: 'Performance Management' },
+  //   { value: 'Problem-Solving Skills', label: 'Problem-Solving Skills' },
+  //   { value: 'Recruitment', label: 'Recruitment' },
+  //   { value: 'Reservations Management', label: 'Reservations Management' },
+  //   { value: 'Restaurant Operations', label: 'Restaurant Operations' },
+  //   { value: 'Sales Techniques', label: 'Sales Techniques' },
+  //   { value: 'Strategic Planning', label: 'Strategic Planning' },
+  //   { value: 'Supplier Management', label: 'Supplier Management' },
+  //   { value: 'Technical Skills', label: 'Technical Skills' },
+  //   { value: 'Time Management', label: 'Time Management' },
+  //   { value: 'Tour Planning', label: 'Tour Planning' },
+  //   { value: 'Training and Development', label: 'Training and Development' },
+  //   { value: 'Upselling', label: 'Upselling' },
+  //   { value: 'Writing Skills', label: 'Writing Skills' },
+  // ];
+
   const skills = [
-    { value: 'Administrative Skills', label: 'Administrative Skills' },
-    { value: 'Attention to Detail', label: 'Attention to Detail' },
-    { value: 'Bartending Skills', label: 'Bartending Skills' },
-    { value: 'Budgeting', label: 'Budgeting' },
-    { value: 'Cash Handling', label: 'Cash Handling' },
+    { value: 'Administración de Suministros', label: 'Administración de Suministros' },
+    { value: 'Administrativas', label: 'Administrativas' },
+    { value: 'Árabe', label: 'Árabe' },
+    { value: 'Alemán', label: 'Alemán' },
+    { value: 'Análisis de Datos', label: 'Análisis de Datos' },
+    { value: 'Análisis Financiero', label: 'Análisis Financiero' },
+    { value: 'Atención al detalle', label: 'Atención al detalle' },
+    { value: 'Bartending', label: 'Bartending' },
+    { value: 'Buenas Relaciones con Empleados', label: 'Buenas Relaciones con Empleados' },
+    { value: 'Catalán', label: 'Catalán' },
+    { value: 'Checo', label: 'Checo' },
     { value: 'Cleaning Techniques', label: 'Cleaning Techniques' },
     { value: 'Client Relationship Management', label: 'Client Relationship Management' },
     { value: 'Communication Skills', label: 'Communication Skills' },
+    { value: 'Conocimiento de Contratación', label: 'Conocimiento de Contratación' },
+    { value: 'Conocimiento de Destinos', label: 'Conocimiento de Destinos' },
+    { value: 'Conocimiento de Inventario', label: 'Conocimiento de Inventario' },
+    { value: 'Conocimiento de Menú', label: 'Conocimiento de Menú' },
+    { value: 'Conocimiento Offices', label: 'Conocimiento Offices' },
+    { value: 'Conocimiento PMS', label: 'Conocimiento PMS' },
     { value: 'Contract Management', label: 'Contract Management' },
-    { value: 'Culinary Skills', label: 'Culinary Skills' },
+    { value: 'Creación de Menú', label: 'Creación de Menú' },
     { value: 'Customer Service', label: 'Customer Service' },
     { value: 'Data Analysis', label: 'Data Analysis' },
     { value: 'Decision-Making', label: 'Decision-Making' },
-    { value: 'Destination Knowledge', label: 'Destination Knowledge' },
-    { value: 'Employee Relations', label: 'Employee Relations' },
+    { value: 'Dirección de Pisos', label: 'Dirección de Pisos' },
+    { value: 'Dirección de Reservas', label: 'Dirección de Reservas' },
+    { value: 'Documentos Financieros', label: 'Documentos Financieros' },
+    { value: 'Estrategía de Marketing', label: 'Estrategía de Marketing' },
+    { value: 'Estudio Curso Profesional', label: 'Estudio Curso Profesional' },
+    { value: 'Estudio de Máster', label: 'Estudio de Máster' },
+    { value: 'Español', label: 'Español' },
+    { value: 'Estudio Universitario', label: 'Estudio Universitario' },
     { value: 'Event Planning', label: 'Event Planning' },
     { value: 'Financial Analysis', label: 'Financial Analysis' },
     { value: 'Financial Reporting', label: 'Financial Reporting' },
+    { value: 'Formación y Desarrollo', label: 'Formación y Desarrollo' },
+    { value: 'FP', label: 'FP' },
+    { value: 'Francés', label: 'Francés' },
     { value: 'Front Office Operations', label: 'Front Office Operations' },
+    { value: 'Gestión de Rendimiento', label: 'Gestión de Rendimiento' },
+    { value: 'Habilidades Comunicativas', label: 'Habilidades Comunicativas' },
+    { value: 'Habilidades Culinarias', label: 'Habilidades Culinarias' },
+    { value: 'Habilidades de Escritura', label: 'Habilidades de Escritura' },
+    { value: 'Habilidades para Negociar', label: 'Habilidades para Negociar' },
+    { value: 'Habilidades Técnicas', label: 'Habilidades Técnicas' },
     { value: 'HR Policies and Procedures', label: 'HR Policies and Procedures' },
-    { value: 'Housekeeping Management', label: 'Housekeeping Management' },
-    { value: 'Inventory Management', label: 'Inventory Management' },
-    { value: 'Leadership', label: 'Leadership' },
+    { value: 'Inglés', label: 'Inglés' },
+    { value: 'Investigación de mercados', label: 'Investigación de mercados' },
+    { value: 'Italiano', label: 'Italiano' },
+    { value: 'Japonés', label: 'Japonés' },
+    { value: 'Liderazgo', label: 'Liderazgo' },
+    { value: 'Mandarín', label: 'Mandarín' },
+    { value: 'Manejo del Tiempo', label: 'Manejo del Tiempo' },
     { value: 'Market Research', label: 'Market Research' },
     { value: 'Marketing Strategy', label: 'Marketing Strategy' },
-    { value: 'Menu Knowledge', label: 'Menu Knowledge' },
-    { value: 'Menu Planning', label: 'Menu Planning' },
     { value: 'Negotiation Skills', label: 'Negotiation Skills' },
+    { value: 'Operaciones de Front Office', label: 'Operaciones de Front Office' },
+    { value: 'Operaciones de Restauración', label: 'Operaciones de Restauración' },
     { value: 'Order Taking', label: 'Order Taking' },
-    { value: 'Organization', label: 'Organization' },
+    { value: 'Organización', label: 'Organización' },
+    { value: 'Otro Idioma', label: 'Otro Idioma' },
     { value: 'Performance Management', label: 'Performance Management' },
+    { value: 'Plan Estratégico', label: 'Plan Estratégico' },
+    { value: 'Plan de Eventos', label: 'Plan de Eventos' },
+    { value: 'Planificación de Viajes', label: 'Planificación de Viajes' },
+    { value: 'Portugués', label: 'Portugués' },
+    { value: 'Presupuestar', label: 'Presupuestar' },
     { value: 'Problem-Solving Skills', label: 'Problem-Solving Skills' },
-    { value: 'Recruitment', label: 'Recruitment' },
-    { value: 'Reservations Management', label: 'Reservations Management' },
-    { value: 'Restaurant Operations', label: 'Restaurant Operations' },
-    { value: 'Sales Techniques', label: 'Sales Techniques' },
-    { value: 'Strategic Planning', label: 'Strategic Planning' },
+    { value: 'Procedimientos de Recursos Humanos', label: 'Procedimientos de Recursos Humanos' },
+    { value: 'Recibir Comandas', label: 'Recibir Comandas' },
+    { value: 'Recrutamiento', label: 'Recrutamiento' },
+    { value: 'Redes Sociales', label: 'Redes Sociales' },
+    { value: 'Relación con Clientes', label: 'Relación con Clientes' },
+    { value: 'Resolución de Problemas', label: 'Resolución de Problemas' },
+    { value: 'Reclutamiento', label: 'Reclutamiento' },
+    { value: 'Ruso', label: 'Ruso' },
+    { value: 'Sueco', label: 'Sueco' },
     { value: 'Supplier Management', label: 'Supplier Management' },
-    { value: 'Technical Skills', label: 'Technical Skills' },
+    { value: 'Técnicas de Limpieza', label: 'Técnicas de Limpieza' },
+    { value: 'Técnicas de Ventas', label: 'Técnicas de Ventas' },
     { value: 'Time Management', label: 'Time Management' },
+    { value: 'Toma de Decisiones', label: 'Toma de Decisiones' },
     { value: 'Tour Planning', label: 'Tour Planning' },
     { value: 'Training and Development', label: 'Training and Development' },
+    { value: 'Finlandez', label: 'Finlandez ' },
     { value: 'Upselling', label: 'Upselling' },
-    { value: 'Writing Skills', label: 'Writing Skills' },
+    { value: 'Ucraniano', label: 'Ucraniano' },
+    { value: 'Vasco', label: 'Vasco' },
   ];
 
 
-  const extraBenifits = [
-    { value: 'Health Insurance', label: 'Health Insurance' },
-    { value: 'Life Insurance', label: 'Life Insurance' },
-    { value: 'Paid Leave', label: 'Paid Leave' },
-    { value: 'Work From Home', label: 'Work From Home' },
-    { value: 'Flexible Hours', label: 'Flexible Hours' },
-    { value: 'Free Food', label: 'Free Food' },
-    { value: 'Free Coffee', label: 'Free Coffee' },
-    { value: 'Free Snacks', label: 'Free Snacks' },
-  ]
+  // const extraBenifits = [
+  //   { value: 'Health Insurance', label: 'Health Insurance' },
+  //   { value: 'Life Insurance', label: 'Life Insurance' },
+  //   { value: 'Paid Leave', label: 'Paid Leave' },
+  //   { value: 'Work From Home', label: 'Work From Home' },
+  //   { value: 'Flexible Hours', label: 'Flexible Hours' },
+  //   { value: 'Free Food', label: 'Free Food' },
+  //   { value: 'Free Coffee', label: 'Free Coffee' },
+  //   { value: 'Free Snacks', label: 'Free Snacks' },
+  // ]
 
   const storedProfile = JSON.parse(localStorage.getItem('Profile'));
   localUser = storedProfile?.result?._id;
@@ -248,7 +346,7 @@ const CreateJobs = () => {
 
   useEffect(() => {
     if (localUser) {
-     dispatch(getRecProfileAction(localUser));
+      dispatch(getRecProfileAction(localUser));
     }
   }, [localUser])
 
@@ -331,12 +429,12 @@ const CreateJobs = () => {
         salary_start: minSalary,
         salary_end: maxSalary,
         no_of_openings: noOfOpenings,
-        extra_benifits: extraBenifitsVal,
+        // extra_benifits: extraBenifitsVal,
         job_description: sanitizedJobDescription,
         isExternal: isExternalLink,
         job_link: jobLink,
         created_by: localUser,
-        recruiter_info:recruiter_info_id
+        recruiter_info: recruiter_info_id
       }
 
       console.log(jobsData)
@@ -354,9 +452,6 @@ const CreateJobs = () => {
       console.log(`this is from console.log ${error}`);
       // toast.error(`Job Posting Failed: ${error}`)
     }
-
-
-  
   }
 
 
@@ -374,76 +469,141 @@ const CreateJobs = () => {
               <div className='form-row '>
 
                 <div className='col-md-4'>
-                  <label htmlFor="job_title"> Job Title  <small className='text-danger'> * </small> </label>
-                  {/* <input type='text' className='form-control' placeholder='Job Title' onChange={(e) => setJobTitle(e.target.value)} /> */}
-                  <select className='form-control' onChange={(e) => setJobTitle(e.target.value)} >
-                    <option value="" > Select </option>
-                    <option value="F & B Kitchen">F & B Kitchen</option>
-                    <option value="F & B Services">F & B Services</option>
-                    <option value="Finance & Marketing">Finance & Marketing</option>
+                  <label htmlFor="job_title">
+                    {/* Job Title */}
+                    Puesto
+                    <small className='text-danger'> * </small>
+                  </label>
+                  <select
+                    className='form-control'
+                    onChange={(e) => setJobTitle(e.target.value)} >
+                    {/* <optgroup label="English">
+                      <option value="F & B Kitchen">F & B Kitchen</option>
+                      <option value="F & B Services">F & B Services</option>
+                      <option value="Finance & Marketing">Finance & Marketing</option>
+                      <option value="Guest Relations">Guest Relations</option>
+                      <option value="Host/Hostess">Host/Hostess</option>
+                      <option value="Housekeeping">Housekeeping</option>
+                      <option value="Human Resources">Human Resources</option>
+                      <option value="Maintenance">Maintenance</option>
+                      <option value="Management">Management</option>
+                      <option value="Marketing">Marketing</option>
+                      <option value="Other">Other</option>
+                      <option value="Pastry">Pastry</option>
+                      <option value="Porter">Porter</option>
+                      <option value="Project Management">Project Management</option>
+                      <option value="Public Relations">Public Relations</option>
+                      <option value="Purchasing">Purchasing</option>
+                      <option value="Reception">Reception</option>
+                      <option value="Recreation & Leisure">Recreation & Leisure</option>
+                      <option value="Reservations">Reservations</option>
+                      <option value="Revenue Management">Revenue Management</option>
+                      <option value="Room Division Management">Room Division Management</option>
+                      <option value="Sales">Sales</option>
+                      <option value="Secretary / Executive Assistant">Secretary / Executive Assistant</option>
+                      <option value="Security">Security</option>
+                      <option value="Sommelier">Sommelier</option>
+                      <option value="Spa">Spa</option>
+                      <option value="Sport and Fitness">Sport and Fitness</option>
+                      <option value="Steward">Steward</option>
+                      <option value="Travel Guide">Travel Guide</option>
+                      <option value="Travel Tour Operator">Travel Tour Operator</option>
+                      <option value="Account Management">Account Management</option>
+                      <option value="Administration">Administration</option>
+                      <option value="Bar">Bar</option>
+                      <option value="Concierge">Concierge</option>
+                      <option value="Consulting">Consulting</option>
+                      <option value="Content & Communication">Content & Communication</option>
+                      <option value="Customer Services">Customer Services</option>
+                      <option value="Data & Analytics">Data & Analytics</option>
+                      <option value="Event">Event</option>
+                      <option value="F & B Management">F & B Management</option>
+                    </optgroup> */}
+                    {/* <optgroup label="Spanish"> */}
+                    <option value=""> Seleccionar ... </option>
+                    <option value="Administración">Administración</option>
+                    <option value="Adjunto/a Dirección">Adjunto/a Dirección</option>
+                    <option value="Agente de Viajes">Agente de Viajes</option>
+                    <option value="Animación">Animación</option>
+                    <option value="Asistente de Dirección">Asistente de Dirección</option>
+                    <option value="Asistente ejecutivo/a">Asistente ejecutivo/a</option>
+                    <option value="Azafata">Azafata</option>
+                    <option value="Bar">Bar</option>
+                    <option value="Botones">Botones</option>
+                    <option value="Compras">Compras</option>
+                    <option value="Concierge / Conserje">Concierge / Conserje</option>
+                    <option value="Consulting">Consulting</option>
+                    <option value="Contenido y Comunicación">Contenido y Comunicación</option>
+                    <option value="Datos y Análisis">Datos y Análisis</option>
+                    <option value="Deportes">Deportes</option>
+                    <option value="Departamento Legal">Departamento Legal</option>
+                    <option value="Dirección">Dirección</option>
+                    <option value="Eventos">Eventos</option>
+                    <option value="F&B Cocina">F&B Cocina</option>
+                    <option value="F&B Management">F&B Management</option>
+                    <option value="F&B Servicio">F&B Servicio</option>
+                    <option value="Finanzas y Marketing">Finanzas y Marketing</option>
+                    <option value="Gestión de Ingresos">Gestión de Ingresos</option>
+                    <option value="Guía Turístico">Guía Turístico</option>
                     <option value="Guest Relations">Guest Relations</option>
-                    <option value="Host/Hostess">Host/Hostess</option>
                     <option value="Housekeeping">Housekeeping</option>
-                    <option value="Human Resources">Human Resources</option>
-                    <option value="Maintenances">Maintenances</option>
-                    <option value="Management">Management</option>
+                    <option value="Host/ Hostess">Host/ Hostess</option>
+                    <option value="Jefe de cuentas">Jefe de cuentas</option>
+                    <option value="Lavandería">Lavandería</option>
+                    <option value="Mantenimiento">Mantenimiento</option>
                     <option value="Marketing">Marketing</option>
-                    <option value="Other">Other</option>
-                    <option value="Pastry">Pastry</option>
-                    <option value="Porter">Porter</option>
+                    <option value="Otros">Otros</option>
+                    <option value="Pastelería">Pastelería</option>
+                    <option value="Portero">Portero</option>
                     <option value="Project Management">Project Management</option>
-                    <option value="Public Relations">Public Relations</option>
-                    <option value="Purchasing">Purchasing</option>
-                    <option value="Reception">Reception</option>
-                    <option value="Recreation & Leisure">Recreation & Leisure</option>
-                    <option value="Reservations">Reservations</option>
+                    <option value="Recursos Humanos">Recursos Humanos</option>
+                    <option value="Recepción">Recepción</option>
+                    <option value="Relaciones Públicas">Relaciones Públicas</option>
+                    <option value="Reservas">Reservas</option>
                     <option value="Revenue Management">Revenue Management</option>
                     <option value="Room Division Management">Room Division Management</option>
-                    <option value="Sales">Sales</option>
-                    <option value="Secretary / Executive Assistant">Secretary / Executive Assistant</option>
-                    <option value="Security">Security</option>
+                    <option value="Seguridad">Seguridad</option>
+                    <option value="Servicio al Cliente">Servicio al Cliente</option>
                     <option value="Sommelier">Sommelier</option>
                     <option value="Spa">Spa</option>
-                    <option value="Sport and Fitness">Sport and Fitness</option>
-                    <option value="Steward">Steward</option>
-                    <option value="Travel Guide">Travel Guide</option>
-                    <option value="Travel Tour Operator">Travel Tour Operator</option>
-                    <option value="Account Management">Account Management</option>
-                    <option value="Administration">Administration</option>
-                    <option value="Bar">Bar</option>
-                    <option value="Concierge">Concierge</option>
-                    <option value="Consulting">Consulting</option>
-                    <option value="Content & Communication">Content & Communication</option>
-                    <option value="Customer Services">Customer Services</option>
-                    <option value="Data & Analytics">Data & Analytics</option>
-                    <option value="Event">Event</option>
-                    <option value="F & B Management">F & B Management</option>
+                    <option value="Subdirección">Subdirección</option>
+                    <option value="Ventas">Ventas</option>
+                    {/* </optgroup> */}
                   </select>
-
                 </div>
-
                 <div className='col-md-4'>
-                  <label htmlFor="company_name"> Job Category <small className='text-danger'> * </small> </label>
+                  <label htmlFor="company_name">
+                    {/* Job Category */}
+                    Tipo de Contrato
+                    <small className='text-danger'> * </small> </label>
                   <select className='form-control' onChange={(e) => setJobCategory(e.target.value)}>
-                    <option value="">Select</option>
+                    {/* <option value="">Select</option>
                     <option value="Intern">Intern</option>
                     <option value="Full Time">Full Time</option>
                     <option value="Part Time">Part Time</option>
-                    <option value="Contract">Contract</option>
+                    <option value="Contract">Contract</option> */}
+                    <option value="">  Seleccionar ...  </option>
+                    <option value="Prácticas">Prácticas</option>
+                    <option value="Jornada Completa">Jornada Completa</option>
+                    <option value="Media Jornada">Media Jornada</option>
+                    <option value="Contrato Fijo">Contrato Fijo</option>
                   </select>
                 </div>
 
                 <div className='col-md-2'>
                   <label htmlFor="jobType"> Job Type  <small className='text-danger'> * </small> </label>
                   <select className='form-control' onChange={(e) => setJobType(e.target.value)}>
-                    <option value="">Select</option>
-                    <option value="Remote"> Remote </option>
-                    <option value="InOffice"> InOffice </option>
-                    <option value="Hybrid"> Hybrid </option>
+                    {/* <option value="">Select</option> */}
+                    {/* <option value="Remote"> Remote </option> */}
+                    {/* <option value="InOffice"> InOffice </option> */}
+                    {/* <option value="Hybrid"> Hybrid </option> */}
+                    <option value="">  Seleccionar ...  </option>
+                    <option value="Remoto">Remoto</option>
+                    <option value="Presencial">Presencial</option>
+                    <option value="Híbrido">Híbrido</option>
                   </select>
                 </div>
               </div>
-
               {/* 
               <div className='form-row mt-4'>
                 <div className="col-md-4">
@@ -453,7 +613,7 @@ const CreateJobs = () => {
               </div> */}
 
               {/* Testing Starts */}
-              {jobType === 'InOffice' || jobType === 'Hybrid' ?
+              {/* {jobType === 'InOffice' || jobType === 'Hybrid' ?
                 <>
                   <div className='form-row mt-3'>
                     <div className="col-md-4">
@@ -498,8 +658,27 @@ const CreateJobs = () => {
                     </div>
                   </div>
                 </> : null
-              }
+              } */}
               {/* Testing End */}
+
+              {
+                jobType === 'Presencial' || jobType === 'Híbrido' ?
+                  <>
+                    <div className='col-md-4 mt-3 pl-0'>
+                      <label htmlFor="select cities">
+                        {/* Cities (Enter Location Separated by comma (,) ) */}
+                        Ciudad (Escribe el lugar separado por (,) )
+                      </label>
+                      <input
+                        type='text'
+                        // placeholder='Enter Location'
+                        placeholder='Escribe la ciudad'
+                        className='form-control'
+                        onChange={(e) => setJobLocation(e.target.value)}
+                      />
+                    </div>
+                  </> : null
+              }
 
               <div className='form-row mt-4' >
 
@@ -518,7 +697,10 @@ const CreateJobs = () => {
                 {/* <Select options={} isMulti  /> */}
                 {/* onChange={(selectedOptions) => setCourseLanguage(selectedOptions.map(option => option.value))} */}
                 <div className='col-md-4'>
-                  <label htmlFor="mandatory_skills"> Mandatory Skills <small className='text-danger'> * </small> </label>
+                  <label htmlFor="mandatory_skills">
+                    {/* Mandatory Skills Eng*/}
+                    Habilidades Mandatoria
+                    <small className='text-danger'> * </small> </label>
                   {/* Multiselect */}
                   <Select
                     options={skills}
@@ -545,20 +727,25 @@ const CreateJobs = () => {
               <div className="form-row mt-4">
                 <div className='col-md-4'>
                   {/* lets add date and time picker here */}
-                  <label htmlFor="jobPostedDate"  > Joining Date  <small className='text-danger'> * </small> </label>
+                  <label htmlFor="jobPostedDate"  >
+                    {/* Joining Date */}
+                    Fecha de Incorporación
+                    <small className='text-danger'> * </small> </label>
                   <input
                     type='date'
                     disabled={disableJoiningDate}
                     className='form-control'
                     min={new Date().toISOString().split('T')[0]}
-                    // "YYYY-MM-DDTHH:mm:ss.sssZ". For example, "2022-03-15 T 13:56:59.120Z".
                     onChange={(e) => setJoiningDate(e.target.value)}
 
                   />
 
                   <div className='mt-3'>
                     <input type='checkbox' id='isImmediate' className='pt-2' onClick={() => setDisableJoiningDate(prevState => !prevState)} onChange={() => setIsImmediate(true)} style={{ transform: 'scale(1.6)' }} />
-                    <label htmlFor='isImmediate' className='ml-1 ' > Immediate Joining (Onboard within 30 days) </label>
+                    <label htmlFor='isImmediate' className='ml-1 ' >
+                      {/* Immediate Joining (Onboard within 30 days) */}
+                      Incorporación Inmediata (Empezar en los próximos 30 días)
+                    </label>
                   </div>
                 </div>
               </div>
@@ -566,49 +753,91 @@ const CreateJobs = () => {
 
               <div className='row'>
                 <div className="col-md-6 mt-4 pl-0">
-                  <label htmlFor="work_exp">Work Experience (Years) <small className='text-danger'>*</small></label>
+                  <label htmlFor="work_exp">
+                    {/* Work Experience (Years) */}
+                    Experiencia Laboral (Años)
+                    <small className='text-danger'>*</small>
+                  </label>
                   <div className='row'>
                     <div className='col-md-4'>
-                      <label htmlFor="minExperience">Minimum </label>
+                      <label htmlFor="minExperience">
+                        {/* Minimum */}
+                        Mínimo
+                      </label>
                       <input type='number' className='form-control' placeholder='0' min='0' max='20' onChange={(e) => setMinWorkExp(parseInt(e.target.value))} />
                     </div>
 
                     <div className='col-md-4'>
-                      <label htmlFor="maxExperience">Maximum </label>
+                      <label htmlFor="maxExperience">
+                        {/* Maximum */}
+                        Máximo
+                      </label>
                       <input type='number' className='form-control' placeholder='20' min='0' max='20' onChange={(e) => setMaxWorkExp(parseInt(e.target.value))} />
                     </div>
                   </div>
                 </div>
 
                 <div className="col-md-6 mt-4 pl-0">
-                  <label htmlFor="salary">Salary Range (Annual) <small className='text-danger'>*</small></label>
+                  <label htmlFor="salary">
+                    {/* Salary Range (Annual) */}
+                    Rango Salarial (Anual)
+                    <small className='text-danger'>*</small>
+                  </label>
                   <div className='row'>
                     <div className='col-md-4'>
-                      <label htmlFor="minSalary">Minimum </label>
+                      <label htmlFor="minSalary">
+                        Mínimo
+                        {/* Minimum */}
+                      </label>
                       <input type='number' className='form-control' placeholder='0' min='0' onChange={(e) => setMinSalary(parseInt(e.target.value))} />
                     </div>
 
                     <div className='col-md-4'>
-                      <label htmlFor="maxSalary">Maximum </label>
+                      <label htmlFor="maxSalary">
+                        {/* Maximum */}
+                        Máximo
+                      </label>
                       <input type='number' className='form-control' placeholder='100' min='0' onChange={(e) => setMaxSalary(parseInt(e.target.value))} />
                     </div>
 
                     <div className='col-md-2'>
-                      <label htmlFor="currency">Currency</label>
+                      <label htmlFor="currency">
+                        {/* Currency */}
+                        Moneda
+                      </label>
                       <select className='form-control mt-2' onChange={(e) => setSalaryCurrency(e.target.value)}>
-                        <option value=""> Select </option>
+                        <option value="">
+                          {/* Select */}
+                          Seleccionar
+                        </option>
                         {/* Countriy wise values  */}
-                        <option value="LPA"> LPA </option>
-                        <option value="AUD"> AUD </option>
-                        <option value="USD"> USD </option>
                         <option value="EUR"> EUR </option>
                         <option value="GBP"> GBP </option>
+                        <option value="AUS"> AUS </option>
+                        <option value="USD"> USD </option>
                         <option value="CAD"> CAD </option>
                         <option value="SGD"> SGD </option>
                         <option value="AED"> AED </option>
-                        <option value="JPY"> JPY </option>
-                        <option value="CNY"> CNY </option>
-                        <option value="INR"> INR </option>
+                        <option value="ARS"> ARS </option>
+                        <option value="CLF"> CLF </option>
+                        <option value="COP"> COP </option>
+                        <option value="CRC"> CRC </option>
+                        <option value="CUC"> CUC </option>
+                        <option value="CUP"> CUP </option>
+                        <option value="COU"> COU </option>
+                        <option value="MAD"> MAD </option>
+                        <option value="MXN"> MXN </option>
+                        <option value="MXV"> MXV </option>
+                        <option value="NOK"> NOK </option>
+                        <option value="NZD"> NZD </option>
+                        <option value="PYG"> PYG </option>
+                        <option value="PEN"> PEN </option>
+                        <option value="DOP"> DOP </option>
+                        <option value="RUB"> RUB </option>
+                        <option value="SEK"> SEK </option>
+                        <option value="TRY"> TRY </option>
+                        <option value="UYI"> UYI </option>
+                        <option value="UYU"> UYU </option>
                       </select>
                     </div>
                   </div>
@@ -617,17 +846,23 @@ const CreateJobs = () => {
 
               <div className='form-row'>
                 <div className='col-md-4'>
-                  <label htmlFor="no_of_ops"> No of Openings <small className='text-danger'> * </small></label>
+                  <label htmlFor="no_of_ops">
+                    {/* No of Openings */}
+                    Nº de Candidatos
+                    <small className='text-danger'> * </small></label>
                   <input type='number' className='form-control' placeholder='5' min='0' max='500' onChange={(e) => setNoOfOpenings(parseInt(e.target.value))} />
                 </div>
-                <div className='col-md-4'>
+                {/* <div className='col-md-4'>
                   <label htmlFor="extra_benifits"> Extra Benifits </label>
-                  {/* Multiselect */}
                   <Select options={extraBenifits} isMulti onChange={(selectedOps) => setExtraBenifitsVal(selectedOps.map(option => option.value))} />
-                </div>
+                </div> */}
                 <div className='col-md-6'>
                   {/* Left Jodit Editor  */}
-                  <label htmlFor="jobDesc"> Job Decription <small className='text-danger'> * </small> </label>
+                  <label htmlFor="jobDesc">
+                    {/* Job Decription */}
+                    Descripción del Puesto
+                    <small className='text-danger'> * </small>
+                  </label>
                   <ReactQuill
                     theme="snow"
                     modules={modules}
@@ -640,7 +875,10 @@ const CreateJobs = () => {
               <div className='form-row mt-4'>
                 {/* IsExternalLink  */}
                 <div className='col-md-4'>
-                  <label htmlFor="isExternalLink"> Is External Link </label>
+                  <label htmlFor="isExternalLink">
+                    {/* Is External Link */}
+                    Link Externo
+                  </label>
                   <input
                     type='checkbox'
                     id='isExternalLink'
@@ -654,7 +892,9 @@ const CreateJobs = () => {
                       showJobLink ?
                         (<>
                           <div>
-                            <label htmlFor="jobLink" className='mt-2' > Job Link </label>
+                            <label htmlFor="jobLink" className='mt-2' >
+                              {/* Job Link */}
+                            </label>
                             <input
                               type='text'
                               className='form-control'
@@ -670,7 +910,10 @@ const CreateJobs = () => {
                 </div>
               </div>
 
-              <button type='submit' className='btn btn-dark w-100 mt-3 mb-2'>  Post Job </button>
+              <button type='submit' className='btn btn-dark w-100 mt-3 mb-2'>
+                {/* Post Job */}
+                Subir Empleo
+              </button>
             </form >
           </div >
         </div>

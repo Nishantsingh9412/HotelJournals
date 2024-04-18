@@ -79,36 +79,62 @@ function MyVerticallyCenteredModal(props) {
             centered
             onHide={props.onHide}
         >
-            <Modal.Header closeButton  >
-                <Modal.Title id="contained-modal-title-vcenter">
-                    <span ><FaBriefcase /> Add Your Experience </span>
+            <Modal.Header
+                style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                }}
+                closeButton
+            >
+                <Modal.Title id="contained-modal-title-vcenter"
+                    style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+
+                    }}
+                >
+                    <FaBriefcase size={'20'} />
+                    <h5 className='mt-2'>
+                        {/* Add Your Experience */}
+                        Añade tu experiencia
+                    </h5>
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <h6><b> Time to shine </b></h6>
-                <p style={{ opacity: 0.8 }}>
-                    Write about your past and present experience in detail. Recruiters want to know all about it!
-                </p>
+                <h6><b>
+                    {/* Time to shine */}
+                    Es hora de brillar
+                </b></h6>
+
                 <form onSubmit={props.onsubmit}>
                     <div className='row'>
                         <div className="form-group col">
-                            <label htmlFor="jobTitle"> Job Title </label>
+                            <label htmlFor="jobTitle">
+                                {/* Job Title */}
+                                Puesto
+                            </label>
                             <input
                                 type="text"
                                 className="form-control"
                                 id="jobTitle"
-                                placeholder="Enter job title"
+                                // placeholder="Enter job title"
+                                placeholder='Escribe tu puesto'
                                 onChange={(e) => setJobTitle(e.target.value)}
                             />
                         </div>
 
                         <div className="form-group col">
-                            <label htmlFor="company"> Company </label>
+                            <label htmlFor="company">
+                                {/* Company */}
+                                Compañía
+                            </label>
                             <input
                                 type="text"
                                 className="form-control"
                                 id="jobTitle"
-                                placeholder="Provide company name"
+                                // placeholder="Provide company name"
+                                placeholder='Escribe el nombre de la compañía'
                                 onChange={(e) => setCompany(e.target.value)}
                             />
                         </div>
@@ -117,13 +143,15 @@ function MyVerticallyCenteredModal(props) {
 
                     <div className='row'>
                         <div className="form-group col">
-                            <label htmlFor="department"> Department </label>
+                            <label htmlFor="department">
+                                {/* Department */}
+                                Departamento
+                            </label>
                             <select
                                 className='form-control'
                                 onChange={(e) => setDepartment(e.target.value)}
                             >
-                                <option value=""> Select Department  </option>
-                                <option value="Account Management"> Account Management </option>
+                                {/* <option value="Account Management"> Account Management </option>
                                 <option value="Administration"> Administration </option>
                                 <option value="Bakery"> Bakery </option>
                                 <option value="Business Development"> Business Development </option>
@@ -177,31 +205,78 @@ function MyVerticallyCenteredModal(props) {
                                 <option value="Telephone Operator"> Telephone Operator </option>
                                 <option value="Travel Guide"> Travel Guide </option>
                                 <option value="Travel Tour Operator"> Travel Tour Operator </option>
-                                <option value="Waiter/Waitress"> Waiter/Waitress </option>
+                                <option value="Waiter/Waitress"> Waiter/Waitress </option> */}
+                                <option value=""> Seleccionar ... </option>
+                                <option value="Administración">Administración</option>
+                                <option value="Adjunto/a Dirección">Adjunto/a Dirección</option>
+                                <option value="Agente de Viajes">Agente de Viajes</option>
+                                <option value="Animación">Animación</option>
+                                <option value="Asistente de Dirección">Asistente de Dirección</option>
+                                <option value="Asistente ejecutivo/a">Asistente ejecutivo/a</option>
+                                <option value="Azafata">Azafata</option>
+                                <option value="Bar">Bar</option>
+                                <option value="Botones">Botones</option>
+                                <option value="Compras">Compras</option>
+                                <option value="Concierge / Conserje">Concierge / Conserje</option>
+                                <option value="Consulting">Consulting</option>
+                                <option value="Contenido y Comunicación">Contenido y Comunicación</option>
+                                <option value="Datos y Análisis">Datos y Análisis</option>
+                                <option value="Deportes">Deportes</option>
+                                <option value="Departamento Legal">Departamento Legal</option>
+                                <option value="Dirección">Dirección</option>
+                                <option value="Eventos">Eventos</option>
+                                <option value="F&B Cocina">F&B Cocina</option>
+                                <option value="F&B Management">F&B Management</option>
+                                <option value="F&B Servicio">F&B Servicio</option>
+                                <option value="Finanzas y Marketing">Finanzas y Marketing</option>
+                                <option value="Gestión de Ingresos">Gestión de Ingresos</option>
+                                <option value="Guía Turístico">Guía Turístico</option>
+                                <option value="Guest Relations">Guest Relations</option>
+                                <option value="Housekeeping">Housekeeping</option>
+                                <option value="Host/ Hostess">Host/ Hostess</option>
+                                <option value="Jefe de cuentas">Jefe de cuentas</option>
+                                <option value="Lavandería">Lavandería</option>
+                                <option value="Mantenimiento">Mantenimiento</option>
+                                <option value="Marketing">Marketing</option>
+                                <option value="Otros">Otros</option>
+                                <option value="Pastelería">Pastelería</option>
+                                <option value="Portero">Portero</option>
+                                <option value="Project Management">Project Management</option>
+                                <option value="Recursos Humanos">Recursos Humanos</option>
+                                <option value="Recepción">Recepción</option>
+                                <option value="Relaciones Públicas">Relaciones Públicas</option>
+                                <option value="Reservas">Reservas</option>
+                                <option value="Revenue Management">Revenue Management</option>
+                                <option value="Room Division Management">Room Division Management</option>
+                                <option value="Seguridad">Seguridad</option>
+                                <option value="Servicio al Cliente">Servicio al Cliente</option>
+                                <option value="Sommelier">Sommelier</option>
+                                <option value="Spa">Spa</option>
+                                <option value="Subdirección">Subdirección</option>
+                                <option value="Ventas">Ventas</option>
                             </select>
                         </div>
 
                         <div className="form-group col">
-                            <label htmlFor="city"> City  </label>
-                            <select
+                            <label htmlFor="city">
+                                {/* City */}
+                                Ciudad
+                            </label>
+                            <input
+                                type='text'
                                 className='form-control'
+                                placeholder='Escribe tu ciudad'
                                 onChange={(e) => setCity(e.target.value)}
-                            >
-                                {/* Need Modification  Cities dropdown will be here*/}
-                                <option value=""> Select </option>
-                                <option value="Kampala"> Kampala </option>
-                                <option value="Nairobi"> Nairobi </option>
-                                <option value="Kigali"> Kigali </option>
-                                <option value="Dar es Salaam"> Dar es Salaam </option>
-                                <option value="Juba"> Juba </option>
-                                <option value="Addis Ababa"> Addis Ababa </option>
-                            </select>
+                            />
                         </div>
                     </div>
                     {/* for start date and end date */}
                     <div className="form-group row">
                         <div className="col">
-                            <label htmlFor="startDate"> Start Date </label>
+                            <label htmlFor="startDate">
+                                {/* Start Date */}
+                                Fecha de inicio
+                            </label>
                             <input
                                 type="date"
                                 className="form-control"
@@ -211,7 +286,10 @@ function MyVerticallyCenteredModal(props) {
                             />
                         </div>
                         <div className="col">
-                            <label htmlFor="endDate"> End Date </label>
+                            <label htmlFor="endDate">
+                                {/* End Date  */}
+                                Fecha de finalización
+                            </label>
                             <input
                                 type="date"
                                 className="form-control"
@@ -235,7 +313,8 @@ function MyVerticallyCenteredModal(props) {
                                     onChange={(e) => setIsCurrentJob(e.target.checked)}
                                 />
                                 <label className="form-check-label" htmlFor="currentJob">
-                                    Current Job
+                                    {/* Current Job */}
+                                    Trabajo actual
                                 </label>
                             </div>
                         </div>
@@ -244,7 +323,8 @@ function MyVerticallyCenteredModal(props) {
                     <div class="form-group">
                         <textarea
                             class="form-control"
-                            placeholder='ShowCase your Experience'
+                            // placeholder='ShowCase your Experience'
+                            placeholder='Háblanos un poco de tu experiencia'
                             rows="4"
                             onChange={(e) => setJobExperience(e.target.value)}
                         >
@@ -264,16 +344,22 @@ function MyVerticallyCenteredModal(props) {
           </form> */}
             </Modal.Body>
             <Modal.Footer>
-                <Button onClick={(event) => { event.stopPropagation(); props.onHide(); }} className='btn btn-secondary'> Close</Button>
+                <Button onClick={(event) => { event.stopPropagation(); props.onHide(); }} className='btn btn-secondary'>
+                    {/* Close */}
+                    Cerrar
+                </Button>
                 <Button onClick={handleExperiencePosting}>
                     {loading ? <>
                         <div className='d-flex'>
                             <PuffLoader
                                 size={25}
                                 color="#ffffff"
-                            /> <span className='pl-2'> Submitting... </span>
+                            /> <span className='pl-2'>  </span>
                         </div>
-                    </> : 'Submit'}
+                    </> :
+                        // 'Save'
+                        'Guardar '
+                    }
                 </Button>
             </Modal.Footer>
         </Modal>
@@ -376,37 +462,62 @@ function MyVerticallyCenteredModalforEditExp(props) {
             centered
             onHide={props.onHide}
         >
-            <Modal.Header closeButton  >
-                <Modal.Title id="contained-modal-title-vcenter">
-                    <span ><FaBriefcase /> Add Your Experience </span>
+            <Modal.Header
+                style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                }}
+                closeButton
+            >
+                <Modal.Title id="contained-modal-title-vcenter"
+                    style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+
+                    }}
+                >
+                    <FaBriefcase size={'20'} />
+                    <h5 className='mt-2'>
+                        {/* Add Your Experience */}
+                        Añade tu experiencia
+                    </h5>
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <h6><b> Time to shine </b></h6>
-                <p style={{ opacity: 0.8 }}>
-                    Write about your past and present experience in detail. Recr
-                </p>
+                <h6>
+                    {/* <b> Time to shine </b> */}
+                    <b>Es hora de brillar</b>
+                </h6>
                 <form onSubmit={props.onsubmit}>
                     <div className='row'>
                         <div className="form-group col">
-                            <label htmlFor="jobTitle"> Job Title </label>
+                            <label htmlFor="jobTitle">
+                                {/* Job Title */}
+                                Puesto
+                            </label>
                             <input
                                 type="text"
                                 className="form-control"
                                 id="jobTitle"
-                                placeholder="Enter job title"
+                                // placeholder="Enter job title"
+                                placeholder='Escribe tu puesto'
                                 value={jobTitle}
                                 onChange={(e) => setJobTitle(e.target.value)}
                             />
                         </div>
 
                         <div className="form-group col">
-                            <label htmlFor="company"> Company </label>
+                            <label htmlFor="company">
+                                {/* Company */}
+                                Compañía
+                            </label>
                             <input
                                 type="text"
                                 className="form-control"
                                 value={company}
-                                placeholder="Provide company name"
+                                // placeholder="Provide company name"
+                                placeholder='Escribe el nombre de la compañía'
                                 onChange={(e) => setCompany(e.target.value)}
                             />
                         </div>
@@ -415,93 +526,87 @@ function MyVerticallyCenteredModalforEditExp(props) {
 
                     <div className='row'>
                         <div className="form-group col">
-                            <label htmlFor="department"> Department </label>
+                            <label htmlFor="department">
+                                {/* Department */}
+                                Departamento
+                            </label>
                             <select
                                 className='form-control'
                                 value={department}
                                 onChange={(e) => setDepartment(e.target.value)}
                             >
-                                <option value=""> Select Department  </option>
-                                <option value="Account Management"> Account Management </option>
-                                <option value="Administration"> Administration </option>
-                                <option value="Bakery"> Bakery </option>
-                                <option value="Business Development"> Business Development </option>
-                                <option value="Consulting"> Consulting </option>
-                                <option value='Content and Communications'> Content and Communications </option>
-                                <option value="Customer Service"> Customer Service </option>
-                                <option value="Data and Analytics"> Data and Analytics </option>
-                                <option value="Driver"> Driver </option>
-                                <option value="Design"> Design </option>
-                                <option value="Education"> Education </option>
-                                <option value="Event" > Event </option>
-                                <option value="F and B Management"> F and B Management </option>
-                                <option value="F and B Kitchen"> F and B Kitchen </option>
-                                <option value="F and B service"> F and B service </option>
-                                <option value="Finance and Accounting"> Finance and Accounting </option>
-                                <option value="Gardener">Gardener</option>
-                                <option value="Guest Relations"> Guest Relations </option>
-                                <option value="Health and Safety"> Health and Safety </option>
-                                <option value="Host/Hostess"> Host/Hostess </option>
-                                <option value="HouseKeeping"> HouseKeeping </option>
-                                <option value="Human Resources"> Human Resources </option>
-                                <option value="Information Technology"> Information Technology </option>
-                                <option value="Laundry"> Laundry </option>
-                                <option value="Legal"> Legal </option>
-                                <option value="Lifeguard"> Lifeguard </option>
-                                <option value="Logistics"> Logistics </option>
-                                <option value="Maintenance"> Maintenance </option>
-                                <option value="Management"> Management </option>
-                                <option value="Marketing"> Marketing </option>
-                                <option value="Media and Design"> Media and Design </option>
-                                <option value="Other"> Other </option>
-                                <option value="Pastry"> Pastry </option>
-                                <option value="Porter"> Porter </option>
-                                <option value="Project Management"> Project Management </option>
-                                <option value="Public Relations"> Public Relations </option>
-                                <option value="Purchasing"> Purchasing </option>
-                                <option value="Real State"> Real State </option>
-                                <option value="Reception"> Reception </option>
-                                <option value="Reservations"> Reservations </option>
-                                <option value="Retail"> Retail </option>
-                                <option value="Revenue Management"> Revenue Management </option>
-                                <option value="Room Division Management"> Room Division Management </option>
-                                <option value="Sales"> Sales </option>
-                                <option value="Secretary">  Secretary  </option>
-                                <option value="Security"> Security </option>
-                                <option value="Spa and Wellness"> Spa and Wellness </option>
-                                <option value="Sports and Fitness"> Sports and Fitness </option>
-                                <option value="Supply Chain"> Supply Chain </option>
-                                <option value="Steawarding"> Steawarding </option>
-                                <option value="Concierge"> Concierge  </option>
-                                <option value="Telephone Operator"> Telephone Operator </option>
-                                <option value="Travel Guide"> Travel Guide </option>
-                                <option value="Travel Tour Operator"> Travel Tour Operator </option>
-                                <option value="Waiter/Waitress"> Waiter/Waitress </option>
+                                <option value=""> Seleccionar ... </option>
+                                <option value="Administración">Administración</option>
+                                <option value="Adjunto/a Dirección">Adjunto/a Dirección</option>
+                                <option value="Agente de Viajes">Agente de Viajes</option>
+                                <option value="Animación">Animación</option>
+                                <option value="Asistente de Dirección">Asistente de Dirección</option>
+                                <option value="Asistente ejecutivo/a">Asistente ejecutivo/a</option>
+                                <option value="Azafata">Azafata</option>
+                                <option value="Bar">Bar</option>
+                                <option value="Botones">Botones</option>
+                                <option value="Compras">Compras</option>
+                                <option value="Concierge / Conserje">Concierge / Conserje</option>
+                                <option value="Consulting">Consulting</option>
+                                <option value="Contenido y Comunicación">Contenido y Comunicación</option>
+                                <option value="Datos y Análisis">Datos y Análisis</option>
+                                <option value="Deportes">Deportes</option>
+                                <option value="Departamento Legal">Departamento Legal</option>
+                                <option value="Dirección">Dirección</option>
+                                <option value="Eventos">Eventos</option>
+                                <option value="F&B Cocina">F&B Cocina</option>
+                                <option value="F&B Management">F&B Management</option>
+                                <option value="F&B Servicio">F&B Servicio</option>
+                                <option value="Finanzas y Marketing">Finanzas y Marketing</option>
+                                <option value="Gestión de Ingresos">Gestión de Ingresos</option>
+                                <option value="Guía Turístico">Guía Turístico</option>
+                                <option value="Guest Relations">Guest Relations</option>
+                                <option value="Housekeeping">Housekeeping</option>
+                                <option value="Host/ Hostess">Host/ Hostess</option>
+                                <option value="Jefe de cuentas">Jefe de cuentas</option>
+                                <option value="Lavandería">Lavandería</option>
+                                <option value="Mantenimiento">Mantenimiento</option>
+                                <option value="Marketing">Marketing</option>
+                                <option value="Otros">Otros</option>
+                                <option value="Pastelería">Pastelería</option>
+                                <option value="Portero">Portero</option>
+                                <option value="Project Management">Project Management</option>
+                                <option value="Recursos Humanos">Recursos Humanos</option>
+                                <option value="Recepción">Recepción</option>
+                                <option value="Relaciones Públicas">Relaciones Públicas</option>
+                                <option value="Reservas">Reservas</option>
+                                <option value="Revenue Management">Revenue Management</option>
+                                <option value="Room Division Management">Room Division Management</option>
+                                <option value="Seguridad">Seguridad</option>
+                                <option value="Servicio al Cliente">Servicio al Cliente</option>
+                                <option value="Sommelier">Sommelier</option>
+                                <option value="Spa">Spa</option>
+                                <option value="Subdirección">Subdirección</option>
+                                <option value="Ventas">Ventas</option>
                             </select>
                         </div>
 
                         <div className="form-group col">
-                            <label htmlFor="city"> City  </label>
-                            <select
+                            <label htmlFor="city">
+                                {/* City */}
+                                Ciudad
+                            </label>
+                            <input
+                                type='text'
                                 className='form-control'
+                                placeholder='Escribe tu ciudad'
                                 value={city}
                                 onChange={(e) => setCity(e.target.value)}
-                            >
-                                {/* Need Modification  Cities dropdown will be here*/}
-                                <option value=""> Select </option>
-                                <option value="Kampala"> Kampala </option>
-                                <option value="Nairobi"> Nairobi </option>
-                                <option value="Kigali"> Kigali </option>
-                                <option value="Dar es Salaam"> Dar es Salaam </option>
-                                <option value="Juba"> Juba </option>
-                                <option value="Addis Ababa"> Addis Ababa </option>
-                            </select>
+                            />
                         </div>
                     </div>
                     {/* for start date and end date */}
                     <div className="form-group row">
                         <div className="col">
-                            <label htmlFor="startDate"> Start Date </label>
+                            <label htmlFor="startDate">
+                                {/* Start Date */}
+                                Fecha de inicio
+                            </label>
                             <input
                                 type="date"
                                 className="form-control"
@@ -511,7 +616,10 @@ function MyVerticallyCenteredModalforEditExp(props) {
                             />
                         </div>
                         <div className="col">
-                            <label htmlFor="endDate"> End Date </label>
+                            <label htmlFor="endDate">
+                                {/* End Date */}
+                                Fecha de finalización
+                            </label>
                             <input
                                 type="date"
                                 className="form-control"
@@ -536,7 +644,8 @@ function MyVerticallyCenteredModalforEditExp(props) {
                                     onChange={(e) => setIsCurrentJob(e.target.checked)}
                                 />
                                 <label className="form-check-label" htmlFor="currentJob">
-                                    Current Job
+                                    {/* Current Job */}
+                                    Trabajo actual
                                 </label>
                             </div>
                         </div>
@@ -545,7 +654,8 @@ function MyVerticallyCenteredModalforEditExp(props) {
                     <div class="form-group">
                         <textarea
                             class="form-control"
-                            placeholder='ShowCase your Experience'
+                            // placeholder='ShowCase your Experience'
+                            placeholder='Háblanos un poco de tu experiencia'
                             rows="4"
                             value={jobExperience}
                             onChange={(e) => setJobExperience(e.target.value)}
@@ -566,16 +676,22 @@ function MyVerticallyCenteredModalforEditExp(props) {
           </form> */}
             </Modal.Body>
             <Modal.Footer>
-                <Button onClick={(event) => { event.stopPropagation(); props.onHide(); }} className='btn btn-secondary'> Close</Button>
+                <Button onClick={(event) => { event.stopPropagation(); props.onHide(); }} className='btn btn-secondary'>
+                    {/* Close */}
+                    Cerrar
+                </Button>
                 <Button onClick={deleteExp} className='btn btn-danger' >
                     {delLoading ? <>
                         <div className='d-flex'>
                             <PuffLoader
                                 size={25}
                                 color="#ffffff"
-                            /> <span className='pl-2'> Removing ... </span>
+                            /> <span className='pl-2'>  </span>
                         </div>
-                    </> : 'Remove Intro'}
+                    </> :
+                        // 'Remove Experience'
+                        'Eliminar experiencia'
+                    }
                 </Button>
                 <Button onClick={handleExperiencePostingEdit} >
                     {loading ? <>
@@ -583,9 +699,12 @@ function MyVerticallyCenteredModalforEditExp(props) {
                             <PuffLoader
                                 size={25}
                                 color="#ffffff"
-                            /> <span className='pl-2'> Updating ... </span>
+                            /> <span className='pl-2'>  </span>
                         </div>
-                    </> : 'Update'}
+                    </> :
+                        // 'Save'
+                        'Guardar '
+                    }
                 </Button>
             </Modal.Footer>
         </Modal>
@@ -644,7 +763,10 @@ const UserExperience = () => {
                             <div className="card w-100">
                                 <div className="card-body text-center">
                                     <i className='fa-solid fa-plus'></i>
-                                    <p className='card-text'> Add your experiences  </p>
+                                    <p className='card-text'>
+                                        {/* Add your experiences */}
+                                        Añade tu experiencia
+                                    </p>
                                 </div>
                                 <MyVerticallyCenteredModal
                                     show={modalShow}
@@ -682,7 +804,7 @@ const UserExperience = () => {
                         {singleData && singleData?.map((experience) => {
                             return (
                                 <div className="card-body " key={experience._id}>
-                                    <hr style={{width:'100%'}} className='p-0'/>
+                                    <hr style={{ width: '100%' }} className='p-0' />
                                     <div className='col' >
                                         <div className="row ">
 

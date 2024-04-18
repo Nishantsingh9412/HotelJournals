@@ -12,7 +12,7 @@ import PuffLoader from "react-spinners/PuffLoader";
 
 // React icons 
 import { FaBriefcase } from "react-icons/fa";
-import { FaPen, FaPencil } from 'react-icons/fa6';
+import { FaGraduationCap, FaPen, FaPencil } from 'react-icons/fa6';
 import { CiSquarePlus } from "react-icons/ci";
 
 import PrCss from './userProfile.module.css';
@@ -66,10 +66,27 @@ function MyVerticallyCenteredModal(props) {
             centered
             onHide={props.onHide}
         >
-            <Modal.Header closeButton  >
-                <Modal.Title id="contained-modal-title-vcenter">
-                    <span ><FaBriefcase /> Your Education </span>
-
+            <Modal.Header
+                style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                }}
+                closeButton
+            >
+                <Modal.Title id="contained-modal-title-vcenter"
+                    style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                    }}
+                >
+                    <FaGraduationCap
+                        size={'20'}
+                    />
+                    <h5 className='mt-2'>
+                        {/* Add your Education */}
+                        Añade tu educación
+                    </h5>
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
@@ -256,10 +273,27 @@ function MyVerticallyCenteredModalForEdit(props) {
             centered
             onHide={props.onHide}
         >
-            <Modal.Header closeButton  >
-                <Modal.Title id="contained-modal-title-vcenter">
-                    <span ><FaBriefcase /> Your Education </span>
-
+            <Modal.Header
+                style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                }}
+                closeButton
+            >
+                <Modal.Title id="contained-modal-title-vcenter"
+                    style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                    }}
+                >
+                    <FaGraduationCap
+                        size={'20'}
+                    />
+                    <h5 className='mt-2'>
+                        {/* Add your Education */}
+                        Añade tu educación
+                    </h5>
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
@@ -439,7 +473,10 @@ const UserEducation = () => {
                             <div className="card w-100">
                                 <div className="card-body text-center">
                                     <i className='fa-solid fa-plus'></i>
-                                    <p className='card-text'>Add your Education </p>
+                                    <p className='card-text'>
+                                        {/* Add your Education */}
+                                        Añade tu educación
+                                    </p>
                                 </div>
                             </div>
                         </div>

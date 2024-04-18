@@ -53,9 +53,9 @@ const ManageAllJobs = () => {
         }
     }, [MyJobs])
 
-    useEffect(() =>{
+    useEffect(() => {
         window.scrollTo(0, 0)
-    },[])
+    }, [])
 
     // Deletion of Job
     const handleConfirmedDelete = (id) => {
@@ -66,7 +66,8 @@ const ManageAllJobs = () => {
     }
 
     const handleDelete = (id) => {
-        const result = window.confirm('Are you sure you want to delete this Job ?');
+        // const result = window.confirm('Are you sure you want to delete this Job ?')
+        const result = window.confirm('¿Quieres eliminar este empleo? ')
         if (result) {
             console.log('Delete the course')
             handleConfirmedDelete(id);
@@ -81,7 +82,8 @@ const ManageAllJobs = () => {
         copy(`${baseURL}alljobs/${jobId}`);
         // alert(`Copied Url : ${baseURL}alljobs/${jobId}`)
         Swal.fire({
-            title: "Job Copied To Clipboard!",
+            // title: "Job Copied To Clipboard!",
+            title: "Empleo Copiando en Portapapeles ",
             // text: `Copied Url : ${baseURL}alljobs/${jobId}`,
             icon: "success"
         });
@@ -110,28 +112,31 @@ const ManageAllJobs = () => {
     const ViewCell = ({ tableManager, value, field, data, column, colIndex, rowIndex }) => {
         return (
             <div className='rgt-cell-inner' >
-                <div className='mt-2 mb-1'>
-                    <a
-                        href={`/alljobs/${data._id}`}
-                        target='_blank'
-                        rel='noopener noreferrer'
-                        style={{ textDecoration: 'none' }}
-                    >
+                {data.isVerifiedJob &&
+                    <div className='mt-2 mb-1'>
+                        <a
+                            href={`/alljobs/${data._id}`}
+                            target='_blank'
+                            rel='noopener noreferrer'
+                            style={{ textDecoration: 'none' }}
+                        >
+                            <button
+                                className="btn btn-sm btn-block w-50"
+                                style={{ backgroundColor: '#E4B49D' }}
+                            >
+                                Job
+                            </button>
+                        </a>
                         <button
-                            className="btn btn-sm btn-block w-50"
+                            className="btn btn-sm btn-block w-50 mt-2"
+                            onClick={() => navigate(`/recruiter/jobs/${data._id}/job/manage/`)}
                             style={{ backgroundColor: '#E4B49D' }}
                         >
-                            Job
+                            {/* Applicants */}
+                            Candidatos
                         </button>
-                    </a>
-                    <button
-                        className="btn btn-sm btn-block w-50 mt-2"
-                        onClick={() => navigate(`/recruiter/jobs/${data._id}/job/manage/`)}
-                        style={{ backgroundColor: '#E4B49D' }}
-                    >
-                        Applicants
-                    </button>
-                </div>
+                    </div>
+                }
             </div>
         )
     }
@@ -149,13 +154,15 @@ const ManageAllJobs = () => {
                     {data.isVerifiedJob ?
                         <>
                             <span className="badge badge-success">
-                                Active
+                                {/* Active */}
+                                Activo
                             </span>
                         </>
                         :
                         <>
                             <span className="badge badge-danger">
-                                Inactive
+                                {/* Inactive */}
+                                Inactivo
                             </span>
                         </>
                     }
@@ -200,7 +207,9 @@ const ManageAllJobs = () => {
         const [showModal, setModalShow] = useState(false);
         return (
             <div>
-                <div className='rgt-cell-inner'
+
+            {data.isVerifiedJob ?
+                < div className='rgt-cell-inner'
                     style={{
                         display: 'flex',
                         margin: '20px',
@@ -226,7 +235,19 @@ const ManageAllJobs = () => {
                     >
                         <IoTrashBin />
                     </button>
+                </div >
+                : 
+                <div
+                    className='mt-2 mb-4'
+                >
+                    <span >
+                        {/* Check your mail for status  */}
+                        Revisa tu correo para conocer el estado
+                    </span>
+
                 </div>
+                
+                }
             </div>
         )
     }
@@ -277,6 +298,14 @@ const ManageAllJobs = () => {
                     // isLoading={TableLoading}
                     columns={columns}
                     rows={MyJobs}
+                    texts={{
+                        search: 'Buscar',
+                        // show: 'Mostrar',
+                        // showing: 'Mostrando',
+                        // entries: 'entradas',
+                        noResults: 'No se encontraron datos',
+                        // filterPlaceholder: 'Filtrar',
+                    }}
                 />
             </div>
         );
@@ -311,7 +340,8 @@ const ManageAllJobs = () => {
                             justifyContent="center"
                         >
                             <Text fontSize="lg" fontWeight="bold">
-                                My Jobs
+                                {/* My Jobs */}
+                                Mis Empleos
                             </Text>
                         </Box>
                         <JobsAll MyJobs={MyJobs} />
