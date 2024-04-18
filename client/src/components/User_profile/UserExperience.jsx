@@ -789,7 +789,10 @@ const UserExperience = () => {
                         {singleData?.length > 0 &&
                             <div className="card-body mt-3 mb-0 pb-0">
                                 <div className='row justify-content-between ml-2 mr-2'>
-                                    <h5 className="card-title">Experience</h5>
+                                    <h5 className="card-title">
+                                        {/* Experience */}
+                                        Experiencia
+                                    </h5>
                                     <div style={{ cursor: 'pointer' }} onClick={() => setModalShow(true)}>
                                         <CiSquarePlus size={'40'} />
                                     </div>
@@ -803,7 +806,7 @@ const UserExperience = () => {
                         }
                         {singleData && singleData?.map((experience) => {
                             return (
-                                <div className="card-body " key={experience._id}>
+                                <div className="card-body" key={experience._id}>
                                     <hr style={{ width: '100%' }} className='p-0' />
                                     <div className='col' >
                                         <div className="row ">

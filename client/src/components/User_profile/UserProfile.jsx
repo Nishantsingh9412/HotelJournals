@@ -723,7 +723,7 @@ const UserProfile = () => {
             </Suspense>
           </div>
         </div>
-        <div className='row'>
+        {/* <div className='row'>
           <p>This is Dummy  Upload CV </p>
           <div className={` ${PrCss.addSections}`}>
             <div className="card w-100">
@@ -734,7 +734,7 @@ const UserProfile = () => {
             </div>
           </div>
 
-        </div>
+        </div> */}
       </div>
     </div>
   )

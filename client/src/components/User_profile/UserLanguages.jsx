@@ -63,16 +63,34 @@ function MyVerticallyCenteredModal(props) {
             centered
             onHide={props.onHide}
         >
-            <Modal.Header closeButton  >
-                <Modal.Title id="contained-modal-title-vcenter">
-                    <span ><MdOutlineLanguage /> Select Language </span>
+            <Modal.Header
+                style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                }}
+                closeButton
+            >
+                <Modal.Title id="contained-modal-title-vcenter"
+                    style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                    }}
+                >
+                    <MdOutlineLanguage
+                        size={'25'}
+                    />
+
+                    <h5 className='mt-2'>
+                        {/* Select Language */}
+                        Selecciona un idioma
+                    </h5>
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <h6><b> Select Language </b></h6>
                 <form>
                     <div>
-                        <div className="form-group col-md-6">
+                        {/* <div className="form-group col-md-6">
                             <label htmlFor="language">
                                 Language
                                 <small className='text-danger'> * </small>
@@ -98,13 +116,45 @@ function MyVerticallyCenteredModal(props) {
                                 <option value="Burushaski">Burushaski</option>
                                 <option value="Other">Other</option>
                             </select>
-                        </div>
+                        </div> */}
                         <div className="form-group col-md-6">
-                            <label htmlFor="proficiency">
-                                Proficiency
+                            <label htmlFor="language">
+                                {/* Language */}
+                                Idioma
                                 <small className='text-danger'> * </small>
                             </label>
                             <select
+                                className='form-control'
+                                value={language}
+                                onChange={(e) => setLanguage(e.target.value)}
+                            >
+                                <option value="">Select Language</option>
+                                <option value="Inglés">Inglés</option>
+                                <option value="Francés">Francés</option>
+                                <option value="Alemán">Alemán</option>
+                                <option value="Italiano">Italiano</option>
+                                <option value="Catalan">Catalan</option>
+                                <option value="Sueco">Sueco</option>
+                                <option value="Finlandez">Finlandez</option>
+                                <option value="Mandarin">Mandarin</option>
+                                <option value="Japonés">Japonés</option>
+                                <option value="Ruso">Ruso</option>
+                                <option value="Ucraniano">Ucraniano</option>
+                                <option value="Checo">Checo</option>
+                                <option value="Portugués">Portugués</option>
+                                <option value="Arabe">Arabe</option>
+                                <option value="Español">Español</option>
+                                <option value="Vasco">Vasco</option>
+                                <option value="Otro">Otro</option>
+                            </select>
+                        </div>
+                        <div className="form-group col-md-6">
+                            <label htmlFor="proficiency">
+                                {/* Proficiency */}
+                                Dominio
+                                <small className='text-danger'> * </small>
+                            </label>
+                            {/* <select
                                 className="form-control"
                                 onChange={(e) => setProficiency(e.target.value)}
                             >
@@ -114,22 +164,39 @@ function MyVerticallyCenteredModal(props) {
                                 <option value="Conversational">Conversational</option>
                                 <option value="Fluent">Fluent</option>
                                 <option value="Native">Native</option>
+                            </select> */}
+                            <select
+                                className="form-control"
+                                onChange={(e) => setProficiency(e.target.value)}
+                            >
+                                <option value="">Select Proficiency</option>
+                                <option value="Básico A1/A2">Básico A1/A2</option>
+                                <option value="Intermedio B1">Intermedio B1</option>
+                                <option value="Conversación B2">Conversación B2</option>
+                                <option value="Fluido C1 / C2">Fluido C1 / C2</option>
+                                <option value="Nativo">Nativo</option>
                             </select>
                         </div>
                     </div>
                 </form>
             </Modal.Body>
             <Modal.Footer>
-                <Button onClick={(event) => { event.stopPropagation(); props.onHide(); }} className='btn btn-secondary'> Close</Button>
+                <Button onClick={(event) => { event.stopPropagation(); props.onHide(); }} className='btn btn-secondary'>
+                    {/* Close */}
+                    Cerrar
+                </Button>
                 <Button onClick={handleAddLanguage}>
                     {loading ? <>
                         <div className='d-flex'>
                             <PuffLoader
                                 size={25}
                                 color="#ffffff"
-                            /> <span className='pl-2'> Adding Language... </span>
+                            /> <span className='pl-2'> </span>
                         </div>
-                    </> : 'Add Language'}
+                    </> :
+                        // 'Add Language'
+                        'Añadir Idioma'
+                    }
                 </Button>
             </Modal.Footer>
         </Modal>
@@ -210,21 +277,43 @@ function MyVerticallyCenteredModalEditLang(props) {
             centered
             onHide={props.onHide}
         >
-            <Modal.Header closeButton  >
-                <Modal.Title id="contained-modal-title-vcenter">
-                    <span ><MdOutlineLanguage /> Update Language </span>
+            <Modal.Header
+                style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                }}
+                closeButton
+            >
+                <Modal.Title id="contained-modal-title-vcenter"
+                    style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                    }}
+                >
+                    <MdOutlineLanguage
+                        size={'25'}
+                    />
+
+                    <h5 className='mt-2'>
+                        {/* Update Language */}
+                        Actualizar Idioma
+                    </h5>
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <h6><b> Select Language </b></h6>
+                <h6>
+                    <b> Selecciona un idioma </b>
+                </h6>
                 <form>
                     <div>
                         <div className="form-group col-md-6">
                             <label htmlFor="language">
-                                Language
+                                {/* Language */}
+                                Idiomas
                                 <small className='text-danger'> * </small>
                             </label>
-                            <select
+                            {/* <select
                                 className="form-control"
                                 value={language}
                                 onChange={(e) => setLanguage(e.target.value)}
@@ -245,14 +334,39 @@ function MyVerticallyCenteredModalEditLang(props) {
                                 <option value="Wakhi">Wakhi</option>
                                 <option value="Burushaski">Burushaski</option>
                                 <option value="Other">Other</option>
+                            </select> */}
+                            <select
+                                className="form-control"
+                                value={language}
+                                onChange={(e) => setLanguage(e.target.value)}
+                            >
+                                <option value="">Select Language</option>
+                                <option value="Inglés">Inglés</option>
+                                <option value="Francés">Francés</option>
+                                <option value="Alemán">Alemán</option>
+                                <option value="Italiano">Italiano</option>
+                                <option value="Catalan">Catalan</option>
+                                <option value="Sueco">Sueco</option>
+                                <option value="Finlandez">Finlandez</option>
+                                <option value="Mandarin">Mandarin</option>
+                                <option value="Japonés">Japonés</option>
+                                <option value="Ruso">Ruso</option>
+                                <option value="Ucraniano">Ucraniano</option>
+                                <option value="Checo">Checo</option>
+                                <option value="Portugués">Portugués</option>
+                                <option value="Arabe">Arabe</option>
+                                <option value="Español">Español</option>
+                                <option value="Vasco">Vasco</option>
+                                <option value="Otro">Otro</option>
                             </select>
                         </div>
                         <div className="form-group col-md-6">
                             <label htmlFor="proficiency">
-                                Proficiency
+                                {/* Proficiency */}
+                                Dominio
                                 <small className='text-danger'> * </small>
                             </label>
-                            <select
+                            {/* <select
                                 className="form-control"
                                 value={proficiency}
                                 onChange={(e) => setProficiency(e.target.value)}
@@ -263,22 +377,40 @@ function MyVerticallyCenteredModalEditLang(props) {
                                 <option value="Conversational">Conversational</option>
                                 <option value="Fluent">Fluent</option>
                                 <option value="Native">Native</option>
+                            </select> */}
+                            <select
+                                className="form-control"
+                                value={proficiency}
+                                onChange={(e) => setProficiency(e.target.value)}
+                            >
+                                <option value="">Select Proficiency</option>
+                                <option value="Básico A1/A2">Básico A1/A2</option>
+                                <option value="Intermedio B1">Intermedio B1</option>
+                                <option value="Conversación B2">Conversación B2</option>
+                                <option value="Fluido C1 / C2">Fluido C1 / C2</option>
+                                <option value="Nativo">Nativo</option>
                             </select>
                         </div>
                     </div>
                 </form>
             </Modal.Body>
             <Modal.Footer>
-                <Button onClick={(event) => { event.stopPropagation(); props.onHide(); }} className='btn btn-secondary'> Close</Button>
+                <Button onClick={(event) => { event.stopPropagation(); props.onHide(); }} className='btn btn-secondary'>
+                    {/* Close */}
+                    Cerrar
+                </Button>
                 <Button onClick={handledeleteLanguage} className='btn btn-danger' >
                     {delLoading ? <>
                         <div className='d-flex'>
                             <PuffLoader
                                 size={25}
                                 color="#ffffff"
-                            /> <span className='pl-2'> Removing ... </span>
+                            /> <span className='pl-2'>  </span>
                         </div>
-                    </> : 'Remove Language'}
+                    </> :
+                        // 'Remove Language'
+                        'Eliminar Idioma'
+                    }
 
                 </Button>
                 <Button onClick={handleEditLanguage}>
@@ -287,9 +419,12 @@ function MyVerticallyCenteredModalEditLang(props) {
                             <PuffLoader
                                 size={25}
                                 color="#ffffff"
-                            /> <span className='pl-2'> Updating Language... </span>
+                            /> <span className='pl-2'>  </span>
                         </div>
-                    </> : 'Update Language'}
+                    </> :
+                        // 'Update Language'
+                        'Actualizar Idioma'
+                    }
                 </Button>
             </Modal.Footer>
         </Modal>
@@ -323,7 +458,10 @@ const UserLanguages = () => {
                     <div className="card w-100">
                         <div className="card-body text-center">
                             <i className='fa-solid fa-plus'></i>
-                            <p className='card-text'> Add Languages </p>
+                            <p className='card-text'>
+                                {/* Add Languages */}
+                                Añadir Idioma
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -336,12 +474,15 @@ const UserLanguages = () => {
                     }}
                     >
                         <div className='p-4' style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                            <h5 style={{fontWeight:'600'}}> Languages </h5>
+                            <h5 className='mt-2'>
+                                {/* Languages */}
+                                Idiomas
+                            </h5>
                             <div onClick={() => setModalShow(true)} style={{ cursor: 'pointer' }} >
                                 <CiSquarePlus size={'35'} />
                             </div>
                         </div>
-                        
+
                         {allUserLanguage?.map((language) => {
                             return (
                                 <div>

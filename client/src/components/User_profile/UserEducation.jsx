@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-// React toast 
+// React toast
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -90,56 +90,67 @@ function MyVerticallyCenteredModal(props) {
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <h6><b> Highlight your achievements </b></h6>
+                <h6>
+                    {/* <b> Highlight your achievements </b> */}
+                    <b> Destaca tus logros </b>
+                </h6>
                 <p>
-                    Write about what you've studied , or where are you studying
+                    {/* Write about what you've studied , or where are you studying */}
+                    Escribe sobre lo que has estudiado, o dónde estás estudiando
                 </p>
 
                 <form >
                     <ToastContainer />
                     <div className="form-group">
-                        <label htmlFor="degree">School / University Name </label>
+                        <label htmlFor="degree">
+                            {/* School / University Name */}
+                            Nombre del Colegio / Universidad
+                        </label>
                         <input
                             type="text"
                             className="form-control"
                             id="degree"
-                            placeholder="XYZ University"
+                            // placeholder="XYZ University"
+                            placeholder='Universidad XYZ'
                             onChange={(e) => setSchool(e.target.value)}
                         />
                     </div>
                     <div className='row'>
                         <div className="form-group col">
-                            <label htmlFor="city">City / Country</label>
-                            <select
+                            <label htmlFor="city">
+                                {/* City / Country */}
+                                Ciudad / País
+                            </label>
+
+                            <input
+                                type="text"
                                 className='form-control'
+                                placeholder='Ciudad / País'
                                 onChange={(e) => setCity(e.target.value)}
-                            >
-                                <option value="">Select</option>
-                                <option value="Kannauj">Kannauj</option>
-                                <option value="Kanpur">Kanpur</option>
-                                <option value="Lucknow">Lucknow</option>
-                                <option value="Delhi">Delhi</option>
-                                <option value="Mumbai">Mumbai</option>
-                                <option value="Bangalore">Bangalore</option>
-                                <option value="Hyderabad">Hyderabad</option>
-                                <option value="Chennai">Chennai</option>
-                            </select>
+                            />
                         </div>
 
                         <div className='form-group col'>
-                            <label htmlFor="degree"> Degree </label>
+                            <label htmlFor="degree">
+                                {/* Degree */}
+                                Titulación
+                            </label>
                             <input
                                 type="text"
                                 className="form-control"
                                 id="degree"
-                                placeholder="Degree Name"
+                                // placeholder="Degree Name"
+                                placeholder='Nombre del título'
                                 onChange={(e) => setDegree(e.target.value)}
                             />
                         </div>
                     </div>
                     <div className='row'>
                         <div className='form-group col'>
-                            <label htmlFor="startdate"> Start Date</label>
+                            <label htmlFor="startdate">
+                                {/* Start Date */}
+                                Inicio
+                            </label>
                             <input
                                 type="date"
                                 className='form-control'
@@ -147,7 +158,10 @@ function MyVerticallyCenteredModal(props) {
                             />
                         </div>
                         <div className='form-group col'>
-                            <label htmlFor="enddate"> End Date </label>
+                            <label htmlFor="enddate">
+                                {/* End Date */}
+                                Finalización
+                            </label>
                             <input
                                 type="date"
                                 className='form-control'
@@ -156,10 +170,14 @@ function MyVerticallyCenteredModal(props) {
                         </div>
                     </div>
                     <div className="form-group">
-                        <label htmlFor="description">Description</label>
+                        <label htmlFor="description">
+                            {/* Description */}
+                            Descripción
+                        </label>
                         <textarea
                             className="form-control"
-                            placeholder="Write about your education"
+                            // placeholder="Write about your education"
+                            placeholder=' Escribe sobre tus estudios'
                             onChange={(e) => setDescription(e.target.value)}
                             rows="3"
                         ></textarea>
@@ -168,16 +186,24 @@ function MyVerticallyCenteredModal(props) {
                 </form>
             </Modal.Body>
             <Modal.Footer>
-                <Button onClick={(event) => { event.stopPropagation(); props.onHide(); }} className='btn btn-secondary'> Close</Button>
+                <Button
+                    onClick={(event) => { event.stopPropagation(); props.onHide(); }}
+                    className='btn btn-secondary'>
+                    {/* Close */}
+                    Cerrar
+                </Button>
                 <Button onClick={handleSubmitEducation}>
                     {loading ? <>
                         <div className='d-flex'>
                             <PuffLoader
                                 size={25}
                                 color="#ffffff"
-                            /> <span className='pl-2'> Submitting... </span>
+                            /> <span className='pl-2'> </span>
                         </div>
-                    </> : 'Submit'}
+                    </> :
+                        // 'Save'
+                        'Guardar'
+                    }
                 </Button>
             </Modal.Footer>
         </Modal>
@@ -297,15 +323,21 @@ function MyVerticallyCenteredModalForEdit(props) {
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <h6><b> Highlight your achievements </b></h6>
+                <h6>
+                    {/* <b> Highlight your achievements </b> */}
+                    <b> Destaca tus logros </b>
+                </h6>
                 <p>
-                    Write about what you've studied , or where are you studying
+                    {/* Write about what you've studied , or where are you studying */}
+                    Escribe sobre lo que has estudiado, o dónde estás estudiando
                 </p>
 
                 <form >
                     <ToastContainer />
                     <div className="form-group">
-                        <label htmlFor="degree">School / University Name
+                        <label htmlFor="degree">
+                            {/* School / University Name */}
+                            Nombre del Colegio / Universidad
                             <small className='text-danger'>*</small>
                         </label>
                         <input
@@ -313,37 +345,32 @@ function MyVerticallyCenteredModalForEdit(props) {
                             className="form-control"
                             id="degree"
                             value={school}
-                            placeholder="XYZ University"
+                            // placeholder="XYZ University"
+                            placeholder='Universidad XYZ'
                             onChange={(e) => setSchool(e.target.value)}
                         />
                     </div>
                     <div className='row'>
                         <div className="form-group col">
                             <label htmlFor="city">
-                                City / Country
+                                {/* City / Country */}
+                                Ciudad / País
                                 <small className='text-danger'>*</small>
                             </label>
-                            <select
+                            <input
+                                type="text"
                                 className='form-control'
+                                placeholder='Ciudad / País'
                                 value={city}
                                 onChange={(e) => setCity(e.target.value)}
+                            />
 
-                            >
-                                <option value="">Select</option>
-                                <option value="Kannauj">Kannauj</option>
-                                <option value="Kanpur">Kanpur</option>
-                                <option value="Lucknow">Lucknow</option>
-                                <option value="Delhi">Delhi</option>
-                                <option value="Mumbai">Mumbai</option>
-                                <option value="Bangalore">Bangalore</option>
-                                <option value="Hyderabad">Hyderabad</option>
-                                <option value="Chennai">Chennai</option>
-                            </select>
                         </div>
 
                         <div className='form-group col'>
                             <label htmlFor="degree">
-                                Degree
+                                {/* Degree */}
+                                Titulación
                                 <small className='text-danger'>*</small>
                             </label>
                             <input
@@ -351,7 +378,8 @@ function MyVerticallyCenteredModalForEdit(props) {
                                 className="form-control"
                                 id="degree"
                                 value={degree}
-                                placeholder="Degree Name"
+                                // placeholder="Degree Name"
+                                placeholder='Nombre del título'
                                 onChange={(e) => setDegree(e.target.value)}
                             />
                         </div>
@@ -359,7 +387,8 @@ function MyVerticallyCenteredModalForEdit(props) {
                     <div className='row'>
                         <div className='form-group col'>
                             <label htmlFor="startdate">
-                                Start Date
+                                {/* Start Date */}
+                                Inicio
                                 <small className='text-danger'>*</small>
                             </label>
                             <input
@@ -371,7 +400,8 @@ function MyVerticallyCenteredModalForEdit(props) {
                         </div>
                         <div className='form-group col'>
                             <label htmlFor="enddate">
-                                End Date
+                                {/* End Date */}
+                                Finalización
                                 <small className='text-danger'>*</small>
                             </label>
                             <input
@@ -383,10 +413,14 @@ function MyVerticallyCenteredModalForEdit(props) {
                         </div>
                     </div>
                     <div className="form-group">
-                        <label htmlFor="description">Description</label>
+                        <label htmlFor="description">
+                            {/* Description */}
+                            Descripción
+                        </label>
                         <textarea
                             className="form-control"
-                            placeholder="Write about your education"
+                            // placeholder="Write about your education"
+                            placeholder=' Escribe sobre tus estudios'
                             value={description}
                             onChange={(e) => setDescription(e.target.value)}
                             rows="3"
@@ -396,16 +430,22 @@ function MyVerticallyCenteredModalForEdit(props) {
                 </form>
             </Modal.Body>
             <Modal.Footer>
-                <Button onClick={(event) => { event.stopPropagation(); props.onHide(); }} className='btn btn-secondary'> Close</Button>
+                <Button onClick={(event) => { event.stopPropagation(); props.onHide(); }} className='btn btn-secondary'>
+                    {/* Close */}
+                    Cerrar
+                </Button>
                 <Button onClick={handledeleleEducationonEdit} className='btn btn-danger' >
                     {delLoading ? <>
                         <div className='d-flex'>
                             <PuffLoader
                                 size={25}
                                 color="#ffffff"
-                            /> <span className='pl-2'> Removing ... </span>
+                            /> <span className='pl-2'>  </span>
                         </div>
-                    </> : 'Remove Education'}
+                    </> :
+                        // 'Remove Education'
+                        'Eliminar Educación'
+                    }
                 </Button>
                 <Button onClick={handleSubmitEducationEdit}>
                     {loading ? <>
@@ -415,7 +455,10 @@ function MyVerticallyCenteredModalForEdit(props) {
                                 color="#ffffff"
                             /> <span className='pl-2'> Updating... </span>
                         </div>
-                    </> : 'Update'}
+                    </> :
+                        // 'Save'
+                        'Guardar'
+                    }
                 </Button>
             </Modal.Footer>
         </Modal>
@@ -483,49 +526,61 @@ const UserEducation = () => {
                     </>
                 ) : (
                     <>
-                        {allEducationExperiences && allEducationExperiences.length > 0 ?
-                            <div className="card-body mt-3 mb-0 pb-0">
-                                <div className='row justify-content-between ml-2 mr-2'>
-                                    <h5 className="card-title"> Education </h5>
-                                    <div style={{ cursor: 'pointer' }} onClick={() => setModalShow(true)}>
-                                        <CiSquarePlus size={'35'} />
-                                    </div>
-                                </div>
-                            </div>
-                            : <> </>
-                        }
-                        <div className="card mt-3"
-                            style=
-                            {{
+                        <div className="card w-100 mt-2"
+                            style={{
                                 boxShadow: '14px 10px 20px 3px #d3beae',
                                 borderRadius: '25px 25px 25px 25px'
                             }}
                         >
-                            <div className="card-body">
-                                {
-                                    allEducationExperiences?.sort((a, b) => new Date(b.start_date) - new Date(a.start_date))?.map((education, index) => (
-                                        <div key={index}>
-                                            <div className='row'>
-                                                <h5 className="card-title ml-3">{education.school} - {education.city}</h5>
-                                                <div className=' ml-2 mt-1' style={{ cursor: 'pointer' }}
-                                                    onClick={() => {
-                                                        setModalEditShow(true);
-                                                        setEditId(education._id);
-                                                        setDeleteId(education._id)
-                                                    }}>
-                                                    <RxPencil1 />
-                                                </div>
-                                            </div>
-                                            <div className="card-text">
-                                                {education.degree}
-                                            </div>
-                                            <div className="card-text">
-                                                {formatDateAndCalculateDifference(education.start_date, education.end_date)}
-                                            </div>
-                                            {index !== allEducationExperiences.length - 1 && <hr />}
+                            {allEducationExperiences && allEducationExperiences.length > 0 ?
+                                <div className="card-body mt-3 mb-0 pb-0">
+                                    <div className='row justify-content-between ml-2 mr-2'
+
+                                    >
+                                        <h5 className="card-title">
+                                            {/* Education */}
+                                            Educación
+                                        </h5>
+                                        <div style={{ cursor: 'pointer' }} onClick={() => setModalShow(true)}>
+                                            <CiSquarePlus size={'35'} />
                                         </div>
-                                    ))
-                                }
+                                    </div>
+                                </div>
+                                : <> </>
+                            }
+                            <div className="card mt-3"
+                                style=
+                                {{
+                                    boxShadow: '14px 10px 20px 3px #d3beae',
+                                    borderRadius: '25px 25px 25px 25px'
+                                }}
+                            >
+                                <div className="card-body">
+                                    {
+                                        allEducationExperiences?.sort((a, b) => new Date(b.start_date) - new Date(a.start_date))?.map((education, index) => (
+                                            <div key={index}>
+                                                <div className='row'>
+                                                    <h5 className="card-title ml-3">{education.school} - {education.city}</h5>
+                                                    <div className=' ml-2 mt-1' style={{ cursor: 'pointer' }}
+                                                        onClick={() => {
+                                                            setModalEditShow(true);
+                                                            setEditId(education._id);
+                                                            setDeleteId(education._id)
+                                                        }}>
+                                                        <RxPencil1 />
+                                                    </div>
+                                                </div>
+                                                <div className="card-text">
+                                                    {education.degree}
+                                                </div>
+                                                <div className="card-text">
+                                                    {formatDateAndCalculateDifference(education.start_date, education.end_date)}
+                                                </div>
+                                                {index !== allEducationExperiences.length - 1 && <hr />}
+                                            </div>
+                                        ))
+                                    }
+                                </div>
                             </div>
                         </div>
                     </>

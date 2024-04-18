@@ -30,8 +30,8 @@ function MyVerticallyCenteredModal(props) {
     const [issued_by, setIssuedBy] = useState('');
     const [issued_on_month, setIssuedOnMonth] = useState('');
     const [issued_on_year, setIssuedOnYear] = useState('');
-    const [expiration_month, setExpirationMonth] = useState('');
-    const [expiration_year, setExpirationYear] = useState('');
+    // const [expiration_month, setExpirationMonth] = useState('');
+    // const [expiration_year, setExpirationYear] = useState('');
     const [credential_id, setCredentialId] = useState('');
     const [credential_url, setCredentialUrl] = useState('');
     const dispatch = useDispatch();
@@ -57,9 +57,9 @@ function MyVerticallyCenteredModal(props) {
         if (!certificate_name || !issued_by || !issued_on_month || !issued_on_year) {
             return toast.error('Please fill mandatory fields');
         }
-        if (parseInt(issued_on_year) > parseInt(expiration_year)) {
-            return toast.error('Expiration year should be less than issued year')
-        }
+        // if (parseInt(issued_on_year) > parseInt(expiration_year)) {
+        //     return toast.error('Expiration year should be less than issued year')
+        // }
         // if(parseInt(issued_on_year) === parseInt(expiration_year) || ){
 
         if (credential_url && !isValidUrl(credential_url)) {
@@ -73,8 +73,8 @@ function MyVerticallyCenteredModal(props) {
             issued_by: issued_by,
             issue_month: issued_on_month,
             issue_year: issued_on_year,
-            expiration_month: expiration_month,
-            expiration_year: expiration_year,
+            // expiration_month: expiration_month,
+            // expiration_year: expiration_year,
             credential_id: credential_id,
             credential_url: credential_url,
             userId: id
@@ -100,9 +100,26 @@ function MyVerticallyCenteredModal(props) {
             centered
             onHide={props.onHide}
         >
-            <Modal.Header closeButton  >
-                <Modal.Title id="contained-modal-title-vcenter">
-                    <span > <PiCertificateDuotone /> Add Liscence or Certifications  </span>
+            <Modal.Header
+                style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                }}
+                closeButton
+            >
+                <Modal.Title id="contained-modal-title-vcenter"
+                    style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+
+                    }}
+                >
+                    <PiCertificateDuotone size={'25'} />
+                    <h5 className='mt-2'>
+                        {/* Add Liscence and certification */}
+                        Añade tus licencias o certificaciones
+                    </h5>
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
@@ -112,33 +129,51 @@ function MyVerticallyCenteredModal(props) {
                 {/* </p> */}
                 <form>
                     <div className="form-group">
-                        <label htmlFor="certificate_name">Certificate Name <small className='text-danger'>*</small>  </label>
+                        <label htmlFor="certificate_name">
+                            {/* Certificate Name */}
+                            Nombre del certificado &nbsp;
+                            <small className='text-danger'>*</small>
+                        </label>
                         <input
                             type="text"
                             className="form-control"
                             onChange={(e) => setCertificateName(e.target.value)}
                             id="certificate_name"
-                            placeholder="Enter Certificate Name"
+                            // placeholder="Enter Certificate Name"
+                            placeholder='Escribe el nombre de tu título '
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="issued_by">Issued By <small className='text-danger'>*</small> </label>
+                        <label htmlFor="issued_by">
+                            {/* Issued By */}
+                            Emitido por
+                            <small className='text-danger'> * </small>
+                        </label>
                         <input
                             type="text"
                             className="form-control"
                             onChange={(e) => setIssuedBy(e.target.value)}
                             id="issued_by"
-                            placeholder="Enter Issuing organization name" />
+                            // placeholder="Enter Issuing organization name"
+                            placeholder='Escribe el nombre de la organización'
+                        />
                     </div>
                     <div>
-                        <label htmlFor="issue_on">Issued on <small className='text-danger'>*</small></label>
+                        <label htmlFor="issue_on">
+                            {/* Issued on */}
+                            Emitido el
+                            <small className='text-danger'>*</small>
+                        </label>
                         <div className="form-group row">
                             <div className='form-group col-md-6'>
                                 <select
                                     className='form-control'
                                     onChange={(e) => setIssuedOnMonth(e.target.value)}
                                 >
-                                    <option value="">Month</option>
+                                    <option value="">
+                                        {/* Month */}
+                                        Mes
+                                    </option>
                                     <option value="January">January</option>
                                     <option value="February">February</option>
                                     <option value="March">March</option>
@@ -158,7 +193,10 @@ function MyVerticallyCenteredModal(props) {
                                     className='form-control'
                                     onChange={(e) => setIssuedOnYear(e.target.value)}
                                 >
-                                    <option value="">Year</option>
+                                    <option value="">
+                                        {/* Year */}
+                                        Año
+                                    </option>
                                     {years.map((year) =>
                                         <option key={year} value={year}>{year}</option>
                                     )}
@@ -166,7 +204,7 @@ function MyVerticallyCenteredModal(props) {
                             </div>
                         </div>
                     </div>
-                    <div>
+                    {/* <div>
                         <label htmlFor="expired_on">Expired on</label>
                         <div className='row'>
                             <div className="form-group col-md-6">
@@ -174,7 +212,10 @@ function MyVerticallyCenteredModal(props) {
                                     className='form-control'
                                     onChange={(e) => setExpirationMonth(e.target.value)}
                                 >
-                                    <option value="">Month</option>
+                                    <option value="">
+                                        
+                                        Mes
+                                    </option>
                                     <option value="January">January</option>
                                     <option value="February">February</option>
                                     <option value="March">March</option>
@@ -194,48 +235,66 @@ function MyVerticallyCenteredModal(props) {
                                     className='form-control'
                                     onChange={(e) => setExpirationYear(e.target.value)}
                                 >
-                                    <option value="">Year</option>
+                                    <option value="">
+                                        
+                                        Año
+                                    </option>
                                     {years2.map((year) =>
                                         <option key={year} value={year}>{year}</option>
                                     )}
                                 </select>
                             </div>
                         </div>
-                    </div>
+                    </div> */}
                     <div className="form-group">
-                        <label htmlFor="credential_id">Credential ID</label>
+                        <label htmlFor="credential_id">
+                            {/* Credential ID */}
+                            Número de registro de título
+                        </label>
                         <input
                             type="text"
                             className="form-control"
                             id="credential_id"
                             onChange={(e) => setCredentialId(e.target.value)}
-                            placeholder="Enter Credential ID"
+                            // placeholder="Enter Credential ID"
+                            placeholder='Escribe el número de registro de tu título'
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="credential_url">Credential URL</label>
+                        <label htmlFor="credential_url">
+                            {/* Credential URL */}
+                            URL del Título
+                        </label>
                         <input
                             type="text"
                             className="form-control"
                             id="credential_url"
                             onChange={(e) => setCredentialUrl(e.target.value)}
-                            placeholder="Enter Credential URL"
+                            // placeholder="Enter Credential URL"
+                            placeholder='Escribe la URL de tu título'
                         />
                     </div>
                 </form>
 
             </Modal.Body>
             <Modal.Footer>
-                <Button onClick={(event) => { event.stopPropagation(); props.onHide(); }} className='btn btn-secondary'> Close</Button>
+                <Button onClick={(event) => { event.stopPropagation(); props.onHide(); }} className='btn btn-secondary'>
+                    {/* Close */}
+                    Cerrar
+                </Button>
                 <Button onClick={handleAddCertification}>
                     {loading ? <>
                         <div className='d-flex'>
                             <PuffLoader
                                 size={25}
                                 color="#ffffff"
-                            /> <span className='pl-2'> Saving ... </span>
+                            /> <span className='pl-2'>  </span>
                         </div>
-                    </> : 'Save'}
+                    </> :
+                        // 'Save'
+                        'Guardar'
+
+                    }
                 </Button>
             </Modal.Footer>
         </Modal>
@@ -253,8 +312,8 @@ function MyVerticallyCenteredModalEditCertification(props) {
     const [issued_by, setIssuedBy] = useState('');
     const [issued_on_month, setIssuedOnMonth] = useState('');
     const [issued_on_year, setIssuedOnYear] = useState('');
-    const [expiration_month, setExpirationMonth] = useState('');
-    const [expiration_year, setExpirationYear] = useState('');
+    // const [expiration_month, setExpirationMonth] = useState('');
+    // const [expiration_year, setExpirationYear] = useState('');
     const [credential_id, setCredentialId] = useState('');
     const [credential_url, setCredentialUrl] = useState('');
     const dispatch = useDispatch();
@@ -281,8 +340,8 @@ function MyVerticallyCenteredModalEditCertification(props) {
             setIssuedBy(certificate?.issued_by);
             setIssuedOnMonth(certificate?.issue_month);
             setIssuedOnYear(certificate?.issue_year);
-            setExpirationMonth(certificate?.expiration_month);
-            setExpirationYear(certificate?.expiration_year);
+            // setExpirationMonth(certificate?.expiration_month);
+            // setExpirationYear(certificate?.expiration_year);
             setCredentialId(certificate?.credential_id);
             setCredentialUrl(certificate?.credential_url);
         }
@@ -294,9 +353,9 @@ function MyVerticallyCenteredModalEditCertification(props) {
         if (!certificate_name || !issued_by || !issued_on_month || !issued_on_year) {
             return toast.error('Please fill mandatory fields');
         }
-        if (parseInt(issued_on_year) > parseInt(expiration_year)) {
-            return toast.error('Expiration year should be less than issued year')
-        }
+        // if (parseInt(issued_on_year) > parseInt(expiration_year)) {
+        //     return toast.error('Expiration year should be less than issued year')
+        // }
         // if(parseInt(issued_on_year) === parseInt(expiration_year) || ){
 
         if (credential_url && !isValidUrl(credential_url)) {
@@ -310,8 +369,8 @@ function MyVerticallyCenteredModalEditCertification(props) {
             issued_by: issued_by,
             issue_month: issued_on_month,
             issue_year: issued_on_year,
-            expiration_month: expiration_month,
-            expiration_year: expiration_year,
+            // expiration_month: expiration_month,
+            // expiration_year: expiration_year,
             credential_id: credential_id,
             credential_url: credential_url,
         }
@@ -351,9 +410,27 @@ function MyVerticallyCenteredModalEditCertification(props) {
             centered
             onHide={props.onHide}
         >
-            <Modal.Header closeButton  >
-                <Modal.Title id="contained-modal-title-vcenter">
-                    <span > <PiCertificateDuotone /> Edit your Liscence or Certifications  </span>
+            <Modal.Header
+                style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                }}
+                closeButton
+            >
+                <Modal.Title id="contained-modal-title-vcenter"
+                    style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+
+                    }}
+                >
+                    <PiCertificateDuotone size={'25'} />
+
+                    <h5 className='mt-2'>
+                        {/* Add Liscence and certification */}
+                        Añade tus licencias o certificaciones
+                    </h5>
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
@@ -363,28 +440,43 @@ function MyVerticallyCenteredModalEditCertification(props) {
                 {/* </p> */}
                 <form>
                     <div className="form-group">
-                        <label htmlFor="certificate_name">Certificate Name <small className='text-danger'>*</small>  </label>
+                        <label htmlFor="certificate_name">
+                            {/* Certificate Name */}
+                            Nombre del certificado
+                            <small className='text-danger'>*</small>
+                        </label>
                         <input
                             type="text"
                             className="form-control"
                             value={certificate_name}
                             onChange={(e) => setCertificateName(e.target.value)}
                             id="certificate_name"
-                            placeholder="Enter Certificate Name"
+                            // placeholder="Enter Certificate Name"
+                            placeholder='Escribe el nombre de tu título'
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="issued_by">Issued By <small className='text-danger'>*</small> </label>
+                        <label htmlFor="issued_by">
+                            {/* Issued By */}
+                            Emitido por
+                            <small className='text-danger'>*</small>
+                        </label>
                         <input
                             type="text"
                             className="form-control"
                             value={issued_by}
                             onChange={(e) => setIssuedBy(e.target.value)}
                             id="issued_by"
-                            placeholder="Enter Issuing organization name" />
+                            // placeholder="Enter Issuing organization name"
+                            placeholder=' Escribe el nombre de la organización'
+                        />
                     </div>
                     <div>
-                        <label htmlFor="issue_on">Issued on <small className='text-danger'>*</small></label>
+                        <label htmlFor="issue_on">
+                            {/* Issued on */}
+                            Emitido el
+                            <small className='text-danger'>*</small>
+                        </label>
                         <div className="form-group row">
                             <div className='form-group col-md-6'>
                                 <select
@@ -392,7 +484,10 @@ function MyVerticallyCenteredModalEditCertification(props) {
                                     value={issued_on_month}
                                     onChange={(e) => setIssuedOnMonth(e.target.value)}
                                 >
-                                    <option value="">Month</option>
+                                    <option value="">
+                                        {/* Month */}
+                                        Mes
+                                    </option>
                                     <option value="January">January</option>
                                     <option value="February">February</option>
                                     <option value="March">March</option>
@@ -413,7 +508,10 @@ function MyVerticallyCenteredModalEditCertification(props) {
                                     value={issued_on_year}
                                     onChange={(e) => setIssuedOnYear(e.target.value)}
                                 >
-                                    <option value="">Year</option>
+                                    <option value="">
+                                        {/* Year */}
+                                        Año
+                                    </option>
                                     {years.map((year) =>
                                         <option key={year} value={year}>{year}</option>
                                     )}
@@ -421,8 +519,10 @@ function MyVerticallyCenteredModalEditCertification(props) {
                             </div>
                         </div>
                     </div>
-                    <div>
-                        <label htmlFor="expired_on">Expired on</label>
+                    {/* <div>
+                        <label htmlFor="expired_on">
+                            Expired on
+                        </label>
                         <div className='row'>
                             <div className="form-group col-md-6">
                                 <select
@@ -430,7 +530,9 @@ function MyVerticallyCenteredModalEditCertification(props) {
                                     value={expiration_month}
                                     onChange={(e) => setExpirationMonth(e.target.value)}
                                 >
-                                    <option value="">Month</option>
+                                    <option value="">
+                                        Mes
+                                    </option>
                                     <option value="January">January</option>
                                     <option value="February">February</option>
                                     <option value="March">March</option>
@@ -451,41 +553,54 @@ function MyVerticallyCenteredModalEditCertification(props) {
                                     value={expiration_year}
                                     onChange={(e) => setExpirationYear(e.target.value)}
                                 >
-                                    <option value="">Year</option>
+                                    <option value="">
+                                        Año
+                                    </option>
                                     {years2.map((year) =>
                                         <option key={year} value={year}>{year}</option>
                                     )}
                                 </select>
                             </div>
                         </div>
-                    </div>
+                    </div> */}
                     <div className="form-group">
-                        <label htmlFor="credential_id">Credential ID</label>
+                        <label htmlFor="credential_id">
+                            {/* Credential ID */}
+                            Número de registro de título
+                        </label>
                         <input
                             type="text"
                             className="form-control"
                             id="credential_id"
                             value={credential_id}
                             onChange={(e) => setCredentialId(e.target.value)}
-                            placeholder="Enter Credential ID"
+                            // placeholder="Enter Credential ID"
+                            placeholder='Escribe el número de registro de tu título'
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="credential_url">Credential URL</label>
+                        <label htmlFor="credential_url">
+                            {/* Credential URL */}
+                            URL del Título
+                        </label>
                         <input
                             type="text"
                             className="form-control"
                             value={credential_url}
                             id="credential_url"
                             onChange={(e) => setCredentialUrl(e.target.value)}
-                            placeholder="Enter Credential URL"
+                            // placeholder="Enter Credential URL"
+                            placeholder='Escribe la URL de tu título'
                         />
                     </div>
                 </form>
 
             </Modal.Body>
             <Modal.Footer>
-                <Button onClick={(event) => { event.stopPropagation(); props.onHide(); }} className='btn btn-secondary'> Close</Button>
+                <Button onClick={(event) => { event.stopPropagation(); props.onHide(); }} className='btn btn-secondary'>
+                    {/* Close */}
+                    Cerrar
+                </Button>
                 <Button onClick={handledeletecertificates} className='btn btn-danger' >
                     {loadingdel ?
                         <>
@@ -494,10 +609,11 @@ function MyVerticallyCenteredModalEditCertification(props) {
                                     size={25}
                                     color="#ffffff"
                                 />
-                                <span className='pl-2'> Removing Certificate ... </span>
+                                <span className='pl-2'> </span>
                             </div>
                         </> :
-                        'Remove Certificate'
+                        // 'Remove Certificate'
+                        'Eliminar certificado'
                     }
                 </Button>
                 <Button onClick={handleEditCertification}>
@@ -506,9 +622,12 @@ function MyVerticallyCenteredModalEditCertification(props) {
                             <PuffLoader
                                 size={25}
                                 color="#ffffff"
-                            /> <span className='pl-2'> Updating ... </span>
+                            /> <span className='pl-2'> </span>
                         </div>
-                    </> : 'Update'}
+                    </> :
+                        // 'Save'  
+                        'Guardar'
+                    }
                 </Button>
             </Modal.Footer>
         </Modal>
@@ -535,7 +654,7 @@ const UserCertifications = () => {
 
 
     return (
-        <div id='liscencescroll'> 
+        <div id='liscencescroll'>
             <ToastContainer />
             {(allcertificatesData?.length === 0 || allcertificatesData === undefined) ?
                 <>
@@ -543,7 +662,10 @@ const UserCertifications = () => {
                         <div className="card w-100">
                             <div className="card-body text-center">
                                 <i className='fa-solid fa-plus'></i>
-                                <p className='card-text'> Add Liscence or Certifications  </p>
+                                <p className='card-text'>
+                                    {/* Add Liscence or Certifications */}
+                                    Añade tus licencias o certificaciones
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -551,13 +673,16 @@ const UserCertifications = () => {
                 <>
                     <div className="card-body mt-3 mb-0 pb-0">
                         <div className='row justify-content-between ml-2 mr-2'>
-                            <h5 className="card-title">Licenses & certifications </h5>
+                            <h5 className="card-title">
+                                {/* Licenses & certifications */}
+                                Licencias y certificaciones
+                            </h5>
                             <div style={{ cursor: 'pointer' }} onClick={() => setModalShow(true)} >
                                 <CiSquarePlus size={'35'} />
                             </div>
                         </div>
                     </div>
-                    
+
                     <div
                         style={{
                             width: '50vw',
@@ -591,29 +716,46 @@ const UserCertifications = () => {
                                             {certificate.credential_id ?
                                                 <>
                                                     <div className="card-text mt-1">
-                                                        Credential ID : {certificate.credential_id}
+                                                        {/* Credential ID :  */}
+                                                        Número de registro de título : &nbsp;
+                                                        {certificate.credential_id}
                                                     </div>
                                                 </>
                                                 : <></>
                                             }
                                             <div className="card-text mt-1">
                                                 <small className='text-muted'>
-                                                    Issued ·
+                                                    {/* Issued  */}
+                                                    Emitido 
+                                                    · &nbsp;
                                                     {certificate.issue_month} {certificate.issue_year}
-                                                    {certificate.expiration_month ?
-                                                        <> · Expires {certificate.expiration_month} {certificate.expiration_year}</>
-                                                        :
-                                                        <></>
-                                                    }
+                                                    {/* {certificate.expiration_month ?
+                                                        <> · Expires {certificate.expiration_month}
+                                                            {certificate.expiration_year}
+                                                        </> 
+                                                        */}
                                                 </small>
                                             </div>
                                             {/* <div className="card-text mt-1">Credential ID 293f3085-8c81-409e-9a91-a2b5a95a17f0</div> */}
 
                                             {certificate.credential_url ?
                                                 <>
-                                                    <NavLink to={`${certificate.credential_url}`} target='_blank'>
-                                                        <button className='btn mt-3' style={{ backgroundColor: '#e4b49d', marginRight: '1vw' }}> Show credential  <FaExternalLinkAlt /> </button>
-                                                    </NavLink>
+                                                    <a href={`${certificate.credential_url}`}
+                                                        target='_blank'
+                                                        style={{ textDecoration: 'none' }}
+                                                    >
+                                                        <button className='btn mt-3' style={{
+                                                            backgroundColor: '#e4b49d',
+                                                            marginRight: '1vw',
+                                                            display: 'flex'
+                                                        }}>
+                                                            {/* Show credential */}
+                                                            Mostrar credencial
+                                                            <div className='ml-2 mt-1'>
+                                                                <FaExternalLinkAlt />
+                                                            </div>
+                                                        </button>
+                                                    </a>
                                                 </>
                                                 : <></>
                                             }

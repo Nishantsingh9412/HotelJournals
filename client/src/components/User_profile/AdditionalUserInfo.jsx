@@ -65,44 +65,74 @@ function MyVerticallyCenteredModal(props) {
             centered
             onHide={props.onHide}
         >
-            <Modal.Header closeButton  >
-                <Modal.Title id="contained-modal-title-vcenter">
-                    <span ><TiInfoLarge /> Add Additional Information  </span>
+            <Modal.Header
+                style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                }}
+                closeButton
+            >
+                <Modal.Title id="contained-modal-title-vcenter"
+                    style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                    }}
+                >
+                    <TiInfoLarge
+                        size={'20'}
+                    />
+                    {/* Add  Additional Information  */}
+                    <h5 className='mt-2'>
+                        Añade Información Adicional
+                    </h5>
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <form>
                     <div className="form-group">
-                        <label htmlFor="title"> Title </label>
+                        <label htmlFor="title">
+                            {/* Title */}
+                            Título
+                        </label>
                         <input
                             type="text"
                             className="form-control"
                             id="title"
                             onChange={(e) => setTitle(e.target.value)}
-                            placeholder="Add a title"
+                            // placeholder="Add a title"
+                            placeholder='Añade un título'
                         />
                     </div>
                     <div class="form-group">
                         <textarea
                             class="form-control"
                             onChange={(e) => setAdditionalDesc(e.target.value)}
-                            placeholder='Add other information such as personal website , blog , articles etc.'
+                            // placeholder='Add other information such as personal website , blog , articles etc.'
+                            placeholder='Añade otra información, puedes compartir cosas como tu propia página web, Linkedin, blog, artículos, etc.. '
                             rows="3">
                         </textarea>
                     </div>
                 </form>
             </Modal.Body>
             <Modal.Footer>
-                <Button onClick={(event) => { event.stopPropagation(); props.onHide(); }} className='btn btn-secondary'> Close</Button>
+                <Button onClick={(event) => { event.stopPropagation(); props.onHide(); }} className='btn btn-secondary'>
+                    {/* Close */}
+                    Cerrar
+                </Button>
                 <Button onClick={handleAddInfo}>
                     {loading ? <>
                         <div className='d-flex'>
                             <PuffLoader
                                 size={25}
                                 color="#ffffff"
-                            /> <span className='pl-2'> Submitting... </span>
+                            /> <span className='pl-2'> </span>
                         </div>
-                    </> : 'Submit'}
+                    </> :
+                        // 'Save'
+                        'Guardar'
+
+                    }
                 </Button>
             </Modal.Footer>
         </Modal>
@@ -182,22 +212,44 @@ function MyVerticallyCenteredModalEditAddInfo(props) {
             centered
             onHide={props.onHide}
         >
-            <Modal.Header closeButton  >
-                <Modal.Title id="contained-modal-title-vcenter">
-                    <span ><TiInfoLarge /> Edit your Additional Information  </span>
+            <Modal.Header
+                style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                }}
+                closeButton
+            >
+                <Modal.Title id="contained-modal-title-vcenter"
+                    style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                    }}
+                >
+                    <TiInfoLarge
+                        size={'20'}
+                    />
+                    {/* Edit Your Additional Information  */}
+                    <h5 className='mt-2'>
+                        Editar información adicional
+                    </h5>
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <form>
                     <div className="form-group">
-                        <label htmlFor="title"> Title </label>
+                        <label htmlFor="title">
+                            {/* Title */}
+                            Título
+                        </label>
                         <input
                             type="text"
                             className="form-control"
                             id="title"
                             value={title}
                             onChange={(e) => setTitle(e.target.value)}
-                            placeholder="Add a title"
+                            // placeholder="Add a title"
+                            placeholder='Añade un título'
                         />
                     </div>
                     <div class="form-group">
@@ -205,23 +257,30 @@ function MyVerticallyCenteredModalEditAddInfo(props) {
                             class="form-control"
                             value={additionalDesc}
                             onChange={(e) => setAdditionalDesc(e.target.value)}
-                            placeholder='Add other information such as personal website , blog , articles etc.'
+                            // placeholder='Add other information such as personal website , blog , articles etc.'
+                            placeholder='Añade otra información, puedes compartir cosas como tu propia página web, Linkedin, blog, artículos, etc.. '
                             rows="3">
                         </textarea>
                     </div>
                 </form>
             </Modal.Body>
             <Modal.Footer>
-                <Button onClick={(event) => { event.stopPropagation(); props.onHide(); }} className='btn btn-secondary'> Close</Button>
+                <Button onClick={(event) => { event.stopPropagation(); props.onHide(); }} className='btn btn-secondary'>
+                    {/* Close */}
+                    Cerrar
+                </Button>
                 <Button onClick={handleDeleteAddinfo} className='btn btn-danger' >
                     {delLoading ? <>
                         <div className='d-flex'>
                             <PuffLoader
                                 size={25}
                                 color="#ffffff"
-                            /> <span className='pl-2'> Removing ... </span>
+                            /> <span className='pl-2'> </span>
                         </div>
-                    </> : 'Remove Language'}
+                    </> :
+                        // 'Remove Information'
+                        'Eliminar Información'
+                    }
 
                 </Button>
                 <Button onClick={handleupdateAddInfo}>
@@ -230,9 +289,12 @@ function MyVerticallyCenteredModalEditAddInfo(props) {
                             <PuffLoader
                                 size={25}
                                 color="#ffffff"
-                            /> <span className='pl-2'> Submitting... </span>
+                            /> <span className='pl-2'> </span>
                         </div>
-                    </> : 'Submit'}
+                    </> :
+                        // 'Save'
+                        'Guardar'
+                    }
                 </Button>
             </Modal.Footer>
         </Modal>
@@ -257,7 +319,7 @@ const AdditionalUserInfo = () => {
     const singleAddInfo = allAddInfo?.data?.result;
 
     return (
-        <div id='additionlInfoScroll'> 
+        <div id='additionlInfoScroll'>
             <ToastContainer />
             {
                 (singleAddInfo?.length === 0 || singleAddInfo === undefined) ?
@@ -270,7 +332,10 @@ const AdditionalUserInfo = () => {
                             <div className="card w-100">
                                 <div className="card-body text-center">
                                     <i className='fa-solid fa-plus'></i>
-                                    <p className='card-text'> Add Additional Info  </p>
+                                    <p className='card-text'>
+                                        {/* Add Additional Info */}
+                                        Añade Información Adicional
+                                    </p>
                                 </div>
                             </div>
                             <MyVerticallyCenteredModal
@@ -294,7 +359,10 @@ const AdditionalUserInfo = () => {
                                     alignItems: 'center'
                                 }}
                             >
-                                <h5 style={{ fontWeight: '600' }}> Additional Information </h5>
+                                <h5 >
+                                    {/* Additional Information */}
+                                    Información Adicional
+                                </h5>
                                 <div onClick={() => setModalShow(true)} style={{ cursor: 'pointer' }} >
                                     <CiSquarePlus size={'35'} />
                                 </div>
@@ -310,7 +378,7 @@ const AdditionalUserInfo = () => {
                                                     <h5 className="card-title"> {info.title} </h5>
                                                     <div onClick={() => { setEditId(info._id); setDelId(info._id) }}>
                                                         <RxPencil1
-                                                            style={{ cursor: 'pointer',marginLeft:'1rem' }}
+                                                            style={{ cursor: 'pointer', marginLeft: '1rem' }}
                                                             onClick={() => setEditModalShow(true)}
                                                         />
                                                     </div>
