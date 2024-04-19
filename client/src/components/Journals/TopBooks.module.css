@@ -1,0 +1,17 @@
+.TopBooksContentASR{
+    margin-top: auto;
+    margin-left: 0.8rem;
+}
+
+
+@media screen and (max-width:896px) {
+    .TopBooksContentASR {
+        margin-top: 30px;
+    }
+}
+
+@media screen and (max-width:768px) {
+    .TopBooksContentASR {
+        margin-top: 30px;
+    }
+}

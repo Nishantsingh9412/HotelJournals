@@ -39,10 +39,10 @@ const Login = () => {
             email,
             password
         }
-        dispatch(login(loginData,navigate)).then((repsonse) => {
-            if(!(repsonse.success)){
+        dispatch(login(loginData, navigate)).then((repsonse) => {
+            if (!(repsonse.success)) {
                 toast.error(repsonse.message);
-            }   
+            }
         })
         // setLoading(false);
         // if (!loading && messagebackend) {
@@ -102,10 +102,14 @@ const Login = () => {
                             }}
                             className="text"
                         >
-                            <h6 style={{ marginLeft: '2%', fontSize: "12px" }}>
+                            {/* <h6 style={{ marginLeft: '2%', fontSize: "12px" }}>
                                 Hi, Commando
-                            </h6>
-                            <h3 style={{ fontSize: "18px" }}>👋 Welcome Back to Hotel Journals!</h3>
+                            </h6> */}
+                            <h3 style={{ fontSize: "18px" }}>
+                                👋
+                                {/* Welcome Back to Hotel Journals! */}
+                                Bienvenido/a a Hotel Journals
+                            </h3>
                         </div>
                         <br />
                         {/* <Button
@@ -134,7 +138,10 @@ const Login = () => {
                                     autoComplete="on"
                                     onChange={(e) => setEmail(e.target.value)}
                                 />
-                                <label>Email</label>
+                                <label>
+                                    {/* Email */}
+                                    Email
+                                </label>
                             </div>
 
 
@@ -149,7 +156,10 @@ const Login = () => {
                                     }
                                     style={{ width: '100%' }}
                                 />
-                                <label>Password</label>
+                                <label>
+                                    {/* Password */}
+                                    Contraseña 
+                                </label>
                             </div>
                         </div>
                         <Button
@@ -163,10 +173,12 @@ const Login = () => {
                             type="submit"
                             size="lg"
                         >
-                            Sign In
+                            {/* Sign In */}
+                            Registrate aquí 
                         </Button>
                         <br />
-                        Don't have an account?{' '}
+                        {/* Don't have an account?{' '} */}
+                        ¿No tienes un usuario? 
                         <NavLink
                             style={{
                                 color: '#0000f2ff',

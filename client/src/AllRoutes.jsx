@@ -65,6 +65,7 @@ import UpdateCourseEdu from './components/Educator_Profile/UpdateCourseEdu';
 import UpdateJobRecruiter from './components/admin/RecruiterDashboard/UpdateJobRecruiter';
 import LoginSuperAdmin from './components/superAdmin/auth/LoginSuperAdmin';
 import ProtectedRoute from './ProtectedRoute';
+import NewsLetter from './components/NewsLetter/NewsLetter';
 
 
 const AllRoutes = () => {
@@ -184,7 +185,7 @@ const AllRoutes = () => {
             <Route path='/test/recprofile/:id' element={<RecruiterProfile />} > </Route>
             <Route path='/test/emailTemp' element={<EmailTemp />} > </Route>
             <Route path='/test/rec' element={<RecruiterDashboardTest />} > </Route>
-
+            <Route path='/test/newsletter' element={<NewsLetter /> } > </Route>
 
             {/* Error 404 Route */}
             <Route path='*' element={<h1> 404 Not Found </h1>} > </Route>

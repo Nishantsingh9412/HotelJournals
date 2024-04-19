@@ -3,7 +3,6 @@ import React from 'react'
 import journalImage from '../../assets/img/jounal_IMG.jpeg'
 import 'animate.css';
 
-
 const journalbgImgStyle = {
     backgroundImage: `url(${journalImage})`,
     backgroundRepeat: 'no-repeat',
