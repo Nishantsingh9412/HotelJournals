@@ -66,6 +66,8 @@ import UpdateJobRecruiter from './components/admin/RecruiterDashboard/UpdateJobR
 import LoginSuperAdmin from './components/superAdmin/auth/LoginSuperAdmin';
 import ProtectedRoute from './ProtectedRoute';
 import NewsLetter from './components/NewsLetter/NewsLetter';
+import ForgotPassword from './components/Authentication/ForgotPassword';
+import ResetPassword from './components/Authentication/ResetPassword';
 
 
 const AllRoutes = () => {
@@ -78,6 +80,8 @@ const AllRoutes = () => {
             <Route path='/journals' element={<JournalsPage />} > </Route>
             <Route path='/signUp' element={<Signup />} > </Route>
             <Route path='/login' element={<Login />} > </Route>
+            <Route path='/forgot-password' element={<ForgotPassword />}> </Route>
+            <Route path='/reset-password/:token' element={<ResetPassword />} > </Route>
             {/* <Route path='/profile/:id' element={<UserProfile/>} > </Route> */}
             <Route path='/profile/:id' element={<ProfileWrapper />} > </Route>
             <Route path='/admintips' element={<AdminTips />} > </Route>

@@ -51,25 +51,13 @@ const Journals = () => {
                     <button className='btn btn-dark w-25' style={moveSomePxTopButton} >  See Journals  </button>
                 </center>
 
-                <div className='' >
+                <div>
                     <p className='h2' style={journalsContentHeading}> Journals </p>
 
                     <p className='h5 w-25' style={journalsContentDesc}> Lorem ipsum dolor sit amet, consectetur adipisicing elit. In, eligendi similique suscipit, hic delectus repellat iste animi dolore enim saepe dolores fugiat debitis perferendis earum possimus quidem. Minus, neque officiis? </p>
                 </div>
             </div>
-
-
-
         </div>
-
-        // <div class="bg-image" style={{ maxWidth: '322rem' }}>
-        //     <img src={journalImage} class="w-75" />
-        //     <div class="mask text-light d-flex justify-content-center flex-column text-center" style={{ backgroundColor: "rgba(0, 0, 0, 0.5)" }}>
-        //         <button className='btn btn-primary'> HEllo </button>
-        //         <h4>Custom heading</h4>
-        //         <p class="m-0">paragraph</p>
-        //     </div>
-        // </div>
     )
 }
 

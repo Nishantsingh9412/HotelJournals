@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 import TopBooks from './TopBooks'
 import FeaturedBooks from './FeaturedBooks'
-import Footer from '../partials/Footer'
 
 const JournalsPage = () => {
 
@@ -13,7 +12,6 @@ const JournalsPage = () => {
     <>
       <FeaturedBooks />
       <TopBooks />
-      <Footer />
     </>
   )
 }

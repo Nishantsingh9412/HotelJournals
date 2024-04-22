@@ -11,6 +11,7 @@ import {
     Grid,
 } from '@chakra-ui/react';
 import { FcGoogle } from "react-icons/fc";
+import { IoMdLock } from 'react-icons/io';
 
 // import Unstop from '../../assets/img/Unstop.svg';
 import Logo from '../../assets/img/Logo1.png'
@@ -158,8 +159,19 @@ const Login = () => {
                                 />
                                 <label>
                                     {/* Password */}
-                                    Contraseña 
+                                    Contraseña
                                 </label>
+                            </div>
+                            <div className='d-flex g-2 mt-3'
+                            onClick={() => navigate('/forgot-password')}
+                            style={{ color: '#005CB8' }}>
+                                <IoMdLock />
+                                <p className='ml-1' style={{
+                                    color: '#005CB8',
+                                    cursor: 'pointer'
+                                }}>
+                                    Forgot Password?
+                                </p>
                             </div>
                         </div>
                         <Button
@@ -174,14 +186,14 @@ const Login = () => {
                             size="lg"
                         >
                             {/* Sign In */}
-                            Registrate aquí 
+                            Registrate aquí
                         </Button>
                         <br />
                         {/* Don't have an account?{' '} */}
-                        ¿No tienes un usuario? 
+                        ¿No tienes un usuario?
                         <NavLink
                             style={{
-                                color: '#0000f2ff',
+                                color: '#005CB8',
                                 textDecoration: 'none',
                             }}
                             to="/signup"

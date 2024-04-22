@@ -22,7 +22,7 @@ const booksNew = booksData;
 const TopBooks = () => {
   return (
     <div className="container" style={{ maxWidth: "90%" }}>
-      <div className='top-books-container pt-4'>
+      <div className='top-books-container pt-4 '>
 
         <div className='ml-5 mb-3' >
           <h3> Top Books </h3>

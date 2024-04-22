@@ -9,8 +9,7 @@ const Tips = () => {
     <div>
         <TipsHeadSection />
         <TipsMidSection />
-        
-        <Footer />
+        {/* <Footer /> */}
     </div>
             
     )
