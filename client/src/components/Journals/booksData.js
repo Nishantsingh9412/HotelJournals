@@ -37,7 +37,8 @@ const booksData = [
   {
     img: 'https://res.cloudinary.com/dwahql1jy/image/upload/v1713515207/journals/j6_gtzdgv.jpg',
     title: "Front Office: Diario de aprendizaje",
-    featured: true,
+    featured: false,
+    special: true,  
     Description: "¿Eres nueva/o en Recepción?\n\n¿Quién no ha tenido el problema de empezar un nuevo puesto, apuntarlo todo en hojas sueltas o libreta y luego no encontrar los apuntes?\n\nEste journal te ayudará a tenerlo todo a mano, separado por turnos, con espacio para añadir el “Check list” de tu trabajo, incluye espacios para las tareas más importantes de cada turno y espacio libre para lo que consideres necesario 🥰\n\nSu separación por turnos hará que sea más fácil volver a repasar tus apuntes cuando algo surja y no sepas cómo actuar 😇.",
     BookPageLink: "https://amzn.eu/d/0t690Wb"
   },

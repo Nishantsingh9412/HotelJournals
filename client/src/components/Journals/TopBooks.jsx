@@ -1,9 +1,6 @@
 import React from 'react'
-import booksData from './booksData.js'
-import book1 from '../../assets/img/front_office.jpg'
-import book2 from '../../assets/img/front_office2.jpg'
-import book3 from '../../assets/img/front_office3.jpg'
 
+import booksData from './booksData.js'
 import styles from './TopBooks.module.css'
 import './Books.css'
 
@@ -58,9 +55,6 @@ const TopBooks = () => {
             </div>
           ))}
         </div>
-
-
-
       </div>
     </div>
   )
