@@ -235,7 +235,7 @@ const columns = [
         id: 2,
         field: 'lname',
         // label: 'Last Name',
-        label:'Apellido'
+        label: 'Apellido'
     },
     {
         id: 3,
@@ -264,7 +264,9 @@ const columns = [
 const ApplicantsList2 = ({ applicants }) => {
     return (
         <div className='container mt-2 responsive-table' >
-            <GridTable columns={columns} rows={applicants} />
+            <GridTable
+                columns={columns} rows={applicants}
+            />
         </div>
     );
 };
@@ -279,7 +281,6 @@ function SizeExample(props) {
         //   setSize(newSize)
         onOpen();
     }
-
 
     const handleClose = () => {
         dispatch({ type: 'GET_USER_CV', data: null })
@@ -312,10 +313,6 @@ function SizeExample(props) {
     )
 }
 
-// Mail Popup Modal
-const a = async () => {
-
-}
 
 function UserEmailModal(props) {
 
@@ -522,7 +519,7 @@ function UserEmailModal(props) {
                                         alignItems: 'center',
                                         gap: '4px'
                                     }}>
-                                    <FaTelegramPlane/>
+                                    <FaTelegramPlane />
                                     Enviar Correo
                                 </div>
                             }

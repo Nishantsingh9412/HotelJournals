@@ -4,6 +4,7 @@ import {
     Button as ButtonChakra,
     Tabs, TabList, TabPanels, Tab, TabPanel
 } from '@chakra-ui/react';
+import { es } from 'date-fns/locale'
 import PuffLoader from 'react-spinners/PuffLoader.js';
 import { formatDistanceToNow } from 'date-fns';
 import TooltipParagraph from './TooltipParagraph';
@@ -672,8 +673,10 @@ const AllJobs = () => {
                                                         <Card.Title>{job.jobTitle}</Card.Title>
                                                         {/* <p className="card-text text-muted mb-2">{job.created_at}</p> */}
                                                         <p className="card-text text-muted mb-2">
-                                                            Posted:{job?.created_at &&
-                                                                `${formatDistanceToNow(job.created_at)} ago`}
+                                                            {/* Posted:{job?.created_at &&
+                                                                `${formatDistanceToNow(job.created_at)} ago`} */}
+                                                            Subido : {job?.created_at &&
+                                                                `${formatDistanceToNow(job.created_at, { addSuffix: true, locale: es })}`}
                                                         </p>
                                                         <small> {job.company_name} </small>
                                                         <Card.Subtitle className="mb-2 text-muted"></Card.Subtitle>
@@ -690,8 +693,8 @@ const AllJobs = () => {
                                                         <TbBriefcase className={styles.jobIconSmall} />
                                                         <p className={styles.paraSmallHeading}>
                                                             {job.workExperienceMin}-{job.workExperienceMax}
-                                                             {/* years */}
-                                                                &nbsp;años
+                                                            {/* years */}
+                                                            &nbsp;años
                                                         </p>
                                                     </div>
                                                     <div className='d-flex ml-2'>
@@ -711,7 +714,7 @@ const AllJobs = () => {
                                                 <div className='d-flex'>
                                                     <small style={{ flex: '1' }}>
                                                         {/* Apply by : */}
-                                                        Subido el
+                                                        Subido el &nbsp;
                                                         {new Date(job.joiningDate).toLocaleDateString()}</small>
                                                     {/* <Button variant="success" style={{ flex: '1' }}>View</Button> */}
                                                     <ButtonChakra
@@ -777,7 +780,7 @@ const AllJobs = () => {
                                                     <div className='d-flex '>
                                                         <TbBriefcase className={styles.jobIconSmall} />
                                                         <p className={styles.paraSmallHeading}>
-                                                            {job.workExperienceMin}-{job.workExperienceMax} 
+                                                            {job.workExperienceMin} - {job.workExperienceMax}
                                                             {/* years */}
                                                             &nbsp;años
                                                             {/* akjdfjskfjsk sdfk sfsjf sfs sk sfs  */}

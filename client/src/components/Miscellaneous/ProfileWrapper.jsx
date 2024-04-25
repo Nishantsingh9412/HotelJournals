@@ -67,7 +67,6 @@ const ProfileWrapper = () => {
     }
 
     if (userType == 'educator') {
-        // return <EducatorProfile />;
         return <ManageCourses />
     }
     else if (userType == 'recruiter') {

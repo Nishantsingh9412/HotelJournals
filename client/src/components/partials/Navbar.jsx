@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import decode from 'jwt-decode'
-import { useNavigate } from 'react-router-dom'
+// import { useNavigate } from 'react-router-dom'
+import useNavigate  from 'react-router-dom/useNavigate'
 // import './Navbar.css'
 
 import NavCSS from './Navbar.module.css'
@@ -64,7 +65,7 @@ const Navbar = () => {
 
 
     // console.log("From Navbar: "+ User);
-    const [navbarOpen, setNavbarOpen] = useState(false);
+    // const [navbarOpen, setNavbarOpen] = useState(false);
 
     return (
         <div>
@@ -73,11 +74,12 @@ const Navbar = () => {
                     <img src={logo} height={54} width={72} alt="" />
                 </Link>
                 <button
-                    className={`navbar-toggler ${navbarOpen ? 'collapsed' : ''}`}
+                    className="navbar-toggler"
                     type="button"
-                    onClick={() => setNavbarOpen(!navbarOpen)}
+                    data-toggle="collapse"
+                    data-target="#navbarSupportedContent"
                     aria-controls="navbarSupportedContent"
-                    aria-expanded={navbarOpen}
+                    aria-expanded="false"
                     aria-label="Toggle navigation"
                 >
                     <span className="navbar-toggler-icon"></span>
@@ -133,11 +135,11 @@ const Navbar = () => {
 
                         </li>
 
-                        <li className="nav-item">
+                        {/* <li className="nav-item">
                             <NavLink to='/superadmin' className={`nav-link ${NavCSS.header_nav_links}`} activeClassName={NavCSS.active} >
                                 SuperAdmin
                             </NavLink>
-                        </li>
+                        </li> */}
 
 
                         {/* <li className="nav-item">
@@ -169,13 +171,13 @@ const Navbar = () => {
                         </>
                     ) : (
                         <>
-                            <div className='nav-link'>
-                                <button onClick={handleLogout} className='btn btn-danger'>
-                                    Logout
-                                </button>
+                            <div className='nav-link d-flex'>
                                 <Link to={`/profile/${User?.result?._id}`} className={`nav-link ${NavCSS.header_nav_links}`} activeClassName={NavCSS.active}>
                                     Hola {User?.result?.fname}
                                 </Link>
+                                <button onClick={handleLogout} className='btn btn-danger'>
+                                    Logout
+                                </button>
                             </div>
                         </>
                     )}

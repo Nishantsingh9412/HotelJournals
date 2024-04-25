@@ -26,7 +26,10 @@ const TopBooks = () => {
 
         <div className='ml-5 mb-3' >
           <h3> Top Books </h3>
-          <hr className='animate__animated animate__headShake animate__infinite' style={{ border: '2px solid black', width: '10vw', }} />
+          <hr
+            className='animate__animated animate__headShake animate__infinite'
+            style={{ border: '2px solid black', width: '10vw', }}
+          />
         </div>
 
         <div className='row pt-5 '>
@@ -36,15 +39,15 @@ const TopBooks = () => {
               className='col-md-4 p-2 cabo_s'
 
             >
-              <div className='book-card' 
-              style={{ display: 'flex', justifyContent: 'center'  }}>
+              <div className='book-card'
+                style={{ display: 'flex', justifyContent: 'center' }}>
                 <img src={book.img}
                   onClick={() => window.open(book.BookPageLink)}
                   className='img-responsive'
                   alt="book" style={bookStyleTopBooks}
                 />
                 <div
-                 style={{ textAlign: 'left', padding: '1vw'}}
+                  style={{ textAlign: 'left', padding: '1vw' }}
                   className={styles.TopBooksContentASR}
                 >
                   <h5>{book.title}</h5>

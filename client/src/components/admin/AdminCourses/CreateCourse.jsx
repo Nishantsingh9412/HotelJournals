@@ -68,12 +68,19 @@ const CreateCourse = () => {
 
     const postThumbnail = (pics) => {
         setLoading(true);
+        if (pics.size > 1000000) {
+            toast.error('Image size should be less than 1MB');
+            setLoading(false);
+            return;
+        }
         if (pics === undefined) {
             toast.error("This didn't work.")
+            setLoading(false);
             return;
         }
         if (pics.type !== 'image/jpeg' && pics.type !== 'image/png') {
             toast.error('Invalid image format');
+            setLoading(false);
             return;
         }
         const data = new FormData();
@@ -95,6 +102,11 @@ const CreateCourse = () => {
 
     const postLogo = (pics) => {
         setLoading(true);
+        if (pics.size > 1000000) {
+            toast.error('Image size should be less than 1MB');
+            return;
+        }
+
         if (pics === undefined) {
             toast.error("This didn't work.")
             return;
@@ -166,7 +178,10 @@ const CreateCourse = () => {
                 <Toaster />
                 <form>
                     <div className="form-group">
-                        <label htmlFor="course_title">Course Title</label>
+                        <label htmlFor="course_title">
+                            {/* Course Title */}
+                            Nombre del Curso
+                        </label>
                         <input
                             type="text"
                             className="form-control"
@@ -176,35 +191,56 @@ const CreateCourse = () => {
                     </div>
 
                     <div className="form-group">
-                        <label htmlFor="difficulty">Course Difficulty Level</label>
+                        <label htmlFor="difficulty">
+                            {/* Course Difficulty Level */}
+                            Dificultad del Curso
+                        </label>
                         <select
                             id="difficulty"
                             className="form-control"
                             onChange={(e) => setDifficulty(e.target.value)} >
-                            <option value="Select">Select</option>
-                            <option value="Beginner">Beginner</option>
-                            <option value="Intermediate">Intermediate</option>
-                            <option value="Advanced">Advanced</option>
+                            <option value="">
+                                {/* Select */}
+                                Seleccionar
+                            </option>
+                            <option value="Beginner">
+                                {/* Beginner */}
+                                Básico
+                            </option>
+                            <option value="Intermediate">
+                                {/* Intermediate */}
+                                Intermedio
+                            </option>
+                            <option value="Advanced">
+                                {/* Advanced */}
+                                Avanzado
+                            </option>
                         </select>
                     </div>
 
                     <div className="form-group">
                         <label htmlFor="course_desc">
-                            Course Description (Minimum 200 Words)
+                            {/* Course Description (Minimum 200 Words) */}
+                            Descripción del Curso (Mínimo 200 palabras)
                         </label>
                         <textarea
                             type="text"
                             rows="5"
                             className="form-control"
-                            placeholder="Add Course Description"
+                            // placeholder="Add Course Description"
+                            placeholder="Describe tu curso"
                             onChange={(e) => setCourseDesc(e.target.value)}
                         ></textarea>
                     </div>
 
                     <div className="form-row">
                         <div className="form-group col-md-6">
-                            <label htmlFor="inputLanguages">Course Language</label>
+                            <label htmlFor="inputLanguages">
+                                {/* Course Language */}
+                                Idioma del Curso
+                            </label>
                             <Select
+                                placeholder='Seleccionar'
                                 options={languages}
                                 isMulti
                                 onChange={(selectedOptions) =>
@@ -214,7 +250,10 @@ const CreateCourse = () => {
                         </div>
 
                         <div className="form-group col-md-6">
-                            <label htmlFor="course_link">Course Link</label>
+                            <label htmlFor="course_link">
+                                {/* Course Link */}
+                                Link del Curso
+                            </label>
                             <input
                                 type="url"
                                 className="form-control"
@@ -226,21 +265,38 @@ const CreateCourse = () => {
 
                     <div className="form-row">
                         <div className="form-group col-md-6">
-                            <label htmlFor="format">Format</label>
+                            <label htmlFor="format">
+                                {/* Format */}
+                                Formato
+                            </label>
                             <select
                                 id="format"
                                 className="form-control"
                                 onChange={(e) => setCourseFormat(e.target.value)}
                             >
-                                <option value="Select">Select</option>
-                                <option value="Online">Online</option>
-                                <option value="Offline">Offline</option>
-                                <option value="Both">Both</option>
+                                <option value="">
+                                    {/* Select */}
+                                    Seleccionar
+                                </option>
+                                <option value="Online">
+                                    Online
+                                </option>
+                                <option value="Offline">
+                                    {/* Offile */}
+                                    Presencial
+                                </option>
+                                <option value='Both'>
+                                    {/* both */}
+                                    Híbrido
+                                </option>
                             </select>
                         </div>
 
                         <div className="form-group col-md-6">
-                            <label className="ml-1 mt-1 mb-2">Is this course free?</label> <br />
+                            <label className="ml-1 mt-1 mb-2">
+                                {/* Is this course free? */}
+                                ¿Este curso es gratis?
+                            </label> <br />
                             <>
                                 <div className="form-check form-check-inline">
                                     <input
@@ -253,7 +309,8 @@ const CreateCourse = () => {
                                         onChange={() => setIsFree(true)}
                                     />
                                     <label className="form-check-label" htmlFor="yes">
-                                        Yes
+                                        {/* Yes */}
+                                        Si
                                     </label>
                                 </div>
                                 <div className="form-check form-check-inline">
@@ -279,14 +336,20 @@ const CreateCourse = () => {
                                 {/* True Case */}
                             </>) : (<>
                                 <div className='form-group mt-3'>
-                                    <label htmlFor="price"> Course Price </label>
+                                    <label htmlFor="price">
+                                        {/* Course Price */}
+                                        Precio del Curso
+                                    </label>
                                     <input type="text" className='form-control' placeholder='$105.45' onChange={(e) => setCoursePrice(e.target.value)} />
                                 </div> </>)
                         }
                     </div>
                     <div className="form-row">
                         <div className="form-group col-md-4">
-                            <label htmlFor="inputState">Course Duration Value</label>
+                            <label htmlFor="inputState">
+                                {/* Course Duration Value */}
+                                Duración del Curso
+                            </label>
                             <input
                                 type="number"
                                 className="form-control"
@@ -297,20 +360,46 @@ const CreateCourse = () => {
 
 
                         <div className="form-group col-md-2">
-                            <label htmlFor="inputState"> Duration Unit </label>
+                            <label htmlFor="inputState">
+                                {/* Duration Unit */}
+                                Medida de Duración
+                            </label>
                             <select
                                 className="form-control"
                                 onChange={(e) => setCourseDurationUnit(e.target.value)}
                             >
-                                <option value=""> Select </option>
-                                <option value="Hours">Hours</option>
-                                <option value="Days">Days</option>
-                                <option value="Weeks">Weeks</option>
-                                <option value="Months">Months</option>
+                                <option value="">
+                                    {/* Select */}
+                                    Seleccionar
+                                </option>
+                                <option value="Minutes">
+                                    {/* Minutes */}
+                                    Minutos
+                                </option>
+
+                                <option value="Hours">
+                                    {/* Hours */}
+                                    Horas
+                                </option>
+                                <option value="Days">
+                                    {/* Days */}
+                                    Días
+                                </option>
+                                <option value="Weeks">
+                                    {/* Weeks */}
+                                    Semanas
+                                </option>
+                                <option value="Months">
+                                    {/* Months */}
+                                    Meses
+                                </option>
                             </select>
                         </div>
                         <div className="form-group col-md-6">
-                            <label htmlFor="company_name">Company Name</label>
+                            <label htmlFor="company_name">
+                                {/* Company Name */}
+                                Nombre de la Empresa
+                            </label>
                             <input
                                 type="text"
                                 className="form-control"
@@ -321,10 +410,17 @@ const CreateCourse = () => {
                     </div>
                     <div className='form-row'>
                         <div className='form-group col-md-6'>
-                            <label htmlFor="course category" > Course Category </label>
+                            <label htmlFor="course category" >
+                                {/* Course Category */}
+                                Categoría del Curso
+                            </label>
                             <select className='form-control' onChange={(e) => setCourseCategory(e.target.value)}>
-                                <option value=""> Select Course Category </option>
-                                <option value="Culinary"> Culinary </option>
+                                <option value="">
+                                    {/* Select Course Category */}
+                                    Seleccionar Categoría del Curso
+                                </option>
+                                {/* In English */}
+                                {/* <option value="Culinary"> Culinary </option>
                                 <option value="Business"> Business </option>
                                 <option value="Personal Development"> Personal Development </option>
                                 <option value="Marketing"> Marketing </option>
@@ -343,7 +439,31 @@ const CreateCourse = () => {
                                 <option value="Food And Beverages"> Food And Beverages </option>
                                 <option value="Spa"> Spa </option>
                                 <option value="Tourism"> Tourism </option>
-                                <option value="Business Skills"> Business Skills </option>
+                                <option value="Business Skills"> Business Skills </option> */}
+                                {/* In spanish */}
+                                <option value="Cocina">Cocina</option>
+                                <option value="Desarrollo Personal">Desarrollo Personal</option>
+                                <option value="Dirección Hotelera">Dirección Hotelera</option>
+                                <option value="Enología">Enología</option>
+                                <option value="F&B">F&B</option>
+                                <option value="Gestión de Cruceros">Gestión de Cruceros</option>
+                                <option value="Gestión de Eventos">Gestión de Eventos</option>
+                                <option value="Guía Turístico">Guía Turístico</option>
+                                <option value="Habilidades Empresariales">Habilidades Empresariales</option>
+                                <option value="Idiomas">Idiomas</option>
+                                <option value="Liderazgo Y Gestión">Liderazgo Y Gestión</option>
+                                <option value="Marketing">Marketing</option>
+                                <option value="Negocios">Negocios</option>
+                                <option value="Otros">Otros</option>
+                                <option value="Pastelería">Pastelería</option>
+                                <option value="Pisos">Pisos</option>
+                                <option value="Preparación de Exámenes">Preparación de Exámenes</option>
+                                <option value="Recepción">Recepción</option>
+                                <option value="Recursos Humanos">Recursos Humanos</option>
+                                <option value="Revenue Management">Revenue Management</option>
+                                <option value="Spa">Spa</option>
+                                <option value="Turismo">Turismo</option>
+                                <option value="Ventas Y Marketing">Ventas Y Marketing</option>
                             </select>
 
                         </div>
@@ -351,18 +471,21 @@ const CreateCourse = () => {
                         <div className='form-group col-md-6'>
                             <label htmlFor='course_type' > Course Type </label>
                             <select className='form-control' onChange={(e) => setCourseType(e.target.value)}>
-                                <option value=""> Select </option>
-                                <option value="Bachelors"> Bachelors </option>
-                                <option value="Masters"> Masters </option>
-                                <option value="Diploma"> Diploma </option>
-                                <option value="Professional"> Professional </option>
-                                <option value="Short Course"> Short Course </option>
+                                <option value="">Seleccionar</option>
+                                <option value="Certificados profesionales">Certificados profesionales</option>
+                                <option value="Curso">Curso</option>
+                                <option value="Diploma">Diploma</option>
+                                <option value="Licenciatura">Licenciatura</option>
+                                <option value="Máster">Máster</option>
                             </select>
                         </div>
                     </div>
                     <div className="form-row">
                         <div className="form-group col-md-6">
-                            <label htmlFor="inputZip">Course Thumbnail </label>
+                            <label htmlFor="inputZip">
+                                {/* Course Thumbnail */}
+                                Miniatura del curso (la imagen debe ocupar menos de 1 MB)
+                            </label>
                             <input
                                 type="file"
                                 className="form-control"
@@ -371,7 +494,10 @@ const CreateCourse = () => {
                         </div>
 
                         <div className="form-group col-md-6">
-                            <label htmlFor="inputZip">Company Logo</label>
+                            <label htmlFor="inputZip">
+                                {/* Company Logo */}
+                                Logotipo de la empresa (La imagen debe ocupar menos de 1 MB)
+                            </label>
                             <input
                                 type="file"
                                 className="form-control"
@@ -386,7 +512,13 @@ const CreateCourse = () => {
                         onClick={handleSubmit}
                         disabled={loading}
                     >
-                        {loading ? "Loading..." : "Publish"}
+                        {loading ?
+                            // "Loading..." 
+                            "Cargando..."
+                            :
+                            // "Publish"
+                            "Publicar"
+                        }
                     </button>
                 </form>
             </div>

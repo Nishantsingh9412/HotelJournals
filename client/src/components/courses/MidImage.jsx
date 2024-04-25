@@ -58,9 +58,6 @@ const MidImage = () => {
                     <div className='container'>
                         <SearchBar />
                     </div>
-                    {/* <div className={CSS.imageClass}>
-            <img src={course_heading} style={mountImgStyle} alt='mountain' className='' />
-          </div> */}
                     <Cards filter={true} />
                 </Flex>
             </div>

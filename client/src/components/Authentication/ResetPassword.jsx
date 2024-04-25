@@ -20,16 +20,21 @@ const ResetPassword = () => {
     const handleResetPassword = (e) => {
         e.preventDefault();
 
+        if(!password || !confirmPassword) {
+            toast.error('Please fill all the fields');
+            return;
+        }
+
         if (password !== confirmPassword) {
             toast.error('Passwords does not match');
             return;
         }
+
         const ResetpasswordData = {
             token: token,
             newPassword: password
         }
-
-
+        
         resetPasswordAPI(ResetpasswordData).then((response) => {
             if (response.status === 200) {
                 console.log(response)
@@ -97,6 +102,12 @@ const ResetPassword = () => {
                                     </div>
                                 </div>
                                 <button type='submit' className="btn btn-primary btn-block" >Reset Password</button>
+                                <button
+                                    type="button"
+                                    className="btn btn-info btn-block"
+                                    onClick={() => window.location.href = '/login'}
+                                >   Back to Login </button>
+
                             </div>
                         </form>
                     </div>

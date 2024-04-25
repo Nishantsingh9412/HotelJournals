@@ -143,14 +143,16 @@ const ManageCouseTable = () => {
         {
             id: 1,
             field: 'banner_image',
-            label: 'Course Thumbnail ',
+            // label: 'Course Thumbnail ',
+            label:'Miniatura',
             cellRenderer: UserImage,
             // headerRenderer: CustomHeader
         },
         {
             id: 2,
             field: 'title',
-            label: 'Course Title',
+            // label: 'Course Title',
+            label:'Nombre',
             width: '350px'
         },
         // {
@@ -166,18 +168,21 @@ const ManageCouseTable = () => {
         {
             id: 4,
             field: 'difficulty',
-            label: 'Course Diffuculty',
+            // label: 'Course Diffuculty',
+            label:'Dificultad',
             // getValue: ({ value }) => value.x + value.y
         },
         {
             id: 5,
             field: 'course_category',
-            label: 'Course Category',
+            // label: 'Course Category',
+            label:'Categoría'
         },
         {
             id: 6,
             field: 'Actions',
-            label: 'Actions',
+            // label: 'Actions',
+            label:'Acciones',
             cellRenderer: ActionIcons,
         }
     ];

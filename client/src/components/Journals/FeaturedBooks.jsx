@@ -50,6 +50,48 @@ const FeaturedBooks = () => {
 
                                 </div>
                             </div>
+                            <div className='mb-4 book-card' style={{ display: "flex", }}>
+                                <img src={book4}
+                                    className={`${style.bookStyleTopBooks} img-responsive`}
+                                    alt="book1"
+                                />
+                                <div className='pt-4' style={{ textAlign: 'left', paddingLeft: '1vw' }}>
+                                    <h5>Creador</h5>
+                                    <div>
+                                        <i className="fa-regular fa-star" ></i>
+                                        <i className="fa-regular fa-star"></i>
+                                        <i className="fa-regular fa-star"></i>
+                                        <i className="fa-regular fa-star"></i>
+                                        <i className="fa-regular fa-star"></i>
+                                    </div>
+                                    <div className='mt-1'>
+                                        In Stock
+                                    </div>
+                                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Adipisci, deserunt?</p>
+
+                                </div>
+                            </div>
+                            <div className='mb-4 book-card' style={{ display: "flex", }}>
+                                <img src={book4}
+                                    className={`${style.bookStyleTopBooks} img-responsive`}
+                                    alt="book1"
+                                />
+                                <div className='pt-4' style={{ textAlign: 'left', paddingLeft: '1vw' }}>
+                                    <h5>Creador</h5>
+                                    <div>
+                                        <i className="fa-regular fa-star" ></i>
+                                        <i className="fa-regular fa-star"></i>
+                                        <i className="fa-regular fa-star"></i>
+                                        <i className="fa-regular fa-star"></i>
+                                        <i className="fa-regular fa-star"></i>
+                                    </div>
+                                    <div className='mt-1'>
+                                        In Stock
+                                    </div>
+                                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Adipisci, deserunt?</p>
+
+                                </div>
+                            </div>
 
                             {/* card 2 start */}
                             <div className='mb-4 book-card' style={{ display: "flex", }}>

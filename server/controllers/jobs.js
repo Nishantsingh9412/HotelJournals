@@ -100,7 +100,6 @@ import User from "../models/auth.js";
 // }
 
 
-
 export const getSimilarJobs = async (req, res) => {
     const { id: _id } = req.params;
     if (!mongoose.Types.ObjectId.isValid(_id)) {
@@ -111,7 +110,7 @@ export const getSimilarJobs = async (req, res) => {
         // console.log(job);
         // Find similar jobs based on category and skills
         let similarJobs = await Jobs.find({
-            _id:{$ne: _id},
+            _id: { $ne: _id },
             isVerifiedJob: true,
             jobTitle: job.jobTitle,
             // jobCategory: job.jobCategory,

@@ -27,6 +27,7 @@ const ForgotPassword = () => {
         if (!Email) {
             return toast.error('Please enter your email address to reset your password.')
         }
+
         const emailData = {
             mail: Email
         }
