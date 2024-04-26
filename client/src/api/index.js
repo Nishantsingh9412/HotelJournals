@@ -106,6 +106,10 @@ export const DeleteCourse = (id) => API.delete(`/courses/singleCourse/${id}`)
 
 
 //  ----------------------------  For Creating a Job---------------
+// Checking user has applied for job or nor 
+
+export const checkAppliedForJob = (jobid, userid) => API.get(`/jobs/checkapplied/${jobid}/${userid}`)
+
 // Getting similar jobs
 export const getSimilarJobs = (id) => API.get(`/jobs/similarJobs/${id}`)
 

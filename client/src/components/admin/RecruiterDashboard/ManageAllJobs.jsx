@@ -208,45 +208,44 @@ const ManageAllJobs = () => {
         return (
             <div>
 
-            {data.isVerifiedJob ?
-                < div className='rgt-cell-inner'
-                    style={{
-                        display: 'flex',
-                        margin: '20px',
-                        marginLeft: '10px'
-                    }}
-                >
-                    <button
-                        className="btn btn-sm btn-light mr-2"
-                        onClick={() => handleShare(data._id)}
+                {data.isVerifiedJob ?
+                    < div className='rgt-cell-inner'
+                        style={{
+                            display: 'flex',
+                            margin: '20px',
+                            marginLeft: '10px'
+                        }}
                     >
-                        <IoShareSocial />
-                    </button>
-                    <NavLink
-                        style={{ textDecoration: 'none' }}
-                        to={`/recruiter/job/update/${data._id}`}
+                        <button
+                            className="btn btn-sm btn-light mr-2"
+                            onClick={() => handleShare(data._id)}
+                        >
+                            <IoShareSocial />
+                        </button>
+                        <button
+                            className='btn btn-sm btn-light mr-2'
+                            onClick={() => window.open(`/recruiter/job/update/${data._id}`, '_blank')}
+                        >
+                            <FaPencil />
+                        </button>
+                        <button
+                            className='btn btn-sm btn-light mr-2'
+                            onClick={() => { handleDelete(data._id) }}
+                        >
+                            <IoTrashBin />
+                        </button>
+                    </div >
+                    :
+                    <div
+                        className='mt-2 mb-4'
                     >
-                        <button className='btn btn-sm btn-light mr-2' > <FaPencil /> </button>
-                    </NavLink>
+                        <span >
+                            {/* Check your mail for status  */}
+                            Revisa tu correo para conocer el estado
+                        </span>
 
-                    <button
-                        className='btn btn-sm btn-light mr-2'
-                        onClick={() => { handleDelete(data._id) }}
-                    >
-                        <IoTrashBin />
-                    </button>
-                </div >
-                : 
-                <div
-                    className='mt-2 mb-4'
-                >
-                    <span >
-                        {/* Check your mail for status  */}
-                        Revisa tu correo para conocer el estado
-                    </span>
+                    </div>
 
-                </div>
-                
                 }
             </div>
         )

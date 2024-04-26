@@ -99,6 +99,27 @@ import User from "../models/auth.js";
 //     }
 // }
 
+export const checkApplied = async (req, res) => {
+    const { jobid, userid } = req.params;
+    const job = await Jobs.findById(jobid);
+    if (!job) {
+        return res.status(400).json({ success: false, message: 'No Job Found' });
+    }
+    const userAppliedOrNot = await Jobs.findOne({ _id: jobid, "applicants.user": userid });
+    if (userAppliedOrNot) {
+        return res.status(200).json({
+            success: true,
+            message: 'User Applied for this Job',
+            applied: true,
+        });
+    } else {
+        return res.status(200).json({
+            success: true,
+            message: 'User Not Applied for this Job',
+            applied: false,
+        });
+    }
+}
 
 export const getSimilarJobs = async (req, res) => {
     const { id: _id } = req.params;
@@ -219,66 +240,90 @@ export const rejectJobs = async (req, res) => {
 
 }
 // Filter Section jobs
+
 export const filterJobs = async (req, res) => {
     try {
         const {
-            yearsOfExperience,
-            salaryMin,
-            salaryMax,
-            salarySpecification,
-            jobDesignation,
-            locationType,
-            citiesFilter,
+            DatePosted,
+            ContractTypes,
+            JobType,
         } = req.query;
 
-        console.log("yearsOfExperience", yearsOfExperience);
-        console.log("salaryMin", salaryMin);
-        console.log("salaryMax", salaryMax);
-        console.log("salarySpecification", salarySpecification);
-        console.log("jobDesignation", jobDesignation);
-        console.log("locationType", locationType);
-        console.log("citiesFilter", citiesFilter);
-
+        console.log("DatePosted", DatePosted);
+        console.log("ContractTypes", ContractTypes);
+        console.log("JobType", JobType);
 
         // Build the filter object
         const filter = {};
 
-        if (yearsOfExperience) {
-            filter.workExperienceMax = { $lte: yearsOfExperience };
+        if (DatePosted && DatePosted !== "All" && DatePosted !== "24") {
+            const daysAgo = new Date();
+            daysAgo.setDate(daysAgo.getDate() - Number(DatePosted));
+            filter.created_at = { $gte: daysAgo };
         }
 
-        if (salaryMin) {
-            filter.salaryStart = { $gte: salaryMin };
+        if (DatePosted === "24") {
+            const hoursAgo = new Date();
+            console.log("hoursAgo : ", hoursAgo);
+            hoursAgo.setHours(hoursAgo.getHours() - 24);
+            console.log("hoursAgo GetHours : ", hoursAgo.getHours() - 24);
+            filter.created_at = { $gte: hoursAgo };
         }
 
-        if (salaryMax) {
-            filter.salaryEnd = { $lte: salaryMax };
+        if (DatePosted === "10") {
+            const minutesAgo = new Date();
+            minutesAgo.setMinutes(minutesAgo.getMinutes() - 10);
+            filter.created_at = { $gte: minutesAgo };
         }
 
-        if (salarySpecification) {
-            filter.salarySpecification = salarySpecification;
+        if (DatePosted === "All") {
+            filter.created_at = { $gte: new Date(0) };
         }
 
-        if (jobDesignation) {
-            filter.jobTitle = jobDesignation;
+        if (ContractTypes) {
+            filter.jobCategory = { $in: ContractTypes.split(',') };
         }
 
-        if (locationType) {
-            filter.jobType = locationType;
+        if (JobType) {
+            filter.jobType = { $in: JobType.split(',') };
         }
-
-        if (citiesFilter) {
-            filter.jobLocation = { $in: citiesFilter };
-        }
-
         // Find the jobs that match the filter criteria
-        const jobsFinded = await Jobs.find(filter);
+        const jobsFinded = await Jobs.find({ ...filter, isVerifiedJob: true }).populate('recruiter_info');
 
+        const page = parseInt(req.query.page) || 1;
+        const limit = parseInt(req.query.limit) || 10;
+        const startIndex = (page - 1) * limit;
+
+        const totalJobs = jobsFinded.length;
+        const jobs = jobsFinded.slice(startIndex, startIndex + limit);
+
+        const results = {
+            totalJobs,
+            pageCount: Math.ceil(totalJobs / limit),
+            paginatedData: jobs,
+        };
+
+        if (page < results.pageCount) {
+            results.next = {
+                page: page + 1,
+            };
+        }
+        if (page > 1) {
+            results.prev = {
+                page: page - 1,
+            };
+        }
         // Send the filtered jobs as the response
-        res.status(200).json({ success: true, message: 'Jobs Filtered Successfully', result: jobsFinded });
-        // res.json(jobs);
+        res.status(200).json({
+            success: true,
+            message: 'Jobs Filtered Successfully',
+            result: results
+        });
     } catch (err) {
-        res.status(500).json({ success: false, message: err.message });
+        res.status(500).json({
+            success: false,
+            message: err.message
+        });
     }
 }
 

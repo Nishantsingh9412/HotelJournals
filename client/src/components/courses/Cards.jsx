@@ -256,7 +256,7 @@ const Cards = ({ filter }) => {
         })
     }
 
-    const AllCoursesData = useSelector((state) => state.getCoursesReducer);
+    // const AllCoursesData = useSelector((state) => state.getCoursesReducer);
     // console.log(AllCoursesData);
 
     return (

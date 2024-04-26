@@ -11,29 +11,30 @@ import PuffLoader from 'react-spinners/PuffLoader';
 
 import { GetCourseSingle } from '../../redux/actions/courseAdmin';
 import Cards from './Cards';
-import Styles from './CourseDescription.module.css';
-import TooltipParagraph from '../Jobs/TooltipParagraph';
+// import Styles from './CourseDescription.module.css';
+// import TooltipParagraph from '../Jobs/TooltipParagraph';
 
 
 
 const CourseDescription = () => {
 
   const { id } = useParams();
+  const dispatch = useDispatch();
 
   const [loading, setLoading] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
-  const [showreadMoreBtn, setShowReadMoteBtn] = useState(false);
-
-  const dispatch = useDispatch();
-  const course = useSelector((state) => state.GetCourseSingleReducer)
-  console.log(course);
+  // const [showreadMoreBtn, setShowReadMoteBtn] = useState(false);
 
   useEffect(() => {
-    dispatch(GetCourseSingle(id));
-    if (course.result !== undefined) {
-      setLoading(false);
-    }
-  }, [dispatch, id, course.result])
+    dispatch(GetCourseSingle(id)).then((res) => {
+      if (res.success) {
+        setLoading(false)
+      }
+    })
+  }, [])
+
+  const course = useSelector((state) => state.GetCourseSingleReducer)
+  console.log(course);
 
   useEffect(() => {
     window.scrollTo(0, 0);

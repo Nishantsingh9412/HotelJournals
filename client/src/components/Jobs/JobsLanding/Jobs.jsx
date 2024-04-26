@@ -23,8 +23,8 @@ import Barcelo_logo from '../../../assets/img/Barcelo_logo.png';
 
 import './jobspage.css';
 
-import JobCard from './JobCard'
-import { Button, background } from '@chakra-ui/react';
+// import JobCard from './JobCard'
+import { Button} from '@chakra-ui/react';
 
 const Jobs = () => {
 

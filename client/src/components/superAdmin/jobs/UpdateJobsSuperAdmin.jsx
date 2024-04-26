@@ -760,7 +760,7 @@ const UpdateJobsSuperAdmin = () => {
                             type='checkbox'
                             id='isExternalLink'
                             onClick={() => setShowJobLink(prevState => !prevState)}
-                            onChange={() => setIsExternalLink(true)}
+                            onChange={() => setIsExternalLink(!isExternalLink)}
                             className='pt-2 ml-3'
                             style={{ transform: 'scale(1.6)' }}
                         />

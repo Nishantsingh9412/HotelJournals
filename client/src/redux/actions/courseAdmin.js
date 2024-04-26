@@ -68,9 +68,10 @@ export const GetCourseSingle = (id) => async (dispatch) => {
     try{
         const {data} = await api.getCourseDataSingle(id);
         dispatch({type:'GET_COURSE_SINGLE',data});
-        console.log("GetCourseSingle Action : ", data);
+        return {success:true,message:'Course fetched successfully'}
     }catch(error){
         console.log("Error From GetCourseSingle Action: " + error.message, error.stack);
+        return {success:false,message:'Error fetching Course'}
     }
 }
 

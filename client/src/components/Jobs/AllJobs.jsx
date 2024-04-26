@@ -1,33 +1,32 @@
-import axios from 'axios';
+// import axios from 'axios';
 import React, { useCallback, useEffect, useState } from 'react'
 import {
     Button as ButtonChakra,
-    Tabs, TabList, TabPanels, Tab, TabPanel
+    // Tabs, TabList, TabPanels, Tab, TabPanel
 } from '@chakra-ui/react';
 import { es } from 'date-fns/locale'
 import PuffLoader from 'react-spinners/PuffLoader.js';
 import { formatDistanceToNow } from 'date-fns';
 import TooltipParagraph from './TooltipParagraph';
-import Select from 'react-select'
+// import Select from 'react-select'
 import { useDispatch, useSelector } from 'react-redux';
-import { NavLink, useNavigate } from 'react-router-dom';
-
+import { RxCross1 } from "react-icons/rx";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { Card, Button } from 'react-bootstrap';
+import { Card } from 'react-bootstrap';
 // Icons 
-import { FaBuilding, FaFilter, FaLocationDot, FaPencil } from "react-icons/fa6";
+import { FaLocationDot } from "react-icons/fa6";
 import { TbBriefcase } from 'react-icons/tb';
 import { FaWallet } from 'react-icons/fa';
-import { BsBuildingFill, BsBuildings } from 'react-icons/bs';
+import { BsBuildings } from 'react-icons/bs';
 // import { IoMdTime } from "react-icons/io";
 // import { FaArrowUpRightDots } from "react-icons/fa6";
 
 
 // Modules 
 // import { DeleteJobAction, GetJobs } from '../../../redux/actions/jobsAdmin.js';
-import { GetJobs, GetJobsPaginatedAction } from '../../redux/actions/jobsAdmin.js';
-import JobsBgImg from '../../assets/img/brief2.png'
+import { GetJobsPaginatedAction } from '../../redux/actions/jobsAdmin.js';
+// import JobsBgImg from '../../assets/img/brief2.png'
 import newJobHeaderImg from '../../assets/img/job2_new.png'
 import 'animate.css';
 import styles from './AllJobs.module.css';
@@ -37,27 +36,40 @@ import { CiFilter } from 'react-icons/ci';
 
 const AllJobs = () => {
     const dispatch = useDispatch();
-    const navigate = useNavigate();
     const [alljobsValue, setAllJobsValue] = useState(true);
     const [applied, setApplied] = useState(false);
+    const [lazyLoadingJobs, setLazyLoadingJobs] = useState(false);
+    const [hasMorejobs, setHasMoreJobs] = useState(true);
+    const [filteredJobs, setFilteredJobs] = useState([]);
     // for Pagination
     const [items, setItems] = useState([]);
     const [index, setIndex] = useState(1);
     const [limit, setLimit] = useState(5);
     // end for pagination
+
+    // for pagination of filtered jobs 
+    const [filteredIndex, setFilteredIndex] = useState(1);
+    const [filteredLimit, setFilteredLimit] = useState(5);
+    // end for pagination of filtered jobs 
     const [IsFilteredCheck, setIsFilteredCheck] = useState(false);
 
     const serverURL = process.env.REACT_APP_SERVER_URL;
 
     const [AllFilters, setAllFilters] = useState({
-        yearsOfExperience: '',
-        salaryMin: '',
-        salaryMax: '',
-        salarySpecification: '',
-        jobDesignation: '',
-        locationType: '',
-        citiesFilter: [],
-    })
+        DatePosted: "",
+        ContractTypes: [],
+        JobType: []
+    });
+
+
+    const handleSelectedFilterChange = (filterName, e) => {
+        setAllFilters(prevFilters => ({
+            ...prevFilters,
+            [filterName]: e.target.checked ? [...prevFilters[filterName], e.target.value] : prevFilters[filterName].filter(option => option !== e.target.value)
+        }));
+    };
+
+
 
     const [showDropDown, setShowDropDown] = useState(false);
     const [jobId, setJobId] = useState('');
@@ -75,7 +87,6 @@ const AllJobs = () => {
 
     const [selectedCity, setSelectedCity] = useState('');
 
-
     const AllJobsData = useSelector((state) => state.AllJobsReducer)
     console.log(AllJobsData);
 
@@ -85,94 +96,93 @@ const AllJobs = () => {
     console.log("These are all applied Jobs \n : ");
     console.log(AppliedJobs);
 
-    // const localStorageData = JSON.parse(localStorage.getItem('Profile'));
-    // const local_user_id = localStorageData?.result?._id;
-    // console.log(`LocalUSERID :  ${local_user_id}`);
-    // const MyJobs = AllJobsData?.result?.filter((jobs) => jobs.created_by === local_user_id);
-
-
     const MyJobs = AllJobsData?.result;
 
-    // Filtraion of Jobs
+    // Filtration of Jobs
     console.log(MyJobs);
 
 
-    const loadCountries = async () => {
+    // const loadCountries = async () => {
 
-        const response = await axios.get('https://api.countrystatecity.in/v1/countries', {
-            headers: {
-                'X-CSCAPI-KEY': process.env.REACT_APP_CSC_API_KEY
-            }
-        });
-        console.log('countries')
-        console.log(response);
-        const countriesData = response?.data?.map((country) =>
-        ({
-            value: country.name,
-            label: country.name,
-            iso2: country.iso2
-        }));
+    //     const response = await axios.get('https://api.countrystatecity.in/v1/countries', {
+    //         headers: {
+    //             'X-CSCAPI-KEY': process.env.REACT_APP_CSC_API_KEY
+    //         }
+    //     });
+    //     console.log('countries')
+    //     console.log(response);
+    //     const countriesData = response?.data?.map((country) =>
+    //     ({
+    //         value: country.name,
+    //         label: country.name,
+    //         iso2: country.iso2
+    //     }));
 
-        setCountriesAll(countriesData);
-    }
+    //     setCountriesAll(countriesData);
+    // }
 
-    const loadStates = async () => {
-        setStatesLoading(true);
-        const response = await axios.get(`https://api.countrystatecity.in/v1/countries/${selectedCountry}/states`, {
-            headers: {
-                'X-CSCAPI-KEY': process.env.REACT_APP_CSC_API_KEY
-            }
-        });
-        if (response) {
-            const statesData = response?.data?.map((state) =>
-            ({
-                value: state.name,
-                label: state.name,
-                iso2: state.iso2
-            }));
-            setStatesAll(statesData);
-            setStatesLoading(false);
-        }
-    }
+    // const loadStates = async () => {
+    //     setStatesLoading(true);
+    //     const response = await axios.get(`https://api.countrystatecity.in/v1/countries/${selectedCountry}/states`, {
+    //         headers: {
+    //             'X-CSCAPI-KEY': process.env.REACT_APP_CSC_API_KEY
+    //         }
+    //     });
+    //     if (response) {
+    //         const statesData = response?.data?.map((state) =>
+    //         ({
+    //             value: state.name,
+    //             label: state.name,
+    //             iso2: state.iso2
+    //         }));
+    //         setStatesAll(statesData);
+    //         setStatesLoading(false);
+    //     }
+    // }
 
-    const loadCities = async () => {
-        setCitiesLoading(true);
-        const response = await axios.get(`https://api.countrystatecity.in/v1/countries/${selectedCountry}/states/${selectedState}/cities`, {
-            headers: {
-                'X-CSCAPI-KEY': process.env.REACT_APP_CSC_API_KEY
-            }
-        });
+    // const loadCities = async () => {
+    //     setCitiesLoading(true);
+    //     const response = await axios.get(`https://api.countrystatecity.in/v1/countries/${selectedCountry}/states/${selectedState}/cities`, {
+    //         headers: {
+    //             'X-CSCAPI-KEY': process.env.REACT_APP_CSC_API_KEY
+    //         }
+    //     });
 
-        if (response) {
-            const citiesData = response.data.map((city) =>
-            ({
-                value: city.name,
-                label: city.name
-            }));
+    //     if (response) {
+    //         const citiesData = response.data.map((city) =>
+    //         ({
+    //             value: city.name,
+    //             label: city.name
+    //         }));
 
-            setCitiesAll(citiesData);
-            setCitiesLoading(false);
-        }
-    }
+    //         setCitiesAll(citiesData);
+    //         setCitiesLoading(false);
+    //     }
+    // }
 
+    console.log('All Filtered Jobs Data \n');
+    console.log(filteredJobs);  
 
     const fetchData = useCallback(async () => {
         if (loadingPage) return;
+        if (hasMorejobs === false) return;
 
-        setLoadingPage(true);
-
+        setLazyLoadingJobs(true);
         // Increment the index state before fetching data
         setIndex((prevIndex) => prevIndex + 1);
 
         // Use the updated index state for fetching data
         dispatch(GetJobsPaginatedAction(index + 1, limit))
             .then((res) => {
-                console.log(164);
+                console.log(177);
                 console.log(res)
                 setItems((prevItems) => [...prevItems, ...res.data]);
-            }).catch((err) => console.log(err));
+                setLazyLoadingJobs(false);
+                if (res.data.length === 0) {
+                    setHasMoreJobs(false);
+                }
 
-        setLoadingPage(false);
+            }).catch((err) => console.log(err));
     }, [index, loadingPage]);
 
 
@@ -192,8 +202,6 @@ const AllJobs = () => {
         getData();
     }, []);
 
-
-
     useEffect(() => {
         const handleScroll = () => {
             const { scrollTop, clientHeight, scrollHeight } =
@@ -209,21 +217,21 @@ const AllJobs = () => {
         };
     }, [fetchData]);
 
-    useEffect(() => {
-        if (selectedCountry) {
-            loadStates();
-        }
-    }, [selectedCountry])
+    // useEffect(() => {
+    //     if (selectedCountry) {
+    //         loadStates();
+    //     }
+    // }, [selectedCountry])
 
-    useEffect(() => {
-        if (selectedState) {
-            loadCities();
-        }
-    }, [selectedState])
+    // useEffect(() => {
+    //     if (selectedState) {
+    //         loadCities();
+    //     }
+    // }, [selectedState])
 
-    useEffect(() => {
-        dispatch(GetJobs())
-    }, []);
+    // useEffect(() => {
+    //     dispatch(GetJobs())
+    // }, []);
 
     useEffect(() => {
         if (MyJobs) {
@@ -231,33 +239,13 @@ const AllJobs = () => {
         }
     }, [MyJobs])
 
-    const options = [
-        { value: 'Salary', label: 'Salary' },
-        { value: 'Experience', label: 'Experience' },
-        { value: 'Recent_Jobs', label: 'Recent Jobs' },
-        { value: 'Apply_Before', label: 'Apply Before' }
-    ]
+    // const options = [
+    //     { value: 'Salary', label: 'Salary' },
+    //     { value: 'Experience', label: 'Experience' },
+    //     { value: 'Recent_Jobs', label: 'Recent Jobs' },
+    //     { value: 'Apply_Before', label: 'Apply Before' }
+    // ]
 
-    const cities = [
-        { value: 'Kanpur', label: 'Kanpur' },
-        { value: 'Lucknow', label: 'Lucknow' },
-        { value: 'Delhi', label: 'Delhi' },
-        { value: 'Mumbai', label: 'Mumbai' },
-        { value: 'Bangalore', label: 'Bangalore' },
-        { value: 'Hyderabad', label: 'Hyderabad' },
-        { value: 'Chennai', label: 'Chennai' },
-        { value: 'Kolkata', label: 'Kolkata' },
-        { value: 'Pune', label: 'Pune' },
-        { value: 'Jaipur', label: 'Jaipur' },
-        { value: 'Ahmedabad', label: 'Ahmedabad' },
-        { value: 'Surat', label: 'Surat' },
-    ]
-
-    const designations = [
-        { value: 'Software_Developer', label: 'Software Developer' },
-        { value: 'Frontend_Developer', label: 'Frontend Developer' },
-        { value: 'Backend_Developer', label: 'Backend Developer' },
-    ]
 
     const handleConfirmedDelete = (id) => {
         // dispatch(DeleteJobAction(id));
@@ -282,34 +270,52 @@ const AllJobs = () => {
         console.log(userApplied?.result?._id);
         console.log('this is the job id : ')
         console.log(jobid);
-
         // console.log(userApplied?._id);
     }
+
+
+    
 
     const handleApplyFilter = async () => {
         console.log('All Filters')
         console.log(AllFilters);
-        const params = new URLSearchParams();
-        // console.log('Params : \n', params)
-        for (let key in AllFilters) {
-            if (key !== 'citiesFilter') {
+        try {
+            const params = new URLSearchParams();
+            // console.log('Params : \n', params)
+            for (let key in AllFilters) {
+                // if (key !== 'DatePosted') {
                 params.append(key, AllFilters[key]);
+                // }
             }
+            console.log('Params : \n', params.toString());
+            const response = await
+                fetch(`${serverURL}/jobs/filter?${params.toString()}`);
+            // fetch(`${serverURL}/jobs/filter?${params.toString()}&citiesFilter=${AllFilters.citiesFilter}`);
+            const data = await response.json();
+            setFilteredJobs(data?.result?.paginatedData);
+            console.log('Filtered Data \n');
+            console.log(data);
+        } catch (err) {
+            console.log(err);
         }
-        console.log('Params : \n', params.toString());
-        const response = await
-            fetch(`${serverURL}/jobs/filter?${params.toString()}&citiesFilter=${AllFilters.citiesFilter}`);
-        const data = await response.json();
-        console.log('Filtered Data');
-        console.log(data);
-        console.log('cities Data');
-        console.log(AllFilters.citiesFilter);
     }
+
+
+    useEffect(() => {
+        handleApplyFilter();
+    }, [AllFilters])
 
     const handleClearFilter = () => {
-        console.log('Clarity Aa gyi hai');
+        setAllFilters({
+            DatePosted: "",
+            ContractTypes: [],
+            JobType: []
+        });
+        setIsFilteredCheck(false);
     }
 
+    console.log('AllFilters \n')
+    console.log(AllFilters);
     console.log(items)
 
     return (
@@ -405,7 +411,7 @@ const AllJobs = () => {
 
 
 
-                    {/* Filter Section  Start*/}
+                    {/* Filter Section  Button Start*/}
                     <div className='d-flex justify-content-end'>
                         <ButtonChakra
                             leftIcon={<CiFilter size={'25'} />}
@@ -423,19 +429,300 @@ const AllJobs = () => {
                             Filtros
                         </ButtonChakra>
                     </div>
-                    {/* Filter Section End */}
+
+                    {/* Filter Section Button  End */}
+
+                    {/* Filter Section Start */}
 
                     <div className='container' style={{ boxShadow: '10px 10px 10px #e4b49d' }} >
                         {
                             IsFilteredCheck &&
-                            <div>
-                                <h4> Sort By </h4>
+                            <div className='mt-2 pb-4'>
+                                <div className='d-flex justify-content-between'>
+                                    <div>
+                                        <h4> Filter by</h4>
+                                    </div>
+                                    <div
+                                        style={{ cursor: 'pointer', display: 'flex' }}
+                                        onClick={() => handleClearFilter()}
+                                    >
+                                        <h6>Clear All</h6>
+                                        <RxCross1 />
+                                    </div>
+                                </div>
                                 <div >
                                     <hr />
-                                    <label htmlFor="applications"> Applications </label>
-                                    <Select options={options} isMulti />
+                                    {/* <h5> Contract Types </h5>
+                                    <Select
+                                        isMulti
+                                        options={contractFilterOptions}
+                                        onChange={(selectedOption) => console.log(selectedOption)}
+                                    /> */}
                                 </div>
-                                <div className='form-row mt-2'>
+
+                                <div className="form-row mt-2 p-2">
+                                    <div
+                                        className='col-md-2'
+                                        style={{
+                                            display: 'flex',
+                                            flexDirection: 'column',
+                                            gap: '5px'
+                                        }}
+                                    >
+                                        <label htmlFor='DatePosted'
+                                            style={{ marginLeft: '-21px' }}
+                                        >
+                                            Date Posted
+                                        </label>
+                                        <div>
+                                            <input
+                                                className="form-check-input"
+                                                type="radio"
+                                                value="All"
+                                                id="All"
+                                                name='timeFilter'
+                                                onChange={(e) => setAllFilters({ ...AllFilters, DatePosted: e.target.value })}
+                                            />
+                                            <label
+                                                className="form-check-label"
+                                                for="All"
+                                            >
+                                                All
+                                            </label>
+                                        </div>
+
+                                        <div>
+                                            <input
+                                                className="form-check-input"
+                                                type="radio"
+                                                value="10"
+                                                id="Last10Mins"
+                                                name='timeFilter'
+                                                onChange={(e) => setAllFilters({ ...AllFilters, DatePosted: e.target.value })}
+                                            />
+                                            <label
+                                                className="form-check-label"
+                                                for="Last10Mins"
+                                            >
+                                                Last 10 Minutes
+                                            </label>
+                                        </div>
+
+                                        <div>
+                                            <input
+                                                className="form-check-input"
+                                                type="radio"
+                                                value="24"
+                                                id="Last24Hours"
+                                                name='timeFilter'
+                                                onChange={(e) => setAllFilters({ ...AllFilters, DatePosted: e.target.value })}
+                                            />
+                                            <label
+                                                className="form-check-label"
+                                                for="Last24Hours"
+                                            >
+                                                Last 24 Hours
+                                            </label>
+                                        </div>
+
+                                        <div>
+                                            <input
+                                                className="form-check-input"
+                                                type="radio"
+                                                value="3"
+                                                id="Last3Days"
+                                                name='timeFilter'
+                                                onChange={(e) => setAllFilters({ ...AllFilters, DatePosted: e.target.value })}
+                                            />
+                                            <label
+                                                className="form-check-label"
+                                                for="Last3Days"
+                                            >
+                                                Last 3 Days
+                                            </label>
+                                        </div>
+
+                                        <div>
+                                            <input
+                                                className="form-check-input"
+                                                type="radio"
+                                                value="7"
+                                                id="Last7Days"
+                                                name='timeFilter'
+                                                onChange={(e) => setAllFilters({ ...AllFilters, DatePosted: e.target.value })}
+                                            />
+                                            <label
+                                                className="form-check-label"
+                                                for="Last7Days"
+                                            >
+                                                Last 7 Days
+                                            </label>
+                                        </div>
+
+                                        <div>
+                                            <input
+                                                className="form-check-input"
+                                                type="radio"
+                                                value="15"
+                                                id="Last15Days"
+                                                name='timeFilter'
+                                                onChange={(e) => setAllFilters({ ...AllFilters, DatePosted: e.target.value })}
+                                            />
+                                            <label
+                                                className="form-check-label"
+                                                for="Last15Days"
+                                            >
+                                                Last 15 Days
+                                            </label>
+                                        </div>
+
+                                        <div>
+                                            <input
+                                                className="form-check-input"
+                                                type="radio"
+                                                value="30"
+                                                id="Last30Days"
+                                                name='timeFilter'
+                                                onChange={(e) => setAllFilters({ ...AllFilters, DatePosted: e.target.value })}
+                                            />
+                                            <label
+                                                className="form-check-label"
+                                                for="Last30Days"
+                                            >
+                                                Last 30 Days
+                                            </label>
+                                        </div>
+                                    </div>
+
+
+                                    <div className='col-md-2'>
+                                        <label htmlFor="ContractTypes"> Contract Types </label>
+                                        <div className="form-check mt-2">
+                                            <input
+                                                className="form-check-input"
+                                                type="checkbox"
+                                                value="Prácticas"
+                                                id="Prácticas"
+                                                onChange={(e) => handleSelectedFilterChange('ContractTypes', e)}
+                                            />
+                                            <label
+                                                className="form-check-label"
+                                                for="Prácticas"
+                                            >
+                                                Prácticas
+                                            </label>
+                                        </div>
+
+                                        <div className="form-check mt-2">
+                                            <input
+                                                className="form-check-input"
+                                                type="checkbox"
+                                                value="Jornada Completa"
+                                                id="Jornada Completa"
+                                                onChange={(e) => handleSelectedFilterChange('ContractTypes', e)}
+                                            />
+                                            <label
+                                                className="form-check-label"
+                                                for="Jornada Completa"
+                                            >
+                                                Jornada Completa
+                                            </label>
+                                        </div>
+
+                                        <div className="form-check mt-2">
+                                            <input
+                                                className="form-check-input"
+                                                type="checkbox"
+                                                value="Media Jornada"
+                                                id="Media Jornada"
+                                                onChange={(e) => handleSelectedFilterChange('ContractTypes', e)}
+
+                                            />
+                                            <label
+                                                className="form-check-label"
+                                                for="Media Jornada"
+                                            >
+                                                Media Jornada
+                                            </label>
+                                        </div>
+
+                                        <div className="form-check mt-2">
+                                            <input
+                                                className="form-check-input"
+                                                type="checkbox"
+                                                value="Contrato Fijo"
+                                                id="Contrato Fijo"
+                                                onChange={(e) => handleSelectedFilterChange('ContractTypes', e)}
+                                            />
+                                            <label
+                                                className="form-check-label"
+                                                for="Contrato Fijo"
+                                            >
+                                                Contrato Fijo
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div className='col-md-2'>
+                                        <label htmlFor="jobType" > JobType </label>
+                                        {/* <Select
+                                            isMulti
+                                            options={jobTypesOptions}
+                                            onChange={(selectedOption) => console.log(selectedOption)}
+                                        /> */}
+                                        <div className="form-check mt-2">
+                                            <input
+                                                className="form-check-input"
+                                                type="checkbox"
+                                                value="Remoto"
+                                                id="Remoto"
+                                                onChange={(e) => handleSelectedFilterChange('JobType', e)}
+                                            />
+                                            <label
+                                                className="form-check-label"
+                                                for="Remoto"
+                                            >
+                                                Remoto
+                                            </label>
+                                        </div>
+
+                                        <div className="form-check mt-2">
+                                            <input
+                                                className="form-check-input"
+                                                type="checkbox"
+                                                value="Presencial"
+                                                id="Presencial"
+                                                // onChange={(e) => setAllFilters({ ...AllFilters, jobType: e.target.value })}
+                                                onChange={(e) => handleSelectedFilterChange('JobType', e)}
+                                            />
+                                            <label
+                                                className="form-check-label"
+                                                for="Presencial"
+                                            >
+                                                Presencial
+                                            </label>
+                                        </div>
+
+                                        <div className="form-check mt-2">
+                                            <input
+                                                className="form-check-input"
+                                                type="checkbox"
+                                                value="Híbrido"
+                                                id="Híbrido"
+                                                // onChange={(e) =>  setAllFilters({ ...AllFilters, jobType: e.target.value })}
+                                                onChange={(e) => handleSelectedFilterChange('JobType', e)}
+                                            />
+                                            <label
+                                                className="form-check-label"
+                                                for="Híbrido"
+                                            >
+                                                Híbrido
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* <div className='form-row mt-2'>
                                     <div className='col-md-4'>
                                         <label htmlFor="yearsExperience">
                                             Years of Experience
@@ -493,9 +780,9 @@ const AllJobs = () => {
                                             onChange={(selectedOption) => setAllFilters({ ...AllFilters, jobDesignation: selectedOption.value })}
                                         />
                                     </div>
-                                </div>
+                                </div> */}
 
-                                <div className="form-row mt-2">
+                                {/* <div className="form-row mt-2">
                                     <div className='col-md-4'>
                                         <label htmlFor="location"> Location Type</label>
                                         <select
@@ -508,38 +795,10 @@ const AllJobs = () => {
                                             <option value="Hybrid">Hybrid</option>
                                         </select>
                                     </div>
-                                </div>
-                                <label htmlFor="jobType mt-4"> Select Location </label>
-                                {/* <div className="form-row mt-2">
-                                <div className="col-md-4">
-                                    <label htmlFor="Country"> Country </label>
-                                    <select className='form-control'>
-                                        <option value="" > Select </option>
-                                        <option value="India">India</option>
-                                        <option value="Spain">Spain</option>
-                                    </select>
-                                </div>
-                                <div className="col-md-4">
-                                    <label htmlFor="state">State</label>
-                                    <select className='form-control'>
-                                        <option value="" > Select </option>
-                                        <option value="Uttar Pradesh">Uttar Pradesh</option>
-                                        <option value="Madhya Pradesh">Madhya Pradesh</option>
-                                    </select>
-                                </div>
-                                <div className="col-md-4">
-                                    <label htmlFor="city">City</label>
-                                    <Select
-                                        options={cities}
-                                        isMulti
-                                        // onChange={(selectedOption) => setAllFilters({...AllFilters, jobDesignation: selectedOption.value})}
-                                        onChange={(selectedOps) => {
-                                            setAllFilters({ ...AllFilters, citiesFilter: selectedOps.map((city) => city.value) })
-                                        }}
-                                    />
-                                </div>
-                            </div> */}
-                                <div className='form-row mt-3'>
+                                </div> */}
+                                {/* <label htmlFor="jobType mt-4"> Select Location </label> */}
+
+                                {/* <div className='form-row mt-3'>
                                     <div className="col-md-4">
                                         <label htmlFor="select countries">
                                             Country
@@ -580,12 +839,9 @@ const AllJobs = () => {
                                                 setAllFilters({ ...AllFilters, citiesFilter: selectedOps.map((city) => city.value) })
                                             }}
                                         />
-                                        {/* onChange={(selectedOps) => {
-                                            setAllFilters({ ...AllFilters, citiesFilter: selectedOps.map((city) => city.value) })
-                                        }} */}
                                     </div>
-                                </div>
-                                <div className='d-flex justify-content-end m-4' >
+                                </div> */}
+                                {/* <div className='d-flex justify-content-end m-4' >
                                     <p
                                         onClick={handleClearFilter}
                                         style={{
@@ -609,10 +865,13 @@ const AllJobs = () => {
                                         Apply
                                     </ButtonChakra>
 
-                                </div>
+                                </div> */}
+
                             </div>
                         }
                     </div>
+
+                    {/* Filter Section Ends */}
 
                     {/* All Jobs and  Applied Jobs  */}
                     <div className='container mb-0 m-5 '>
@@ -642,103 +901,116 @@ const AllJobs = () => {
                     </div>
 
                     {
-                        items &&
-                        <div className={styles.jobContainer}>
-                            <div className="row ">
-                                {items?.map((job, index) => (
-                                    <div className={`col-xl-4 col-lg-6 col-md-6 col-sm-12 `}
-                                        style={{ marginTop: '1vw', cursor: 'pointer' }}
-                                        onClick={() => window.open(`/AllJobs/${job._id}`, '_blank')}
-                                    // onClick={() => navigate(`/AllJobs/${job._id}`)}
-                                    >
-                                        <Card
-                                            style={{ width: '100%', marginBottom: '1vw' }}
-                                            className={`${styles.cardContainer}`}
-                                        >
-                                            <Card.Body>
-                                                <div className="d-flex align-items-center">
-                                                    {job?.recruiter_info?.company_logo ?
-                                                        <img
-                                                            src={job?.recruiter_info?.company_logo}
-                                                            alt="Logo"
-                                                            style={{ width: '50px', height: '50px', marginRight: '10px', borderRadius: '7px' }}
-                                                        />
-                                                        :
-                                                        <BsBuildings
-                                                            style={{ width: '50px', height: '30px', marginRight: '10px', borderRadius: '7px' }}
-                                                            aria-label="Logo"
-                                                        />
-                                                    }
-                                                    <div>
-                                                        <Card.Title>{job.jobTitle}</Card.Title>
-                                                        {/* <p className="card-text text-muted mb-2">{job.created_at}</p> */}
-                                                        <p className="card-text text-muted mb-2">
-                                                            {/* Posted:{job?.created_at &&
-                                                                `${formatDistanceToNow(job.created_at)} ago`} */}
-                                                            Subido : {job?.created_at &&
-                                                                `${formatDistanceToNow(job.created_at, { addSuffix: true, locale: es })}`}
-                                                        </p>
-                                                        <small> {job.company_name} </small>
-                                                        <Card.Subtitle className="mb-2 text-muted"></Card.Subtitle>
-                                                    </div>
-                                                </div>
-                                                <Card.Text className='d-flex text-muted'
-                                                    style={{
-                                                        fontSize: '1rem',
-                                                        padding: '1vw',
-                                                        marginLeft: '3vw'
-                                                    }}
+                        (
+                            <div className={styles.jobContainer}>
+                                <div className="row">
+                                    {
+                                         (Array.isArray(!IsFilteredCheck ? items : filteredJobs) ? (!IsFilteredCheck ? items : filteredJobs) : []).map((job, index) => (
+                                            // items && items?.map((job, index) => (
+                                            <div className={`col-xl-4 col-lg-6 col-md-6 col-sm-12 `}
+                                                style={{ marginTop: '1vw', cursor: 'pointer' }}
+                                                onClick={() => window.open(`/AllJobs/${job._id}`, '_blank')}
+                                            // onClick={() => navigate(`/AllJobs/${job._id}`)}
+                                            >
+                                                <Card
+                                                    style={{ width: '100%', marginBottom: '1vw' }}
+                                                    className={`${styles.cardContainer}`}
                                                 >
-                                                    <div className='d-flex '>
-                                                        <TbBriefcase className={styles.jobIconSmall} />
-                                                        <p className={styles.paraSmallHeading}>
-                                                            {job.workExperienceMin}-{job.workExperienceMax}
-                                                            {/* years */}
-                                                            &nbsp;años
-                                                        </p>
-                                                    </div>
-                                                    <div className='d-flex ml-2'>
-                                                        <FaWallet className={styles.jobIconSmall} />
-                                                        <p className={styles.paraSmallHeading}>
-                                                            {job.salaryStart}-{job.salaryEnd} {job.salarySpecification}
-                                                        </p>
-                                                    </div>
-                                                    <div className='d-flex ml-2'>
-                                                        <FaLocationDot className={styles.jobIconSmall} />
-                                                        <p className={styles.paraSmallHeading} data-tooltip={job.jobLocation}>
-                                                            <TooltipParagraph text={job.jobLocation} />
-                                                        </p>
-                                                    </div>
-                                                </Card.Text>
-                                                <hr />
-                                                <div className='d-flex'>
-                                                    <small style={{ flex: '1' }}>
-                                                        {/* Apply by : */}
-                                                        Subido el &nbsp;
-                                                        {new Date(job.joiningDate).toLocaleDateString()}</small>
-                                                    {/* <Button variant="success" style={{ flex: '1' }}>View</Button> */}
-                                                    <ButtonChakra
-                                                        // colorScheme='linkedin'
-                                                        p={5}
-                                                        width={'8rem'}
-                                                        borderRadius={'50px'}
-                                                        bgColor={'#E4B49D'}
-                                                    >
-                                                        Apply
-                                                    </ButtonChakra>
+                                                    <Card.Body>
+                                                        <div className="d-flex align-items-center">
+                                                            {job?.recruiter_info?.company_logo ?
+                                                                <img
+                                                                    src={job?.recruiter_info?.company_logo}
+                                                                    alt="Logo"
+                                                                    style={{ width: '50px', height: '50px', marginRight: '10px', borderRadius: '7px' }}
+                                                                />
+                                                                :
+                                                                <BsBuildings
+                                                                    style={{ width: '50px', height: '30px', marginRight: '10px', borderRadius: '7px' }}
+                                                                    aria-label="Logo"
+                                                                />
+                                                            }
+                                                            <div>
+                                                                <Card.Title>{job.jobTitle}</Card.Title>
+                                                                {/* <p className="card-text text-muted mb-2">{job.created_at}</p> */}
+                                                                <p className="card-text text-muted mb-2">
+                                                                    {/* Posted:{job?.created_at &&
+                                                                `${formatDistanceToNow(job.created_at)} ago`} */}
+                                                                    Subido : {job?.created_at &&
+                                                                        `${formatDistanceToNow(job.created_at, { addSuffix: true, locale: es })}`}
+                                                                </p>
+                                                                <small> {job.company_name} </small>
+                                                                <Card.Subtitle className="mb-2 text-muted"></Card.Subtitle>
+                                                            </div>
+                                                        </div>
+                                                        <Card.Text className='d-flex text-muted'
+                                                            style={{
+                                                                fontSize: '1rem',
+                                                                padding: '1vw',
+                                                                marginLeft: '3vw'
+                                                            }}
+                                                        >
+                                                            <div className='d-flex '>
+                                                                <TbBriefcase className={styles.jobIconSmall} />
+                                                                <p className={styles.paraSmallHeading}>
+                                                                    {job.workExperienceMin}-{job.workExperienceMax}
+                                                                    {/* years */}
+                                                                    &nbsp;años
+                                                                </p>
+                                                            </div>
+                                                            <div className='d-flex ml-2'>
+                                                                <FaWallet className={styles.jobIconSmall} />
+                                                                <p className={styles.paraSmallHeading}>
+                                                                    {job.salaryStart}-{job.salaryEnd} {job.salarySpecification}
+                                                                </p>
+                                                            </div>
+                                                            <div className='d-flex ml-2'>
+                                                                <FaLocationDot className={styles.jobIconSmall} />
+                                                                <p className={styles.paraSmallHeading} data-tooltip={job.jobLocation}>
+                                                                    <TooltipParagraph text={job.jobLocation} />
+                                                                </p>
+                                                            </div>
+                                                        </Card.Text>
+                                                        <hr />
+                                                        <div className='d-flex'>
+                                                            <small style={{ flex: '1' }}>
+                                                                {/* Apply by : */}
+                                                                Subido el &nbsp;
+                                                                {new Date(job.joiningDate).toLocaleDateString()}</small>
+                                                            {/* <Button variant="success" style={{ flex: '1' }}>View</Button> */}
+                                                            <ButtonChakra
+                                                                // colorScheme='linkedin'
+                                                                p={5}
+                                                                width={'8rem'}
+                                                                borderRadius={'50px'}
+                                                                bgColor={'#E4B49D'}
+                                                            >
+                                                                Apply
+                                                            </ButtonChakra>
 
-                                                </div>
-                                            </Card.Body>
-                                        </Card>
+                                                        </div>
+                                                    </Card.Body>
+                                                </Card>
+                                            </div>
+                                        ))}
+                                </div>
+                                {hasMorejobs && lazyLoadingJobs &&
+                                    <div
+                                        style={{
+                                            display: 'flex',
+                                            justifyContent: 'center',
+                                            alignItems: 'center',
+                                            height: '10vh'
+                                        }}
+                                    >
+                                        <PuffLoader
+                                            color="red"
+                                            size={70}
+                                        />
                                     </div>
-                                ))}
+                                }
                             </div>
-                            {loadingPage &&
-                                <PuffLoader
-                                    color="red"
-                                    size={70}
-                                />}
-                        </div>
+                        )
                     }
 
                     {

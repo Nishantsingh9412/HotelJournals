@@ -15,6 +15,7 @@ import {
     getAllJobsRecruiter,
     getAllJobsLazyLoading,
     getSimilarJobs,
+    checkApplied,
     // hiredCandParticularJob,
     // notOfferedCandPartJob,
     // offeredCandParticularJob,
@@ -23,9 +24,11 @@ import {
 
 const router = express.Router();
 
+// check applicant applied or not 
+router.get('/checkapplied/:jobid/:userid', checkApplied)
+
 // get similar jobs 
 router.get('/similarjobs/:id', getSimilarJobs)
-
 
 // get Alljobs Verified Lazy Loading Main Page
 router.get('/lazy-loading-jobs', getAllJobsLazyLoading)

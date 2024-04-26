@@ -11,7 +11,7 @@ import { formatDistanceToNow } from 'date-fns';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 // Icons
-import { FaExternalLinkAlt, FaStar } from "react-icons/fa";
+import { FaExternalLinkAlt } from "react-icons/fa";
 import { TbBriefcase2 } from "react-icons/tb";
 import { FiLink } from "react-icons/fi";
 import {
@@ -24,24 +24,25 @@ import {
     FaLocationDot,
     FaWallet,
 } from "react-icons/fa6";
-import { FaHouseChimneyCrack } from "react-icons/fa6";
-import { FaFirstAid } from "react-icons/fa";
-import { FaBagShopping } from "react-icons/fa6";
-import { FaCar } from "react-icons/fa";
-import { FaUserTie } from "react-icons/fa";
-import { FaCoffee } from "react-icons/fa";
+// import { FaHouseChimneyCrack } from "react-icons/fa6";
+// import { FaFirstAid } from "react-icons/fa";
+// import { FaBagShopping } from "react-icons/fa6";
+// import { FaCar } from "react-icons/fa";
+// import { FaUserTie } from "react-icons/fa";
+// import { FaCoffee } from "react-icons/fa";
 // CSS 
 import jobdescriptionCSS from './particularjob.module.css';
 // Images 
-import companyimage from "../../assets/JobImage/companyimage.jpg";
-import img2 from "../../assets/JobImage/img2.gif";
-import img3 from "../../assets/JobImage/img3.gif";
+// import companyimage from "../../assets/JobImage/companyimage.jpg";
+// import img2 from "../../assets/JobImage/img2.gif";
+// import img3 from "../../assets/JobImage/img3.gif";
 
 
 import { ApplyJobAction, getJobSingleAction, getJobsSimilarAction } from '../../redux/actions/jobsAdmin.js';
 import { getRecProfileAction } from '../../redux/actions/recProfile.js';
 import { IoLogoLinkedin } from 'react-icons/io5';
-import Jobs from './JobsLanding/Jobs.jsx';
+import { checkAppliedForJob } from '../../api/index.js';
+// import Jobs from './JobsLanding/Jobs.jsx';
 
 
 const ParticularJob = () => {
@@ -57,6 +58,7 @@ const ParticularJob = () => {
     const [similarJobs, setSimilarJobs] = useState([{}]);
     const [appliedToJob, setAppliedToJob] = useState(false);
     const [loadingPage, setLoadinPage] = useState(true);
+    const [similarJobsLoading, setSimilarJobsLoading] = useState(true);
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
@@ -72,21 +74,20 @@ const ParticularJob = () => {
 
     const handleJobApply = async (jobId) => {
         setLoading(true);
-        // console.log(`Job Applied with id : ${jobId}`);
-        // console.log(`User Applied with id : ${userId}`);
         const jobApplicants = {
             jobId: jobId,
             userId: userId
         }
-        const response = await dispatch(ApplyJobAction(jobApplicants))
-        if (response.success) {
-            toast.success(response.message);
-            setAppliedToJob(true);
-            setLoading(false);
-        } else {
-            toast.error(response.message);
-            setLoading(false);
-        }
+        dispatch(ApplyJobAction(jobApplicants)).then((response) => {
+            if (response.success) {
+                toast.success(response.message);
+                setAppliedToJob(true);
+                setLoading(false);
+            } else {
+                toast.error(response.message);
+                setLoading(false);
+            }
+        })
     }
 
 
@@ -96,44 +97,33 @@ const ParticularJob = () => {
     console.log("Single Job Data \n");
     console.log(singleJobsData);
 
-    useEffect(() => {
-        dispatch(getRecProfileAction(singleJobsData?.result?.created_by));
-    }, [singleJobsData, dispatch])
+    // useEffect(() => {
+    //     dispatch(getRecProfileAction(singleJobsData?.result?.created_by));
+    // }, [singleJobsData, dispatch])
 
-    const recProfileData = useSelector((state) => state?.getRecProfileReducer)
-    console.log("Recruiter Profile Data \n");
-    const singleRecruiterData = recProfileData?.data?.result[0];
+    // const recProfileData = useSelector((state) => state?.getRecProfileReducer)
+    // console.log("Recruiter Profile Data \n");
+    // const singleRecruiterData = recProfileData?.data?.result[0];
+    const singleRecruiterData = singleJobsData?.result?.recruiter_info;
     console.log(singleRecruiterData);
 
-    const appliedCandidates = singleJobsData?.result?.applicants;
-    const applicantsSet = new Set(singleJobsData?.result?.applicants.map((applicant) => applicant.user));
-    console.log("Applicants Set \n");
-    console.log(applicantsSet);
-
-    console.log("Appis \n");
-    console.log(singleJobsData?.result?.applicants)
-
-    console.log("applicant Set \n")
-    console.log(applicantsSet)
-
-    // Create a Set of applicant IDs
-    const applicantsSetAppliedIds = new Set(singleJobsData?.result?.applicants.map((applicant) => applicant.user._id));
 
     useEffect(() => {
-        if (applicantsSetAppliedIds.has(userId)) {
-            console.log('User has applied');
-            setAppliedToJob(true);
-        } else {
-            console.log('User has not applied');
-        }
-    }, [applicantsSetAppliedIds, userId, singleJobsData?.result?.applicants])
+        checkAppliedForJob(id, userId).then((res) => {
+            console.log("This is response \n")
+            console.log(res);
+            if (res.data.applied) {
+                setAppliedToJob(true);
+            }
+        })
+    }, [id])
 
 
     useEffect(() => {
         if (singleJobsData?.result) {
             setLoadinPage(false);
         }
-    }, [singleJobsData?.result?.applicants])
+    }, [singleJobsData?.result])
 
 
     const getSimilarJobsfn = () => {
@@ -142,6 +132,7 @@ const ParticularJob = () => {
                 console.log("Similar Jobs \n");
                 console.log(res?.data?.result);
                 setSimilarJobs(res?.data?.result);
+                setSimilarJobsLoading(false);
             } else {
                 console.log("Error in getting Similar Jobs \n");
             }
@@ -151,55 +142,6 @@ const ParticularJob = () => {
     useEffect(() => {
         getSimilarJobsfn();
     }, [id])
-
-
-    // return (
-    //     <div className='container mt-4'>
-    //         <ToastContainer />
-    //         <div class="card text-center">
-    //             <div class="card-header">
-    //                 {singleJobsData?.result?.jobTitle}
-    //             </div>
-    //             <div class="card-body">
-    //                 <h5 class="card-title">Extra Benifits</h5>
-    //                 {singleJobsData?.result?.extraBenifits?.map((benifits, index) => (
-    //                     <span className='rounded' key={index} style={{ marginRight: '10px', border: '20% ' }}>
-    //                         {benifits}
-    //                     </span>
-    //                 ))}
-    //             </div>
-
-    //             <center>
-    //                 {!appliedToJob ?
-    //                     <button className='btn btn-info mt-2 mb-2 w-25 ' onClick={() => {
-    //                         handleJobApply(singleJobsData?.result?._id);
-    //                         setAppliedToJob(true);
-    //                     }}>
-    //                         {loading ?
-    //                             <>
-    //                                 <div className='d-flex'>
-    //                                     <PuffLoader
-    //                                         size={25}
-    //                                         color="#ffffff"
-    //                                     />
-    //                                     <span className='pl-2 text'> Applying  ... </span>
-    //                                 </div>
-    //                             </> :
-    //                             'Apply'
-    //                         }
-    //                     </button> :
-    //                     <button className='btn btn-success mt-2 mb-2 w-25 ' disabled>
-    //                         Applied
-    //                     </button>
-    //                 }
-    //             </center>
-    //             <div class="card-footer text-muted">
-    //                 {singleJobsData?.result?.created_at &&
-    //                     `posted ${formatDistanceToNow(posted_at)} ago`}
-    //             </div>
-    //         </div>
-    //     </div>
-    // )
 
     return (
         <>
@@ -219,11 +161,15 @@ const ParticularJob = () => {
                         <div className={jobdescriptionCSS.company}>
                             <div className={jobdescriptionCSS.companydescription}>
                                 <div className={jobdescriptionCSS.leftcompanydescripton}>
-                                    <h1> {singleJobsData?.result?.jobTitle} </h1>
+                                    <h1
+                                        style={{ fontWeight: '600', fontSize: '18px' }}
+                                    > {singleJobsData?.result?.jobTitle} </h1>
 
                                     <div className={jobdescriptionCSS.ownername}>
                                         {/* <h1>Saint Gobain </h1> */}
-                                        <h1>{singleRecruiterData?.companyName}</h1>
+                                        <h1
+                                            style={{ fontWeight: '600' }}
+                                        >{singleRecruiterData?.companyName}</h1>
                                         {/* 
                                         <div className={jobdescriptionCSS.dreview}>
                                             <FaStar />
@@ -241,7 +187,10 @@ const ParticularJob = () => {
                                             </p>
                                         </div>
                                         <div className={jobdescriptionCSS.reservation}>
-                                            <FaWallet className={jobdescriptionCSS.svgg} />
+                                            <FaWallet
+                                                style={{ opacity: '0.7' }}
+                                                className={jobdescriptionCSS.svgg}
+                                            />
                                             <p>
                                                 &nbsp;
                                                 {singleJobsData?.result?.salaryStart}
@@ -252,7 +201,10 @@ const ParticularJob = () => {
                                         </div>
                                     </div>
                                     <div className={jobdescriptionCSS.companylocation}>
-                                        <div className={jobdescriptionCSS.locationlogo}><FaLocationDot /></div>
+                                        <div className={jobdescriptionCSS.locationlogo}>
+                                            <FaLocationDot
+                                                style={{ opacity: '0.7' }}
+                                            /></div>
                                         <p>
                                             {singleJobsData?.result?.jobLocation?.map((location, index, arr) => (
                                                 <span key={location.id}>
@@ -287,7 +239,9 @@ const ParticularJob = () => {
                                         </span> */}
                                         Subido:
 
-                                        <span>{singleJobsData?.result?.created_at &&
+                                        <span
+                                            style={{ fontWeight: '600' }}
+                                        >{singleJobsData?.result?.created_at &&
                                             ` hace ${formatDistanceToNow(posted_at, { locale: es })}`}
                                         </span>
                                     </p>
@@ -295,7 +249,9 @@ const ParticularJob = () => {
                                     <p>
                                         {/* Openings: */}
                                         Visitas:
-                                        <span> {singleJobsData?.result?.no_of_openings}</span>
+                                        <span
+                                            style={{ fontWeight: '600' }}
+                                        > {singleJobsData?.result?.no_of_openings}</span>
                                     </p>
                                     {
                                         singleJobsData?.result?.isExternal ?
@@ -304,19 +260,18 @@ const ParticularJob = () => {
                                                 <p>
                                                     {/* Applicants: */}
                                                     Solicitantes:
-                                                    <span> {singleJobsData?.result?.applicants?.length}</span>
+
+                                                    <span
+                                                        style={{ fontWeight: '600' }}
+                                                    > {singleJobsData?.result?.applicants?.length}</span>
                                                 </p>
                                             </>
                                     }
                                 </div>
                                 <div className={jobdescriptionCSS.detailbutton}>
                                     {/* <button type="button" className={jobdescriptionCSS.btn1}>Register To Apply</button> */}
-                                    {/* <button type="button" className={jobdescriptionCSS.btn2}>
-
-                </button> */}
-
+                                    {/* <button type="button" className={jobdescriptionCSS.btn2}></button> */}
                                     {/* <center> */}
-
                                     {
                                         singleJobsData?.result?.isExternal ?
                                             <a href={singleJobsData?.result?.jobLink} style={{ textDecoration: 'none' }} target='_blank' rel='noreferrer'>
@@ -335,7 +290,7 @@ const ParticularJob = () => {
                                                     }}>
                                                     {loading ?
                                                         <>
-                                                            <div className=''>
+                                                            <div>
                                                                 <PuffLoader
                                                                     size={25}
                                                                     color="#ffffff"
@@ -347,11 +302,10 @@ const ParticularJob = () => {
                                                         'Inscribirme'
                                                     }
                                                 </button> :
-                                                <button className='btn btn-success mt-2 mb-2 w-25 ' style={{ cursor: 'not-allowed' }} disabled>
+                                                <button className='btn btn-success mt-2 mb-2 w-50 ' style={{ cursor: 'not-allowed' }} disabled>
                                                     Applied
                                                 </button>
                                     }
-
                                     {/* </center> */}
                                 </div>
                             </div>
@@ -506,7 +460,7 @@ const ParticularJob = () => {
                                 )}
 
                                 {singleRecruiterData?.twitter && (
-                                    <p className='d-flex'> 
+                                    <p className='d-flex'>
                                         <FiLink
                                             size={'20'}
                                             style={{ marginRight: '5px' }}
@@ -563,8 +517,21 @@ const ParticularJob = () => {
                         <div className={jobdescriptionCSS.recommendedjobs}>
                             <div className={jobdescriptionCSS.recommendedjobsdetail}>
                                 {/* <h1>Jobs you might be interested in</h1> */}
-                                <h1> Empleos que te pueden interesar </h1>
-                                {
+                                <h1
+                                    style={{ fontWeight: '600' }}
+                                > Empleos que te pueden interesar </h1>
+
+
+                                {similarJobsLoading ?
+                                    <div
+                                        style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '30vh' }}
+                                    >
+                                        <PuffLoader
+                                            color="red"
+                                            size={70}
+                                        />
+                                    </div>
+                                    :
                                     similarJobs?.map((job, index) => {
                                         return (
                                             <div
@@ -577,17 +544,24 @@ const ParticularJob = () => {
                                                     <h1>{job.jobTitle}</h1>
                                                     <p>{job.companyName}</p>
                                                     <div className={jobdescriptionCSS.joblocation}>
-                                                        <div className={jobdescriptionCSS.jobicon}><FaLocationDot /></div>
+                                                        <div className={jobdescriptionCSS.jobicon}>
+                                                            <FaLocationDot
+                                                                style={{ opacity: '0.7' }}
+                                                            /></div>
                                                         {job?.jobLocation?.slice(0, 2)?.map((location, index) => (
                                                             <p key={index}>
                                                                 {location}
                                                                 {index < job.jobLocation.length - 1 ? ', ' : ''}
                                                             </p>
                                                         ))}
-                                                        {job?.jobLocation?.length > 2 && <p>  {job.jobLocation?.slice(3)} ...</p>}
+                                                        {job?.jobLocation?.length > 2 && <p>...</p>}
                                                     </div>
                                                     <div className={jobdescriptionCSS.joblocation}>
-                                                        <div className={jobdescriptionCSS.jobicon}><FaWallet /></div>
+                                                        <div className={jobdescriptionCSS.jobicon}>
+                                                            <FaWallet
+                                                                style={{ opacity: '0.7' }}
+                                                            />
+                                                        </div>
                                                         <p>
                                                             &nbsp;{job?.salaryStart} -
                                                             {job?.salaryEnd}
