@@ -46,7 +46,7 @@ const ResetPassword = () => {
             }
         }).catch((error) => {
             console.log('Error Resetting  ------------------------------------------------>  Password ')
-            toast.error(error.response.data.message)
+            toast.error(error?.response?.data?.message)
             throw error;
         });
     }

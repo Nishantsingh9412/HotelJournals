@@ -331,15 +331,24 @@ const EditCourseForm = () => {
                                         {/* Select */}
                                         Seleccionar
                                     </option>
-                                    <option value="Beginner">
+                                    <option
+                                        // value="Beginner"
+                                        value="Básico"
+                                    >
                                         {/* Beginner */}
                                         Básico
                                     </option>
-                                    <option value="Intermediate">
+                                    <option
+                                        // value="Intermediate"
+                                        value="Intermedio"
+                                    >
                                         {/* Intermediate */}
                                         Intermedio
                                     </option>
-                                    <option value="Advanced">
+                                    <option
+                                        // value="Advanced"
+                                        value="Avanzado"
+                                    >
                                         {/* Advanced */}
                                         Avanzado
                                     </option>
@@ -471,23 +480,39 @@ const EditCourseForm = () => {
                                 {/* Select */}
                                 Seleccionar
                             </option>
-                            <option value="Minutes">
+                            <option
+                                // value="Minutes"
+                                value="Minutos"
+                            >
                                 {/* Minutes */}
                                 Minutos
                             </option>
-                            <option value="Hours">
+
+                            <option
+                                // value="Hours"
+                                value="Horas"
+                            >
                                 {/* Hours */}
                                 Horas
                             </option>
-                            <option value="Days">
+                            <option
+                                // value="Days"
+                                value="Días"
+                            >
                                 {/* Days */}
                                 Días
                             </option>
-                            <option value="Weeks">
+                            <option
+                                // value="Weeks"
+                                value="Semanas"
+                            >
                                 {/* Weeks */}
                                 Semanas
                             </option>
-                            <option value="Months">
+                            <option
+                                // value="Months"
+                                value="Meses"
+                            >
                                 {/* Months */}
                                 Meses
                             </option>

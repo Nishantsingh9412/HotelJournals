@@ -10,7 +10,8 @@ import 'react-tooltip/dist/react-tooltip.css'
 import PuffLoader from 'react-spinners/PuffLoader';
 
 import { GetCourseSingle } from '../../redux/actions/courseAdmin';
-import Cards from './Cards';
+// import Cards from './Cards';
+import SimilarCourses from './SimilarCourses';
 // import Styles from './CourseDescription.module.css';
 // import TooltipParagraph from '../Jobs/TooltipParagraph';
 
@@ -147,7 +148,8 @@ const CourseDescription = () => {
                   </div>
                   {course?.result?.isFree ? (
                     <div className='text-left rounded' style={{ position: 'absolute', top: 10, right: 0, background: 'green', color: 'white', padding: '10px', paddingLeft: '100px' }}>
-                      Free
+                      {/* Free */}
+                      Gratis
                     </div>
                   ) : null}
                 </div>
@@ -208,7 +210,8 @@ const CourseDescription = () => {
                   {/* We have a range of courses available: from online courses to short courses and master's degrees. Start your search by checking out our most popular courses below. */}
                   Disponemos de una amplia gama de cursos: desde cursos en línea hasta cursos cortos y másteres. Empieza tu búsqueda echando un vistazo a nuestros cursos más populares aquí.
                 </span>
-                <Cards filter={false} />
+                {/* <Cards filter={false} /> */}
+                <SimilarCourses />
               </div>
             </div>
           </div>

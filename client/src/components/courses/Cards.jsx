@@ -7,23 +7,35 @@ import ReactPaginate from 'react-paginate';
 
 import CheckBox from "./CheckBox";
 import CSS from './Cards.module.css';
-import { GetCourse, courseFilterAction, coursePaginateAction } from '../../redux/actions/courseAdmin';
+import { courseFilterAction } from '../../redux/actions/courseAdmin';
 
 const cardImageStyle = {
     width: '100%',
     height: '200px',
 };
 
-
-
 const Cards = ({ filter }) => {
     const dispatch = useDispatch();
+    
 
     // const [currentPage, setCurrentPage] = useState(2);
-    const [paginatedCourses, setPaginatedCourses] = useState()
-    const [limit, setLimit] = useState(12);
-    const [pageCount, setPageCount] = useState(1);
-    const currentPage = useRef()
+    // ------------------- pagination for all course start -----------------------------------
+    // const [paginatedCourses, setPaginatedCourses] = useState()
+    // const [limit, setLimit] = useState(12);
+    // const [pageCount, setPageCount] = useState(1);
+    // const currentPage = useRef()
+
+    // ------------------- pagination for all course end -----------------------------------
+
+
+
+    // ------------------- pagination for filtered courses start -------------------------------------------
+    const [filteredPaginatedCourses, setFilteredPaginatedCourses] = useState()
+    const [filteredLimit, setFilteredLimit] = useState(12);
+    const [filteredPageCount, setFilteredPageCount] = useState(1);
+    const filteredCurrentPage = useRef()
+    // ------------------- pagination for filtered courses end -------------------------------------------
+
 
     const [courseValueFilter, setCourseValueFilter] = useState({
         // isFree: false,
@@ -34,8 +46,8 @@ const Cards = ({ filter }) => {
 
     const [locationTypeFilter, setLocationTypeFilter] = useState({
         Online: false,
-        // Offline: false,
-        Presencia: false
+        Offline: false,
+        // Presencial: false
     })
 
     const [courseTypesFilter, setCourseTypesFilter] = useState({
@@ -45,7 +57,7 @@ const Cards = ({ filter }) => {
         Máster: false,
         Diploma: false,
         // Professional: false,
-        CertificadosProfesionales: false,
+        "Certificados Profesionales": false,
         // ShortCourse: false,
         Curso: false,
     });
@@ -74,38 +86,38 @@ const Cards = ({ filter }) => {
         // Business: false,
         Negocios: false,
         // PersonalDevelopment: false,
-        DesarrolloPersonal: false,
+        "Desarrollo Personal": false,
         Marketing: false,
         // HumanResource: false,
-        RecursosHumanos: false,
+        "Recursos Humanos": false,
         // LeadershipAndManagement: false,
-        LiderazgoYGestión: false,
+        "Liderazgo Y Gestión": false,
         // Language: false,
         Idiomas: false,
         // TestPreparation: false,
-        PreparaciónDeExámenes: false,
+        "Preparación de Exámenes": false,
         // Pastry: false,
         Pastelería: false,
         // CruisesManagement: false,
-        GestiónDeCruceros: false,
+        "Gestión de Cruceros": false,
         // Oenology: false,
         Enología: false,
         // HospitalityManagement: false,
-        DirecciónHotelera: false,
+        "Dirección Hotelera": false,
         // SalesAndMarketing: false,
         VentasYMarketing: false,
         // EventManagement: false,
-        GestiónDeEventos: false,
-        RevenueManagement: false,
+        "Gestión de Eventos": false,
+        "Revenue Management": false,
         // Reception: false,
         Recepción: false,
-        FoodAndBeverages: false,
+        "F&B": false,
         Spa: false,
         // Tourism: false,
         Turismo: false,
         // BusinessSkills: false
-        HabilidadesEmpresariales: false,
-        GuíaTurístico: false,
+        "Habilidades Empresariales": false,
+        "Guía Turístico": false,
         Pisos: false,
         Otros: false,
     })
@@ -114,8 +126,10 @@ const Cards = ({ filter }) => {
     //     dispatch(GetCourse());
     // }, [dispatch]);
 
+    //  ------------------------ Filtration of all courses ---------------
 
     const handleClearAllFilters = () => {
+        setFilteredPaginatedCourses(null);
         setCourseTypesFilter({
             // Bachelors: false,
             Licenciatura: false,
@@ -123,12 +137,10 @@ const Cards = ({ filter }) => {
             Máster: false,
             Diploma: false,
             // Professional: false,
-            CertificadosProfesionales: false,
+            "Certificados Profesionales": false,
             // ShortCourse: false,
             Curso: false,
         });
-
-
         setCourseLangFilter({
             // English: false,
             Inglés: false,
@@ -152,46 +164,46 @@ const Cards = ({ filter }) => {
             // Business: false,
             Negocios: false,
             // PersonalDevelopment: false,
-            DesarrolloPersonal: false,
+            "Desarrollo Personal": false,
             Marketing: false,
             // HumanResource: false,
-            RecursosHumanos: false,
+            "Recursos Humanos": false,
             // LeadershipAndManagement: false,
-            LiderazgoYGestión: false,
+            "Liderazgo Y Gestión": false,
             // Language: false,
             Idiomas: false,
             // TestPreparation: false,
-            PreparaciónDeExámenes: false,
+            "Preparación de Exámenes": false,
             // Pastry: false,
             Pastelería: false,
             // CruisesManagement: false,
-            GestiónDeCruceros: false,
+            "Gestión de Cruceros": false,
             // Oenology: false,
             Enología: false,
             // HospitalityManagement: false,
-            DirecciónHotelera: false,
+            "Dirección Hotelera": false,
             // SalesAndMarketing: false,
-            VentasYMarketing: false,
+            "Ventas Y Marketing": false,
             // EventManagement: false,
-            GestiónDeEventos: false,
-            RevenueManagement: false,
+            "Gestión de Eventos": false,
+            "Revenue Management": false,
             // Reception: false,
             Recepción: false,
-            FoodAndBeverages: false,
+            "F&B": false,
             Spa: false,
             // Tourism: false,
             Turismo: false,
             // BusinessSkills: false
-            HabilidadesEmpresariales: false,
-            GuíaTurístico: false,
+            "Habilidades Empresariales": false,
+            "Guía Turístico": false,
             Pisos: false,
             Otros: false,
         })
 
         setLocationTypeFilter({
             Online: false,
-            // Offline: false,
-            Presencia: false
+            Offline: false,
+            // Presencial: false
         })
 
         setCourseValueFilter({
@@ -200,6 +212,12 @@ const Cards = ({ filter }) => {
             // isPaid: false
             Pago: false
         })
+    }
+
+    const handlePageChangeForFilteredCourse = (e) => {
+        console.log(e);
+        filteredCurrentPage.current = e.selected + 1;
+        handleCoursesFilter();
     }
 
     const handleCoursesFilter = async () => {
@@ -213,48 +231,63 @@ const Cards = ({ filter }) => {
 
         console.log("Params \n");
         console.log(params);
-        const response = await dispatch(courseFilterAction(params));
-        if (response.success) {
-            console.log(response.data);
-        } else {
-            console.log(response.message);
-        }
+
+        dispatch(courseFilterAction(params, filteredCurrentPage.current, filteredLimit)).then((res) => {
+            if (res.success) {
+                console.log(res.data);
+                setFilteredPageCount(res.data.result.pageCount);
+                setFilteredPaginatedCourses(res.data.result.pageinatedData);
+                // setShowFilteredCourse(!showFilteredCourse);
+            } else {
+                console.log(res.message);
+            }
+        }).catch((err) => {
+            console.log('Error', err)
+        })
+
     }
 
-
     useEffect(() => {
+        filteredCurrentPage.current = 1;
         handleCoursesFilter();
     }, [courseLangFilter,
         courseTypesFilter,
         categoriesFilter,
         courseValueFilter,
         locationTypeFilter,
+        filteredCurrentPage,
+        filteredLimit
     ])
 
+    // For paginated courses 
+    // const handlePageClick = (e) => {
+    //     console.log(e);
+    //     currentPage.current = e.selected + 1;
+    //     getPaginatedUsers()
+    // }
 
-    useEffect(() => {
-        currentPage.current = 1
-        getPaginatedUsers();
-    }, [currentPage, limit])
+    // const getPaginatedUsers = () => {
+    //     try {
+    //         dispatch(coursePaginateAction(currentPage.current, limit)).then((res) => {
+    //             if (res.success) {
+    //                 console.log(res.data);
+    //                 setPageCount(res.data.result.pageCount);
+    //                 setPaginatedCourses(res.data.result.pageinatedData);
+    //             } else {
+    //                 console.log(res.message);
+    //             }
+    //         })
+    //     } catch (err) {
+    //         console.log('Error', err)
+    //     }
 
-    const handlePageClick = (e) => {
-        console.log(e);
-        // setCurrentPage(e.selected + 1);
-        currentPage.current = e.selected + 1;
-        getPaginatedUsers()
-    }
+    // }
 
-    const getPaginatedUsers = () => {
-        dispatch(coursePaginateAction(currentPage.current, limit)).then((res) => {
-            if (res.success) {
-                console.log(res.data);
-                setPageCount(res.data.result.pageCount);
-                setPaginatedCourses(res.data.result.pageinatedData);
-            } else {
-                console.log(res.message);
-            }
-        })
-    }
+    // useEffect(() => {
+    //     currentPage.current = 1
+    //     getPaginatedUsers();
+    // }, [currentPage, limit])
+
 
     // const AllCoursesData = useSelector((state) => state.getCoursesReducer);
     // console.log(AllCoursesData);
@@ -326,13 +359,13 @@ const Cards = ({ filter }) => {
                                             // content={"Professional"}
                                             content={"Certificados Profesionales"}
                                             // checked={courseTypesFilter.Professional}
-                                            checked={courseTypesFilter.CertificadosProfesionales}
+                                            checked={courseTypesFilter["Certificados Profesionales"]}
                                             onChange={(e) =>
                                                 setCourseTypesFilter(
                                                     {
                                                         ...courseTypesFilter,
                                                         // Professional: e.target.checked
-                                                        CertificadosProfesionales: e.target.checked
+                                                        ["Certificados Profesionales"]: e.target.checked
                                                     }
                                                 )}
                                         />
@@ -537,15 +570,15 @@ const Cards = ({ filter }) => {
                                         />
                                         <CheckBox
                                             // content={"Offline"}
-                                            content={"Presencia"}
-                                            // checked={locationTypeFilter.Offline}
-                                            checked={locationTypeFilter.Presencia}
+                                            content={"Presencial"}
+                                            checked={locationTypeFilter.Offline}
+                                            // checked={locationTypeFilter.Presencial}
                                             onChange={(e) =>
                                                 setLocationTypeFilter(
                                                     {
                                                         ...locationTypeFilter,
-                                                        // Offline: e.target.checked
-                                                        Presencia: e.target.checked
+                                                        Offline: e.target.checked
+                                                        // Presencial: e.target.checked
                                                     }
                                                 )}
                                         />
@@ -590,13 +623,13 @@ const Cards = ({ filter }) => {
                                                     {
                                                         ...categoriesFilter,
                                                         // PersonalDevelopment: e.target.checked
-                                                        DesarrolloPersonal: e.target.checked
+                                                        ["Desarrollo Personal"]: e.target.checked
                                                     }
                                                 )}
                                             // content={"Personal Development"}
                                             content={"Desarrollo Personal"}
                                             // checked={categoriesFilter.PersonalDevelopment}
-                                            checked={categoriesFilter.DesarrolloPersonal}
+                                            checked={categoriesFilter["Desarrollo Personal"]}
                                         />
                                         <CheckBox
                                             onChange={(e) =>
@@ -612,26 +645,26 @@ const Cards = ({ filter }) => {
                                                     {
                                                         ...categoriesFilter,
                                                         // HumanResource: e.target.checked
-                                                        RecursosHumanos: e.target.checked
+                                                        ["Recursos Humanos"]: e.target.checked
                                                     }
                                                 )}
                                             content={"Recursos Humanos"}
                                             // checked={categoriesFilter.HumanResource}
-                                            checked={categoriesFilter.RecursosHumanos}
+                                            checked={categoriesFilter["Recursos Humanos"]}
                                         />
                                         <CheckBox
                                             onChange={(e) =>
                                                 setCategoriesFilter(
                                                     {
                                                         ...categoriesFilter,
-                                                        LiderazgoYGestión: e.target.checked
+                                                        ["Liderazgo Y Gestión"]: e.target.checked
                                                         // LeadershipAndManagement: e.target.checked
                                                     }
                                                 )}
                                             // content={"Leadership and Management"}
-                                            content={"Liderazgo y Gestión"}
+                                            content={"Liderazgo Y Gestión"}
                                             // checked={categoriesFilter.LeadershipAndManagement}
-                                            checked={categoriesFilter.LiderazgoYGestión}
+                                            checked={categoriesFilter["Liderazgo Y Gestión"]}
                                         />
                                         <CheckBox
                                             onChange={
@@ -653,13 +686,13 @@ const Cards = ({ filter }) => {
                                                     {
                                                         ...categoriesFilter,
                                                         // TestPreparation: e.target.checked
-                                                        PreparaciónDeExámenes: e.target.checked
+                                                        ["Preparación de Exámenes"]: e.target.checked
                                                     }
                                                 )}
                                             // content={"Test Preparation"}
-                                            content={"Preparación de exámenes"}
+                                            content={"Preparación de Exámenes"}
                                             // checked={categoriesFilter.TestPreparation}
-                                            checked={categoriesFilter.PreparaciónDeExámenes}
+                                            checked={categoriesFilter["Preparación de Exámenes"]}
 
                                         />
                                         <CheckBox
@@ -683,13 +716,14 @@ const Cards = ({ filter }) => {
                                                     {
                                                         ...categoriesFilter,
                                                         // CruisesManagement: e.target.checked
-                                                        GestiónDeCruceros: e.target.checked
+                                                        ["Gestión de Cruceros"]: e.target.checked
                                                     }
                                                 )
                                             }
-                                            content={"Cruises Management"}
+                                            // content={"Cruises Management"}
+                                            content={"Gestión de Cruceros"}
                                             // checked={categoriesFilter.CruisesManagement}
-                                            checked={categoriesFilter.GestiónDeCruceros}
+                                            checked={categoriesFilter["Gestión de Cruceros"]}
                                         />
                                         <CheckBox
                                             onChange={
@@ -712,13 +746,13 @@ const Cards = ({ filter }) => {
                                                     {
                                                         ...categoriesFilter,
                                                         // HospitalityManagement: e.target.checked
-                                                        DirecciónHotelera: e.target.checked
+                                                        ["Dirección Hotelera"]: e.target.checked
                                                     }
                                                 )}
                                             // content={"Hospitality Management"}
                                             content={"Dirección Hotelera"}
                                             // checked={categoriesFilter.HospitalityManagement}
-                                            checked={categoriesFilter.DirecciónHotelera}
+                                            checked={categoriesFilter["Dirección Hotelera"]}
                                         />
                                         <CheckBox
                                             onChange={
@@ -726,13 +760,13 @@ const Cards = ({ filter }) => {
                                                     {
                                                         ...categoriesFilter,
                                                         // SalesAndMarketing: e.target.checked
-                                                        VentasYMarketing: e.target.checked
+                                                        ["Ventas Y Marketing"]: e.target.checked
                                                     }
                                                 )}
                                             // content={"Sales and Marketing"}
-                                            content={"Ventas y Marketing"}
+                                            content={"Ventas Y Marketing"}
                                             // checked={categoriesFilter.SalesAndMarketing}
-                                            checked={categoriesFilter.VentasYMarketing}
+                                            checked={categoriesFilter["Ventas Y Marketing"]}
                                         />
                                         <CheckBox
                                             onChange={
@@ -740,21 +774,24 @@ const Cards = ({ filter }) => {
                                                     {
                                                         ...categoriesFilter,
                                                         // EventManagement: e.target.checked
-                                                        GestiónDeEventos: e.target.checked
+                                                        ["Gestión de Eventos"]: e.target.checked
                                                     }
                                                 )}
                                             // content={"Event Management"}
                                             content={"Gestión de Eventos"}
                                             // checked={categoriesFilter.EventManagement}
-                                            checked={categoriesFilter.GestiónDeEventos}
+                                            checked={categoriesFilter["Gestión de Eventos"]}
                                         />
                                         <CheckBox
                                             onChange={
                                                 (e) => setCategoriesFilter(
-                                                    { ...categoriesFilter, RevenueManagement: e.target.checked }
+                                                    {
+                                                        ...categoriesFilter,
+                                                        ["Revenue Management"]: e.target.checked
+                                                    }
                                                 )}
                                             content={"Revenue Management"}
-                                            checked={categoriesFilter.RevenueManagement}
+                                            checked={categoriesFilter["Revenue Management"]}
                                         />
                                         <CheckBox
                                             onChange={
@@ -773,10 +810,13 @@ const Cards = ({ filter }) => {
                                         <CheckBox
                                             onChange={
                                                 (e) => setCategoriesFilter(
-                                                    { ...categoriesFilter, FoodAndBeverages: e.target.checked }
+                                                    {
+                                                        ...categoriesFilter,
+                                                        ["F&B"]: e.target.checked
+                                                    }
                                                 )}
-                                            content={"Food and Beverages"}
-                                            checked={categoriesFilter.FoodAndBeverages}
+                                            content={"F&B"}
+                                            checked={categoriesFilter["F&B"]}
                                         />
                                         <CheckBox
                                             onChange={
@@ -806,13 +846,13 @@ const Cards = ({ filter }) => {
                                                     {
                                                         ...categoriesFilter,
                                                         // BusinessSkills: e.target.checked
-                                                        HabilidadesEmpresariales: e.target.checked
+                                                        ["Habilidades Empresariales"]: e.target.checked
                                                     }
                                                 )}
                                             // content={"Business Skills"}
                                             content={"Habilidades Empresariales"}
                                             // checked={categoriesFilter.BusinessSkills}
-                                            checked={categoriesFilter.HabilidadesEmpresariales}
+                                            checked={categoriesFilter["Habilidades Empresariales"]}
                                         />
 
                                         <CheckBox
@@ -820,11 +860,11 @@ const Cards = ({ filter }) => {
                                                 (e) => setCategoriesFilter(
                                                     {
                                                         ...categoriesFilter,
-                                                        GuíaTurístico: e.target.checked
+                                                        ["Guía Turístico"]: e.target.checked
                                                     }
                                                 )}
                                             content={"Guía Turístico"}
-                                            checked={categoriesFilter.GuíaTurístico}
+                                            checked={categoriesFilter["Guía Turístico"]}
                                         />
 
                                         <CheckBox
@@ -847,7 +887,7 @@ const Cards = ({ filter }) => {
                                                         Otros: e.target.checked
                                                     }
                                                 )}
-                                            content={"Otros"}
+                                            content={"Otros Categorías"}
                                             checked={categoriesFilter.Otros}
                                         />
 
@@ -857,69 +897,102 @@ const Cards = ({ filter }) => {
                         </div>
                     </div> : null
                 }
+                {
+                    (filteredPaginatedCourses?.length !== 0) ? (
+                        <div className="container mt-5 col">
+                            <div className={CSS.cardContainer} >
+                                {(filteredPaginatedCourses)?.map((course, index) => (
+                                    <Link to={`/courses/${course._id}`}
+                                        style={{ textDecoration: 'none' }}
+                                    >
+                                        <div className={CSS.courseCards} key={course._id} style={{ minWidth: "" }}>
+                                            <div className="card" style={{ border: '1px solid #E4B49D' }}>
+                                                <img className="card-img-top" src={`${course.banner_image}`} alt="CardImageCap" style={cardImageStyle} />
+                                                {course.isFree &&
+                                                    <span style={{
+                                                        position: 'absolute',
+                                                        top: '10px',
+                                                        right: '-5px',
+                                                        backgroundColor: '#15803d',
+                                                        color: 'white',
+                                                        padding: '5px 20px',
+                                                        borderRadius: '5px',
+                                                        textAlign: 'right'
+                                                    }}>
+                                                        {/* Free */}
+                                                        Gratis
+                                                    </span>
+                                                }
+                                                <div className="card-body" style={{ padding: "10px" }}>
+                                                    <div style={{ minHeight: "11rem", overflow: "hidden", wordBreak: 'break-all' }}>
+                                                        <h6 className="card-title" style={{ fontWeight: 'bold' }}>
+                                                            {course.title}
+                                                        </h6>
 
+                                                        <p className="card-text" style={{ opacity: 0.9, fontSize: "16px!important" }}>
 
-                <div className="container mt-5 col">
-                    <div className={CSS.cardContainer} >
-                        {paginatedCourses?.map((course, index) => (
-                            <div className={CSS.courseCards} key={course._id} style={{ minWidth: "" }}>
-                                <div className="card" style={{ border: '1px solid #E4B49D' }}>
-                                    <img className="card-img-top" src={`${course.banner_image}`} alt="CardImageCap" style={cardImageStyle} />
-                                    {course.isFree &&
-                                        <span style={{
-                                            position: 'absolute',
-                                            top: '10px',
-                                            right: '-5px',
-                                            backgroundColor: '#15803d',
-                                            color: 'white',
-                                            padding: '5px 20px',
-                                            borderRadius: '5px',
-                                            textAlign: 'right'
-                                        }}>
-                                            {/* Free */}
-                                            Gratis
-                                        </span>
-                                    }
-                                    <div className="card-body" style={{ padding: "10px" }}>
-                                        <div style={{ minHeight: "11rem", overflow: "hidden" }}>
-                                            <h6 className="card-title" style={{ fontWeight: 'bold' }}>
-                                                {course.title}
-                                            </h6>
+                                                            {course.description.substr(0, 150)}...
+                                                        </p>
+                                                    </div>
 
-                                            <p className="card-text" style={{ opacity: 0.9, fontSize: "16px!important" }}>
-
-                                                {course.description.substr(0, 150)}...
-                                            </p>
+                                                    <div className="row mt-1">
+                                                        <p className="card-text ml-3" style={{ opacity: 0.8 }}>
+                                                            <IoMdTime /> <small> {course.duration} </small>
+                                                        </p>
+                                                        <p className="card-text ml-auto mr-3" style={{ opacity: 0.8 }}>
+                                                            <FaArrowUpRightDots /> <small> {course.difficulty} </small>
+                                                        </p>
+                                                    </div>
+                                                    <Link to={`/courses/${course._id}`} >
+                                                        <button className=" btn w-100" style={{ background: '#E4B49D', fontWeight: 600 }}>
+                                                            Enroll Now
+                                                        </button>
+                                                    </Link>
+                                                </div>
+                                            </div>
                                         </div>
-
-                                        <div className="row mt-1">
-                                            <p className="card-text ml-3" style={{ opacity: 0.8 }}>
-                                                <IoMdTime /> <small> {course.duration} </small>
-                                            </p>
-                                            <p className="card-text ml-auto mr-3" style={{ opacity: 0.8 }}>
-                                                <FaArrowUpRightDots /> <small> {course.difficulty} </small>
-                                            </p>
-                                        </div>
-                                        <Link to={`/courses/${course._id}`} >
-                                            <button className=" btn w-100" style={{ background: '#E4B49D', fontWeight: 600 }}>
-                                                Enroll Now
-                                            </button>
-                                        </Link>
-                                    </div>
-                                </div>
+                                    </Link>
+                                ))}
                             </div>
-                        ))}
-                    </div>
-                </div>
+                        </div>
+                    ) :
+                        (
+
+                            <div
+                                style={{
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                    height: '100vh',
+                                    width: 'auto'
+                                }}>
+                                <img
+                                    src="https://res.cloudinary.com/dwahql1jy/image/upload/v1714651338/No_Course_Found_cil1gt.gif"
+                                    alt="No Courses Found"
+                                />
+                                <h1 className="text-center mt-5" style={{ opacity: '0.7' }}>
+                                    {/* No Courses Found */}
+                                    No se encontraron cursos
+                                </h1>
+                            </div>
+                        )
+                }
+
             </div>
+
+
+            {/* Pagination for filtered courses */}
+
+
             <div className='mt-4 ml-5'>
                 <ReactPaginate
                     breakLabel="..."
                     // nextLabel="next >"
                     nextLabel="Siguiente >"
-                    onPageChange={handlePageClick}
+                    onPageChange={handlePageChangeForFilteredCourse}
                     pageRangeDisplayed={5}
-                    pageCount={pageCount}
+                    pageCount={filteredPageCount}
                     // previousLabel="< previous"
                     previousLabel="< Anterior"
                     renderOnZeroPageCount={null}
@@ -932,15 +1005,10 @@ const Cards = ({ filter }) => {
                     nextClassName='page-item'
                     nextLinkClassName='page-link'
                     activeClassName='active'
-                    forcePage={currentPage.current - 1}
+                    forcePage={filteredCurrentPage.current - 1}
                 />
             </div>
-
-            {/* <input placeholder='limit' onChange={(e) => setLimit(parseInt(e.target.value))} /> */}
-            {/* <button
-                onClick={changeLimit}
-            >  Set Limit  </button> */}
-        </div >
+        </div>
 
     );
 };

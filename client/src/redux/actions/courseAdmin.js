@@ -12,9 +12,9 @@ export const coursePaginateAction = (page,limit) => async (dispatch) => {
 }
 
 
-export const courseFilterAction = (filteredData) => async (dispatch) => {
+export const courseFilterAction = (filteredData,page,limit) => async (dispatch) => {
     try{    
-        const {data} = await api.courseFilter(filteredData);
+        const {data} = await api.courseFilter(filteredData,page,limit);
         dispatch({type:'COURSE_FILTER',data});
         return {success:true,message:'Course filtered successfully',data}
     }catch(error){
@@ -27,6 +27,7 @@ export const courseSearchAction = (courseData) => async (dispatch) => {
     try{
         const {data} = await api.courseSearch(courseData);
         dispatch({type:'COURSE_SEARCH',data});
+        dispatch({type:'COURSE_FILTER',data});
         return {success:true,message:'Course filtered successfully',data}
     }catch(error){
         console.log("Error from courseFilter Action: " + error.message, error.stack);

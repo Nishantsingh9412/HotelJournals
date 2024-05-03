@@ -1,6 +1,4 @@
-import React, { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux';
-import 'animate.css';
+import React, { useEffect, useRef, useState } from 'react'
 import {
   Drawer,
   DrawerBody,
@@ -9,508 +7,868 @@ import {
   DrawerContent,
   DrawerCloseButton,
 } from "@chakra-ui/react";
+import { useDispatch } from 'react-redux';
 
 import CheckBox from "./CheckBox";
-import { GetCourse, courseFilterAction } from '../../redux/actions/courseAdmin';
+import { courseFilterAction } from '../../redux/actions/courseAdmin';
 
 
 const LeftSidebar = ({ onClose }) => {
   const btnRef = React.useRef();
-
   const dispatch = useDispatch();
+  
+
+  // ------------------- pagination for filtered courses start -------------------------------------------
+  const [filteredPaginatedCourses, setFilteredPaginatedCourses] = useState()
+  const [filteredLimit, setFilteredLimit] = useState(12);
+  const [filteredPageCount, setFilteredPageCount] = useState(1);
+  const filteredCurrentPage = useRef()
+  // ------------------- pagination for filtered courses end -------------------------------------------
+
 
   const [courseValueFilter, setCourseValueFilter] = useState({
-      isFree: false,
-      isPaid: false
+    // isFree: false,
+    Gratis: false,
+    // isPaid: false
+    Pago: false
   })
 
   const [locationTypeFilter, setLocationTypeFilter] = useState({
-      Online: false,
-      Offline: false,
+    Online: false,
+    Offline: false,
+    // Presencial: false
   })
 
   const [courseTypesFilter, setCourseTypesFilter] = useState({
-      Bachelors: false,
-      Masters: false,
-      Diploma: false,
-      Professional: false,
-      ShortCourse: false,
+    // Bachelors: false,
+    Licenciatura: false,
+    // Masters: false,
+    Máster: false,
+    Diploma: false,
+    // Professional: false,
+    "Certificados Profesionales": false,
+    // ShortCourse: false,
+    Curso: false,
   });
 
   const [courseLangFilter, setCourseLangFilter] = useState({
-      English: false,
-      Spanish: false,
-      French: false,
-      Italian: false,
-      Portuguese: false,
-      German: false,
-      Catalan: false,
+    // English: false,
+    Inglés: false,
+    // Spanish: false,
+    Español: false,
+    // French: false,
+    Francés: false,
+    Italian: false,
+    // Portuguese: false,
+    Portugués: false,
+    // German: false,
+    Alemán: false,
+    // Catalan: false,.
+    Catalán: false,
+    // Other: false
+    Otros: false
   });
 
   const [categoriesFilter, setCategoriesFilter] = useState({
-      Culinary: false,
-      Business: false,
-      PersonalDevelopment: false,
-      Marketing: false,
-      HumanResource: false,
-      LeadershipAndManagement: false,
-      Language: false,
-      TestPreparation: false,
-      Pastry: false,
-      CruisesManagement: false,
-      Oenology: false,
-      HospitalityManagement: false,
-      SalesAndMarketing: false,
-      EventManagement: false,
-      RevenueManagement: false,
-      Reception: false,
-      FoodAndBeverages: false,
-      Spa: false,
-      Tourism: false,
-      BusinessSkills: false
+    // Culinary: false,
+    Cocina: false,
+    // Business: false,
+    Negocios: false,
+    // PersonalDevelopment: false,
+    "Desarrollo Personal": false,
+    Marketing: false,
+    // HumanResource: false,
+    "Recursos Humanos": false,
+    // LeadershipAndManagement: false,
+    "Liderazgo Y Gestión": false,
+    // Language: false,
+    Idiomas: false,
+    // TestPreparation: false,
+    "Preparación de Exámenes": false,
+    // Pastry: false,
+    Pastelería: false,
+    // CruisesManagement: false,
+    "Gestión de Cruceros": false,
+    // Oenology: false,
+    Enología: false,
+    // HospitalityManagement: false,
+    "Dirección Hotelera": false,
+    // SalesAndMarketing: false,
+    VentasYMarketing: false,
+    // EventManagement: false,
+    "Gestión de Eventos": false,
+    "Revenue Management": false,
+    // Reception: false,
+    Recepción: false,
+    "F&B": false,
+    Spa: false,
+    // Tourism: false,
+    Turismo: false,
+    // BusinessSkills: false
+    "Habilidades Empresariales": false,
+    "Guía Turístico": false,
+    Pisos: false,
+    Otros: false,
   })
 
-  useEffect(() => {
-      dispatch(GetCourse());
-  }, [dispatch]);
+  // useEffect(() => {
+  //     dispatch(GetCourse());
+  // }, [dispatch]);
 
+  //  ------------------------ Filtration of all courses ---------------
 
   const handleClearAllFilters = () => {
-      setCourseTypesFilter({
-          Bachelors: false,
-          Masters: false,
-          Diploma: false,
-          Professional: false,
-          ShortCourse: false,
-      });
+    setFilteredPaginatedCourses(null);
+    setCourseTypesFilter({
+      // Bachelors: false,
+      Licenciatura: false,
+      // Masters: false,
+      Máster: false,
+      Diploma: false,
+      // Professional: false,
+      "Certificados Profesionales": false,
+      // ShortCourse: false,
+      Curso: false,
+    });
+    setCourseLangFilter({
+      // English: false,
+      Inglés: false,
+      // Spanish: false,
+      Español: false,
+      // French: false,
+      Francés: false,
+      // Italian: false,
+      Italiano: false,
+      // Portuguese: false,
+      Portugués: false,
+      // German: false,
+      Alemán: false,
+      // Catalan: false,
+      Catalán: false,
+    });
 
+    setCategoriesFilter({
+      // Culinary: false,
+      Cocina: false,
+      // Business: false,
+      Negocios: false,
+      // PersonalDevelopment: false,
+      "Desarrollo Personal": false,
+      Marketing: false,
+      // HumanResource: false,
+      "Recursos Humanos": false,
+      // LeadershipAndManagement: false,
+      "Liderazgo Y Gestión": false,
+      // Language: false,
+      Idiomas: false,
+      // TestPreparation: false,
+      "Preparación de Exámenes": false,
+      // Pastry: false,
+      Pastelería: false,
+      // CruisesManagement: false,
+      "Gestión de Cruceros": false,
+      // Oenology: false,
+      Enología: false,
+      // HospitalityManagement: false,
+      "Dirección Hotelera": false,
+      // SalesAndMarketing: false,
+      "Ventas Y Marketing": false,
+      // EventManagement: false,
+      "Gestión de Eventos": false,
+      "Revenue Management": false,
+      // Reception: false,
+      Recepción: false,
+      "F&B": false,
+      Spa: false,
+      // Tourism: false,
+      Turismo: false,
+      // BusinessSkills: false
+      "Habilidades Empresariales": false,
+      "Guía Turístico": false,
+      Pisos: false,
+      Otros: false,
+    })
 
-      setCourseLangFilter({
-          English: false,
-          Spanish: false,
-          French: false,
-          Italian: false,
-          Portuguese: false,
-          German: false,
-          Catalan: false,
-      });
+    setLocationTypeFilter({
+      Online: false,
+      Offline: false,
+      // Presencial: false
+    })
 
-      setCategoriesFilter({
-          Culinary: false,
-          Business: false,
-          PersonalDevelopment: false,
-          Marketing: false,
-          HumanResource: false,
-          LeadershipAndManagement: false,
-          Language: false,
-          TestPreparation: false,
-          Pastry: false,
-          CruisesManagement: false,
-          Oenology: false,
-          HospitalityManagement: false,
-          SalesAndMarketing: false,
-          EventManagement: false,
-          RevenueManagement: false,
-          Reception: false,
-          FoodAndBeverages: false,
-          Spa: false,
-          Tourism: false,
-          BusinessSkills: false
-      })
+    setCourseValueFilter({
+      // isFree: false,
+      Gratis: false,
+      // isPaid: false
+      Pago: false
+    })
+  }
 
-      setLocationTypeFilter({
-          Online: false,
-          Offline: false,
-      })
-
-      setCourseValueFilter({
-          isFree: false,
-          isPaid: false
-      })
+  const handlePageChangeForFilteredCourse = (e) => {
+    console.log(e);
+    filteredCurrentPage.current = e.selected + 1;
+    handleCoursesFilter();
   }
 
   const handleCoursesFilter = async () => {
-      const params = new URLSearchParams({
-          courseTypesFilter: JSON.stringify(courseTypesFilter),
-          courseLangFilter: JSON.stringify(courseLangFilter),
-          categoriesFilter: JSON.stringify(categoriesFilter),
-          locationTypeFilter: JSON.stringify(locationTypeFilter), // Online Offline
-          courseValueFilter: JSON.stringify(courseValueFilter)    // Free Paid
-      }).toString();
+    const params = new URLSearchParams({
+      courseTypesFilter: JSON.stringify(courseTypesFilter),
+      courseLangFilter: JSON.stringify(courseLangFilter),
+      categoriesFilter: JSON.stringify(categoriesFilter),
+      locationTypeFilter: JSON.stringify(locationTypeFilter), // Online Offline
+      courseValueFilter: JSON.stringify(courseValueFilter)    // Free Paid
+    }).toString();
 
-      console.log("Params \n");
-      console.log(params);
-      const response = await dispatch(courseFilterAction(params));
-      if (response.success) {
-          console.log(response.data);
+    console.log("Params \n");
+    console.log(params);
+
+    dispatch(courseFilterAction(params, filteredCurrentPage.current, filteredLimit)).then((res) => {
+      if (res.success) {
+        console.log(res.data);
+        setFilteredPageCount(res.data.result.pageCount);
+        setFilteredPaginatedCourses(res.data.result.pageinatedData);
+        // setShowFilteredCourse(!showFilteredCourse);
       } else {
-          console.log(response.message);
+        console.log(res.message);
       }
+    }).catch((err) => {
+      console.log('Error', err)
+    })
+
   }
 
-
   useEffect(() => {
-      handleCoursesFilter();
+    filteredCurrentPage.current = 1;
+    handleCoursesFilter();
   }, [courseLangFilter,
-      courseTypesFilter,
-      categoriesFilter,
-      courseValueFilter,
-      locationTypeFilter,
+    courseTypesFilter,
+    categoriesFilter,
+    courseValueFilter,
+    locationTypeFilter,
+    filteredCurrentPage,
+    filteredLimit
   ])
 
-  return (<>
-    <div>
+  return (
+    <>
+      <div>
 
-      <Drawer
-        isOpen={true}
-        placement="left"
-        onClose={onClose}
-        finalFocusRef={btnRef}
-      >
-        <DrawerOverlay />
-        <DrawerContent style={{ maxWidth: "100%" }}>
-          <DrawerCloseButton />
-          <DrawerHeader>FILTER BY</DrawerHeader>
+        <Drawer
+          isOpen={true}
+          placement="left"
+          onClose={onClose}
+          finalFocusRef={btnRef}
+        >
+          <DrawerOverlay />
+          <DrawerContent style={{ maxWidth: "50%" }}>
+            <DrawerCloseButton />
+            <DrawerHeader>FILTER BY</DrawerHeader>
 
-          <DrawerBody>
-            <div className="ml-2 pb-3">
-              <hr style={{ background: "#E4B49D" }} />
+            <DrawerBody>
+              <div className="ml-2 pb-3">
+                <div>
+                  <div className="d-flex">
+                    <h5 className='ml-2'>
+                      {/* Filter By */}
+                      Filtrar por
+                    </h5>
+                    <div
+                      style={{ marginLeft: '2vw', cursor: 'pointer' }}
+                      onClick={handleClearAllFilters}
+                    >
+                      <p>
+                        {/* Clear All */}
+                        Eliminar Filtros
+                      </p>
+                    </div>
+                  </div>
+                  <div>
+                    <div className="ml-2 pb-3">
+                      <hr style={{ background: "#E4B49D", marginTop: '0' }} />
 
+                      <h6 className="font-weight-bold">Course Types</h6>
+                      <div className="ml-3">
+                        <CheckBox
+                          // content={"Bachelors"}
+                          content={"Licenciatura"}
+                          // checked={courseTypesFilter.Bachelors}
+                          checked={courseTypesFilter.Licenciatura}
+                          onChange={(e) =>
+                            setCourseTypesFilter(
+                              {
+                                ...courseTypesFilter,
+                                // Bachelors: e.target.checked
+                                Licenciatura: e.target.checked
+                              }
+                            )}
+                        />
+                        <CheckBox
+                          // content={"Masters"}
+                          content={"Máster"}
+                          // checked={courseTypesFilter.Masters}
+                          checked={courseTypesFilter.Máster}
+                          onChange={(e) =>
+                            setCourseTypesFilter(
+                              {
+                                ...courseTypesFilter,
+                                // Masters: e.target.checked
+                                Máster: e.target.checked
+                              }
+                            )}
+                        />
+                        <CheckBox
+                          content={"Diploma"}
+                          checked={courseTypesFilter.Diploma}
+                          onChange={(e) =>
+                            setCourseTypesFilter(
+                              { ...courseTypesFilter, Diploma: e.target.checked }
+                            )}
+                        />
+                        <CheckBox
+                          // content={"Professional"}
+                          content={"Certificados Profesionales"}
+                          // checked={courseTypesFilter.Professional}
+                          checked={courseTypesFilter["Certificados Profesionales"]}
+                          onChange={(e) =>
+                            setCourseTypesFilter(
+                              {
+                                ...courseTypesFilter,
+                                // Professional: e.target.checked
+                                ["Certificados Profesionales"]: e.target.checked
+                              }
+                            )}
+                        />
+                        <CheckBox
+                          // content={"Short Course"}
+                          content={"Curso"}
+                          // checked={courseTypesFilter.ShortCourse}
+                          checked={courseTypesFilter.Curso}
+                          onChange={(e) =>
+                            setCourseTypesFilter(
+                              {
+                                ...courseTypesFilter,
+                                Curso: e.target.checked
+                                // ShortCourse: e.target.checked
+                              }
+                            )}
+                        />
+                      </div>
 
-              <h6 className="font-weight-bold">Course Types</h6>
-              <div className="ml-3">
-                <CheckBox
-                  content={"Bachelors"}
-                  checked={courseTypesFilter.Bachelors}
-                  onChange={(e) =>
-                    setCourseTypesFilter(
-                      { ...courseTypesFilter, Bachelors: e.target.checked }
-                    )}
-                />
-                <CheckBox
-                  content={"Masters"}
-                  checked={courseTypesFilter.Masters}
-                  onChange={(e) =>
-                    setCourseTypesFilter(
-                      { ...courseTypesFilter, Masters: e.target.checked }
-                    )}
-                />
-                <CheckBox
-                  content={"Diploma"}
-                  checked={courseTypesFilter.Diploma}
-                  onChange={(e) =>
-                    setCourseTypesFilter(
-                      { ...courseTypesFilter, Diploma: e.target.checked }
-                    )}
-                />
-                <CheckBox
-                  content={"Professional"}
-                  checked={courseTypesFilter.Professional}
-                  onChange={(e) =>
-                    setCourseTypesFilter(
-                      { ...courseTypesFilter, Professional: e.target.checked }
-                    )}
-                />
-                <CheckBox
-                  content={"ShortCourse"}
-                  checked={courseTypesFilter.ShortCourse}
-                  onChange={(e) =>
-                    setCourseTypesFilter(
-                      { ...courseTypesFilter, ShortCourse: e.target.checked }
-                    )}
-                />
-              </div>
+                      <h6 className='font-weight-bold mt-3'>
+                        {/* Course Value */}
+                        Valor del Curso
+                      </h6>
+                      <div className="ml-3">
+                        <div class="form-check">
+                          <input
+                            onChange={
+                              (e) => setCourseValueFilter(
+                                {
+                                  // isFree: e.target.checked
+                                  Gratis: e.target.checked
+                                }
+                              )}
+                            // checked={courseValueFilter.isFree
+                            checked={courseValueFilter.Gratis}
+                            class="form-check-input"
+                            name="exampleRadios"
+                            type="radio"
+                            id="exampleRadios1"
+                            value="option1"
+                          />
+                          <label class="form-check-label" htmlFor="exampleRadios1">
+                            {/* Free */}
+                            Gratis
+                          </label>
+                        </div>
+                        <div class="form-check">
+                          <input
+                            onChange={
+                              (e) => setCourseValueFilter(
+                                // { isPaid: e.target.checked }
+                                { Pago: e.target.checked }
+                              )}
+                            // checked={courseValueFilter.isPaid}
+                            checked={courseValueFilter.Pago}
+                            class="form-check-input"
+                            name="exampleRadios"
+                            type="radio"
+                            id="exampleRadios2"
+                            value="option2"
+                          />
+                          <label class="form-check-label" htmlFor="exampleRadios2">
+                            {/* Paid */}
+                            Pago
+                          </label>
+                        </div>
+                      </div>
+                      <h6 className="font-weight-bold mt-3">
+                        {/* Course Languages */}
+                        Idioma del Curso
+                      </h6>
+                      <div className="ml-3">
+                        <CheckBox
+                          // content={"English"}
+                          content={"Inglés"}
+                          // checked={courseLangFilter.English}
+                          checked={courseLangFilter.Inglés}
+                          onChange={(e) =>
+                            setCourseLangFilter(
+                              {
+                                ...courseLangFilter,
+                                // English: e.target.checked
+                                Inglés: e.target.checked
+                              }
+                            )}
+                        />
+                        <CheckBox
+                          // content={"Spanish"}
+                          content={"Español"}
+                          // checked={courseLangFilter.Spanish}
+                          checked={courseLangFilter.Español}
+                          onChange={(e) =>
+                            setCourseLangFilter(
+                              {
+                                ...courseLangFilter,
+                                // Spanish: e.target.checked
+                                Español: e.target.checked
+                              }
 
-              <h6 className='font-weight-bold mt-3'> Course Value </h6>
-              <div className="ml-3">
-                <div class="form-check">
-                  <input
-                    onChange={
-                      (e) => setCourseValueFilter(
-                        { isFree: e.target.checked }
-                      )}
-                    checked={courseValueFilter.isFree}
-                    class="form-check-input"
-                    name="exampleRadios"
-                    type="radio"
-                    id="exampleRadios1"
-                    value="option1"
-                  />
-                  <label class="form-check-label" for="exampleRadios1">
-                    Free
-                  </label>
+                            )}
+                        />
+                        <CheckBox
+                          // content={"French"}
+                          content={"Francés"}
+                          // checked={courseLangFilter.French}
+                          checked={courseLangFilter.Francés}
+                          onChange={(e) =>
+                            setCourseLangFilter(
+                              {
+                                ...courseLangFilter,
+                                // French: e.target.checked
+                                Francés: e.target.checked
+                              }
+                            )}
+                        />
+                        <CheckBox
+                          // content={"Catalan"}
+                          content={"Catalán"}
+                          // checked={courseLangFilter.Catalan}
+                          checked={courseLangFilter.Catalán}
+                          onChange={(e) =>
+                            setCourseLangFilter(
+                              {
+                                ...courseLangFilter,
+                                // Catalan: e.target.checked
+                                Catalán: e.target.checked
+                              }
+                            )
+                          }
+                        />
+                        <CheckBox
+                          // content={"Italian"}
+                          content={"Italiano"}
+                          // checked={courseLangFilter.Italian}
+                          checked={courseLangFilter.Italiano}
+                          onChange={(e) =>
+                            setCourseLangFilter(
+                              {
+                                ...courseLangFilter,
+                                // Italian: e.target.checked
+                                Italiano: e.target.checked
+                              }
+                            )}
+                        />
+                        <CheckBox
+                          // content={"Portuguese"}
+                          content={"Portugués"}
+                          // checked={courseLangFilter.Portuguese}
+                          checked={courseLangFilter.Portugués}
+                          onChange={(e) =>
+                            setCourseLangFilter(
+                              {
+                                ...courseLangFilter,
+                                // Portuguese: e.target.checked
+                                Portugués: e.target.checked
+                              }
+                            )}
+                        />
+                        <CheckBox
+                          // content={"German"}
+                          content={"Alemán"}
+                          // checked={courseLangFilter.German}
+                          checked={courseLangFilter.Alemán}
+                          onChange={(e) =>
+                            setCourseLangFilter(
+                              {
+                                ...courseLangFilter,
+                                // German: e.target.checked
+                                Alemán: e.target.checked
+                              }
+                            )}
+                        />
+
+                        <CheckBox
+                          // content={"Other"}
+                          content={"Otros"}
+                          // checked={courseLangFilter.Other}
+                          checked={courseLangFilter.Otros}
+                          onChange={(e) =>
+                            setCourseLangFilter(
+                              {
+                                ...courseLangFilter,
+                                // Other: e.target.checked
+                                Otros: e.target.checked
+                              }
+                            )}
+                        />
+                      </div>
+
+                      <h6 className="font-weight-bold mt-3">
+                        {/* Location Type */}
+                        Localización
+                      </h6>
+                      <div className="ml-3">
+                        <CheckBox
+                          content={"Online"}
+                          checked={locationTypeFilter.Online}
+                          onChange={(e) =>
+                            setLocationTypeFilter(
+                              { ...locationTypeFilter, Online: e.target.checked }
+                            )}
+                        />
+                        <CheckBox
+                          // content={"Offline"}
+                          content={"Presencial"}
+                          checked={locationTypeFilter.Offline}
+                          // checked={locationTypeFilter.Presencial}
+                          onChange={(e) =>
+                            setLocationTypeFilter(
+                              {
+                                ...locationTypeFilter,
+                                Offline: e.target.checked
+                                // Presencial: e.target.checked
+                              }
+                            )}
+                        />
+                      </div>
+
+                      <h6 className="font-weight-bold mt-3">
+                        {/* Categories */}
+                        Categorías
+                      </h6>
+                      <div className="ml-3">
+                        <CheckBox
+                          // content={"Culinary"}
+                          content={"Cocina"}
+                          // checked={categoriesFilter.Culinary}
+                          checked={categoriesFilter.Cocina}
+                          onChange={(e) =>
+                            setCategoriesFilter(
+                              {
+                                ...categoriesFilter,
+                                // Culinary: e.target.checked
+                                Cocina: e.target.checked
+                              }
+                            )}
+                        />
+                        <CheckBox
+                          onChange={(e) =>
+                            setCategoriesFilter(
+                              {
+                                ...categoriesFilter,
+                                // Business: e.target.checked
+                                Negocios: e.target.checked
+                              }
+                            )}
+                          // content={"Business"}
+                          content={"Negocios"}
+                          // checked={categoriesFilter.Business}
+                          checked={categoriesFilter.Negocios}
+                        />
+                        <CheckBox
+                          onChange={(e) =>
+                            setCategoriesFilter(
+                              {
+                                ...categoriesFilter,
+                                // PersonalDevelopment: e.target.checked
+                                ["Desarrollo Personal"]: e.target.checked
+                              }
+                            )}
+                          // content={"Personal Development"}
+                          content={"Desarrollo Personal"}
+                          // checked={categoriesFilter.PersonalDevelopment}
+                          checked={categoriesFilter["Desarrollo Personal"]}
+                        />
+                        <CheckBox
+                          onChange={(e) =>
+                            setCategoriesFilter(
+                              { ...categoriesFilter, Marketing: e.target.checked }
+                            )}
+                          content={"Marketing"}
+                          checked={categoriesFilter.Marketing}
+                        />
+                        <CheckBox
+                          onChange={(e) =>
+                            setCategoriesFilter(
+                              {
+                                ...categoriesFilter,
+                                // HumanResource: e.target.checked
+                                ["Recursos Humanos"]: e.target.checked
+                              }
+                            )}
+                          content={"Recursos Humanos"}
+                          // checked={categoriesFilter.HumanResource}
+                          checked={categoriesFilter["Recursos Humanos"]}
+                        />
+                        <CheckBox
+                          onChange={(e) =>
+                            setCategoriesFilter(
+                              {
+                                ...categoriesFilter,
+                                ["Liderazgo Y Gestión"]: e.target.checked
+                                // LeadershipAndManagement: e.target.checked
+                              }
+                            )}
+                          // content={"Leadership and Management"}
+                          content={"Liderazgo Y Gestión"}
+                          // checked={categoriesFilter.LeadershipAndManagement}
+                          checked={categoriesFilter["Liderazgo Y Gestión"]}
+                        />
+                        <CheckBox
+                          onChange={
+                            (e) => setCategoriesFilter(
+                              {
+                                ...categoriesFilter,
+                                // Language: e.target.checked
+                                Idiomas: e.target.checked
+                              }
+                            )}
+                          // content={"Language"}
+                          content={"Idiomas"}
+                          // checked={categoriesFilter.Language}
+                          checked={categoriesFilter.Idiomas}
+                        />
+                        <CheckBox
+                          onChange={
+                            (e) => setCategoriesFilter(
+                              {
+                                ...categoriesFilter,
+                                // TestPreparation: e.target.checked
+                                ["Preparación de Exámenes"]: e.target.checked
+                              }
+                            )}
+                          // content={"Test Preparation"}
+                          content={"Preparación de Exámenes"}
+                          // checked={categoriesFilter.TestPreparation}
+                          checked={categoriesFilter["Preparación de Exámenes"]}
+
+                        />
+                        <CheckBox
+                          onChange={
+                            (e) => setCategoriesFilter(
+                              {
+                                ...categoriesFilter,
+                                // Pastry: e.target.checked
+                                Pastelería: e.target.checked
+                              }
+                            )
+                          }
+                          // content={"Pastry"}
+                          content={"Pastelería"}
+                          // checked={categoriesFilter.Pastry}
+                          checked={categoriesFilter.Pastelería}
+                        />
+                        <CheckBox
+                          onChange={
+                            (e) => setCategoriesFilter(
+                              {
+                                ...categoriesFilter,
+                                // CruisesManagement: e.target.checked
+                                ["Gestión de Cruceros"]: e.target.checked
+                              }
+                            )
+                          }
+                          // content={"Cruises Management"}
+                          content={"Gestión de Cruceros"}
+                          // checked={categoriesFilter.CruisesManagement}
+                          checked={categoriesFilter["Gestión de Cruceros"]}
+                        />
+                        <CheckBox
+                          onChange={
+                            (e) => setCategoriesFilter(
+                              {
+                                ...categoriesFilter,
+                                // Oenology: e.target.checked
+                                Enología: e.target.checked
+                              }
+                            )
+                          }
+                          // content={"Oenology"}
+                          content={"Enología"}
+                          // checked={categoriesFilter.Oenology}
+                          checked={categoriesFilter.Enología}
+                        />
+                        <CheckBox
+                          onChange={
+                            (e) => setCategoriesFilter(
+                              {
+                                ...categoriesFilter,
+                                // HospitalityManagement: e.target.checked
+                                ["Dirección Hotelera"]: e.target.checked
+                              }
+                            )}
+                          // content={"Hospitality Management"}
+                          content={"Dirección Hotelera"}
+                          // checked={categoriesFilter.HospitalityManagement}
+                          checked={categoriesFilter["Dirección Hotelera"]}
+                        />
+                        <CheckBox
+                          onChange={
+                            (e) => setCategoriesFilter(
+                              {
+                                ...categoriesFilter,
+                                // SalesAndMarketing: e.target.checked
+                                ["Ventas Y Marketing"]: e.target.checked
+                              }
+                            )}
+                          // content={"Sales and Marketing"}
+                          content={"Ventas Y Marketing"}
+                          // checked={categoriesFilter.SalesAndMarketing}
+                          checked={categoriesFilter["Ventas Y Marketing"]}
+                        />
+                        <CheckBox
+                          onChange={
+                            (e) => setCategoriesFilter(
+                              {
+                                ...categoriesFilter,
+                                // EventManagement: e.target.checked
+                                ["Gestión de Eventos"]: e.target.checked
+                              }
+                            )}
+                          // content={"Event Management"}
+                          content={"Gestión de Eventos"}
+                          // checked={categoriesFilter.EventManagement}
+                          checked={categoriesFilter["Gestión de Eventos"]}
+                        />
+                        <CheckBox
+                          onChange={
+                            (e) => setCategoriesFilter(
+                              {
+                                ...categoriesFilter,
+                                ["Revenue Management"]: e.target.checked
+                              }
+                            )}
+                          content={"Revenue Management"}
+                          checked={categoriesFilter["Revenue Management"]}
+                        />
+                        <CheckBox
+                          onChange={
+                            (e) => setCategoriesFilter(
+                              {
+                                ...categoriesFilter,
+                                // Reception: e.target.checked
+                                Recepción: e.target.checked
+                              }
+                            )}
+                          // content={"Reception"}
+                          content={"Recepción"}
+                          // checked={categoriesFilter.Reception}
+                          checked={categoriesFilter.Recepción}
+                        />
+                        <CheckBox
+                          onChange={
+                            (e) => setCategoriesFilter(
+                              {
+                                ...categoriesFilter,
+                                ["F&B"]: e.target.checked
+                              }
+                            )}
+                          content={"F&B"}
+                          checked={categoriesFilter["F&B"]}
+                        />
+                        <CheckBox
+                          onChange={
+                            (e) => setCategoriesFilter(
+                              { ...categoriesFilter, Spa: e.target.checked }
+                            )}
+                          content={"Spa"}
+                          checked={categoriesFilter.Spa}
+                        />
+                        <CheckBox
+                          onChange={
+                            (e) => setCategoriesFilter(
+                              {
+                                ...categoriesFilter,
+                                // Tourism: e.target.checked
+                                Turismo: e.target.checked
+                              }
+                            )}
+                          // content={"Tourism"}
+                          content={"Turismo"}
+                          // checked={categoriesFilter.Tourism}
+                          checked={categoriesFilter.Turismo}
+                        />
+                        <CheckBox
+                          onChange={
+                            (e) => setCategoriesFilter(
+                              {
+                                ...categoriesFilter,
+                                // BusinessSkills: e.target.checked
+                                ["Habilidades Empresariales"]: e.target.checked
+                              }
+                            )}
+                          // content={"Business Skills"}
+                          content={"Habilidades Empresariales"}
+                          // checked={categoriesFilter.BusinessSkills}
+                          checked={categoriesFilter["Habilidades Empresariales"]}
+                        />
+
+                        <CheckBox
+                          onChange={
+                            (e) => setCategoriesFilter(
+                              {
+                                ...categoriesFilter,
+                                ["Guía Turístico"]: e.target.checked
+                              }
+                            )}
+                          content={"Guía Turístico"}
+                          checked={categoriesFilter["Guía Turístico"]}
+                        />
+
+                        <CheckBox
+                          onChange={
+                            (e) => setCategoriesFilter(
+                              {
+                                ...categoriesFilter,
+                                Pisos: e.target.checked
+                              }
+                            )}
+                          content={"Pisos"}
+                          checked={categoriesFilter.Pisos}
+                        />
+
+                        <CheckBox
+                          onChange={
+                            (e) => setCategoriesFilter(
+                              {
+                                ...categoriesFilter,
+                                Otros: e.target.checked
+                              }
+                            )}
+                          content={"Otros Categorías"}
+                          checked={categoriesFilter.Otros}
+                        />
+
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div class="form-check">
-                  <input
-                    onChange={
-                      (e) => setCourseValueFilter(
-                        { isPaid: e.target.checked }
-                      )}
-                    checked={courseValueFilter.isPaid}
-                    class="form-check-input"
-                    name="exampleRadios"
-                    type="radio"
-                    id="exampleRadios2"
-                    value="option2"
-                  />
-                  <label class="form-check-label" for="exampleRadios2">
-                    Paid
-                  </label>
-                </div>
               </div>
-              <h6 className="font-weight-bold mt-3">Course Languages</h6>
-              <div className="ml-3">
-                <CheckBox
-                  content={"English"}
-                  checked={courseLangFilter.English}
-                  onChange={(e) =>
-                    setCourseLangFilter(
-                      { ...courseLangFilter, English: e.target.checked }
-                    )}
-                />
-                <CheckBox
-                  content={"Spanish"}
-                  checked={courseLangFilter.Spanish}
-                  onChange={(e) =>
-                    setCourseLangFilter(
-                      { ...courseLangFilter, Spanish: e.target.checked }
-                    )}
-                />
-                <CheckBox
-                  content={"French"}
-                  checked={courseLangFilter.French}
-                  onChange={(e) =>
-                    setCourseLangFilter(
-                      { ...courseLangFilter, French: e.target.checked }
-                    )}
-                />
-                <CheckBox
-                  content={"Catalan"}
-                  checked={courseLangFilter.Catalan}
-                  onChange={(e) =>
-                    setCourseLangFilter(
-                      { ...courseLangFilter, Catalan: e.target.checked }
-                    )
-                  }
-                />
-                <CheckBox
-                  content={"Italian"}
-                  checked={courseLangFilter.Italian}
-                  onChange={(e) =>
-                    setCourseLangFilter(
-                      { ...courseLangFilter, Italian: e.target.checked }
-                    )}
-                />
-                <CheckBox
-                  content={"Portuguese"}
-                  checked={courseLangFilter.Portuguese}
-                  onChange={(e) =>
-                    setCourseLangFilter(
-                      { ...courseLangFilter, Portuguese: e.target.checked }
-                    )}
-                />
-                <CheckBox
-                  content={"German"}
-                  checked={courseLangFilter.German}
-                  onChange={(e) =>
-                    setCourseLangFilter(
-                      { ...courseLangFilter, German: e.target.checked }
-                    )}
-                />
-              </div>
-
-              <h6 className="font-weight-bold mt-3">Location Type</h6>
-              <div className="ml-3">
-                <CheckBox
-                  content={"Online"}
-                  checked={locationTypeFilter.Online}
-                  onChange={(e) =>
-                    setLocationTypeFilter(
-                      { ...locationTypeFilter, Online: e.target.checked }
-                    )}
-                />
-                <CheckBox
-                  content={"Offline"}
-                  checked={locationTypeFilter.Offline}
-                  onChange={(e) =>
-                    setLocationTypeFilter(
-                      { ...locationTypeFilter, Offline: e.target.checked }
-                    )}
-                />
-              </div>
-
-              <h6 className="font-weight-bold mt-3">Categories</h6>
-              <div className="ml-3">
-                <CheckBox
-                  content={"Culinary"}
-                  checked={categoriesFilter.Culinary}
-                  onChange={(e) =>
-                    setCategoriesFilter(
-                      { ...categoriesFilter, Culinary: e.target.checked }
-                    )}
-                />
-                <CheckBox
-                  onChange={(e) =>
-                    setCategoriesFilter(
-                      { ...categoriesFilter, Business: e.target.checked }
-                    )}
-                  content={"Business"}
-                  checked={categoriesFilter.Business}
-                />
-                <CheckBox
-                  onChange={(e) =>
-                    setCategoriesFilter(
-                      { ...categoriesFilter, PersonalDevelopment: e.target.checked }
-                    )}
-                  content={"Personal Development"}
-                  checked={categoriesFilter.PersonalDevelopment}
-                />
-                <CheckBox
-                  onChange={(e) =>
-                    setCategoriesFilter(
-                      { ...categoriesFilter, Marketing: e.target.checked }
-                    )}
-                  content={"Marketing"}
-                  checked={categoriesFilter.Marketing}
-                />
-                <CheckBox
-                  onChange={(e) =>
-                    setCategoriesFilter(
-                      { ...categoriesFilter, HumanResource: e.target.checked }
-                    )}
-                  content={"Human Resource"}
-                  checked={categoriesFilter.HumanResource}
-                />
-                <CheckBox
-                  onChange={(e) =>
-                    setCategoriesFilter(
-                      { ...categoriesFilter, LeadershipAndManagement: e.target.checked }
-                    )}
-                  content={"Leadership and Management"}
-                  checked={categoriesFilter.LeadershipAndManagement}
-                />
-                <CheckBox
-                  onChange={
-                    (e) => setCategoriesFilter(
-                      { ...categoriesFilter, Language: e.target.checked }
-                    )}
-                  content={"Language"}
-                  checked={categoriesFilter.Language}
-                />
-                <CheckBox
-                  onChange={
-                    (e) => setCategoriesFilter(
-                      { ...categoriesFilter, TestPreparation: e.target.checked }
-                    )}
-                  content={"Test Preparation"}
-                  checked={categoriesFilter.TestPreparation}
-                />
-                <CheckBox
-                  onChange={
-                    (e) => setCategoriesFilter(
-                      { ...categoriesFilter, Pastry: e.target.checked }
-                    )
-                  }
-                  content={"Pastry"}
-                  checked={categoriesFilter.Pastry}
-                />
-                <CheckBox
-                  onChange={
-                    (e) => setCategoriesFilter(
-                      { ...categoriesFilter, CruisesManagement: e.target.checked }
-                    )
-                  }
-                  content={"Cruises Management"}
-                  checked={categoriesFilter.CruisesManagement}
-                />
-                <CheckBox
-                  onChange={
-                    (e) => setCategoriesFilter(
-                      { ...categoriesFilter, Oenology: e.target.checked }
-                    )
-                  }
-                  content={"Oenology"}
-                  checked={categoriesFilter.Oenology}
-                />
-                <CheckBox
-                  onChange={
-                    (e) => setCategoriesFilter(
-                      { ...categoriesFilter, HospitalityManagement: e.target.checked }
-                    )}
-                  content={"Hospitality Management"}
-                  checked={categoriesFilter.HospitalityManagement}
-                />
-                <CheckBox
-                  onChange={
-                    (e) => setCategoriesFilter(
-                      { ...categoriesFilter, SalesAndMarketing: e.target.checked }
-                    )}
-                  content={"Sales and Marketing"}
-                  checked={categoriesFilter.SalesAndMarketing}
-                />
-                <CheckBox
-                  onChange={
-                    (e) => setCategoriesFilter(
-                      { ...categoriesFilter, EventManagement: e.target.checked }
-                    )}
-                  content={"Event Management"}
-                  checked={categoriesFilter.EventManagement}
-                />
-                <CheckBox
-                  onChange={
-                    (e) => setCategoriesFilter(
-                      { ...categoriesFilter, RevenueManagement: e.target.checked }
-                    )}
-                  content={"Revenue Management"}
-                  checked={categoriesFilter.RevenueManagement}
-                />
-                <CheckBox
-                  onChange={
-                    (e) => setCategoriesFilter(
-                      { ...categoriesFilter, Reception: e.target.checked }
-                    )}
-                  content={"Reception"}
-                  checked={categoriesFilter.Reception}
-                />
-                <CheckBox
-                  onChange={
-                    (e) => setCategoriesFilter(
-                      { ...categoriesFilter, FoodAndBeverages: e.target.checked }
-                    )}
-                  content={"Food and Beverages"}
-                  checked={categoriesFilter.FoodAndBeverages}
-                />
-                <CheckBox
-                  onChange={
-                    (e) => setCategoriesFilter(
-                      { ...categoriesFilter, Spa: e.target.checked }
-                    )}
-                  content={"Spa"}
-                  checked={categoriesFilter.Spa}
-                />
-                <CheckBox
-                  onChange={
-                    (e) => setCategoriesFilter(
-                      { ...categoriesFilter, Tourism: e.target.checked }
-                    )}
-                  content={"Tourism"}
-                  checked={categoriesFilter.Tourism}
-                />
-                <CheckBox
-                  onChange={
-                    (e) => setCategoriesFilter(
-                      { ...categoriesFilter, BusinessSkills: e.target.checked }
-                    )}
-                  content={"Business Skills"}
-                  checked={categoriesFilter.BusinessSkills}
-                />
-              </div>
-            </div>
-          </DrawerBody>
-        </DrawerContent>
-      </Drawer>
-    </div>
-  </>
+            </DrawerBody>
+          </DrawerContent>
+        </Drawer>
+      </div>
+    </>
   )
 }
 

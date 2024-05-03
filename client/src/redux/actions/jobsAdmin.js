@@ -7,7 +7,7 @@ import * as api from '../../api/index.js'
 //         return { success: true, message: "Hired Candidates Fetched Successfully" };
 //     } catch (error) {
 //         console.log("Error from getHiredCandidates Action: ", error.message, error.stack);
-//         return { success: false, message: error.response.data.message };
+//         return { success: false, message: error?.response?.data?.message };
 //     }
 // }
 
@@ -18,7 +18,7 @@ import * as api from '../../api/index.js'
 //         return { success: true, message: "Rejected Candidates Fetched Successfully" };
 //     } catch (error) {
 //         console.log("Error from getRejectedCandidates Action: ", error.message, error.stack);
-//         return { success: false, message: error.response.data.message };
+//         return { success: false, message: error?.response?.data?.message };
 //     }
 // }
 
@@ -29,7 +29,7 @@ import * as api from '../../api/index.js'
 //         return { success: true, message: "Offered Candidates Fetched Successfully" };
 //     } catch (error) {
 //         console.log("Error from AllOfferedCandidates Action: ", error.message, error.stack);
-//         return { success: false, message: error.response.data.message };
+//         return { success: false, message: error?.response?.data?.message };
 //     }
 // }
 
@@ -40,7 +40,7 @@ import * as api from '../../api/index.js'
 //         return { success: true, message: "Not Offered Candidates Fetched Successfully" };
 //     }catch(error){
 //         console.log("Error from notOfferedCandidates Action: ", error.message, error.stack);
-//         return { success: false, message: error.response.data.message };
+//         return { success: false, message: error?.response?.data?.message };
 //     }
 // }
 
@@ -51,7 +51,7 @@ export const getJobsSimilarAction = (id) => async(dispatch) => {
         return {success:true,message:"Similar Jobs Fetched Successfully",data:data};
     }catch(err){
         console.log("Error from getJobsSimilar Action: ",err.message,err.stack);
-        return {success:false,message:err.response.data.message};
+        return {success:false,message:err?.response?.data?.message};
     }
 }
 
@@ -63,7 +63,7 @@ export const getJobsRecruiterAction = (id) => async (dispatch) => {
         return { success: true, message: "Jobs Fetched Successfully" };
     } catch (error) {
         console.log("Error from getJobsRecruiter Action: ", error.message, error.stack);
-        return { success: false, message: error.response.data.message };
+        return { success: false, message: error?.response?.data?.message };
     }
 }
 
@@ -87,7 +87,7 @@ export const AcceptJobsAction = (id) => async (dispatch) => {
         return { success: true, message: "Jobs Accepted Successfully" };
     } catch (error) {
         console.log("Error from AcceptJobs Action: ", error.message, error.stack);
-        return { success: false, message: error.response.data.message };
+        return { success: false, message: error?.response?.data?.message };
     }
 }
 
@@ -100,7 +100,7 @@ export const RejectJobsAction = (id) => async (dispatch) => {
         return { success: true, message: "Jobs Rejected Successfully" };
     } catch (error) {
         console.log("Error from RejectJobs Action: ", error.message, error.stack);
-        return { success: false, message: error.response.data.message };
+        return { success: false, message: error?.response?.data?.message };
     }
 }
 
@@ -136,7 +136,7 @@ export const CreateJob = (jobData) => async (dispatch) => {
         return { success: true, message: "Job Posted Successfully" };
     } catch (error) {
         console.log("Error from JobAdmin Action ", error, error);
-        return { success: false, message: error.response.data.message };
+        return { success: false, message: error?.response?.data?.message };
     }
 }
 
@@ -148,7 +148,7 @@ export const GetJobs = () => async (dispatch) => {
         // return { success: true, data: data };
     } catch (error) {
         console.log("Error from GetJobsAction: ", error.message, error.stack);
-        // return { success: false, message: error.response.data.message };
+        // return { success: false, message: error?.response?.data?.message };
     }
 }
 
@@ -182,7 +182,7 @@ export const UpdateAJobAction = (id, jobData) => async (dispatch) => {
         return { success: true, message: "Job Updated Successfully" };
     } catch (error) {
         console.log("Error from UpdateJob Action: ", error.message, error.stack);
-        return { success: false, message: error.response.data.message };
+        return { success: false, message: error?.response?.data?.message };
     }
 }
 
@@ -192,7 +192,7 @@ export const DeleteJobAction = (id) => async (dispatch) => {
         return { success: true, message: "Job Updated Successfully" };
     } catch (error) {
         console.log("Error from DeleteJob Action: ", error.message, error.stack);
-        return { success: false, message: error.response.data.message };
+        return { success: false, message: error?.response?.data?.message };
     }
 }
 

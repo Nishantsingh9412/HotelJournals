@@ -132,7 +132,6 @@ const AllRoutes = () => {
 
             {/* Superadmin login  */}
 
-            <Route path='/login/superadmin' element={<LoginSuperAdmin />} > </Route>
             {/* SuperAdmin Dashboard */}
             {/* <ProtectedRoute path='/superadmin' element={<SuperAdmin />} > </ProtectedRoute> */}
             {/* Tips */}
@@ -150,6 +149,7 @@ const AllRoutes = () => {
             {/* <ProtectedRoute path='/superadmin/jobs/update/:id' element={<UpdateJobDashboard />} ></ProtectedRoute> */}
 
 
+            <Route path='/login/superadmin' element={<LoginSuperAdmin />} > </Route>
             <Route path='/superadmin' element={<ProtectedRoute component={SuperAdmin} />} />
             {/* Tips */}
             <Route path='/superadmin/tips' element={<ProtectedRoute component={TipsSuperAdmin} />} />

@@ -28,6 +28,7 @@ const ProtectedRoute = ({ component: Component }) => {
         console.log(24, token);
         if (token) {
             const decodeToken = decode(token);
+            console.log(decodeToken);
             if (decodeToken.exp * 1000 < new Date().getTime()) {
                 handleLogout();
             }
@@ -35,6 +36,11 @@ const ProtectedRoute = ({ component: Component }) => {
         dispatch(setCurrentUser(JSON.parse(localStorage.getItem('Profile'))));
     }, [token])
 
+    useEffect(() => {
+        if (User && !(User?.special_token)) {
+            handleLogout();
+        }
+    }, [User])
 
     useEffect(() => {
         if (!User) {

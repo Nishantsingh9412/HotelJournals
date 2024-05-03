@@ -31,15 +31,15 @@ import {
 // import { FaUserTie } from "react-icons/fa";
 // import { FaCoffee } from "react-icons/fa";
 // CSS 
-import jobdescriptionCSS from './particularjob.module.css';
 // Images 
 // import companyimage from "../../assets/JobImage/companyimage.jpg";
 // import img2 from "../../assets/JobImage/img2.gif";
 // import img3 from "../../assets/JobImage/img3.gif";
 
 
+import jobdescriptionCSS from './particularjob.module.css';
 import { ApplyJobAction, getJobSingleAction, getJobsSimilarAction } from '../../redux/actions/jobsAdmin.js';
-import { getRecProfileAction } from '../../redux/actions/recProfile.js';
+// import { getRecProfileAction } from '../../redux/actions/recProfile.js';
 import { IoLogoLinkedin } from 'react-icons/io5';
 import { checkAppliedForJob } from '../../api/index.js';
 // import Jobs from './JobsLanding/Jobs.jsx';
@@ -109,13 +109,17 @@ const ParticularJob = () => {
 
 
     useEffect(() => {
-        checkAppliedForJob(id, userId).then((res) => {
-            console.log("This is response \n")
-            console.log(res);
-            if (res.data.applied) {
-                setAppliedToJob(true);
-            }
-        })
+        checkAppliedForJob(id, userId)
+            .then((res) => {
+                console.log("This is response \n")
+                console.log(res);
+                if (res?.data?.applied) {
+                    setAppliedToJob(true);
+                }
+            }).catch((err) => {
+                console.log("Error in checking applied job \n");
+                console.log(err);
+            })
     }, [id])
 
 

@@ -10,8 +10,8 @@ export const signup = (authData, navigate) => async (dispatch) => {
         navigate(`/profile/${data?.result?._id}`);
         return { success: true, message: 'User created successfully' }
     } catch (error) {
-        if (error.response && error.response.data.message) {
-            return { success: false, message: error.response.data.message }
+        if (error.response && error?.response?.data?.message) {
+            return { success: false, message: error?.response?.data?.message }
         } else {
             return { success: false, message: 'Something went wrong' }
         }
@@ -27,8 +27,8 @@ export const login = (authData, navigate) => async (dispatch) => {
         navigate(`/profile/${data?.result?._id}`);
         return { success: true, message: 'User created successfully' }
     } catch (error) {
-        if (error.response && error.response.data.message) {
-            return { success: false, message: error.response.data.message }
+        if (error.response && error?.response?.data?.message) {
+            return { success: false, message: error?.response?.data?.message }
         } else {
             return { success: false, message: 'Something went wrong' }
         }
@@ -43,8 +43,8 @@ export const authSA = (authData, navigate) => async (dispatch) => {
         dispatch(setCurrentUser(JSON.parse(localStorage.getItem('Profile'))));
         return { success: true, message: 'Logged In Successfuly' }
     } catch (error) {
-        if (error.response && error.response.data.message) {
-            return { success: false, message: error.response.data.message }
+        if (error?.response && error?.response?.data?.message) {
+            return { success: false, message: error?.response?.data?.message }
         } else {
             return { success: false, message: 'Something went wrong' }
         }

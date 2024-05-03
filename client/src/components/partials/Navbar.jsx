@@ -5,6 +5,8 @@ import decode from 'jwt-decode'
 import { useNavigate } from 'react-router-dom'
 // import './Navbar.css'
 
+import { FaUserLarge } from "react-icons/fa6";
+
 import NavCSS from './Navbar.module.css'
 import logo from '../../assets/img/logo.png'
 import { setCurrentUser } from '../../redux/actions/CurrentUser'
@@ -171,10 +173,26 @@ const Navbar = () => {
                     ) : (
                         <>
                             <div className='nav-link d-flex'>
-                                <Link to={`/profile/${User?.result?._id}`} className={`nav-link ${NavCSS.header_nav_links}`} activeClassName={NavCSS.active}>
+                                <Link
+                                    to={`/profile/${User?.result?._id}`}
+                                    className={`nav-link ${NavCSS.header_nav_links}`}
+                                    activeClassName={NavCSS.active}
+                                    style={{
+                                        display: 'flex',
+                                        gap:'10px',
+                                        marginRight:'20px',
+                                        color:'black',
+                                        background:'#E4B49D',
+                                        borderRadius:'50px'
+                                    }}
+                                >
+                                    <FaUserLarge />
                                     Hola {User?.result?.fname}
                                 </Link>
-                                <button onClick={handleLogout} className='btn btn-danger'>
+                                <button
+                                    onClick={handleLogout}
+                                    className='btn btn-danger rounded-pill'
+                                >
                                     Logout
                                 </button>
                             </div>

@@ -31,7 +31,7 @@ export const fetchSingleUser = (id) => async (dispatch) => {
         return { success: true, message: 'User Fetched Successfully' };
     } catch (error) {
         console.log("Error from fetchsingle user action: ", error.message);
-        return { success: false, message: error.response.data.message }
+        return { success: false, message: error?.response?.data?.message }
     }
 }
 
@@ -56,7 +56,7 @@ export const updateSingleUserAction = (id, updatedData) => async (dispatch) => {
         return { success: true, message: 'User Updated Successfully' };
     } catch (error) {
         console.log("Error from update single user action: ", error.message);
-        return { success: false, message: error.response.data.message }
+        return { success: false, message: error?.response?.data?.message }
     }
 }
 
@@ -67,7 +67,7 @@ export const getProfilePicAction = (id) => async (dispatch) => {
         return { success: true, message: 'Profile Pic Fetched Successfully', data };
     } catch (error) {
         console.log("Error from get profile pic action: ", error.message);
-        return { success: false, message: error.response.data.message }
+        return { success: false, message: error?.response?.data?.message }
     }
 }
 
@@ -78,7 +78,7 @@ export const updateUserProfilePicAction = (id, profilepicData) => async (dispatc
         return { success: true, message: 'User Profile Pics Updated Successfully' };
     } catch (error) {
         console.log("Error from update user profile pics action: ", error.message);
-        return { success: false, message: error.response.data.message }
+        return { success: false, message: error?.response?.data?.message }
     }
 }
 
@@ -89,6 +89,6 @@ export const deleteUserProfilePicAction = (id) => async (dispatch) => {
         return { success: true, message: 'User Profile Pics Deleted Successfully' };
     } catch (error) {
         console.log("Error from delete user profile pics action: ", error.message);
-        return { success: false, message: error.response.data.message }
+        return { success: false, message: error?.response?.data?.message }
     }
 }

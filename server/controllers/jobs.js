@@ -99,7 +99,24 @@ import User from "../models/auth.js";
 //     }
 // }
 
-export const checkApplied = async (req, res) => {
+export const checkAppliedByUser = async (req, res) => {
+    const {id:_id} = req.params;
+    if (!mongoose.Types.ObjectId.isValid(_id)) {
+        return res.status(400).json({ success: false, message: 'Invalid ID' })
+    }
+    try{
+        const allAppliedJobs = await Jobs.find({ "applicants.user": _id }).populate('recruiter_info');
+        if(allAppliedJobs.length === 0){
+            return res.status(400).json({ success: false, message: 'No Job Found' });
+        }
+        res.status(200).json({ success: true, message: 'Applied Jobs Fetched Successfully', result: allAppliedJobs });
+    }catch(err){
+        console.log("Error from checkAppliedByUser Controller ", err.message)
+        res.status(500).json({ success: false, message: err.message });
+    }
+}
+
+export const checkAppliedSingle = async (req, res) => {
     const { jobid, userid } = req.params;
     const job = await Jobs.findById(jobid);
     if (!job) {

@@ -8,7 +8,7 @@ export const createProfileAction = (profileData) => async (dispatch) => {
         return { success: true, message: "Profile Created Successfully" };
     } catch (error) {
         console.log("Error from createProfileAction: ", error.message, error.stack);
-        return { success: false, message: error.response.data.message };
+        return { success: false, message: error?.response?.data?.message };
     }
 }
 
@@ -31,7 +31,7 @@ export const updateUserProfileAction = (id, profileData) => async (dispatch) => 
         return { success: true, message: "Profile Updated Successfully" }
     } catch (error) {
         console.log("Error from updateUserProfile: ", error.message, error.stack);
-        return { success: false, message: error.response.data.message };
+        return { success: false, message: error?.response?.data?.message };
     }
 }
 
@@ -42,6 +42,6 @@ export const DeleteUserProfile = (id) => async (dispatch) => {
         return { success: true, message: "Profile Deleted Successfully" }
     } catch (error) {
         console.log("Error from DeleteUserProfile: ", error.message, error.stack);
-        return { success: false, message: error.response.data.message };
+        return { success: false, message: error?.response?.data?.message };
     }
 }

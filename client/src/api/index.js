@@ -80,7 +80,7 @@ export const UpdateTip = (id, tipsdata) => API.patch(`/admin/tips/${id}`, tipsda
 export const paginateCourses = (page, limit) => API.get(`/courses/paginateCourses?page=${page}&limit=${limit}`)
 
 // Setting  up courses Filter API
-export const courseFilter = (filterData) => API.get(`/courses/courseFilter?${filterData}`)
+export const courseFilter = (filterData,page,limit) => API.get(`/courses/courseFilter?${filterData}&page=${page}&limit=${limit}`)
 
 // Setting up courses Search API
 export const courseSearch = (searchData) => API.get(`/courses/courseSearch?${searchData}`)
@@ -107,6 +107,8 @@ export const DeleteCourse = (id) => API.delete(`/courses/singleCourse/${id}`)
 
 //  ----------------------------  For Creating a Job---------------
 // Checking user has applied for job or nor 
+
+export const checkAppliedByUserAllJobs = (id) => API.get(`/jobs/checkapplied-by-user/${id}`)
 
 export const checkAppliedForJob = (jobid, userid) => API.get(`/jobs/checkapplied/${jobid}/${userid}`)
 

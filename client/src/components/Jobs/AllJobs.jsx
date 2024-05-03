@@ -2,12 +2,11 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import {
     Button as ButtonChakra,
-    // Tabs, TabList, TabPanels, Tab, TabPanel
+    Tabs, TabList, TabPanels, Tab, TabPanel
 } from '@chakra-ui/react';
 import { es } from 'date-fns/locale'
 import PuffLoader from 'react-spinners/PuffLoader.js';
 import { formatDistanceToNow } from 'date-fns';
-import TooltipParagraph from './TooltipParagraph';
 // import Select from 'react-select'
 import { useDispatch, useSelector } from 'react-redux';
 import { RxCross1 } from "react-icons/rx";
@@ -25,22 +24,25 @@ import { BsBuildings } from 'react-icons/bs';
 
 // Modules 
 // import { DeleteJobAction, GetJobs } from '../../../redux/actions/jobsAdmin.js';
-import { GetJobsPaginatedAction } from '../../redux/actions/jobsAdmin.js';
 // import JobsBgImg from '../../assets/img/brief2.png'
-import newJobHeaderImg from '../../assets/img/job2_new.png'
-import 'animate.css';
-import styles from './AllJobs.module.css';
 import { CiFilter } from 'react-icons/ci';
+import TooltipParagraph from './TooltipParagraph';
+import styles from './AllJobs.module.css';
+import 'animate.css';
 
+import newJobHeaderImg from '../../assets/img/job2_new.png'
+import { GetJobsPaginatedAction } from '../../redux/actions/jobsAdmin.js';
+import { checkAppliedByUserAllJobs } from '../../api/index.js';
 // import { DeleteACourseAction } from '../../../redux/actions/courseAdmin.js';
 
 const AllJobs = () => {
     const dispatch = useDispatch();
-    const [alljobsValue, setAllJobsValue] = useState(true);
-    const [applied, setApplied] = useState(false);
+    // const [alljobsValue, setAllJobsValue] = useState(true);
+    // const [applied, setApplied] = useState(false);
     const [lazyLoadingJobs, setLazyLoadingJobs] = useState(false);
     const [hasMorejobs, setHasMoreJobs] = useState(true);
     const [filteredJobs, setFilteredJobs] = useState([]);
+    const [AppliedJobs, setAppliedJobs] = useState([]);
     // for Pagination
     const [items, setItems] = useState([]);
     const [index, setIndex] = useState(1);
@@ -48,8 +50,8 @@ const AllJobs = () => {
     // end for pagination
 
     // for pagination of filtered jobs 
-    const [filteredIndex, setFilteredIndex] = useState(1);
-    const [filteredLimit, setFilteredLimit] = useState(5);
+    // const [filteredIndex, setFilteredIndex] = useState(1);
+    // const [filteredLimit, setFilteredLimit] = useState(5);
     // end for pagination of filtered jobs 
     const [IsFilteredCheck, setIsFilteredCheck] = useState(false);
 
@@ -92,9 +94,9 @@ const AllJobs = () => {
 
     const userProfile = JSON.parse(localStorage.getItem('Profile'));
     const user_id = userProfile?.result?._id;
-    const AppliedJobs = AllJobsData?.result?.filter((job) => job.jobApplicants.some((applicant) => applicant.user === user_id));
-    console.log("These are all applied Jobs \n : ");
-    console.log(AppliedJobs);
+    // const AppliedJobs = AllJobsData?.result?.filter((job) => job.jobApplicants.some((applicant) => applicant.user === user_id));
+    // console.log("These are all applied Jobs \n : ");
+    // console.log(AppliedJobs);
 
     const MyJobs = AllJobsData?.result;
 
@@ -161,7 +163,7 @@ const AllJobs = () => {
     // }
 
     console.log('All Filtered Jobs Data \n');
-    console.log(filteredJobs);  
+    console.log(filteredJobs);
 
     const fetchData = useCallback(async () => {
         if (loadingPage) return;
@@ -274,7 +276,7 @@ const AllJobs = () => {
     }
 
 
-    
+
 
     const handleApplyFilter = async () => {
         console.log('All Filters')
@@ -300,7 +302,6 @@ const AllJobs = () => {
         }
     }
 
-
     useEffect(() => {
         handleApplyFilter();
     }, [AllFilters])
@@ -312,11 +313,19 @@ const AllJobs = () => {
             JobType: []
         });
         setIsFilteredCheck(false);
+
     }
 
-    console.log('AllFilters \n')
-    console.log(AllFilters);
-    console.log(items)
+    const AppliedJobsByUser = () => {
+        checkAppliedByUserAllJobs(user_id)
+            .then((res) => {
+                console.log(res?.data?.result);
+                setAppliedJobs(res?.data?.result);
+            })
+            .catch((err) => {
+                console.log(err)
+            });
+    }
 
     return (
 
@@ -377,36 +386,9 @@ const AllJobs = () => {
                             backgroundImage: `url(${newJobHeaderImg})`,
                             backgroundSize: 'cover',
                             backgroundRepeat: 'no-repeat',
-                            height: '55vh',
+                            height: '70vh',
                         }}
                     >
-
-                        <div
-                            className='row 
-                        animate__animated
-                        animate__fadeIn
-                        animate__slower 
-                        animate__repeat-2'
-                            style={{
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                marginLeft: '30vw',
-                                color: 'black',
-
-                            }}
-                        >
-                            {/* <h1>Get Hired with </h1>
-                        <p style={{
-                            marginLeft: '15px',
-                            marginTop: '10px',
-                            color: 'black',
-                            fontWeight: 'bold',
-                            fontSize: '35px'
-                        }}>
-                            Hotel Journals
-                        </p> */}
-                        </div>
                     </div>
 
 
@@ -446,7 +428,7 @@ const AllJobs = () => {
                                         style={{ cursor: 'pointer', display: 'flex' }}
                                         onClick={() => handleClearFilter()}
                                     >
-                                        <h6>Clear All</h6>
+                                        <h6>Clear All &nbsp; </h6>
                                         <RxCross1 />
                                     </div>
                                 </div>
@@ -874,7 +856,7 @@ const AllJobs = () => {
                     {/* Filter Section Ends */}
 
                     {/* All Jobs and  Applied Jobs  */}
-                    <div className='container mb-0 m-5 '>
+                    {/* <div className='container mb-0 m-5 '>
                         <div className='d-flex mb-0' >
                             <div className='ml-2'
                                 style={{ cursor: 'pointer' }}
@@ -883,7 +865,7 @@ const AllJobs = () => {
                                     setApplied(false);
                                 }}
                             >
-                                {/* <p> All Jobs </p> */}
+                             
                                 <p> Todas las ofertas  </p>
                             </div>
                             <div className='ml-3'
@@ -893,207 +875,241 @@ const AllJobs = () => {
                                     setApplied(true);
                                 }}
                             >
-                                {/* <p> Applied </p> */}
-                                <p> Solicitadas  </p>
+                                <p
+                                    onClick={() => AppliedJobsByUser()}
+                                >
+                                    Solicitadas
+                                </p>
                             </div>
                         </div>
                         <hr />
-                    </div>
+                    </div> */}
+                    <Tabs>
+                        <TabList className='container mb-0 '>
+                            <Tab>Todas las ofertas</Tab>
+                            <Tab
+                                onClick={() => AppliedJobsByUser()}
+                            >Solicitadas</Tab>
+                        </TabList>
 
-                    {
-                        (
-                            <div className={styles.jobContainer}>
-                                <div className="row">
-                                    {
-                                         (Array.isArray(!IsFilteredCheck ? items : filteredJobs) ? (!IsFilteredCheck ? items : filteredJobs) : []).map((job, index) => (
-                                            // items && items?.map((job, index) => (
-                                            <div className={`col-xl-4 col-lg-6 col-md-6 col-sm-12 `}
-                                                style={{ marginTop: '1vw', cursor: 'pointer' }}
-                                                onClick={() => window.open(`/AllJobs/${job._id}`, '_blank')}
-                                            // onClick={() => navigate(`/AllJobs/${job._id}`)}
-                                            >
-                                                <Card
-                                                    style={{ width: '100%', marginBottom: '1vw' }}
-                                                    className={`${styles.cardContainer}`}
-                                                >
-                                                    <Card.Body>
-                                                        <div className="d-flex align-items-center">
-                                                            {job?.recruiter_info?.company_logo ?
-                                                                <img
-                                                                    src={job?.recruiter_info?.company_logo}
-                                                                    alt="Logo"
-                                                                    style={{ width: '50px', height: '50px', marginRight: '10px', borderRadius: '7px' }}
-                                                                />
-                                                                :
-                                                                <BsBuildings
-                                                                    style={{ width: '50px', height: '30px', marginRight: '10px', borderRadius: '7px' }}
-                                                                    aria-label="Logo"
-                                                                />
-                                                            }
-                                                            <div>
-                                                                <Card.Title>{job.jobTitle}</Card.Title>
-                                                                {/* <p className="card-text text-muted mb-2">{job.created_at}</p> */}
-                                                                <p className="card-text text-muted mb-2">
-                                                                    {/* Posted:{job?.created_at &&
-                                                                `${formatDistanceToNow(job.created_at)} ago`} */}
-                                                                    Subido : {job?.created_at &&
-                                                                        `${formatDistanceToNow(job.created_at, { addSuffix: true, locale: es })}`}
-                                                                </p>
-                                                                <small> {job.company_name} </small>
-                                                                <Card.Subtitle className="mb-2 text-muted"></Card.Subtitle>
-                                                            </div>
-                                                        </div>
-                                                        <Card.Text className='d-flex text-muted'
-                                                            style={{
-                                                                fontSize: '1rem',
-                                                                padding: '1vw',
-                                                                marginLeft: '3vw'
-                                                            }}
+                        <TabPanels>
+                            <TabPanel>
+                                {
+                                    (
+                                        <div className={styles.jobContainer}>
+                                            <div className="row">
+                                                {
+                                                    (Array.isArray(!IsFilteredCheck ? items : filteredJobs) ? (!IsFilteredCheck ? items : filteredJobs) : []).map((job, index) => (
+                                                        // items && items?.map((job, index) => (
+                                                        <div className={`col-xl-4 col-lg-6 col-md-6 col-sm-12 `}
+                                                            style={{ marginTop: '1vw', cursor: 'pointer' }}
+                                                            onClick={() => window.open(`/AllJobs/${job._id}`, '_blank')}
+                                                        // onClick={() => navigate(`/AllJobs/${job._id}`)}
                                                         >
-                                                            <div className='d-flex '>
-                                                                <TbBriefcase className={styles.jobIconSmall} />
-                                                                <p className={styles.paraSmallHeading}>
-                                                                    {job.workExperienceMin}-{job.workExperienceMax}
-                                                                    {/* years */}
-                                                                    &nbsp;años
-                                                                </p>
-                                                            </div>
-                                                            <div className='d-flex ml-2'>
-                                                                <FaWallet className={styles.jobIconSmall} />
-                                                                <p className={styles.paraSmallHeading}>
-                                                                    {job.salaryStart}-{job.salaryEnd} {job.salarySpecification}
-                                                                </p>
-                                                            </div>
-                                                            <div className='d-flex ml-2'>
-                                                                <FaLocationDot className={styles.jobIconSmall} />
-                                                                <p className={styles.paraSmallHeading} data-tooltip={job.jobLocation}>
-                                                                    <TooltipParagraph text={job.jobLocation} />
-                                                                </p>
-                                                            </div>
-                                                        </Card.Text>
-                                                        <hr />
-                                                        <div className='d-flex'>
-                                                            <small style={{ flex: '1' }}>
-                                                                {/* Apply by : */}
-                                                                Subido el &nbsp;
-                                                                {new Date(job.joiningDate).toLocaleDateString()}</small>
-                                                            {/* <Button variant="success" style={{ flex: '1' }}>View</Button> */}
-                                                            <ButtonChakra
-                                                                // colorScheme='linkedin'
-                                                                p={5}
-                                                                width={'8rem'}
-                                                                borderRadius={'50px'}
-                                                                bgColor={'#E4B49D'}
+                                                            <Card
+                                                                style={{ width: '100%', marginBottom: '1vw' }}
+                                                                className={`${styles.cardContainer}`}
                                                             >
-                                                                Apply
-                                                            </ButtonChakra>
+                                                                <Card.Body>
+                                                                    <div className="d-flex align-items-center">
+                                                                        {job?.recruiter_info?.company_logo ?
+                                                                            <img
+                                                                                src={job?.recruiter_info?.company_logo}
+                                                                                alt="Logo"
+                                                                                style={{ width: '50px', height: '50px', marginRight: '10px', borderRadius: '7px' }}
+                                                                            />
+                                                                            :
+                                                                            <BsBuildings
+                                                                                style={{ width: '50px', height: '30px', marginRight: '10px', borderRadius: '7px' }}
+                                                                                aria-label="Logo"
+                                                                            />
+                                                                        }
+                                                                        <div>
+                                                                            <Card.Title>{job.jobTitle}</Card.Title>
+                                                                            {/* <p className="card-text text-muted mb-2">{job.created_at}</p> */}
+                                                                            <p className="card-text text-muted mb-2">
+                                                                                {/* Posted:{job?.created_at &&
+                                                                `${formatDistanceToNow(job.created_at)} ago`} */}
+                                                                                Subido : {job?.created_at &&
+                                                                                    `${formatDistanceToNow(job.created_at, { addSuffix: true, locale: es })}`}
+                                                                            </p>
+                                                                            <small> {job.company_name} </small>
+                                                                            <Card.Subtitle className="mb-2 text-muted"></Card.Subtitle>
+                                                                        </div>
+                                                                    </div>
+                                                                    <Card.Text className='d-flex text-muted'
+                                                                        style={{
+                                                                            fontSize: '1rem',
+                                                                            padding: '1vw',
+                                                                            marginLeft: '3vw'
+                                                                        }}
+                                                                    >
+                                                                        <div className='d-flex '>
+                                                                            <TbBriefcase className={styles.jobIconSmall} />
+                                                                            <p className={styles.paraSmallHeading}>
+                                                                                {job.workExperienceMin}-{job.workExperienceMax}
+                                                                                {/* years */}
+                                                                                &nbsp;años
+                                                                            </p>
+                                                                        </div>
+                                                                        <div className='d-flex ml-2'>
+                                                                            <FaWallet className={styles.jobIconSmall} />
+                                                                            <p className={styles.paraSmallHeading}>
+                                                                                {job.salaryStart}-{job.salaryEnd} {job.salarySpecification}
+                                                                            </p>
+                                                                        </div>
+                                                                        <div className='d-flex ml-2'>
+                                                                            <FaLocationDot className={styles.jobIconSmall} />
+                                                                            <p className={styles.paraSmallHeading} data-tooltip={job.jobLocation}>
+                                                                                <TooltipParagraph text={job.jobLocation} />
+                                                                            </p>
+                                                                        </div>
+                                                                    </Card.Text>
+                                                                    <hr />
+                                                                    <div className='d-flex'>
+                                                                        <small style={{ flex: '1' }}>
+                                                                            {/* Apply by : */}
+                                                                            Subido el &nbsp;
+                                                                            {new Date(job.joiningDate).toLocaleDateString()}</small>
+                                                                        {/* <Button variant="success" style={{ flex: '1' }}>View</Button> */}
+                                                                        <ButtonChakra
+                                                                            // colorScheme='linkedin'
+                                                                            p={5}
+                                                                            width={'8rem'}
+                                                                            borderRadius={'50px'}
+                                                                            bgColor={'#E4B49D'}
+                                                                        >
+                                                                            Apply
+                                                                        </ButtonChakra>
 
+                                                                    </div>
+                                                                </Card.Body>
+                                                            </Card>
                                                         </div>
-                                                    </Card.Body>
-                                                </Card>
+                                                    ))}
                                             </div>
-                                        ))}
-                                </div>
-                                {hasMorejobs && lazyLoadingJobs &&
-                                    <div
-                                        style={{
-                                            display: 'flex',
-                                            justifyContent: 'center',
-                                            alignItems: 'center',
-                                            height: '10vh'
-                                        }}
-                                    >
-                                        <PuffLoader
-                                            color="red"
-                                            size={70}
-                                        />
-                                    </div>
-                                }
-                            </div>
-                        )
-                    }
-
-                    {
-                        applied &&
-                        <div className={styles.jobContainer} style={{ cursor: 'not-allowed' }}>
-                            <div className="row " >
-                                {AppliedJobs?.map((job, index) => (
-                                    <div className={`col-xl-4 col-lg-6 col-md-6 col-sm-12 `}
-                                        style={{
-                                            marginTop: '1vw',
-                                        }}
-                                    // aria-disabled='true'
-                                    >
-                                        <Card
-                                            style={{ width: '100%', marginBottom: '1vw' }}
-                                            className={`${styles.cardContainer}`}
-
-                                        >
-                                            <Card.Body>
-                                                <div className="d-flex align-items-center">
-                                                    <img
-                                                        src="https://media.geeksforgeeks.org/img-practice/prod/jobs/1/Web/Other/1631311446380_1708941800.jpg"
-                                                        alt="Logo"
-                                                        style={{ width: '50px', height: '50px', marginRight: '10px' }}
-                                                    />
-                                                    <div>
-                                                        <Card.Title>{job.jobTitle}</Card.Title>
-                                                        <p className="card-text text-muted mb-2">{job.created_at}</p>
-                                                        <Card.Subtitle className="mb-2 text-muted"></Card.Subtitle>
-                                                    </div>
-                                                </div>
-                                                <Card.Text className='d-flex text-muted'
+                                            {hasMorejobs && lazyLoadingJobs &&
+                                                <div
                                                     style={{
-                                                        fontSize: '1rem',
-                                                        padding: '1vw',
-                                                        marginLeft: '3vw'
+                                                        display: 'flex',
+                                                        justifyContent: 'center',
+                                                        alignItems: 'center',
+                                                        height: '10vh'
                                                     }}
                                                 >
-                                                    <div className='d-flex '>
-                                                        <TbBriefcase className={styles.jobIconSmall} />
-                                                        <p className={styles.paraSmallHeading}>
-                                                            {job.workExperienceMin} - {job.workExperienceMax}
-                                                            {/* years */}
-                                                            &nbsp;años
-                                                            {/* akjdfjskfjsk sdfk sfsjf sfs sk sfs  */}
-                                                        </p>
-                                                    </div>
-                                                    <div className='d-flex ml-2'>
-                                                        <FaWallet className={styles.jobIconSmall} />
-                                                        <p className={styles.paraSmallHeading}>
-                                                            {job.salaryStart}-{job.salaryEnd} {job.salarySpecification}
-                                                        </p>
-                                                    </div>
-                                                    <div className='d-flex ml-2'>
-                                                        <FaLocationDot className={styles.jobIconSmall} />
-                                                        <p className={styles.paraSmallHeading}>
-                                                            {job.jobLocation}
-                                                        </p>
-                                                    </div>
-                                                </Card.Text>
-                                                <hr />
-                                                <div className='d-flex'>
-                                                    <small style={{ flex: '1' }}> Apply by : {new Date(job.joiningDate).toLocaleDateString()}</small>
-                                                    {/* <Button variant="success" style={{ flex: '1' }}>View</Button> */}
-                                                    <ButtonChakra
-                                                        // colorScheme='linkedin'
-                                                        p={5}
-                                                        width={'8rem'}
-                                                        borderRadius={'50px'}
-                                                        bgColor={'#E4B49D'}
-                                                        isDisabled={true}
-                                                    >
-                                                        Apply
-                                                    </ButtonChakra>
-
+                                                    <PuffLoader
+                                                        color="red"
+                                                        size={70}
+                                                    />
                                                 </div>
-                                            </Card.Body>
-                                        </Card>
+                                            }
+                                        </div>
+                                    )
+                                }
+                            </TabPanel>
+                            <TabPanel>
+                                {
+                                    AppliedJobs.length > 0 &&
+                                    <div className={styles.jobContainer} style={{ cursor: 'not-allowed' }} >
+                                        <div className="row " >
+                                            {AppliedJobs?.map((job, index) => (
+                                                <div className={`col-xl-4 col-lg-6 col-md-6 col-sm-12 `
+                                                }
+                                                    style={{ marginTop: '1vw', }}
+                                                // onClick={() => window.open(`/AllJobs/${job._id}`, '_blank')}
+                                                >
+                                                    <Card
+                                                        style={{ width: '100%', marginBottom: '1vw' }}
+                                                        className={`${styles.cardContainer}`}
+                                                    >
+                                                        <Card.Body>
+                                                            <div className="d-flex align-items-center">
+                                                                {job?.recruiter_info?.company_logo ?
+                                                                    <img
+                                                                        src={job?.recruiter_info?.company_logo}
+                                                                        alt="Logo"
+                                                                        style={{ width: '50px', height: '50px', marginRight: '10px', borderRadius: '7px' }}
+                                                                    />
+                                                                    :
+                                                                    <BsBuildings
+                                                                        style={{ width: '50px', height: '30px', marginRight: '10px', borderRadius: '7px' }}
+                                                                        aria-label="Logo"
+                                                                    />
+                                                                }
+                                                                <div>
+                                                                    <Card.Title>{job.jobTitle}</Card.Title>
+                                                                    {/* <p className="card-text text-muted mb-2">{job.created_at}</p> */}
+                                                                    <p className="card-text text-muted mb-2">
+                                                                        {/* Posted:{job?.created_at &&
+                                                    `${formatDistanceToNow(job.created_at)} ago`} */}
+                                                                        Subido : {job?.created_at &&
+                                                                            `${formatDistanceToNow(job.created_at, { addSuffix: true, locale: es })}`}
+                                                                    </p>
+                                                                    <small> {job.company_name} </small>
+                                                                    <Card.Subtitle className="mb-2 text-muted"></Card.Subtitle>
+                                                                </div>
+                                                            </div>
+                                                            <Card.Text className='d-flex text-muted'
+                                                                style={{
+                                                                    fontSize: '1rem',
+                                                                    padding: '1vw',
+                                                                    marginLeft: '3vw'
+                                                                }}
+                                                            >
+                                                                <div className='d-flex '>
+                                                                    <TbBriefcase className={styles.jobIconSmall} />
+                                                                    <p className={styles.paraSmallHeading}>
+                                                                        {job.workExperienceMin}-{job.workExperienceMax}
+                                                                        {/* years */}
+                                                                        &nbsp;años
+                                                                    </p>
+                                                                </div>
+                                                                <div className='d-flex ml-2'>
+                                                                    <FaWallet className={styles.jobIconSmall} />
+                                                                    <p className={styles.paraSmallHeading}>
+                                                                        {job.salaryStart}-{job.salaryEnd} {job.salarySpecification}
+                                                                    </p>
+                                                                </div>
+                                                                <div className='d-flex ml-2'>
+                                                                    <FaLocationDot className={styles.jobIconSmall} />
+                                                                    <p className={styles.paraSmallHeading} data-tooltip={job.jobLocation}>
+                                                                        <TooltipParagraph text={job.jobLocation} />
+                                                                    </p>
+                                                                </div>
+                                                            </Card.Text>
+                                                            <hr />
+                                                            <div className='d-flex'>
+                                                                <small style={{ flex: '1' }}>
+                                                                    {/* Apply by : */}
+                                                                    Subido el &nbsp;
+                                                                    {new Date(job.joiningDate).toLocaleDateString()}</small>
+                                                                {/* <Button variant="success" style={{ flex: '1' }}>View</Button> */}
+                                                                <ButtonChakra
+                                                                    // colorScheme='linkedin'
+                                                                    p={5}
+                                                                    width={'8rem'}
+                                                                    borderRadius={'50px'}
+                                                                    bgColor={'#E4B49D'}
+                                                                    style={{ cursor: 'not-allowed' }}
+                                                                >
+                                                                    Applied
+                                                                </ButtonChakra>
+
+                                                            </div>
+                                                        </Card.Body>
+                                                    </Card>
+                                                </div>
+                                            ))}
+                                        </div>
                                     </div>
-                                ))}
-                            </div>
-                        </div>
-                    }
+                                }
+                            </TabPanel>
+                        </TabPanels>
+                    </Tabs>
+
+
+
+
                 </div>
             )}
             {/* <h4> Items Start  </h4>

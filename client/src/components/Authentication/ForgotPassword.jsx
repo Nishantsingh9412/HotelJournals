@@ -43,7 +43,7 @@ const ForgotPassword = () => {
             }
         }).catch((error) => {
             console.log('Error Adding ------------------------------------------------Item')
-            toast.error(error.response.data.message)
+            toast.error(error?.response?.data?.message)
             throw error;
         });
 

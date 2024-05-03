@@ -229,12 +229,12 @@ const UpdateRecProfileForm = () => {
     }, [singleRecruiterData])
 
     const handleProfileClick = () => {
-        setLoading(true);
-        dispatch(getRecProfileAction(localUserId)).then((res) => {
-            if (res.success) {
-                setLoading(false);
-            }
-        })
+        // setLoading(true);
+        // dispatch(getRecProfileAction(localUserId)).then((res) => {
+        //     if (res.success) {
+        //         setLoading(false);
+        //     }
+        // })
     }
 
 

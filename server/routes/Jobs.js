@@ -15,7 +15,8 @@ import {
     getAllJobsRecruiter,
     getAllJobsLazyLoading,
     getSimilarJobs,
-    checkApplied,
+    checkAppliedSingle,
+    checkAppliedByUser
     // hiredCandParticularJob,
     // notOfferedCandPartJob,
     // offeredCandParticularJob,
@@ -24,8 +25,11 @@ import {
 
 const router = express.Router();
 
+// get all applied jobs for a particular user
+router.get('/checkapplied-by-user/:id', checkAppliedByUser)
+
 // check applicant applied or not 
-router.get('/checkapplied/:jobid/:userid', checkApplied)
+router.get('/checkapplied/:jobid/:userid', checkAppliedSingle)
 
 // get similar jobs 
 router.get('/similarjobs/:id', getSimilarJobs)
