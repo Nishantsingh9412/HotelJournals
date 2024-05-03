@@ -83,7 +83,7 @@ export const paginateCourses = (page, limit) => API.get(`/courses/paginateCourse
 export const courseFilter = (filterData,page,limit) => API.get(`/courses/courseFilter?${filterData}&page=${page}&limit=${limit}`)
 
 // Setting up courses Search API
-export const courseSearch = (searchData) => API.get(`/courses/courseSearch?${searchData}`)
+export const courseSearch = (searchData,page,limit) => API.get(`/courses/courseSearch?${searchData}&page=${page}&limit=${limit}`)
 
 // Course Admin (Course creation)
 export const CourseAdminData = (courseData) => API.post('/courses/newCourse', courseData)

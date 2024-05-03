@@ -23,11 +23,10 @@ export const courseFilterAction = (filteredData,page,limit) => async (dispatch) 
     }
 }
 
-export const courseSearchAction = (courseData) => async (dispatch) => {
+export const courseSearchAction = (courseData,page,limit) => async (dispatch) => {
     try{
-        const {data} = await api.courseSearch(courseData);
+        const {data} = await api.courseSearch(courseData,page,limit);
         dispatch({type:'COURSE_SEARCH',data});
-        dispatch({type:'COURSE_FILTER',data});
         return {success:true,message:'Course filtered successfully',data}
     }catch(error){
         console.log("Error from courseFilter Action: " + error.message, error.stack);
@@ -46,13 +45,6 @@ export const SetCourse = (courseData) => async (dispatch) => {
         return {success:false,message:'Error posting Course'}
     }
 }
-
-                // It can be also written as it is a higher order function:  
-    // function createAsyncDispatchFunction(courseData) {
-    //     return async function(dispatch) {
-    //       // Your code here
-    //     }
-    //   }
 
 export const GetCourse = () => async (dispatch) => {
     try {

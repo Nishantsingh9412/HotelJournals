@@ -8,6 +8,7 @@ import ReactPaginate from 'react-paginate';
 import CheckBox from "./CheckBox";
 import CSS from './Cards.module.css';
 import { courseFilterAction } from '../../redux/actions/courseAdmin';
+import { RxCross2 } from 'react-icons/rx';
 
 const cardImageStyle = {
     width: '100%',
@@ -16,7 +17,7 @@ const cardImageStyle = {
 
 const Cards = ({ filter }) => {
     const dispatch = useDispatch();
-    
+
 
     // const [currentPage, setCurrentPage] = useState(2);
     // ------------------- pagination for all course start -----------------------------------
@@ -28,7 +29,6 @@ const Cards = ({ filter }) => {
     // ------------------- pagination for all course end -----------------------------------
 
 
-
     // ------------------- pagination for filtered courses start -------------------------------------------
     const [filteredPaginatedCourses, setFilteredPaginatedCourses] = useState()
     const [filteredLimit, setFilteredLimit] = useState(12);
@@ -36,6 +36,15 @@ const Cards = ({ filter }) => {
     const filteredCurrentPage = useRef()
     // ------------------- pagination for filtered courses end -------------------------------------------
 
+
+    const filteredCoursesReducer = useSelector((state) => state.getCoursesReducer)
+    console.log('Filtered Courses ------------------------------------------------ \n')
+    console.log(filteredCoursesReducer);
+
+    useEffect(() => {
+        setFilteredPaginatedCourses(filteredCoursesReducer?.result?.pageinatedData)
+        setFilteredPageCount(filteredCoursesReducer?.result?.pageCount)
+    }, [filteredCoursesReducer])
 
     const [courseValueFilter, setCourseValueFilter] = useState({
         // isFree: false,
@@ -122,9 +131,20 @@ const Cards = ({ filter }) => {
         Otros: false,
     })
 
-    // useEffect(() => {
-    //     dispatch(GetCourse());
-    // }, [dispatch]);
+    // at the time of component load
+
+    useEffect(() => {
+        const params = new URLSearchParams({
+            courseTypesFilter: JSON.stringify(courseTypesFilter),
+            courseLangFilter: JSON.stringify(courseLangFilter),
+            categoriesFilter: JSON.stringify(categoriesFilter),
+            locationTypeFilter: JSON.stringify(locationTypeFilter), // Online Offline
+            courseValueFilter: JSON.stringify(courseValueFilter)    // Free Paid
+        }).toString();
+
+
+        dispatch(courseFilterAction(params, 1, 12))
+    }, [])
 
     //  ------------------------ Filtration of all courses ---------------
 
@@ -229,14 +249,14 @@ const Cards = ({ filter }) => {
             courseValueFilter: JSON.stringify(courseValueFilter)    // Free Paid
         }).toString();
 
-        console.log("Params \n");
-        console.log(params);
+        // console.log("Params \n");
+        // console.log(params);
 
         dispatch(courseFilterAction(params, filteredCurrentPage.current, filteredLimit)).then((res) => {
             if (res.success) {
                 console.log(res.data);
-                setFilteredPageCount(res.data.result.pageCount);
-                setFilteredPaginatedCourses(res.data.result.pageinatedData);
+                // setFilteredPageCount(res.data.result.pageCount);
+                // setFilteredPaginatedCourses(res.data.result.pageinatedData);
                 // setShowFilteredCourse(!showFilteredCourse);
             } else {
                 console.log(res.message);
@@ -307,10 +327,23 @@ const Cards = ({ filter }) => {
                                     style={{ marginLeft: '2vw', cursor: 'pointer' }}
                                     onClick={handleClearAllFilters}
                                 >
-                                    <p>
-                                        {/* Clear All */}
-                                        Eliminar Filtros
-                                    </p>
+
+                                    <div
+                                        style={{
+                                            display: 'flex',
+                                            marginLeft: '2rem',
+                                            marginTop: '0.4rem',
+                                            gap: '0.2rem',
+                                        }}
+                                    >
+                                        <p>
+                                            {/* Clear All */}
+                                            Eliminar Filtros
+                                        </p>
+                                        <RxCross2
+                                            style={{ marginTop: '0.2rem' }}
+                                        />
+                                    </div>
                                 </div>
                             </div>
                             <div>

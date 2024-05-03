@@ -14,6 +14,10 @@ const SearchBar = () => {
 
     const dispatch = useDispatch();
     const [isOpen, setIsOpen] = useState(false);
+    
+    const [searchLimit, setSearchLimit] = useState(12);
+    const [searchPagesCount, setSearchPagesCount] = useState(1);
+
     const onClose = () => setIsOpen(false);
     const onOpen = () => setIsOpen(true);
     const [courseCompany, setCourseCompany] = useState([])
@@ -28,13 +32,15 @@ const SearchBar = () => {
     const handleApplyFilter = async () => {
         const params = new URLSearchParams(AllFilter).toString();
         console.log(params);
-        const response = await dispatch(courseSearchAction(params));
-        if (response.success) {
-            console.log(response.data);
-        } else {
-            console.log(response.message);
-        }
+        dispatch(courseSearchAction(params,searchPagesCount,searchLimit)).then((response) => {
+            if (response.success) {
+                console.log(response.data);
+            } else {
+                console.log(response.message);
+            }
+        })
     }
+
 
     const getCourseNames = async () => {
         try {

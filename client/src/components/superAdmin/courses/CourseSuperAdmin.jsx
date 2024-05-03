@@ -63,7 +63,6 @@ const CourseSuperAdmin = () => {
     return (
         <div className={styles.dashContainer}>
             <aside
-                // className={styles.asideComponentDash}
                 className={`${styles.asideComponentDash} ${isMenuOpen ? styles.show : ''}`}
             >
                 <div className={`${styles.top} ${styles.logo}`} >
@@ -79,11 +78,9 @@ const CourseSuperAdmin = () => {
                         id='close-btn'
                         onClick={handleMenuClose}
                     >
-                        {/* <div id="close-btn"></div> */}
                         <MdCancel size={25} />
                     </div>
                 </div>
-
                 <div className={styles.sidebar}>
                     <a className={styles.anchorTag} href="/superadmin">
                         <MdDashboard />
@@ -101,34 +98,10 @@ const CourseSuperAdmin = () => {
                         <FaBriefcase />
                         <h3 className={styles.heading3}> Jobs </h3>
                     </a>
-
                     <a className={styles.anchorTag} style={{cursor:'pointer'}} onClick={handleLogout}>
                         <RiLogoutBoxLine />
                         <h3 className={styles.heading3}> Logout </h3>
                     </a>
-                    {/* <a className={styles.anchorTag} href="#">
-                        <FaMessage />
-                        <h3 className={styles.heading3}> Messages </h3>
-                        <span className={styles.messages}> 26 </span>
-                    </a>
-                    <a className={styles.anchorTag} href="#">
-                        <FaCheck />
-                        <h3 className={styles.heading3}> Products </h3>
-                    </a>
-                    <a className={styles.anchorTag} href="#">
-                        <FaInfo />
-                        <h3 className={styles.heading3}> Reports </h3>
-                    </a>
-
-                    <a className={styles.anchorTag} href="#">
-                        <FaGear />
-                        <h3 className={styles.heading3}> Settings </h3>
-                    </a>
-                    <a className={styles.anchorTag} href="#">
-                        <FaPlus />
-                        <h3 className={styles.heading3}> Add Product </h3>
-                    </a> */}
-
                 </div>
             </aside>
             {/* End of aside   */}

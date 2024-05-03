@@ -3,6 +3,24 @@ import mongoose from "mongoose";
 import user from "../models/profiles/user.js";
 
 
+export const educatorCourses = async (req, res) => {
+    const {id:_id} = req.params;
+    if(!mongoose.Types.ObjectId.isValid(_id)){
+        return res.status(400).json({success:false,message:'Invalid Course Id Provided'});
+    }
+    try{
+        const courses = await Courses.find({created_by:_id});
+        if(courses){
+            return res.status(200).json({success:true,message:'Courses Fetched',result:courses});
+        }else{
+            return res.status(400).json({success:false,message:'No Courses Found'});
+        }
+    }catch(err){
+        console.log("Error from educatorCourses Controller",err.message);
+    }
+}
+
+
 export const similarCourses = async (req, res) => {
     const { id: _id } = req.params;
     if (!mongoose.Types.ObjectId.isValid(_id)) {
@@ -200,6 +218,13 @@ export const AllCourseFilters = async (req, res) => {
 
 export const courseSearch = async (req, res) => {
     try {
+        // pagination logic start here
+        const page = parseInt(req.query.page);
+        const limit = parseInt(req.query.limit);
+        const startIndex = (page - 1) * limit;
+        const lastIndex = page * limit;
+        const results = {};
+        // some part of pagination end here
         const { courseProvider, keyword } = req.query;
         let filter = {};
         if (courseProvider) {
@@ -209,7 +234,25 @@ export const courseSearch = async (req, res) => {
             filter.title = { $regex: keyword, $options: 'i' };
         }
         const filteredCourses = await Courses.find(filter);
-        res.status(200).json({ success: true, message: 'Filtered Courses', result: filteredCourses });
+        // pagination logic resumes here 
+        results.totalCourse = filteredCourses.length;
+        results.pageCount = Math.ceil(filteredCourses.length / limit);
+
+        if(lastIndex < filteredCourses.length){
+            results.next = {
+                page: page + 1,
+            }
+        }
+
+        if(startIndex > 0){
+            results.prev = {
+                page: page - 1,
+            }
+        }
+
+        results.pageinatedData = filteredCourses.slice(startIndex, lastIndex);
+        // pagination logic ends here
+        res.status(200).json({ success: true, message: 'Filtered Courses', result: results });
     } catch (error) {
         res.status(500).json({ success: false, message: `Something went wrong from server ${error.message}` })
     }

@@ -10,13 +10,18 @@ import {
     courseSearch,
     AllCourseFilters,
     paginatedCourses,
-    similarCourses
+    similarCourses,
+    educatorCourses
 } from "../controllers/courses.js"
 
 const router = express.Router();
 
 // Similar Courses
 router.get('/similarCourses/:id',similarCourses)
+
+// Course Posted by educator
+router.get('/educatorCourses/:id',educatorCourses)
+
 // Paginate Courses
 router.get('/paginateCourses', paginatedCourses)
 // Filter Courses 

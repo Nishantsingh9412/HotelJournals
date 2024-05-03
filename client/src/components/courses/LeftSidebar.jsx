@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
+import { RxCross2 } from "react-icons/rx";
 import {
   Drawer,
   DrawerBody,
@@ -9,14 +10,14 @@ import {
 } from "@chakra-ui/react";
 import { useDispatch } from 'react-redux';
 
-import CheckBox from "./CheckBox";
+import CheckBox from "./CheckBoxSmallScreens";
 import { courseFilterAction } from '../../redux/actions/courseAdmin';
 
 
 const LeftSidebar = ({ onClose }) => {
   const btnRef = React.useRef();
   const dispatch = useDispatch();
-  
+
 
   // ------------------- pagination for filtered courses start -------------------------------------------
   const [filteredPaginatedCourses, setFilteredPaginatedCourses] = useState()
@@ -275,10 +276,22 @@ const LeftSidebar = ({ onClose }) => {
                       style={{ marginLeft: '2vw', cursor: 'pointer' }}
                       onClick={handleClearAllFilters}
                     >
-                      <p>
-                        {/* Clear All */}
-                        Eliminar Filtros
-                      </p>
+                      <div
+                          style={{
+                            display:'flex',
+                            marginLeft:'2rem',
+                            marginTop:'0.4rem',
+                            gap:'0.2rem',
+                          }}
+                      >
+                        <p>
+                          {/* Clear All */}
+                          Eliminar Filtros
+                        </p>
+                        <RxCross2
+                          style={{ marginTop: '0.2rem' }}
+                        />
+                      </div>
                     </div>
                   </div>
                   <div>
@@ -289,6 +302,8 @@ const LeftSidebar = ({ onClose }) => {
                       <div className="ml-3">
                         <CheckBox
                           // content={"Bachelors"}
+                          id="Licenciaturaside"
+                          htmlFor="Licenciaturaside"
                           content={"Licenciatura"}
                           // checked={courseTypesFilter.Bachelors}
                           checked={courseTypesFilter.Licenciatura}
@@ -304,6 +319,8 @@ const LeftSidebar = ({ onClose }) => {
                         <CheckBox
                           // content={"Masters"}
                           content={"Máster"}
+                          id="MásterSide"
+                          htmlFor="MásterSide"
                           // checked={courseTypesFilter.Masters}
                           checked={courseTypesFilter.Máster}
                           onChange={(e) =>
@@ -316,6 +333,8 @@ const LeftSidebar = ({ onClose }) => {
                             )}
                         />
                         <CheckBox
+                          id="DiplomaSide"
+                          htmlFor="DiplomaSide"
                           content={"Diploma"}
                           checked={courseTypesFilter.Diploma}
                           onChange={(e) =>
@@ -325,6 +344,8 @@ const LeftSidebar = ({ onClose }) => {
                         />
                         <CheckBox
                           // content={"Professional"}
+                          id="CertificadosProfesionalesSide"
+                          htmlFor="CertificadosProfesionalesSide"
                           content={"Certificados Profesionales"}
                           // checked={courseTypesFilter.Professional}
                           checked={courseTypesFilter["Certificados Profesionales"]}
@@ -340,6 +361,8 @@ const LeftSidebar = ({ onClose }) => {
                         <CheckBox
                           // content={"Short Course"}
                           content={"Curso"}
+                          id="CursoSide"
+                          htmlFor="CursoSide"
                           // checked={courseTypesFilter.ShortCourse}
                           checked={courseTypesFilter.Curso}
                           onChange={(e) =>
@@ -372,10 +395,10 @@ const LeftSidebar = ({ onClose }) => {
                             class="form-check-input"
                             name="exampleRadios"
                             type="radio"
-                            id="exampleRadios1"
+                            id="exampleRadiosSidebar1"
                             value="option1"
                           />
-                          <label class="form-check-label" htmlFor="exampleRadios1">
+                          <label class="form-check-label" htmlFor="exampleRadiosSidebar1">
                             {/* Free */}
                             Gratis
                           </label>
@@ -392,10 +415,10 @@ const LeftSidebar = ({ onClose }) => {
                             class="form-check-input"
                             name="exampleRadios"
                             type="radio"
-                            id="exampleRadios2"
+                            id="exampleRadiosSidebar2"
                             value="option2"
                           />
-                          <label class="form-check-label" htmlFor="exampleRadios2">
+                          <label class="form-check-label" htmlFor="exampleRadiosSidebar2">
                             {/* Paid */}
                             Pago
                           </label>
@@ -408,7 +431,10 @@ const LeftSidebar = ({ onClose }) => {
                       <div className="ml-3">
                         <CheckBox
                           // content={"English"}
+                          id="InglésSide"
+                          htmlFor="InglésSide"
                           content={"Inglés"}
+
                           // checked={courseLangFilter.English}
                           checked={courseLangFilter.Inglés}
                           onChange={(e) =>
@@ -422,6 +448,8 @@ const LeftSidebar = ({ onClose }) => {
                         />
                         <CheckBox
                           // content={"Spanish"}
+                          id="EspañolSide"
+                          htmlFor="EspañolSide"
                           content={"Español"}
                           // checked={courseLangFilter.Spanish}
                           checked={courseLangFilter.Español}
@@ -437,6 +465,8 @@ const LeftSidebar = ({ onClose }) => {
                         />
                         <CheckBox
                           // content={"French"}
+                          id="FrancésSide"
+                          htmlFor="FrancésSide"
                           content={"Francés"}
                           // checked={courseLangFilter.French}
                           checked={courseLangFilter.Francés}
@@ -451,6 +481,8 @@ const LeftSidebar = ({ onClose }) => {
                         />
                         <CheckBox
                           // content={"Catalan"}
+                          id="CatalánSide"
+                          htmlFor="CatalánSide"
                           content={"Catalán"}
                           // checked={courseLangFilter.Catalan}
                           checked={courseLangFilter.Catalán}
@@ -466,6 +498,8 @@ const LeftSidebar = ({ onClose }) => {
                         />
                         <CheckBox
                           // content={"Italian"}
+                          id="ItalianoSide"
+                          htmlFor="ItalianoSide"
                           content={"Italiano"}
                           // checked={courseLangFilter.Italian}
                           checked={courseLangFilter.Italiano}
@@ -480,6 +514,8 @@ const LeftSidebar = ({ onClose }) => {
                         />
                         <CheckBox
                           // content={"Portuguese"}
+                          id="PortuguésSide"
+                          htmlFor="PortuguésSide"
                           content={"Portugués"}
                           // checked={courseLangFilter.Portuguese}
                           checked={courseLangFilter.Portugués}
@@ -494,6 +530,8 @@ const LeftSidebar = ({ onClose }) => {
                         />
                         <CheckBox
                           // content={"German"}
+                          id="AlemánSide"
+                          htmlFor="AlemánSide"
                           content={"Alemán"}
                           // checked={courseLangFilter.German}
                           checked={courseLangFilter.Alemán}
@@ -509,6 +547,8 @@ const LeftSidebar = ({ onClose }) => {
 
                         <CheckBox
                           // content={"Other"}
+                          id="OtrosSide"
+                          htmlFor="OtrosSide"
                           content={"Otros"}
                           // checked={courseLangFilter.Other}
                           checked={courseLangFilter.Otros}
@@ -529,6 +569,8 @@ const LeftSidebar = ({ onClose }) => {
                       </h6>
                       <div className="ml-3">
                         <CheckBox
+                          id="OnlineSide"
+                          htmlFor="OnlineSide"
                           content={"Online"}
                           checked={locationTypeFilter.Online}
                           onChange={(e) =>
@@ -538,6 +580,8 @@ const LeftSidebar = ({ onClose }) => {
                         />
                         <CheckBox
                           // content={"Offline"}
+                          id="PresencialSide"
+                          htmlFor="PresencialSide"
                           content={"Presencial"}
                           checked={locationTypeFilter.Offline}
                           // checked={locationTypeFilter.Presencial}
@@ -560,6 +604,8 @@ const LeftSidebar = ({ onClose }) => {
                         <CheckBox
                           // content={"Culinary"}
                           content={"Cocina"}
+                          id="CocinaSide"
+                          htmlFor="CocinaSide"
                           // checked={categoriesFilter.Culinary}
                           checked={categoriesFilter.Cocina}
                           onChange={(e) =>
@@ -582,6 +628,8 @@ const LeftSidebar = ({ onClose }) => {
                             )}
                           // content={"Business"}
                           content={"Negocios"}
+                          id="NegociosSide"
+                          htmlFor="NegociosSide"
                           // checked={categoriesFilter.Business}
                           checked={categoriesFilter.Negocios}
                         />
@@ -596,6 +644,8 @@ const LeftSidebar = ({ onClose }) => {
                             )}
                           // content={"Personal Development"}
                           content={"Desarrollo Personal"}
+                          id="DesarrolloPersonalSide"
+                          htmlFor="DesarrolloPersonalSide"
                           // checked={categoriesFilter.PersonalDevelopment}
                           checked={categoriesFilter["Desarrollo Personal"]}
                         />
@@ -605,6 +655,8 @@ const LeftSidebar = ({ onClose }) => {
                               { ...categoriesFilter, Marketing: e.target.checked }
                             )}
                           content={"Marketing"}
+                          id="MarketingSide"
+                          htmlFor="MarketingSide"
                           checked={categoriesFilter.Marketing}
                         />
                         <CheckBox
@@ -617,6 +669,8 @@ const LeftSidebar = ({ onClose }) => {
                               }
                             )}
                           content={"Recursos Humanos"}
+                          id="RecursosHumanosSide"
+                          htmlFor="RecursosHumanosSide"
                           // checked={categoriesFilter.HumanResource}
                           checked={categoriesFilter["Recursos Humanos"]}
                         />
@@ -631,6 +685,8 @@ const LeftSidebar = ({ onClose }) => {
                             )}
                           // content={"Leadership and Management"}
                           content={"Liderazgo Y Gestión"}
+                          id="LiderazgoYGestiónSide"
+                          htmlFor="LiderazgoYGestiónSide"
                           // checked={categoriesFilter.LeadershipAndManagement}
                           checked={categoriesFilter["Liderazgo Y Gestión"]}
                         />
@@ -645,6 +701,8 @@ const LeftSidebar = ({ onClose }) => {
                             )}
                           // content={"Language"}
                           content={"Idiomas"}
+                          id="IdiomasSide"
+                          htmlFor="IdiomasSide"
                           // checked={categoriesFilter.Language}
                           checked={categoriesFilter.Idiomas}
                         />
@@ -659,6 +717,8 @@ const LeftSidebar = ({ onClose }) => {
                             )}
                           // content={"Test Preparation"}
                           content={"Preparación de Exámenes"}
+                          id="PreparacióndeExámenesSide"
+                          htmlFor="PreparacióndeExámenesSide"
                           // checked={categoriesFilter.TestPreparation}
                           checked={categoriesFilter["Preparación de Exámenes"]}
 
@@ -675,6 +735,8 @@ const LeftSidebar = ({ onClose }) => {
                           }
                           // content={"Pastry"}
                           content={"Pastelería"}
+                          id="PasteleríaSide"
+                          htmlFor="PasteleríaSide"
                           // checked={categoriesFilter.Pastry}
                           checked={categoriesFilter.Pastelería}
                         />
@@ -690,6 +752,8 @@ const LeftSidebar = ({ onClose }) => {
                           }
                           // content={"Cruises Management"}
                           content={"Gestión de Cruceros"}
+                          id="GestióndeCrucerosSide"
+                          htmlFor="GestióndeCrucerosSide"
                           // checked={categoriesFilter.CruisesManagement}
                           checked={categoriesFilter["Gestión de Cruceros"]}
                         />
@@ -705,6 +769,8 @@ const LeftSidebar = ({ onClose }) => {
                           }
                           // content={"Oenology"}
                           content={"Enología"}
+                          id="EnologíaSide"
+                          htmlFor="EnologíaSide"
                           // checked={categoriesFilter.Oenology}
                           checked={categoriesFilter.Enología}
                         />
@@ -719,6 +785,8 @@ const LeftSidebar = ({ onClose }) => {
                             )}
                           // content={"Hospitality Management"}
                           content={"Dirección Hotelera"}
+                          id="DirecciónHoteleraSide"
+                          htmlFor="DirecciónHoteleraSide"
                           // checked={categoriesFilter.HospitalityManagement}
                           checked={categoriesFilter["Dirección Hotelera"]}
                         />
@@ -733,6 +801,8 @@ const LeftSidebar = ({ onClose }) => {
                             )}
                           // content={"Sales and Marketing"}
                           content={"Ventas Y Marketing"}
+                          id="VentasYMarketingSide"
+                          htmlFor="VentasYMarketingSide"
                           // checked={categoriesFilter.SalesAndMarketing}
                           checked={categoriesFilter["Ventas Y Marketing"]}
                         />
@@ -747,6 +817,8 @@ const LeftSidebar = ({ onClose }) => {
                             )}
                           // content={"Event Management"}
                           content={"Gestión de Eventos"}
+                          id="GestióndeEventosSide"
+                          htmlFor="GestióndeEventosSide"
                           // checked={categoriesFilter.EventManagement}
                           checked={categoriesFilter["Gestión de Eventos"]}
                         />
@@ -759,6 +831,8 @@ const LeftSidebar = ({ onClose }) => {
                               }
                             )}
                           content={"Revenue Management"}
+                          id="RevenueManagementSide"
+                          htmlFor="RevenueManagementSide"
                           checked={categoriesFilter["Revenue Management"]}
                         />
                         <CheckBox
@@ -772,6 +846,8 @@ const LeftSidebar = ({ onClose }) => {
                             )}
                           // content={"Reception"}
                           content={"Recepción"}
+                          id="RecepciónSide"
+                          htmlFor="RecepciónSide"
                           // checked={categoriesFilter.Reception}
                           checked={categoriesFilter.Recepción}
                         />
@@ -784,6 +860,8 @@ const LeftSidebar = ({ onClose }) => {
                               }
                             )}
                           content={"F&B"}
+                          id="F&BSide"
+                          htmlFor="F&BSide"
                           checked={categoriesFilter["F&B"]}
                         />
                         <CheckBox
@@ -792,6 +870,8 @@ const LeftSidebar = ({ onClose }) => {
                               { ...categoriesFilter, Spa: e.target.checked }
                             )}
                           content={"Spa"}
+                          id="SpaSide"
+                          htmlFor="SpaSide"
                           checked={categoriesFilter.Spa}
                         />
                         <CheckBox
@@ -805,6 +885,8 @@ const LeftSidebar = ({ onClose }) => {
                             )}
                           // content={"Tourism"}
                           content={"Turismo"}
+                          id="TurismoSide"
+                          htmlFor="TurismoSide"
                           // checked={categoriesFilter.Tourism}
                           checked={categoriesFilter.Turismo}
                         />
@@ -819,6 +901,8 @@ const LeftSidebar = ({ onClose }) => {
                             )}
                           // content={"Business Skills"}
                           content={"Habilidades Empresariales"}
+                          id="HabilidadesEmpresarialesSide"
+                          htmlFor="HabilidadesEmpresarialesSide"
                           // checked={categoriesFilter.BusinessSkills}
                           checked={categoriesFilter["Habilidades Empresariales"]}
                         />
@@ -832,6 +916,8 @@ const LeftSidebar = ({ onClose }) => {
                               }
                             )}
                           content={"Guía Turístico"}
+                          id="GuíaTurísticoSide"
+                          htmlFor="GuíaTurísticoSide"
                           checked={categoriesFilter["Guía Turístico"]}
                         />
 
@@ -844,6 +930,8 @@ const LeftSidebar = ({ onClose }) => {
                               }
                             )}
                           content={"Pisos"}
+                          id="PisosSide"
+                          htmlFor="PisosSide"
                           checked={categoriesFilter.Pisos}
                         />
 
@@ -856,6 +944,8 @@ const LeftSidebar = ({ onClose }) => {
                               }
                             )}
                           content={"Otros Categorías"}
+                          id="OtrosCategoriesSide"
+                          htmlFor="OtrosCategoriesSide"
                           checked={categoriesFilter.Otros}
                         />
 
