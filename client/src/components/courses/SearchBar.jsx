@@ -1,22 +1,30 @@
 import React, { useEffect, useState } from 'react'
 import Select from 'react-select'
 import { CiSearch } from "react-icons/ci";
-import { Flex, useEventListenerMap } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 import axios from 'axios'
 
 import LeftSidebar from "./LeftSidebar";
 import CSS from './SearchBar.module.css'
-import { FaArrowUpAZ } from 'react-icons/fa6';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { courseSearchAction } from '../../redux/actions/courseAdmin';
 
 const SearchBar = () => {
 
     const dispatch = useDispatch();
+
+    // action starts
+    const setFilteredCurrentPage = (page) => ({
+        type: 'SET_FILTERED_CURRENT_PAGE',
+        data: page,
+    });
+    // action ends
+
+
     const [isOpen, setIsOpen] = useState(false);
-    
     const [searchLimit, setSearchLimit] = useState(12);
-    const [searchPagesCount, setSearchPagesCount] = useState(1);
+    // const [searchPagesCount, setSearchPagesCount] = useState(1);
+    const filteredCurrentPageR = useSelector((state) => state.paginationReducer.filteredCurrentPage)
 
     const onClose = () => setIsOpen(false);
     const onOpen = () => setIsOpen(true);
@@ -32,7 +40,8 @@ const SearchBar = () => {
     const handleApplyFilter = async () => {
         const params = new URLSearchParams(AllFilter).toString();
         console.log(params);
-        dispatch(courseSearchAction(params,searchPagesCount,searchLimit)).then((response) => {
+        // dispatch(courseSearchAction(params, searchPagesCount, searchLimit)).then((response) => {
+        dispatch(courseSearchAction(params, filteredCurrentPageR, searchLimit)).then((response) => {
             if (response.success) {
                 console.log(response.data);
             } else {
@@ -45,14 +54,12 @@ const SearchBar = () => {
     const getCourseNames = async () => {
         try {
             const response = await axios.get(`${serverURL}/courses/allCompanies`);
-            console.log(response);
             if (response.data.success) {
                 CourseNames = response?.data?.result;
                 const courseNameOptions = CourseNames?.map((CourseName) => {
                     return { value: CourseName, label: CourseName }
                 })
                 setCourseCompany(courseNameOptions)
-                console.log('CourseNames', courseNameOptions);
             }
         } catch (err) {
             console.log(err);

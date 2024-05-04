@@ -1,28 +1,11 @@
 
 .mainContainer{
-    /* margin-top: 1rem; */
-    /* margin-left: 1rem; */
-    /* margin-right: 2.1rem; */
-    /* margin-bottom: 2rem; */
-    /* background-color: #FAF1EA; */
     padding-top: 1.5rem;
     padding-bottom: 1.5rem;
-    /* padding: 1.5rem; */
-    /* width: 72rem; */
 }
 
 
 .btnP{
-    /* width: 215px; */
-    /* height: 70px; */
-    /* width: 12vw;
-    height: 4vw;
-    border-radius:4vw;
-    background-color: #FFBA18; */
-    /* margin-top: 2vw;
-    margin-bottom: 4vw; */
-    /* margin-top: 0.5rem; */
-    /* margin-left: 0.1rem; */
     font-weight: 600;
     color: #ffffff;
     background-color: #E4B49D;
@@ -32,19 +15,19 @@
     padding-right: 1.5rem;
     padding-top: 0.2rem;
     padding-bottom: 0.2rem;
+    transition: #E4B49D 0.3s ease, color 0.3s ease, border 0.3s ease;
 }
 
-.btnF{
-    display: none;
-}
-
-.btnP:hover{
+.btnP:active{
     background-color: #ffffff;
     color: #C36C68;
     border: 3px solid #C36C68;
 }
 
 
+.btnF{
+    display: none;
+}
 @media (max-width:991px) {
     .mainContainer > div{
        flex-direction: column;

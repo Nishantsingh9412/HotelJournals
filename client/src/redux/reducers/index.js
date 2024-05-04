@@ -62,6 +62,7 @@ import updateRecProfileReducer from "./recruiterProfile/updateProfile";
 import AllPaginatedJobsReducer from './jobsReducers/AllPaginatedJobs';
 
 import recruiterImages from "./recruiterProfile/recruiterimage/RecruiterPic";
+import paginationReducer from "./paginate";
 
 export default combineReducers({
     authReducer,
@@ -120,7 +121,8 @@ export default combineReducers({
     setRecProfileReducer,
     getRecProfileReducer,
     updateRecProfileReducer,
-    recruiterImages
+    recruiterImages,
+    paginationReducer
 
 
 })

@@ -8,7 +8,7 @@ import {
   DrawerContent,
   DrawerCloseButton,
 } from "@chakra-ui/react";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import CheckBox from "./CheckBoxSmallScreens";
 import { courseFilterAction } from '../../redux/actions/courseAdmin';
@@ -18,12 +18,22 @@ const LeftSidebar = ({ onClose }) => {
   const btnRef = React.useRef();
   const dispatch = useDispatch();
 
+  // action starts
+  const setFilteredCurrentPage = (page) => ({
+    type: 'SET_FILTERED_CURRENT_PAGE',
+    data: page,
+  });
+  // action ends
+
+  
 
   // ------------------- pagination for filtered courses start -------------------------------------------
   const [filteredPaginatedCourses, setFilteredPaginatedCourses] = useState()
   const [filteredLimit, setFilteredLimit] = useState(12);
-  const [filteredPageCount, setFilteredPageCount] = useState(1);
-  const filteredCurrentPage = useRef()
+  // const [filteredPageCount, setFilteredPageCount] = useState(1);
+  // const filteredCurrentPage = useRef()
+  const filteredCurrentPageR = useSelector((state) => state.paginationReducer.filteredCurrentPage)
+  
   // ------------------- pagination for filtered courses end -------------------------------------------
 
 
@@ -204,11 +214,11 @@ const LeftSidebar = ({ onClose }) => {
     })
   }
 
-  const handlePageChangeForFilteredCourse = (e) => {
-    console.log(e);
-    filteredCurrentPage.current = e.selected + 1;
-    handleCoursesFilter();
-  }
+  // const handlePageChangeForFilteredCourse = (e) => {
+  //   console.log(e);
+  //   // filteredCurrentPage.current = e.selected + 1;
+  //   handleCoursesFilter();
+  // }
 
   const handleCoursesFilter = async () => {
     const params = new URLSearchParams({
@@ -222,14 +232,15 @@ const LeftSidebar = ({ onClose }) => {
     console.log("Params \n");
     console.log(params);
 
-    dispatch(courseFilterAction(params, filteredCurrentPage.current, filteredLimit)).then((res) => {
+    // dispatch(courseFilterAction(params, filteredCurrentPage.current, filteredLimit)).then((res) => {
+    dispatch(courseFilterAction(params, filteredCurrentPageR, filteredLimit)).then((res) => {
       if (res.success) {
-        console.log(res.data);
-        setFilteredPageCount(res.data.result.pageCount);
-        setFilteredPaginatedCourses(res.data.result.pageinatedData);
+        // console.log(res.data);
+        // setFilteredPageCount(res.data.result.pageCount);
+        // setFilteredPaginatedCourses(res.data.result.pageinatedData);
         // setShowFilteredCourse(!showFilteredCourse);
-      } else {
-        console.log(res.message);
+      // } else {
+      //   console.log(res.message);
       }
     }).catch((err) => {
       console.log('Error', err)
@@ -238,14 +249,15 @@ const LeftSidebar = ({ onClose }) => {
   }
 
   useEffect(() => {
-    filteredCurrentPage.current = 1;
+    // filteredCurrentPage.current = 1;
+    dispatch(setFilteredCurrentPage(1));
     handleCoursesFilter();
   }, [courseLangFilter,
     courseTypesFilter,
     categoriesFilter,
     courseValueFilter,
     locationTypeFilter,
-    filteredCurrentPage,
+    // filteredCurrentPage,
     filteredLimit
   ])
 
@@ -277,12 +289,12 @@ const LeftSidebar = ({ onClose }) => {
                       onClick={handleClearAllFilters}
                     >
                       <div
-                          style={{
-                            display:'flex',
-                            marginLeft:'2rem',
-                            marginTop:'0.4rem',
-                            gap:'0.2rem',
-                          }}
+                        style={{
+                          display: 'flex',
+                          marginLeft: '2rem',
+                          marginTop: '0.4rem',
+                          gap: '0.2rem',
+                        }}
                       >
                         <p>
                           {/* Clear All */}

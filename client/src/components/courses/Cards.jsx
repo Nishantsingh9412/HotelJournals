@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { IoIosCloseCircle, IoMdTime } from 'react-icons/io';
 import { FaArrowUpRightDots } from 'react-icons/fa6';
+import PuffLoader from 'react-spinners/PuffLoader';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import ReactPaginate from 'react-paginate';
@@ -17,7 +18,7 @@ const cardImageStyle = {
 
 const Cards = ({ filter }) => {
     const dispatch = useDispatch();
-
+    const [loading,setLoading] = useState(true)
 
     // const [currentPage, setCurrentPage] = useState(2);
     // ------------------- pagination for all course start -----------------------------------
@@ -30,20 +31,31 @@ const Cards = ({ filter }) => {
 
 
     // ------------------- pagination for filtered courses start -------------------------------------------
+    // action starts
+    const setFilteredCurrentPage = (page) => ({
+        type: 'SET_FILTERED_CURRENT_PAGE',
+        data: page,
+    });
+    // action ends
+
     const [filteredPaginatedCourses, setFilteredPaginatedCourses] = useState()
     const [filteredLimit, setFilteredLimit] = useState(12);
     const [filteredPageCount, setFilteredPageCount] = useState(1);
-    const filteredCurrentPage = useRef()
+    // const filteredCurrentPage = useRef()
+    const filteredCurrentPageR = useSelector((state) => state.paginationReducer.filteredCurrentPage)
+    console.log('Filtered Current Page \n');
+    console.log(filteredCurrentPageR);
     // ------------------- pagination for filtered courses end -------------------------------------------
 
 
-    const filteredCoursesReducer = useSelector((state) => state.getCoursesReducer)
+    const filteredCoursesReducer = useSelector((state) => state.getCoursesReducer.courses)
     console.log('Filtered Courses ------------------------------------------------ \n')
     console.log(filteredCoursesReducer);
 
     useEffect(() => {
         setFilteredPaginatedCourses(filteredCoursesReducer?.result?.pageinatedData)
         setFilteredPageCount(filteredCoursesReducer?.result?.pageCount)
+        setLoading(false)
     }, [filteredCoursesReducer])
 
     const [courseValueFilter, setCourseValueFilter] = useState({
@@ -236,8 +248,9 @@ const Cards = ({ filter }) => {
 
     const handlePageChangeForFilteredCourse = (e) => {
         console.log(e);
-        filteredCurrentPage.current = e.selected + 1;
-        handleCoursesFilter();
+        // filteredCurrentPage.current = e.selected + 1;
+        dispatch(setFilteredCurrentPage(e.selected + 1))
+        // handleCoursesFilter();
     }
 
     const handleCoursesFilter = async () => {
@@ -252,7 +265,8 @@ const Cards = ({ filter }) => {
         // console.log("Params \n");
         // console.log(params);
 
-        dispatch(courseFilterAction(params, filteredCurrentPage.current, filteredLimit)).then((res) => {
+        // dispatch(courseFilterAction(params, filteredCurrentPage.current, filteredLimit)).then((res) => {
+        dispatch(courseFilterAction(params, filteredCurrentPageR, filteredLimit)).then((res) => {
             if (res.success) {
                 console.log(res.data);
                 // setFilteredPageCount(res.data.result.pageCount);
@@ -268,14 +282,15 @@ const Cards = ({ filter }) => {
     }
 
     useEffect(() => {
-        filteredCurrentPage.current = 1;
+        // filteredCurrentPage.current = 1;
+        dispatch(setFilteredCurrentPage(1))
         handleCoursesFilter();
     }, [courseLangFilter,
         courseTypesFilter,
         categoriesFilter,
         courseValueFilter,
         locationTypeFilter,
-        filteredCurrentPage,
+        // filteredCurrentPage,
         filteredLimit
     ])
 
@@ -931,85 +946,100 @@ const Cards = ({ filter }) => {
                     </div> : null
                 }
                 {
-                    (filteredPaginatedCourses?.length !== 0) ? (
-                        <div className="container mt-5 col">
-                            <div className={CSS.cardContainer} >
-                                {(filteredPaginatedCourses)?.map((course, index) => (
-                                    <Link to={`/courses/${course._id}`}
-                                        style={{ textDecoration: 'none' }}
-                                    >
-                                        <div className={CSS.courseCards} key={course._id} style={{ minWidth: "" }}>
-                                            <div className="card" style={{ border: '1px solid #E4B49D' }}>
-                                                <img className="card-img-top" src={`${course.banner_image}`} alt="CardImageCap" style={cardImageStyle} />
-                                                {course.isFree &&
-                                                    <span style={{
-                                                        position: 'absolute',
-                                                        top: '10px',
-                                                        right: '-5px',
-                                                        backgroundColor: '#15803d',
-                                                        color: 'white',
-                                                        padding: '5px 20px',
-                                                        borderRadius: '5px',
-                                                        textAlign: 'right'
-                                                    }}>
-                                                        {/* Free */}
-                                                        Gratis
-                                                    </span>
-                                                }
-                                                <div className="card-body" style={{ padding: "10px" }}>
-                                                    <div style={{ minHeight: "11rem", overflow: "hidden", wordBreak: 'break-all' }}>
-                                                        <h6 className="card-title" style={{ fontWeight: 'bold' }}>
-                                                            {course.title}
-                                                        </h6>
+                    loading ? (
 
-                                                        <p className="card-text" style={{ opacity: 0.9, fontSize: "16px!important" }}>
-
-                                                            {course.description.substr(0, 150)}...
-                                                        </p>
-                                                    </div>
-
-                                                    <div className="row mt-1">
-                                                        <p className="card-text ml-3" style={{ opacity: 0.8 }}>
-                                                            <IoMdTime /> <small> {course.duration} </small>
-                                                        </p>
-                                                        <p className="card-text ml-auto mr-3" style={{ opacity: 0.8 }}>
-                                                            <FaArrowUpRightDots /> <small> {course.difficulty} </small>
-                                                        </p>
-                                                    </div>
-                                                    <Link to={`/courses/${course._id}`} >
-                                                        <button className=" btn w-100" style={{ background: '#E4B49D', fontWeight: 600 }}>
-                                                            Enroll Now
-                                                        </button>
-                                                    </Link>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </Link>
-                                ))}
-                            </div>
+                        <div style={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            height: '100vh',
+                            width:'60%'
+                        }}>
+                            <PuffLoader
+                                color="red"
+                                size={70}
+                            />
                         </div>
                     ) :
-                        (
 
-                            <div
-                                style={{
-                                    display: 'flex',
-                                    flexDirection: 'column',
-                                    justifyContent: 'center',
-                                    alignItems: 'center',
-                                    height: '100vh',
-                                    width: 'auto'
-                                }}>
-                                <img
-                                    src="https://res.cloudinary.com/dwahql1jy/image/upload/v1714651338/No_Course_Found_cil1gt.gif"
-                                    alt="No Courses Found"
-                                />
-                                <h1 className="text-center mt-5" style={{ opacity: '0.7' }}>
-                                    {/* No Courses Found */}
-                                    No se encontraron cursos
-                                </h1>
+                        (filteredPaginatedCourses?.length !== 0) ? (
+                            <div className="container mt-5 col">
+                                <div className={CSS.cardContainer} >
+                                    {(filteredPaginatedCourses)?.map((course, index) => (
+                                        <Link to={`/courses/${course._id}`}
+                                            style={{ textDecoration: 'none' }}
+                                        >
+                                            <div className={CSS.courseCards} key={course._id} style={{ minWidth: "" }}>
+                                                <div className="card" style={{ border: '1px solid #E4B49D' }}>
+                                                    <img className="card-img-top" src={`${course.banner_image}`} alt="CardImageCap" style={cardImageStyle} />
+                                                    {course.isFree &&
+                                                        <span style={{
+                                                            position: 'absolute',
+                                                            top: '10px',
+                                                            right: '-5px',
+                                                            backgroundColor: '#15803d',
+                                                            color: 'white',
+                                                            padding: '5px 20px',
+                                                            borderRadius: '5px',
+                                                            textAlign: 'right'
+                                                        }}>
+                                                            {/* Free */}
+                                                            Gratis
+                                                        </span>
+                                                    }
+                                                    <div className="card-body" style={{ padding: "10px" }}>
+                                                        <div style={{ minHeight: "11rem", overflow: "hidden", wordBreak: 'break-all' }}>
+                                                            <h6 className="card-title" style={{ fontWeight: 'bold' }}>
+                                                                {course.title}
+                                                            </h6>
+
+                                                            <p className="card-text" style={{ opacity: 0.9, fontSize: "16px!important" }}>
+
+                                                                {course.description.substr(0, 150)}...
+                                                            </p>
+                                                        </div>
+
+                                                        <div className="row mt-1">
+                                                            <p className="card-text ml-3" style={{ opacity: 0.8 }}>
+                                                                <IoMdTime /> <small> {course.duration} </small>
+                                                            </p>
+                                                            <p className="card-text ml-auto mr-3" style={{ opacity: 0.8 }}>
+                                                                <FaArrowUpRightDots /> <small> {course.difficulty} </small>
+                                                            </p>
+                                                        </div>
+                                                        <Link to={`/courses/${course._id}`} >
+                                                            <button className=" btn w-100" style={{ background: '#E4B49D', fontWeight: 600 }}>
+                                                                Enroll Now
+                                                            </button>
+                                                        </Link>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </Link>
+                                    ))}
+                                </div>
                             </div>
-                        )
+                        ) :
+                            (
+                                <div
+                                    style={{
+                                        display: 'flex',
+                                        flexDirection: 'column',
+                                        justifyContent: 'center',
+                                        alignItems: 'center',
+                                        height: '100vh',
+                                        width: 'auto'
+                                    }}>
+                                    <img
+                                        src="https://res.cloudinary.com/dwahql1jy/image/upload/v1714651338/No_Course_Found_cil1gt.gif"
+                                        alt="No Courses Found"
+                                    />
+                                    <h1 className="text-center mt-5" style={{ opacity: '0.7' }}>
+                                        {/* No Courses Found */}
+                                        No se encontraron cursos
+                                    </h1>
+                                </div>
+                            )
                 }
 
             </div>
@@ -1025,6 +1055,7 @@ const Cards = ({ filter }) => {
                     nextLabel="Siguiente >"
                     onPageChange={handlePageChangeForFilteredCourse}
                     pageRangeDisplayed={5}
+                    // pageCount={filteredPageCount}
                     pageCount={filteredPageCount}
                     // previousLabel="< previous"
                     previousLabel="< Anterior"
@@ -1038,7 +1069,7 @@ const Cards = ({ filter }) => {
                     nextClassName='page-item'
                     nextLinkClassName='page-link'
                     activeClassName='active'
-                    forcePage={filteredCurrentPage.current - 1}
+                    forcePage={filteredCurrentPageR - 1}
                 />
             </div>
         </div>
