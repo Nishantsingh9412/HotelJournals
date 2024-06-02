@@ -1,15 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import { FaEye, FaUserCheck, FaUserTimes } from 'react-icons/fa';
 import { FaTelegramPlane } from "react-icons/fa";
 // Toast
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-// React Bootstrap
-import Card from 'react-bootstrap/Card';
-import ListGroup from 'react-bootstrap/ListGroup';
-import Image from 'react-bootstrap/Image';
-import { Col, Row } from 'react-bootstrap';
-import { Table } from 'react-bootstrap';
 import {
     Drawer,
     DrawerBody,
@@ -20,7 +13,6 @@ import {
     DrawerCloseButton,
     useDisclosure,
     Button,
-    Heading,
 } from '@chakra-ui/react'
 
 import { Modal, Button as ButtonBoots } from 'react-bootstrap';
@@ -45,11 +37,11 @@ import {
     // getRejectedCandidatesAction,
     // notOfferedCandidatesAction
 } from '../../redux/actions/jobsAdmin';
-import { fetchAllUsers } from '../../redux/actions/users';
-import ProfilePic from '../User_profile/ProfilePic';
+// import { fetchAllUsers } from '../../redux/actions/users';
+// import ProfilePic from '../User_profile/ProfilePic';
 import SideDrawerProfile from './SideDrawerProfile';
 import { sendMailAction } from '../../redux/actions/mail';
-import SideBar from '../../components/admin/RecruiterDashboard/Sidebar/SideBar';
+// import SideBar from '../../components/admin/RecruiterDashboard/Sidebar/SideBar';
 import RecruiterSidebarFinal from '../Miscellaneous/RecruiterSidebarFinal';
 import './ManageParticularJob.css'
 
@@ -299,7 +291,11 @@ function SizeExample(props) {
                 <DrawerOverlay />
                 <DrawerContent>
                     <DrawerCloseButton />
-                    <DrawerHeader>{props?.fname}</DrawerHeader>
+                    <DrawerHeader
+                        textAlign={'center'}
+                    > 
+                        User Details
+                    </DrawerHeader>
                     <DrawerBody>
                         <SideDrawerProfile
                             id={props?.id}
@@ -464,7 +460,8 @@ function UserEmailModal(props) {
                                     className="form-control"
                                     value={OneAndOnlyOneApplicant?.email}
                                     disabled={true}
-                                    placeholder="Enter email"
+                                    // placeholder="Enter email"
+                                    placeholder=''
                                 />
                             </div>
                             <div>
@@ -477,7 +474,8 @@ function UserEmailModal(props) {
                                     type='text'
                                     className="form-control"
                                     onChange={(e) => setSubject(e.target.value)}
-                                    placeholder="Enter Subject"
+                                    // placeholder="Enter Subject"
+                                    placeholder='Introducir asunto'
                                 />
                             </div>
                             <div>

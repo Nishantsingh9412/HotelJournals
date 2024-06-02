@@ -466,7 +466,7 @@ const CreateJobs = () => {
           <div className='mt-2 p-5'>
             <ToastContainer />
             <form onSubmit={handleSubmit}>
-              <div className='form-row '>
+              <div className='form-row'>
 
                 <div className='col-md-4'>
                   <label htmlFor="job_title">
@@ -590,7 +590,7 @@ const CreateJobs = () => {
                   </select>
                 </div>
 
-                <div className='col-md-2'>
+                <div className='col-md-4'>
                   <label htmlFor="jobType"> Job Type  <small className='text-danger'> * </small> </label>
                   <select className='form-control' onChange={(e) => setJobType(e.target.value)}>
                     {/* <option value="">Select</option> */}
@@ -721,10 +721,6 @@ const CreateJobs = () => {
                   />
                 </div>
 
-
-              </div>
-
-              <div className="form-row mt-4">
                 <div className='col-md-4'>
                   {/* lets add date and time picker here */}
                   <label htmlFor="jobPostedDate"  >
@@ -740,7 +736,7 @@ const CreateJobs = () => {
 
                   />
 
-                  <div className='mt-3'>
+                  <div className='mt-3 d-flex' style={{gap:'10px'}}>
                     <input type='checkbox' id='isImmediate' className='pt-2' onClick={() => setDisableJoiningDate(prevState => !prevState)} onChange={() => setIsImmediate(true)} style={{ transform: 'scale(1.6)' }} />
                     <label htmlFor='isImmediate' className='ml-1 ' >
                       {/* Immediate Joining (Onboard within 30 days) */}
@@ -748,26 +744,27 @@ const CreateJobs = () => {
                     </label>
                   </div>
                 </div>
+
+
               </div>
 
-
-              <div className='row'>
-                <div className="col-md-6 mt-4 pl-0">
+              <div className='form-row'>
+                <div className="col-md-4 mt-4 pl-0">
                   <label htmlFor="work_exp">
                     {/* Work Experience (Years) */}
                     Experiencia Laboral (Años)
                     <small className='text-danger'>*</small>
                   </label>
                   <div className='row'>
-                    <div className='col-md-4'>
+                    <div className='col-md-6'>
                       <label htmlFor="minExperience">
                         {/* Minimum */}
                         Mínimo
                       </label>
                       <input type='number' className='form-control' placeholder='0' min='0' max='20' onChange={(e) => setMinWorkExp(parseInt(e.target.value))} />
-                    </div>
+                    </div> 
 
-                    <div className='col-md-4'>
+                    <div className='col-md-6'>
                       <label htmlFor="maxExperience">
                         {/* Maximum */}
                         Máximo
@@ -777,7 +774,7 @@ const CreateJobs = () => {
                   </div>
                 </div>
 
-                <div className="col-md-6 mt-4 pl-0">
+                <div className="col-md-8 mt-4 pl-0">
                   <label htmlFor="salary">
                     {/* Salary Range (Annual) */}
                     Rango Salarial (Anual)
@@ -800,12 +797,12 @@ const CreateJobs = () => {
                       <input type='number' className='form-control' placeholder='100' min='0' onChange={(e) => setMaxSalary(parseInt(e.target.value))} />
                     </div>
 
-                    <div className='col-md-2'>
+                    <div className='col-md-4'>
                       <label htmlFor="currency">
                         {/* Currency */}
                         Moneda
                       </label>
-                      <select className='form-control mt-2' onChange={(e) => setSalaryCurrency(e.target.value)}>
+                      <select className='form-control' onChange={(e) => setSalaryCurrency(e.target.value)}>
                         <option value="">
                           {/* Select */}
                           Seleccionar
@@ -844,7 +841,7 @@ const CreateJobs = () => {
                 </div>
               </div>
 
-              <div className='form-row'>
+              <div className='form-row mt-4'>
                 <div className='col-md-4'>
                   <label htmlFor="no_of_ops">
                     {/* No of Openings */}
@@ -856,7 +853,7 @@ const CreateJobs = () => {
                   <label htmlFor="extra_benifits"> Extra Benifits </label>
                   <Select options={extraBenifits} isMulti onChange={(selectedOps) => setExtraBenifitsVal(selectedOps.map(option => option.value))} />
                 </div> */}
-                <div className='col-md-6'>
+                <div className='col-md-8'>
                   {/* Left Jodit Editor  */}
                   <label htmlFor="jobDesc">
                     {/* Job Decription */}

@@ -124,7 +124,8 @@ const ManageAllJobs = () => {
                                 className="btn btn-sm btn-block w-50"
                                 style={{ backgroundColor: '#E4B49D' }}
                             >
-                                Job
+                                {/* Job */}
+                                Empleo
                             </button>
                         </a>
                         <button
@@ -258,32 +259,36 @@ const ManageAllJobs = () => {
         {
             id: 1,
             field: 'jobTitle',
-            label: 'Job Title',
+            // label: 'Job Title',
+            label: 'Puesto',
             cellRenderer: FnameCell
         },
         {
             id: 2,
             field: 'isVerifiedJob',
-            label: 'Status',
+            // label: 'Status',
+            label: 'Estatus',
             cellRenderer: VerifiedCell,
         },
         {
             id: 3,
             field: 'ComapnyName',
-            label: 'Company Name',
+            // label: 'Company Name',
+            label: 'Compañía',
             cellRenderer: CompanyNameCell
         },
         {
             id: 4,
             field: 'actionStatus',
-            label: 'Action / Status',
+            // label: 'Action / Status',
+            label: 'Acción / Estatus',
             cellRenderer: IconCell
-
         },
         {
             id: 5,
             field: 'view',
-            label: 'View',
+            // label: 'View',
+            label: 'Vista',
             width: '350px',
             cellRenderer: ViewCell
         },

@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-import { easeIn, easeInOut, motion } from "framer-motion";
+// import { easeIn, easeInOut, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import { Link } from 'react-router-dom'
 
 import courseImage from '../../assets/img/courses_large.png'
@@ -11,7 +12,8 @@ import testimonialImg3 from '../../assets/img/testimonials/stephania_testimonial
 import testimonialImg4 from '../../assets/img/testimonials/rita_medina.jpeg'
 import pinkimg from "../../assets/img/aboutme_lannding_page.png";
 
-import jobGraphImg from '../../assets/img/career_gif_landing_page.gif'
+// import jobGraphImg from '../../assets/img/career_gif_landing_page.gif'
+import jobGraphImg from '../../assets/img/career-gif-landing-page-unscreen.gif'
 
 
 import bestbokkimg from "../../assets/img/book7.jpg";
@@ -20,13 +22,13 @@ import bookimg3 from '../../assets/img/book_large.png'
 import bookimg4 from '../../assets/img/book6.jpg'
 import bookimg5 from '../../assets/img/front_office3.jpg'
 
-import careerImg from '../../assets/img/jobs_landing_page_main.png'
+// import careerImg from '../../assets/img/jobs_landing_page_main.png'
 
 
 
-import circleimg from "../../assets/hotaljournalimg/circleimg.png";
-import userimg1 from "../../assets/hotaljournalimg/testmonial/img1.avif";
-import userimg2 from "../../assets/hotaljournalimg/testmonial/img2.jpg";
+// import circleimg from "../../assets/hotaljournalimg/circleimg.png";
+// import userimg1 from "../../assets/hotaljournalimg/testmonial/img1.avif";
+// import userimg2 from "../../assets/hotaljournalimg/testmonial/img2.jpg";
 import courseimg1 from "../../assets/hotaljournalimg/course_img/img1.avif";
 import courseimg2 from "../../assets/hotaljournalimg/course_img/img2.avif";
 import courseimg3 from "../../assets/hotaljournalimg/course_img/img3.avif";
@@ -279,7 +281,8 @@ const HotelLandingpage = () => {
         <div className={styles.firstSection}>
           <div className={styles.firstSectionleft}>
             <h1 data-aos="fade-up"  >
-              Expand your knowledge with
+              {/* Expand your knowledge with */}
+              Amplía tus conocimientos con
               <h1
                 style={{ color: "#e4b49d", marginTop: '1vw' }}
               >
@@ -293,7 +296,7 @@ const HotelLandingpage = () => {
               or to continue opening the best doors into the future.
             </p> */}
             <p data-aos="fade-up" data-aos-delay="300" >
-              Amplía tus conocimientos con Hotel Journals.
+
               Encuentra los mejores estudios de hotelería y turismo que necesitas
               para seguir creciendo profesionalmente dentro del sector.
               Encontrarás cursos para iniciar tu carrera en el sector.
@@ -348,10 +351,17 @@ const HotelLandingpage = () => {
         <div className={styles.feauturecontainer}>
           <div className={styles.feautureheading}>
             <h1 data-aos="fade-right" data-aos-delay="300">
-              Explore featured <br />courses
+              Explorar destacados
+              {/* Explore featured  */}
+              <br />
+              {/* courses */}
+              cursos
             </h1>
             <Link to={'/courses'} style={{ textDecoration: 'none', color: 'black', fontWeight: '700' }}>
-              <h1 data-aos="fade-left" >view all</h1>
+              <h1 data-aos="fade-left" >
+                {/* view all */}
+                ver todo
+              </h1>
             </Link>
             <div data-aos="fade-right" duration="3000" data-aos-delay="350" className={styles.featurecircle}></div>
 
@@ -425,11 +435,11 @@ const HotelLandingpage = () => {
 
           </div> */}
 
-          <div className='col-md-6' >
-            <img src={jobGraphImg} alt="career-img" className="img-responsive mt-3" />
+          <div className={styles.tailentcontainerrightright}>
+            <div className='col-md-6 ml-5' >
+              <img src={jobGraphImg} alt="career-img" className="img-responsive mt-3" />
+            </div>
           </div>
-
-
           {/* 
           <div> 
               <img src={careerImg} 

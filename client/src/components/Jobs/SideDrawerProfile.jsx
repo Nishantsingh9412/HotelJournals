@@ -4,10 +4,8 @@ import { BiPhone } from 'react-icons/bi';
 import { CiLocationOn } from 'react-icons/ci';
 import { IoLocationOutline } from "react-icons/io5";
 import { LiaBirthdayCakeSolid } from "react-icons/lia";
-import { Image as ImageChakra } from '@chakra-ui/react'
 
-
-import { fetchAllUsers } from '../../redux/actions/users';
+import {  fetchSingleUser } from '../../redux/actions/users';
 // import pdfFileImp from './Resume_Nishant_Singh_(2).pdf'
 import { getUserCVAction } from '../../redux/actions/userProfile/userCV';
 
@@ -31,11 +29,6 @@ const SideDrawerProfile = (props) => {
 
 
     const dispatch = useDispatch();
-    const users = useSelector((state) => state.usersReducer)
-    const currentUser = users?.allUserDetails?.filter((user) => user._id === id)[0];
-    console.log("this is current user")
-    console.log(currentUser);
-
 
     console.log("this is from profile pic ")
     const allEducationExperiencesReducer = useSelector(state => state.getEducationReducer);
@@ -43,9 +36,12 @@ const SideDrawerProfile = (props) => {
     const recentEducation = allEducationExperiences?.sort((a, b) => new Date(b.start_date) - new Date(a.start_date))[0];
     // console.log(recentEducation?.degree)
 
+    const singleUserProfileReducer = useSelector((state) => state.singleUserReducer);
+    const singleUserProfile = singleUserProfileReducer?.data?.result;
+    console.log(singleUserProfile);
 
     useEffect(() => {
-        dispatch(fetchAllUsers());
+        dispatch(fetchSingleUser(id))
     }, [dispatch])
 
     useEffect(() => {
@@ -77,26 +73,14 @@ const SideDrawerProfile = (props) => {
             {/* upper Card component */}
             <div className='container mt-4' >
                 {/* Basic  Section */}
-                <div class="card" style=
-                    {{
-                        // boxShadow: '14px 10px 20px 3px #d3beae',
-                        // borderRadius: '25px 25px 25px 25px'
-                    }}
-                >
+                <div class="card" >
                     <div class="card-body d-flex">
                         <div className='col-md-2'>
-                            {/* <img src={props?.pic} className='img-responsive rounded-circle mt-4' alt="userpic" /> */}
                             <img src={props?.pic} className='img-responsive rounded-circle mt-4' alt="userpic" />
-                            {/* <ImageChakra */}
-                                {/* borderRadius='full' */}
-                                {/* boxSize='200px' */}
-                                {/* src={props?.pic} */}
-                                {/* alt='user-image' */}
-                            {/* /> */}
                         </div>
                         <div className='col-md-10'>
                             <div>
-                                <h2 class="card-title " >{currentUser?.fname} {currentUser?.lname}</h2>
+                                <h2 class="card-title " >{singleUserProfile?.fname} {singleUserProfile?.lname}</h2>
                                 <p class="card-text p-0 m-0">{recentEducation?.degree}</p>
                                 <p class="card-text p-0 m-0">{recentEducation?.school}</p>
                                 <hr style={{ width: '100%' }} />
@@ -109,7 +93,7 @@ const SideDrawerProfile = (props) => {
                                                 <LiaBirthdayCakeSolid />
                                             </p>
                                             <p class="card-text p-0 m-0">
-                                                29/07/2001 (Static)
+                                                {singleUserProfile && singleUserProfile?.dob ? singleUserProfile.dob : "No mencionada"}
                                             </p>
                                         </div>
 
@@ -118,7 +102,8 @@ const SideDrawerProfile = (props) => {
                                                 <CiLocationOn />
                                             </p>
                                             <p class="card-text p-0 m-0">
-                                                Kanpur (Static)
+                                                
+                                               {singleUserProfile && singleUserProfile?.location ? singleUserProfile.location : "No mencionada"}
                                             </p>
                                         </div>
                                     </div>
@@ -128,7 +113,7 @@ const SideDrawerProfile = (props) => {
                                                 <BiPhone />
                                             </p>
                                             <p class="card-text p-0 m-0">
-                                                {currentUser?.country_code} {currentUser?.phone}
+                                               +{singleUserProfile?.country_code} {singleUserProfile?.phone}
                                             </p>
                                         </div>
 
@@ -137,7 +122,7 @@ const SideDrawerProfile = (props) => {
                                                 <IoLocationOutline />
                                             </p>
                                             <p class="card-text p-0 m-0">
-                                                {currentUser?.email}
+                                                {singleUserProfile?.email}
                                             </p>
                                         </div>
                                     </div>
