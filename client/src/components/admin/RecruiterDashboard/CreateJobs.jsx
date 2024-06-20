@@ -591,7 +591,10 @@ const CreateJobs = () => {
                 </div>
 
                 <div className='col-md-4'>
-                  <label htmlFor="jobType"> Job Type  <small className='text-danger'> * </small> </label>
+                  <label htmlFor="jobType">
+                    {/* Job Type */}
+                    Tipo de empleo
+                    <small className='text-danger'> * </small> </label>
                   <select className='form-control' onChange={(e) => setJobType(e.target.value)}>
                     {/* <option value="">Select</option> */}
                     {/* <option value="Remote"> Remote </option> */}
@@ -713,7 +716,10 @@ const CreateJobs = () => {
                 <div className='col-md-4'>
                   {/* Multiselect */}
 
-                  <label htmlFor="optional_skills"> Optional Skills </label>
+                  <label htmlFor="optional_skills">
+                    {/* Optional Skills */}
+                    Habilidades Opcionales
+                  </label>
                   <Select
                     options={skills.filter((skill) => !mandatorySkills.includes(skill.value))}
                     isMulti
@@ -736,7 +742,7 @@ const CreateJobs = () => {
 
                   />
 
-                  <div className='mt-3 d-flex' style={{gap:'10px'}}>
+                  <div className='mt-3 d-flex' style={{ gap: '10px' }}>
                     <input type='checkbox' id='isImmediate' className='pt-2' onClick={() => setDisableJoiningDate(prevState => !prevState)} onChange={() => setIsImmediate(true)} style={{ transform: 'scale(1.6)' }} />
                     <label htmlFor='isImmediate' className='ml-1 ' >
                       {/* Immediate Joining (Onboard within 30 days) */}
@@ -762,7 +768,7 @@ const CreateJobs = () => {
                         Mínimo
                       </label>
                       <input type='number' className='form-control' placeholder='0' min='0' max='20' onChange={(e) => setMinWorkExp(parseInt(e.target.value))} />
-                    </div> 
+                    </div>
 
                     <div className='col-md-6'>
                       <label htmlFor="maxExperience">

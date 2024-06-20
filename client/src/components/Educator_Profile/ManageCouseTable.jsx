@@ -193,7 +193,7 @@ const ManageCouseTable = () => {
     const ShowApplicantsTable = () => {
         return (
             <div className='container mt-2' >
-                <GridTable columns={columns} rows={MyCourse} />
+                <GridTable columns={columns} rows={MyCourse} texts={{columnVisibility:'Columnas'}} />
             </div>
         );
     };

@@ -195,51 +195,97 @@ const UpdateJobForm = () => {
     // }));
 
 
+
     const skills = [
-        { value: 'Administrative Skills', label: 'Administrative Skills' },
-        { value: 'Attention to Detail', label: 'Attention to Detail' },
-        { value: 'Bartending Skills', label: 'Bartending Skills' },
-        { value: 'Budgeting', label: 'Budgeting' },
-        { value: 'Cash Handling', label: 'Cash Handling' },
+        { value: 'Administración de Suministros', label: 'Administración de Suministros' },
+        { value: 'Administrativas', label: 'Administrativas' },
+        { value: 'Árabe', label: 'Árabe' },
+        { value: 'Alemán', label: 'Alemán' },
+        { value: 'Análisis de Datos', label: 'Análisis de Datos' },
+        { value: 'Análisis Financiero', label: 'Análisis Financiero' },
+        { value: 'Atención al detalle', label: 'Atención al detalle' },
+        { value: 'Bartending', label: 'Bartending' },
+        { value: 'Buenas Relaciones con Empleados', label: 'Buenas Relaciones con Empleados' },
+        { value: 'Catalán', label: 'Catalán' },
+        { value: 'Checo', label: 'Checo' },
         { value: 'Cleaning Techniques', label: 'Cleaning Techniques' },
         { value: 'Client Relationship Management', label: 'Client Relationship Management' },
         { value: 'Communication Skills', label: 'Communication Skills' },
+        { value: 'Conocimiento de Contratación', label: 'Conocimiento de Contratación' },
+        { value: 'Conocimiento de Destinos', label: 'Conocimiento de Destinos' },
+        { value: 'Conocimiento de Inventario', label: 'Conocimiento de Inventario' },
+        { value: 'Conocimiento de Menú', label: 'Conocimiento de Menú' },
+        { value: 'Conocimiento Offices', label: 'Conocimiento Offices' },
+        { value: 'Conocimiento PMS', label: 'Conocimiento PMS' },
         { value: 'Contract Management', label: 'Contract Management' },
-        { value: 'Culinary Skills', label: 'Culinary Skills' },
+        { value: 'Creación de Menú', label: 'Creación de Menú' },
         { value: 'Customer Service', label: 'Customer Service' },
         { value: 'Data Analysis', label: 'Data Analysis' },
         { value: 'Decision-Making', label: 'Decision-Making' },
-        { value: 'Destination Knowledge', label: 'Destination Knowledge' },
-        { value: 'Employee Relations', label: 'Employee Relations' },
+        { value: 'Dirección de Pisos', label: 'Dirección de Pisos' },
+        { value: 'Dirección de Reservas', label: 'Dirección de Reservas' },
+        { value: 'Documentos Financieros', label: 'Documentos Financieros' },
+        { value: 'Estrategía de Marketing', label: 'Estrategía de Marketing' },
+        { value: 'Estudio Curso Profesional', label: 'Estudio Curso Profesional' },
+        { value: 'Estudio de Máster', label: 'Estudio de Máster' },
+        { value: 'Español', label: 'Español' },
+        { value: 'Estudio Universitario', label: 'Estudio Universitario' },
         { value: 'Event Planning', label: 'Event Planning' },
         { value: 'Financial Analysis', label: 'Financial Analysis' },
         { value: 'Financial Reporting', label: 'Financial Reporting' },
+        { value: 'Formación y Desarrollo', label: 'Formación y Desarrollo' },
+        { value: 'FP', label: 'FP' },
+        { value: 'Francés', label: 'Francés' },
         { value: 'Front Office Operations', label: 'Front Office Operations' },
+        { value: 'Gestión de Rendimiento', label: 'Gestión de Rendimiento' },
+        { value: 'Habilidades Comunicativas', label: 'Habilidades Comunicativas' },
+        { value: 'Habilidades Culinarias', label: 'Habilidades Culinarias' },
+        { value: 'Habilidades de Escritura', label: 'Habilidades de Escritura' },
+        { value: 'Habilidades para Negociar', label: 'Habilidades para Negociar' },
+        { value: 'Habilidades Técnicas', label: 'Habilidades Técnicas' },
         { value: 'HR Policies and Procedures', label: 'HR Policies and Procedures' },
-        { value: 'Housekeeping Management', label: 'Housekeeping Management' },
-        { value: 'Inventory Management', label: 'Inventory Management' },
-        { value: 'Leadership', label: 'Leadership' },
+        { value: 'Inglés', label: 'Inglés' },
+        { value: 'Investigación de mercados', label: 'Investigación de mercados' },
+        { value: 'Italiano', label: 'Italiano' },
+        { value: 'Japonés', label: 'Japonés' },
+        { value: 'Liderazgo', label: 'Liderazgo' },
+        { value: 'Mandarín', label: 'Mandarín' },
+        { value: 'Manejo del Tiempo', label: 'Manejo del Tiempo' },
         { value: 'Market Research', label: 'Market Research' },
         { value: 'Marketing Strategy', label: 'Marketing Strategy' },
-        { value: 'Menu Knowledge', label: 'Menu Knowledge' },
-        { value: 'Menu Planning', label: 'Menu Planning' },
         { value: 'Negotiation Skills', label: 'Negotiation Skills' },
+        { value: 'Operaciones de Front Office', label: 'Operaciones de Front Office' },
+        { value: 'Operaciones de Restauración', label: 'Operaciones de Restauración' },
         { value: 'Order Taking', label: 'Order Taking' },
-        { value: 'Organization', label: 'Organization' },
+        { value: 'Organización', label: 'Organización' },
+        { value: 'Otro Idioma', label: 'Otro Idioma' },
         { value: 'Performance Management', label: 'Performance Management' },
+        { value: 'Plan Estratégico', label: 'Plan Estratégico' },
+        { value: 'Plan de Eventos', label: 'Plan de Eventos' },
+        { value: 'Planificación de Viajes', label: 'Planificación de Viajes' },
+        { value: 'Portugués', label: 'Portugués' },
+        { value: 'Presupuestar', label: 'Presupuestar' },
         { value: 'Problem-Solving Skills', label: 'Problem-Solving Skills' },
-        { value: 'Recruitment', label: 'Recruitment' },
-        { value: 'Reservations Management', label: 'Reservations Management' },
-        { value: 'Restaurant Operations', label: 'Restaurant Operations' },
-        { value: 'Sales Techniques', label: 'Sales Techniques' },
-        { value: 'Strategic Planning', label: 'Strategic Planning' },
+        { value: 'Procedimientos de Recursos Humanos', label: 'Procedimientos de Recursos Humanos' },
+        { value: 'Recibir Comandas', label: 'Recibir Comandas' },
+        { value: 'Recrutamiento', label: 'Recrutamiento' },
+        { value: 'Redes Sociales', label: 'Redes Sociales' },
+        { value: 'Relación con Clientes', label: 'Relación con Clientes' },
+        { value: 'Resolución de Problemas', label: 'Resolución de Problemas' },
+        { value: 'Reclutamiento', label: 'Reclutamiento' },
+        { value: 'Ruso', label: 'Ruso' },
+        { value: 'Sueco', label: 'Sueco' },
         { value: 'Supplier Management', label: 'Supplier Management' },
-        { value: 'Technical Skills', label: 'Technical Skills' },
+        { value: 'Técnicas de Limpieza', label: 'Técnicas de Limpieza' },
+        { value: 'Técnicas de Ventas', label: 'Técnicas de Ventas' },
         { value: 'Time Management', label: 'Time Management' },
+        { value: 'Toma de Decisiones', label: 'Toma de Decisiones' },
         { value: 'Tour Planning', label: 'Tour Planning' },
         { value: 'Training and Development', label: 'Training and Development' },
+        { value: 'Finlandez', label: 'Finlandez ' },
         { value: 'Upselling', label: 'Upselling' },
-        { value: 'Writing Skills', label: 'Writing Skills' },
+        { value: 'Ucraniano', label: 'Ucraniano' },
+        { value: 'Vasco', label: 'Vasco' },
     ];
 
     useEffect(() => {
@@ -259,7 +305,7 @@ const UpdateJobForm = () => {
 
     useEffect(() => {
         if (singleJob) {
-            setLoading(false);  
+            setLoading(false);
             setJobTitle(singleJob?.jobTitle);
             setJobCategory(singleJob?.jobCategory);
             setJobType(singleJob?.jobType);
@@ -531,7 +577,10 @@ const UpdateJobForm = () => {
                                 </div>
 
                                 <div className='col-md-2'>
-                                    <label htmlFor="jobType"> Job Type  <small className='text-danger'> * </small> </label>
+                                    <label htmlFor="jobType">
+                                        {/* Job Type */}
+                                        Tipo de empleo
+                                        <small className='text-danger'> * </small> </label>
                                     <select
                                         className='form-control'
                                         value={jobType}
@@ -659,7 +708,10 @@ const UpdateJobForm = () => {
                                 <div className='col-md-4'>
                                     {/* Multiselect */}
 
-                                    <label htmlFor="optional_skills"> Optional Skills </label>
+                                    <label htmlFor="optional_skills">
+                                        {/* Optional Skills */}
+                                        Habilidades Opcionales
+                                    </label>
                                     <Select
 
                                         options={skills.filter((skill) => !mandatorySkills.includes(skill.value))}

@@ -32,7 +32,7 @@ const CourseDescription = () => {
         setLoading(false)
       }
     })
-  }, [])
+  }, [id])
 
   const course = useSelector((state) => state.GetCourseSingleReducer)
   console.log(course);

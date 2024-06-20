@@ -88,7 +88,8 @@ const SimilarCourses = () => {
                                             </div>
                                             <Link to={`/courses/${course._id}`} >
                                                 <button className=" btn w-100" style={{ background: '#E4B49D', fontWeight: 600 }}>
-                                                    Enroll Now
+                                                    {/* Enroll Now */}
+                                                    Registrarme 
                                                 </button>
                                             </Link>
                                         </div>
@@ -115,7 +116,8 @@ const SimilarCourses = () => {
                                 // borderRadius: '50px',
                             }}
                         >
-                            View All courses
+                            {/* View All courses */}
+                            Ver todos los cursos 
                         </button>
                     </div>
 

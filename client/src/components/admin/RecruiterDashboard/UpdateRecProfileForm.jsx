@@ -328,7 +328,7 @@ const UpdateRecProfileForm = () => {
         const response = await dispatch(updateRecProfileAction(localUserId, profileData))
         if (response.success) {
             dispatch(getRecProfileAction(localUserId)).then((res) => {
-                if(res.success){
+                if (res.success) {
                     setLoading(false);
                     toast.success(response.message);
                 }
@@ -462,35 +462,51 @@ const UpdateRecProfileForm = () => {
                     >
                         <div className="form-row mt-3">
                             <div className="form-group col-md-6">
-                                <label htmlFor="companyName" className='text-dark'> Company Name  <span className='text-danger'>*</span></label>
+                                <label htmlFor="companyName" className='text-dark'>
+                                    {/* Company Name  */}
+                                    Empresa
+                                    <span className='text-danger'>*</span></label>
                                 <input
                                     type="text"
                                     value={companyName}
                                     onChange={(e) => setCompanyName(e.target.value)}
                                     className='form-control'
-                                    placeholder='Enter Company Name'
+                                    // placeholder='Enter Company Name'
+                                    placeholder='Nombre de la Empresa'
                                 />
                             </div>
                             <div className="form-group col-md-6">
-                                <label htmlFor="Designation" className='text-dark'> Designation <span className='text-danger'>*</span> </label>
+                                <label htmlFor="Designation" className='text-dark'>
+                                    {/* Designation */}
+                                    Puesto
+                                    <span className='text-danger'>*</span>
+                                </label>
                                 <input
                                     type="text"
                                     value={Designation}
                                     onChange={(e) => setDesignation(e.target.value)}
                                     className='form-control'
-                                    placeholder='Enter Designation' />
+                                    // placeholder='Enter Designation'
+                                    placeholder='Puesto'
+                                />
                             </div>
                         </div>
 
                         <div className='form-row mt-3'>
                             <div className="form-group col-md-6">
-                                <label htmlFor="NoOfEmployees"> No of Employees </label>
+                                <label htmlFor="NoOfEmployees">
+                                    {/* No of Employees */}
+                                    Selecciona Nº de Empleados
+                                </label>
                                 <select
                                     className='form-control'
                                     value={numberOfEmployees}
                                     onChange={(e) => setNumberOfEmployees(e.target.value)}
                                 >
-                                    <option value=""> Select No of Employees </option>
+                                    <option value="">
+                                        {/* Select No of Employees  */}
+                                        Nº Empleados
+                                    </option>
                                     <option value="1-10"> 1-10 </option>
                                     <option value="11-50"> 11-50 </option>
                                     <option value="51-200"> 51-200 </option>
@@ -502,19 +518,27 @@ const UpdateRecProfileForm = () => {
                             </div>
                             {/* Country API for HeadQuarters */}
                             <div className="form-group col-md-6">
-                                <label htmlFor="HeadQuarters"> HeadQuarters <span className='text-danger'>*</span></label>
+                                <label htmlFor="HeadQuarters">
+                                    {/* HeadQuarters */}
+                                    Sede Central
+
+                                    <span className='text-danger'>*</span></label>
                                 <input
                                     type="text"
                                     value={HeadQuarters}
                                     onChange={(e) => setHeadQuarters(e.target.value)}
                                     className='form-control'
-                                    placeholder='Enter HeadQuarters'
+                                    // placeholder='Enter HeadQuarters'
+                                    placeholder='Sede Central'
                                 />
                             </div>
                         </div>
                         <div className='form-row mt-3'>
                             <div className='form-group col-md-6'>
-                                <label htmlFor="industryType"> Industry Type <span className='text-danger'>*</span> </label>
+                                <label htmlFor="industryType">
+                                    {/* Industry Type */}
+                                    Tipo de Industria
+                                    <span className='text-danger'>*</span> </label>
                                 <select
                                     className='form-control'
                                     value={industryType}
@@ -523,7 +547,10 @@ const UpdateRecProfileForm = () => {
                                     {industryTypes.map((type, index) => (
                                         type === 'Select Industry Type' ?
                                             <>
-                                                <option key={index} value="" > Select Industry Type </option>
+                                                <option key={index} value="" >
+                                                    {/* Select Industry Type */}
+                                                    Seleccionar Tipo de Industria
+                                                </option>
                                             </>
                                             :
                                             <>
@@ -535,51 +562,84 @@ const UpdateRecProfileForm = () => {
                                 </select>
                             </div>
                             <div className='form-group col-md-6'>
-                                <label htmlFor="companyType"> Company Type <span className='text-danger'>*</span> </label>
+                                <label htmlFor="companyType">
+                                    {/* Company Type */}
+                                    Tipo de Empresa
+
+                                    <span className='text-danger'>*</span> </label>
                                 <select
                                     className='form-control'
                                     value={companyType}
                                     onChange={(e) => setCompanyType(e.target.value)}
                                 >
-                                    <option value=""> Select Company Type </option>
-                                    <option value="Private"> Private </option>
-                                    <option value="Public"> Public </option>
-                                    <option value="Government"> Government </option>
-                                    <option value="NGO"> NGO </option>
-                                    <option value="Other"> Other </option>
+                                    <option value="">
+                                        {/* Select Company Type */}
+                                        Tipo de Empresa
+                                    </option>
+                                    <option value="Private">
+                                        {/* Private */}
+                                        Privado
+                                    </option>
+                                    <option value="Public">
+                                        {/* Public */}
+                                        Público
+                                    </option>
+                                    <option value="Government">
+                                        {/* Government */}
+                                        Gobierno
+                                    </option>
+                                    <option value="NGO">
+                                        {/* NGO */}
+                                        ONG
+                                    </option>
+                                    <option value="Other">
+                                        {/* Other */}
+                                        Otro
+                                    </option>
                                 </select>
                             </div>
                         </div>
                         <div className='form-row mt-3'>
                             <div className='form-group col-md-6'>
-                                <label htmlFor="companyWebsite"> Company Website </label>
+                                <label htmlFor="companyWebsite">
+                                    {/* Company Website */}
+                                    Website Corporativa
+                                </label>
                                 <input
                                     type="url"
                                     value={companyWebsite}
                                     onChange={(e) => setCompanyWebsite(e.target.value)}
                                     className='form-control'
-                                    placeholder='www.yourcompanyname.com'
+                                    // placeholder='yourcompanywebsite.com'
+                                    placeholder='www.nombredetucompañia.com'
                                 />
                             </div>
                             <div className='form-group col-md-6'>
-                                <label htmlFor="CompanyTagline"> Company Tagline </label>
+                                <label htmlFor="CompanyTagline">
+                                    {/* Company Tagline */}
+                                    Lema de la Empresa
+
+
+                                </label>
                                 <input
                                     type="text"
                                     value={CompanysTagline}
                                     onChange={(e) => setCompanysTagline(e.target.value)}
                                     className='form-control'
-                                    placeholder='Enter Company Tagline' />
+                                    // placeholder='Enter Company Tagline' 
+                                    placeholder='Lema de la Empresa'
+                                />
                             </div>
                         </div>
                         <div className='form-row mt-3'>
                             <div className='form-group col-md-6'>
-                                <label htmlFor="twitter"> X (Formerly Twitter) </label>
+                                <label htmlFor="twitter"> X (Antiguo Twitter)  </label>
                                 <input
                                     type="url"
                                     value={twitter}
                                     onChange={(e) => setTwitter(e.target.value)}
                                     className='form-control'
-                                    placeholder='https://twitter.com/yourusername' />
+                                    placeholder='https://twitter.com/tuusuario' />
                             </div>
                             <div className='form-group col-md-6'>
                                 <label htmlFor="linkedIn"> LinkedIn </label>
@@ -588,20 +648,24 @@ const UpdateRecProfileForm = () => {
                                     value={linkedIn}
                                     onChange={(e) => setLinkedIn(e.target.value)}
                                     className='form-control'
-                                    placeholder='https://www.linkedin.com/yourusername'
+                                    placeholder='https://www.linkedin.com/tuusuario'
                                 />
                             </div>
                         </div>
                         <div className='form-row mt-3'>
                             <div className='form-group col-md-12'>
-                                <label htmlFor="companyDescription"> About Company <span className='text-danger'>*</span></label>
+                                <label htmlFor="companyDescription">
+                                    {/* About Company */}
+                                    Sobre la Compañía
+                                    <span className='text-danger'>*</span></label>
                                 <textarea
                                     className='form-control'
                                     value={CompanyDescription}
                                     rows={5}
                                     cols={10}
                                     onChange={(e) => setCompanyDescription(e.target.value)}
-                                    placeholder='Write something about your company'
+                                    // placeholder='Write something about your company'
+                                    placeholder='Escribe algo sobre tu empresa'
                                 />
                                 {/* <ReactQuill
                                 theme="snow"
@@ -627,9 +691,15 @@ const UpdateRecProfileForm = () => {
                                     <PuffLoader
                                         size={25}
                                         color="#ffffff"
-                                    /> <span className='pl-2'> Loading ... </span>
+                                    /> <span className='pl-2'>
+                                        {/* Loading ... */}
+                                        Cargando
+                                    </span>
                                 </div>
-                            </> : 'Save Details'}
+                            </> :
+                                // 'Save Details'
+                                'Guardar detalles '
+                            }
                         </button>
                     </form>
                 </div>

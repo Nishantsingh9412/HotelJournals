@@ -242,7 +242,7 @@ const ImageCropper = ({ closeModal, updateAvatar, oldImageURL, dummyImage, id })
       </label>
       <p className="text-white">
         {/* Supported file format: png, jpg, jpeg, gif - up to 2MB */}
-        Formato : png, jpg, jpeg, gif - hasta 2MB
+        Formato soportado : png, jpg, jpeg, gif - hasta 2MB
       </p>
       {checkDummyImage && (
         <Button

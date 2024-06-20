@@ -1009,7 +1009,8 @@ const Cards = ({ filter }) => {
                                                         </div>
                                                         <Link to={`/courses/${course._id}`} >
                                                             <button className=" btn w-100" style={{ background: '#E4B49D', fontWeight: 600 }}>
-                                                                Enroll Now
+                                                                {/* Enroll Now */}
+                                                                Registrarme 
                                                             </button>
                                                         </Link>
                                                     </div>

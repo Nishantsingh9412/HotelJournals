@@ -90,19 +90,22 @@ const Navbar = () => {
                     <ul className="navbar-nav mr-auto">
                         <li className="nav-item">
                             <NavLink to='/' className={`nav-link ${NavCSS.header_nav_links}`} activeClassName={NavCSS.active}>
-                                Home
+                                {/* Home */}
+                                Inicio 
                             </NavLink>
                         </li>
                         <li className="nav-item">
                             <NavLink to='/jobs' className={`nav-link ${NavCSS.header_nav_links}`} activeClassName={NavCSS.active}>
-                                Jobs
+                                {/* Jobs */}
+                                Empleo 
                             </NavLink>
                         </li>
                         {/* Add other navigation links similarly */}
                         <li className="nav-item">
 
                             <NavLink to='/courses' className={`nav-link ${NavCSS.header_nav_links}`} activeClassName={NavCSS.active} >
-                                Courses
+                                {/* Courses */}
+                                Cursos
                             </NavLink>
 
                         </li>
@@ -116,14 +119,16 @@ const Navbar = () => {
                         <li className="nav-item">
 
                             <NavLink to='/journals' className={`nav-link ${NavCSS.header_nav_links}`} activeClassName={NavCSS.active}>
-                                Journals
+                                {/* Journals */}
+                                Agendas
                             </NavLink>
 
                         </li>
                         <li className="nav-item">
 
                             <NavLink to='/about' className={`nav-link ${NavCSS.header_nav_links}`} activeClassName={NavCSS.active} >
-                                About me
+                                {/* About me */}
+                                Sobre mí 
                             </NavLink>
 
                         </li>
@@ -131,7 +136,8 @@ const Navbar = () => {
                         <li className="nav-item">
 
                             <NavLink to='/tips' className={`nav-link ${NavCSS.header_nav_links}`} activeClassName={NavCSS.active} >
-                                Tips
+                                {/* Tips */}
+                                Secretos 
                             </NavLink>
 
                         </li>
@@ -160,13 +166,15 @@ const Navbar = () => {
                         <>
                             <div className='nav-link'>
                                 <NavLink to='/login' className={`nav-link ${NavCSS.header_nav_links}`} activeClassName={NavCSS.active}>
-                                    Login
+                                    {/* Login */}
+                                    Identifícate 
                                 </NavLink>
                             </div>
 
                             <div className='nav-link'>
                                 <NavLink to='/signUp' className={`nav-link ${NavCSS.header_nav_links}`} activeClassName={NavCSS.active}>
-                                    SignUp
+                                    {/* SignUp */}
+                                    Regístrate 
                                 </NavLink>
                             </div>
                         </>

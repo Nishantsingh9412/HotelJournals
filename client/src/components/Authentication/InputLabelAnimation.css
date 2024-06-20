@@ -14,7 +14,7 @@
     padding: 0 15px;
     border: 1px solid rgba(154, 158, 161, 0.45);
     background: transparent;
-    color: #ff7f6eff;
+    color: #FAEFE8;
     outline: none;
 }
 .input-field label {
@@ -28,7 +28,7 @@
     transition: 0.3s;
 }
 input:focus {
-    border: 2px solid #ff7f6eff;
+    border: 2px solid #FAEFE8;
 }
 input:focus ~ label,
 input:valid ~ label {
@@ -71,7 +71,7 @@ input:valid ~ label {
 .curousel_box{
     width: 35%;
     height: 100%;
-    background-color: #fbbfb7;
+    background-color: #FAEFE8;
     display: flex;
     align-items: center;
     justify-content: center;

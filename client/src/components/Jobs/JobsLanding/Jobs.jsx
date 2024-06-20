@@ -53,9 +53,7 @@ const Jobs = () => {
                                 Da el siguiente paso en tu carrera.
 
                             </h1>
-                            <p>
-                                Grandes puestos y empresas las encontrarás aquí
-                            </p>
+
                             {/* <form id="looking-for-job" className="form" action="#">
                                 <p className="radio-text">Looking for a job?</p>
                                 <div className="radio-item">

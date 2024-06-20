@@ -30,7 +30,8 @@ const TipsMidSection = () => {
     }
     const dispatch = useDispatch();
     const AllTips = useSelector((state) => state.getTipsReducer)
-    const baseURL = "http://localhost:3000/"
+    // const baseURL = "http://localhost:3000/"
+    const baseURL = `${process.env.REACT_APP_CLIENT_URL}/`
     const serverURL = process.env.REACT_APP_SERVER_URL_XTRA_SLASH;
 
     useEffect(() => {

@@ -22,7 +22,10 @@ const TopBooks = () => {
       <div className='top-books-container pt-4 '>
 
         <div className='ml-5 mb-3' >
-          <h3> Top Books </h3>
+          <h3>
+            {/* Featured Books */}
+            ¿Presumes de tu trabajo? 
+          </h3>
           <hr
             className='animate__animated animate__headShake animate__infinite'
             style={{ border: '2px solid black', width: '10vw', }}
@@ -49,7 +52,10 @@ const TopBooks = () => {
                 >
                   <h5>{book.title}</h5>
                   <p>{book.Description.substr(0, 100)} .......</p>
-                  <a href={book.BookPageLink} target='__blank'> Read More </a>
+                  <a href={book.BookPageLink} target='__blank'> 
+                    {/* Read More  */}
+                    Leer más 
+                    </a>
                 </div>
               </div>
             </div>

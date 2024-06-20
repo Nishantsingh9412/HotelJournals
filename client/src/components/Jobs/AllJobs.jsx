@@ -394,13 +394,20 @@ const AllJobs = () => {
                             <div className='mt-2 pb-4'>
                                 <div className='d-flex justify-content-between'>
                                     <div>
-                                        <h4> Filter by</h4>
+                                        <h4>
+                                            {/* Filter by */}
+                                            Filtrar por
+                                        </h4>
                                     </div>
                                     <div
                                         style={{ cursor: 'pointer', display: 'flex' }}
                                         onClick={() => handleClearFilter()}
                                     >
-                                        <h6>Clear All &nbsp; </h6>
+                                        <h6>
+                                            {/* Clear All  */}
+                                            Limpiar 
+                                            &nbsp; 
+                                            </h6>
                                         <RxCross1 />
                                     </div>
                                 </div>
@@ -426,7 +433,8 @@ const AllJobs = () => {
                                         <label htmlFor='DatePosted'
                                             style={{ marginLeft: '-21px' }}
                                         >
-                                            Date Posted
+                                            {/* Date Posted */}
+                                            Fecha
                                         </label>
                                         <div>
                                             <input
@@ -550,7 +558,10 @@ const AllJobs = () => {
 
 
                                     <div className='col-md-2'>
-                                        <label htmlFor="ContractTypes"> Contract Types </label>
+                                        <label htmlFor="ContractTypes">
+                                            {/* Contract Types */}
+                                            Tipo de Contrato
+                                        </label>
                                         <div className="form-check mt-2">
                                             <input
                                                 className="form-check-input"
@@ -618,7 +629,10 @@ const AllJobs = () => {
                                     </div>
 
                                     <div className='col-md-2'>
-                                        <label htmlFor="jobType" > JobType </label>
+                                        <label htmlFor="jobType" >
+                                            {/* JobType */}
+                                            Tipo de Empleo 
+                                        </label>
                                         {/* <Select
                                             isMulti
                                             options={jobTypesOptions}
@@ -951,7 +965,8 @@ const AllJobs = () => {
                                                                             borderRadius={'50px'}
                                                                             bgColor={'#E4B49D'}
                                                                         >
-                                                                            Apply
+                                                                            {/* Apply */}
+                                                                            Solicitar 
                                                                         </ButtonChakra>
 
                                                                     </div>

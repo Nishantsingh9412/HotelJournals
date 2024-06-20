@@ -32,7 +32,8 @@ const EducatorSidebar = () => {
   const routes = [
     {
       path: `/profile/${localUserId}`,
-      name: "Dashboard",
+      // name: "Dashboard",
+      name:'Panel',
       icon: <FaHome size={'22px'} />,
     },
     // {
@@ -47,7 +48,8 @@ const EducatorSidebar = () => {
     // },
     {
       path: "/educator/course/post",
-      name: "Add Course",
+      // name: "Add Course",
+      name: " Añadir Curso",
       icon: <FaPlusSquare size={'22px'} />,
       
     },

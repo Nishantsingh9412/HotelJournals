@@ -109,7 +109,7 @@ const ForgotPassword = () => {
                                 Hi, Commando
                             </h6> */}
                                 <h3 style={{ fontSize: "18px" }}>
-                                    👋
+                                    
                                     {/* Welcome Back to Hotel Journals! */}
                                     Bienvenido/a a Hotel Journals
                                 </h3>
@@ -119,7 +119,8 @@ const ForgotPassword = () => {
                                         color='#E4B49D'
                                     />
                                     <h3 className='mt-0 pl-2'>
-                                        Forgot Password?
+                                        {/* Forgot Password? */}
+                                        Olvidaste la contraseña? 
                                     </h3>
                                 </div>
                                 <p>Create a new password to login your account.</p>

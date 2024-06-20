@@ -52,7 +52,7 @@ import styles from './HotelLandingPage.module.css'
 
 const HotelLandingpage = () => {
 
-  const baseURl = 'http://localhost:3000'
+  const baseURl = process.env.REACT_APP_CLIENT_URL
 
   useEffect(() => {
     AOS.init({
@@ -450,12 +450,11 @@ const HotelLandingpage = () => {
         </div>
         {/* section testinomials start */}
 
-        <div className={styles.testinomialcontainer}>
+        <div className={styles.testinomialcontainer} style={{marginTop:'8rem'}}>
           <div className={styles.testinomialcontainerleft}>
             <h1 data-aos="fade-right">
               {/* Testimonials from our colleagues */}
               Testimonios de nuestras/os Compis
-
               {/* <span > courTyz'z</span> */}
               {/* member */}
             </h1>
@@ -469,8 +468,7 @@ const HotelLandingpage = () => {
             </p>
           </div>
           <div className={styles.testinomialcontainerright}>
-            <Slider {...settings} >
-
+            <Slider {...settings}>
               {testimonial_data.map((testimonial) => (
                 <div className={styles.testinomialrightcard}>
                   <div className={styles.testinomialprofilecontainer}>
@@ -533,7 +531,8 @@ const HotelLandingpage = () => {
               <p>By Naira Siverio</p>
               <a href={`${baseURl}/journals`} style={{ textDecoration: 'none', color: 'white' }}>
                 <div className={styles.bookbutton}>
-                  View More
+                  {/* View More */}
+                  Ver más 
                 </div>
               </a>
             </div>

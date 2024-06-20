@@ -75,7 +75,7 @@ const Dashboardd = () => {
                             <div className={styles.middlelogo}><img src="https://d8it4huxumps7.cloudfront.net/uploads/images/65b8ddae44fdd_twitter_logo.svg" alt="" /></div>
                            </div>
                            <dir className ={styles.buttoncontainer}>
-                              <span>https://unstop.com/o/slKhcDP?lb </span>
+                              {/* <span>https://unstop.com/o/slKhcDP?lb </span> */}
                             <div className={styles.buttonlogo}><a href=""><FaRegCopy /></a></div>
                            </dir>
      </div  >

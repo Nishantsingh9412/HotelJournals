@@ -16,7 +16,10 @@ const Footer = () => {
                 {/* <!-- Grid column --> */}
                 <div class="col-md-2">
                   <h6 class="text-uppercase font-weight-bold">
-                    <a href="#!" class="text-dark">About us</a>
+                    <a href="#!" class="text-dark">
+                      {/* About us */}
+                      Sobre mi
+                    </a>
                   </h6>
                 </div>
                 {/* <!-- Grid column --> */}
@@ -24,7 +27,10 @@ const Footer = () => {
                 {/* <!-- Grid column --> */}
                 <div class="col-md-2">
                   <h6 class="text-uppercase font-weight-bold">
-                    <a href="#!" class="text-dark">Products</a>
+                    <a href="#!" class="text-dark">
+                      {/* Products */}
+                      Agendas
+                    </a>
                   </h6>
                 </div>
                 {/* <!-- Grid column --> */}
@@ -38,17 +44,20 @@ const Footer = () => {
                 {/* <!-- Grid column --> */}
 
                 {/* <!-- Grid column --> */}
-                <div class="col-md-2">
+                {/* <div class="col-md-2">
                   <h6 class="text-uppercase font-weight-bold">
                     <a href="#!" class="text-dark">Help</a>
                   </h6>
-                </div>
+                </div> */}
                 {/* <!-- Grid column --> */}
 
                 {/* <!-- Grid column --> */}
                 <div class="col-md-2">
                   <h6 class="text-uppercase font-weight-bold">
-                    <a href="#!" class="text-dark">Contact</a>
+                    <a href="#!" class="text-dark">
+                      {/* Contact */}
+                      Contacto
+                    </a>
                   </h6>
                 </div>
                 {/* <!-- Grid column --> */}
@@ -64,10 +73,9 @@ const Footer = () => {
               <div class="row d-flex justify-content-center">
                 <div class="col-lg-8">
                   <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt
-                    distinctio earum repellat quaerat voluptatibus placeat nam,
-                    commodi optio pariatur est quia magnam eum harum corrupti
-                    dicta, aliquam sequi voluptate quas.
+                    Hotel Journals aboga por la buena práctica en el sector hotelero y turístico,
+                    dando así facilidad a la hora de acceder a cursos y ofertas de empleo
+                    relacionadas con el sector.
                   </p>
                 </div>
               </div>
@@ -76,23 +84,23 @@ const Footer = () => {
 
             {/* <!-- Section: Social --> */}
             <section class="text-center mb-5">
+              <a href="https://www.instagram.com/hoteljournals/" class="text-dark m-4">
+                <i class="fab fa-instagram fa-2x"></i>
+              </a>
+              <a href="https://www.tiktok.com/@hoteljournals" class="text-dark m-4">
+                <i class="fab fa-tiktok fa-2x"></i>
+              </a>
+              <a href="https://www.linkedin.com/company/hotel-journals" class="text-dark m-4">
+                <i class="fab fa-linkedin fa-2x"></i>
+              </a>
+              <a href="https://www.youtube.com/@Hoteljournals" class="text-dark m-4">
+                <i class="fab fa-youtube fa-2x"></i>
+              </a>
               <a href="https://www.facebook.com/HotelJournals" class="text-dark m-4">
                 <i class="fab fa-facebook-f fa-2x" ></i>
               </a>
               <a href="https://twitter.com/Hoteljournals" class="text-dark m-4">
                 <i class="fab fa-twitter fa-2x"></i>
-              </a>
-              <a href="https://www.youtube.com/@Hoteljournals" class="text-dark m-4">
-                <i class="fab fa-youtube fa-2x"></i>
-              </a>
-              <a href="https://www.tiktok.com/@hoteljournals" class="text-dark m-4">
-                <i class="fab fa-tiktok fa-2x"></i>
-              </a>
-              <a href="https://www.instagram.com/hoteljournals/" class="text-dark m-4">
-                <i class="fab fa-instagram fa-2x"></i>
-              </a>
-              <a href="https://www.linkedin.com/company/hotel-journals" class="text-dark m-4">
-                <i class="fab fa-linkedin fa-2x"></i>
               </a>
             </section>
             {/* <!-- Section: Social --> */}

@@ -181,7 +181,7 @@ import {
     transition,
 } from '@chakra-ui/react';
 import { useDispatch, useSelector } from 'react-redux';
-import Unstop from '../../assets/img/Unstop.svg';
+// import Unstop from '../../assets/img/Unstop.svg';
 import { signup } from '../../redux/actions/auth';
 import './InputLabelAnimation.css';
 import Carousel from './Carousel';
@@ -247,7 +247,7 @@ const Signup = () => {
         if (password.length < 6) {
             toast.error('Password should be at least 6 characters long');
             return false;
-        }if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        } if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
             toast.error('Please enter a valid email');
             return false;
         }
@@ -292,11 +292,11 @@ const Signup = () => {
                             padding: '1rem',
                         }}
                     >
-                        <Img
+                        {/* <Img
                             className='LogoImg'
                             src={Unstop}
                             alt="unstopablePhoto"
-                        />
+                        /> */}
                         <div
                             style={{
                                 marginLeft: '1%',
@@ -304,13 +304,11 @@ const Signup = () => {
                             }}
                             className="text"
                         >
-                            <h6 style={{ marginLeft: '2%', fontSize: "12px" }}>
-                                Ready to Be Unstopable!
-                            </h6>
-                            <h3 style={{ fontSize: "18px" }}>👋 Create an account</h3>
-                            <h5 style={{ marginLeft: '2%', fontSize: "14px" }}>
-                                Create account as a
-                            </h5>
+
+                            <h3 style={{ fontSize: "18px" }}>
+                                Crea una cuenta como
+                            </h3>
+
                         </div>
                         <Flex
                             className='flexButton'
@@ -325,7 +323,7 @@ const Signup = () => {
                                 onClick={() => setSelectType("candidate")}
 
                                 variant="outline"
-                                borderColor="#ff7f6eff"
+                                borderColor="#FAEFE8"
                                 color="#000"
                                 size="lg"
                                 fontSize="15px"
@@ -333,13 +331,14 @@ const Signup = () => {
                                 w={{ base: '100%', md: 'auto' }} // Full width on small screens, auto width on medium and larger screens
                                 mb={{ base: '0.5rem', md: 0 }} // Add bottom margin on small screens
                             >
-                                Candidate
+                                {/* Candidate */}
+                                Candidato
                             </Button>
                             <Button
                                 style={{ border: selectType != "recruiter" ? "2px dotted #7f7f7f" : "2px solid #cc341f", color: selectType != "recruiter" ? "#000" : "#cc341f", borderRadius: "25px 25px 25px 25px", transition: "all 0.3s linear" }}
                                 onClick={() => setSelectType("recruiter")}
                                 variant="outline"
-                                borderColor="#ff7f6eff"
+                                borderColor="#FAEFE8"
                                 fontSize="15px"
                                 py={{ base: '1rem', md: '1.5rem' }} // Add padding to button}
                                 color="#000"
@@ -347,13 +346,14 @@ const Signup = () => {
                                 w={{ base: '100%', md: 'auto' }}
                                 mb={{ base: '0.5rem', md: 0 }}
                             >
-                                Recruiter
+                                {/* Recruiter */}
+                                Reclutador
                             </Button>
                             <Button
                                 style={{ border: selectType != "educator" ? "2px dotted #7f7f7f" : "2px solid #cc341f", color: selectType != "educator" ? "#000" : "#cc341f", borderRadius: "25px 25px 25px 25px", transition: "all 0.3s linear" }}
                                 onClick={() => setSelectType("educator")}
                                 variant="outline"
-                                borderColor="#ff7f6eff"
+                                borderColor="#FAEFE8"
                                 fontSize="15px"
                                 p={{ base: '1rem', md: '1.5rem' }} // Add padding to button}
                                 color="#000"
@@ -361,7 +361,8 @@ const Signup = () => {
                                 w={{ base: '100%', md: 'auto' }}
                                 mb={{ base: '0.5rem', md: 0 }}
                             >
-                                Educator
+                                {/* Educator */}
+                                Escuela
                             </Button>
                         </Flex>
                         {/* <br />
@@ -378,7 +379,10 @@ const Signup = () => {
                                             setFirstName(e.target.value)
                                         }
                                     />
-                                    <label>First Name</label>
+                                    <label>
+                                        {/* First Name */}
+                                        Nombre
+                                    </label>
                                 </div>
                                 <div class="input-field">
                                     <input
@@ -390,7 +394,10 @@ const Signup = () => {
                                             setLastName(e.target.value)
                                         }
                                     />
-                                    <label>Last Name</label>
+                                    <label>
+                                        {/* Last Name */}
+                                        Apellido
+                                    </label>
                                 </div>
                             </Flex>
                             <div class="input-field">
@@ -402,7 +409,7 @@ const Signup = () => {
                                     autoComplete="off"
                                     onChange={(e) => setEmail(e.target.value)}
                                 />
-                                <label>Email</label>
+                                <label> Email </label>
                             </div>
                             {/* <div class="input-field">
                                 <input
@@ -455,7 +462,10 @@ const Signup = () => {
                                         }
                                         style={{ width: '48% !important' }}
                                     />
-                                    <label>Password</label>
+                                    <label>
+                                        {/* Password */}
+                                        Contraseña
+                                    </label>
                                 </div>
                                 <div class="input-field">
                                     <input
@@ -468,25 +478,28 @@ const Signup = () => {
                                         }
                                         style={{ width: '48% !important' }}
                                     />
-                                    <label>Confirm Password</label>
+                                    <label>
+                                        {/* Confirm Password */}
+                                        Confirmar contraseña
+                                    </label>
                                 </div>
                             </Flex>
                         </div>
                         <Button
                             mt={4}
                             style={{
-                                backgroundColor: '#ff7f6eff',
-                                color: 'white',
+                                backgroundColor: '#FAEFE8',
+                                color: '#CC341F',
                                 width: '100%',
                                 // width: '48vw',
                             }}
                             type="submit"
                             size="lg"
                         >
-                            Sign Up
+                            Registrate
                         </Button>
                         <br />
-                        Already have an account?{' '}
+                        ¿Ya tienes una cuenta?
                         <NavLink
                             style={{
                                 color: '#0000f2ff',
@@ -494,7 +507,8 @@ const Signup = () => {
                             }}
                             to="/login"
                         >
-                            Login
+                            {/* Login */}
+                            Iniciar sesión
                         </NavLink>
                     </form>
                 </Flex>

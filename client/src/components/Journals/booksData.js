@@ -60,12 +60,7 @@ const booksData = [
     img: 'https://res.cloudinary.com/dwahql1jy/image/upload/v1713515206/journals/j9_xckvx8.jpg',
     title: "Housekeeping: Agenda Verde",
     featured: false,
-    Description: `Esta agenda ha sido elaborada con la colaboración de una 
-                  compi jefa de housekeeping 👩🏻💼\n\nEn ella podrás anotar las salidas, 
-                  llegadas, cambios de habitación, producción minibar, camareras, entre 
-                  otras muchas ✅\n\nEsta agenda cuenta con una página por día.
-                  Los días de la semana no incluyen números para que la 
-                  puedas utilizar cuando quieras ♻️`,
+    Description: "Esta agenda ha sido elaborada con la colaboración de una  compi jefa de housekeeping 👩🏻💼\n\nEn ella podrás anotar las salidas, llegadas, cambios de habitación, producción minibar, camareras, entre otras muchas ✅\n\nEsta agenda cuenta con una página por día.Los días de la semana no incluyen números para que la puedas utilizar cuando quieras ♻️",
     BookPageLink: "https://amzn.eu/d/67DqiM1"
   },
   {

@@ -88,14 +88,14 @@ const Login = () => {
                             padding: '1rem',
                         }}
                     >
-                        <Img
+                        {/* <Img
                             className='LogoImg'
                             src={Logo}
                             alt="Logo"
                             width="5%"
                             height="10%"
 
-                        />
+                        /> */}
                         <div
                             style={{
                                 marginLeft: '1%',
@@ -107,7 +107,7 @@ const Login = () => {
                                 Hi, Commando
                             </h6> */}
                             <h3 style={{ fontSize: "18px" }}>
-                                👋
+                                
                                 {/* Welcome Back to Hotel Journals! */}
                                 Bienvenido/a a Hotel Journals
                             </h3>
@@ -170,15 +170,16 @@ const Login = () => {
                                     color: '#005CB8',
                                     cursor: 'pointer'
                                 }}>
-                                    Forgot Password?
+                                    {/* Forgot Password? */}
+                                    Olvidaste la contraseña? 
                                 </p>
                             </div>
                         </div>
                         <Button
                             mt={4}
                             style={{
-                                backgroundColor: '#ff7f6eff',
-                                color: 'white',
+                                backgroundColor: '#FAEFE8',
+                                color: '#CC341F',
                                 width: '100%',
                                 // width: '48vw',
                             }}
@@ -186,7 +187,7 @@ const Login = () => {
                             size="lg"
                         >
                             {/* Sign In */}
-                            Registrate aquí
+                            Inicia sesion 
                         </Button>
                         <br />
                         {/* Don't have an account?{' '} */}
@@ -198,7 +199,8 @@ const Login = () => {
                             }}
                             to="/signup"
                         >
-                            Signup
+                            {/* Signup */}
+                            Registrarse
                         </NavLink>
                     </form>
                 </Flex>

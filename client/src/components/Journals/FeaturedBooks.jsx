@@ -21,9 +21,15 @@ const FeaturedBooks = () => {
     return (
         <div className='container' style={{ maxWidth: "90%" }}>
             <div className='pt-4 ml-5 featured-books-container'>
-                <h3> Featured Books </h3>
+                <h3>
+                    {/* Top Books */}
+                    Más vendidas
+                </h3>
                 <hr className='' style={{ border: '2px solid black', width: '10vw', }} />
-                <span className='p-0 m-0'> Handpicks need just for you   </span>
+                <span className='p-0 m-0'>
+                    {/* Handpicks need just for you   */}
+                    Agendas personalizadas para tu puesto de trabajo
+                </span>
 
 
                 {/* main row for featured books */}
@@ -50,7 +56,10 @@ const FeaturedBooks = () => {
                                         >
                                             <h5>{book.title}</h5>
                                             <p>{book.Description.substr(0, 100)} .......</p>
-                                            <a href={book.BookPageLink} target='__blank'> Read More </a>
+                                            <a href={book.BookPageLink} target='__blank'>
+                                                {/* Read More */}
+                                                Leer más 
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
