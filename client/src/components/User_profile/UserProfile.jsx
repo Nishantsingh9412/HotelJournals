@@ -300,7 +300,7 @@ const UserProfile = () => {
     if (response.success) {
 
       const getsingleProfileData = await dispatch(getProfileAction(id));
-      console.log("Get Single Profile Data : ", getsingleProfileData);
+      console.log(" Get Single Profile Data : ", getsingleProfileData);
 
       setLoading(false)
       setModalShow(false)

@@ -6,7 +6,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import {
     Drawer,
     DrawerBody,
-    DrawerFooter,
     DrawerHeader,
     DrawerOverlay,
     DrawerContent,
@@ -101,31 +100,7 @@ const IconCell = ({ tableManager, value, field, data, column, colIndex, rowIndex
     // Sending mail to candidate functionality
     const handleNotepad = async (e) => {
         e.preventDefault();
-        console.log("this is notepad uiududiudiudiui", data, data._id);
         setModalShow(true);
-
-        // const updatedStatsUser = {
-        //     jobId:id,
-        //     userId:data._id,
-        //     status:'Offered'
-        // }
-        // const response = await dispatch(UpdateCandidStatsAction(updatedStatsUser));
-
-        // if(response.success){
-        //     toast.success('Applicant Offered Successfully')
-        // }else{
-        //     toast.error('Applicant Not Offered Try Again'  )
-        // }
-
-        // <div>
-        // <UserEmailModal
-        //     show={true}
-        //     onHide={() => setMailModalShow(false)}
-        //     userid={data._id}
-        //     applicants={data}
-        // />
-        // </div>
-        // console.log(`Applicant ID: ${data._id}, Icon Name: UserCheck`)
     }
 
     const handleRejected = async (e) => {
@@ -651,30 +626,6 @@ const ManageParticularJob = () => {
                         <div className='alert alert-primary mt-2 ml-1 mr-1 text-dark text-center '>
                             {jobTitle}
                         </div>
-                        {/* <div>
-                <ul
-                    style={{
-                        display: 'flex',
-                        listStyle: 'none',
-                        padding: '5px',
-                        gap: '10px',
-                    }}
-                >
-                    {['All', 'Hired', 'Rejected'].map(item => (
-                        <li
-                            key={item}
-                            onClick={() => handleClick(item)}
-                            style={{
-                                cursor: 'pointer',
-                                borderBottom: item === selected ? '2px solid #000' : 'none'
-                            }}
-                        >
-                            {item}
-                        </li>
-                    ))}
-                </ul>
-            </div> */}
-
                         <Tabs>
                             <TabList>
                                 <Tab>

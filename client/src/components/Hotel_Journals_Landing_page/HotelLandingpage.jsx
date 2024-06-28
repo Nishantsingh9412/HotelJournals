@@ -204,7 +204,7 @@ const HotelLandingpage = () => {
     {
       img: testimonialImg3,
       name: "Ana Mantero García",
-      role: "Receptionist",
+      role: "Recepcionista",
       pairagraph:
         ` Gracias a Hotel Journals he conocido otros campos dentro 
         del sector además de testimonios y anécdotas increíbles de 
@@ -221,7 +221,7 @@ const HotelLandingpage = () => {
     {
       img: testimonialImg4,
       name: "Rita Medina",
-      role: "Blank",
+      role: "Directora de Producción",
       pairagraph:
         `
         La comunidad de Hotel Journals es única y muy necesaria para todas aquellas personas que,
@@ -296,12 +296,10 @@ const HotelLandingpage = () => {
               or to continue opening the best doors into the future.
             </p> */}
             <p data-aos="fade-up" data-aos-delay="300" >
-
-              Encuentra los mejores estudios de hotelería y turismo que necesitas
-              para seguir creciendo profesionalmente dentro del sector.
-              Encontrarás cursos para iniciar tu carrera en el sector.
-              Tener una buena formación te ayudará a abrir las primeras puertas
-              o a seguir abriendo las mejores puertas hacia el futuro.
+              Encuentra los mejores estudios de hotelería y turismo que necesitas para
+              seguir creciendo profesionalmente en el sector hotelero y turístico.
+              Tener una buena formación te ayudará a abrir las primeras puertas del mundo
+              laboral y a seguir abriendo las mejores puertas hacia el futuro.
             </p>
 
             <div className={styles.firstectionbuttoncontainer}>
@@ -450,7 +448,7 @@ const HotelLandingpage = () => {
         </div>
         {/* section testinomials start */}
 
-        <div className={styles.testinomialcontainer} style={{marginTop:'8rem'}}>
+        <div className={styles.testinomialcontainer} style={{ marginTop: '8rem' }}>
           <div className={styles.testinomialcontainerleft}>
             <h1 data-aos="fade-right">
               {/* Testimonials from our colleagues */}
@@ -532,7 +530,7 @@ const HotelLandingpage = () => {
               <a href={`${baseURl}/journals`} style={{ textDecoration: 'none', color: 'white' }}>
                 <div className={styles.bookbutton}>
                   {/* View More */}
-                  Ver más 
+                  Ver más
                 </div>
               </a>
             </div>

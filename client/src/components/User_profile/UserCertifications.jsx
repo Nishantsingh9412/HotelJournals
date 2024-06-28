@@ -53,7 +53,6 @@ function MyVerticallyCenteredModal(props) {
 
     const handleAddCertification = async (e) => {
         e.preventDefault();
-
         if (!certificate_name || !issued_by || !issued_on_month || !issued_on_year) {
             return toast.error('Please fill mandatory fields');
         }

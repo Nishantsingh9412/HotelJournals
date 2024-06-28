@@ -304,6 +304,7 @@ const ManageAllJobs = () => {
                     rows={MyJobs}
                     texts={{
                         search: 'Buscar',
+                        columnVisibility: 'Columnas',
                         // show: 'Mostrar',
                         // showing: 'Mostrando',
                         // entries: 'entradas',

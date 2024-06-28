@@ -218,10 +218,20 @@ const UpdateCourseForm = () => {
         if (!picThumb) {
             toast.error('Please upload a thumbnail picture');
             return false;
-
         }
         if (!picLogo) {
             toast.error('Please upload a logo picture');
+            return false;
+        }
+        if (courseDesc.length < 200) {
+            toast.error('Course Description must be more than 200 characters');
+            return false;
+        }
+        if (!isValidURL(courseLink)) {
+            toast.error(' Enter a Valid Course Link');
+            return false;
+        } if (picThumb.size > 1000000 || picLogo.size > 1000000) {
+            toast.error('Image size should be less than 1 MB');
             return false;
         }
         return true;
@@ -231,32 +241,14 @@ const UpdateCourseForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true)
-        // console.log(courseTitle, courseDesc, courseLanguage, courseLink, courseFormat, isFree,
-        // coursePrice, courseDuration, courseCompany,  picThumb, picLogo);
-        // if (!courseTitle || !difficulty || !courseDesc || courseLanguage.length === 0 || !courseLink || !courseFormat || isFree === null || (isFree === false && coursePrice === "")
-        //     || !courseDurationValue || !courseDurationUnit || !courseCompany || !courseCategory || !courseType || !picThumb || !picLogo) {
-        //     setLoading(false);
-        //     return toast.error('Please fill all fields');
-        // }
 
         if (!fieldsValidate()) {
-            return;
-        }
-        if (courseDesc.length < 200) {
             setLoading(false);
-            return toast.error('Course Description must be more than 200 characters');
+            return;
         }
         if (isFree) {
             setCoursePrice(0);
-        } if (!isValidURL(courseLink)) {
-            setLoading(false);
-            return toast.error(' Enter a Valid Course Link');
-        } if (picThumb.size > 1000000 || picLogo.size > 1000000) {
-            setLoading(false);
-            toast.error('Image size should be less than 1 MB');
-            return;
         }
-
         const courseData = {
             title: courseTitle,
             description: courseDesc,
@@ -275,15 +267,15 @@ const UpdateCourseForm = () => {
             // created_by:storedProfileUserID,
         };
 
-        const response = await dispatch(UpdateCourseAction(id, courseData));
-        if (response.success) {
-            // console.log("This is response.path  " + response.path);
-            toast.success(response.message);
-            navigate(`/profile/${storedProfileUserID}`);
-        } else {
-            toast.error(response.message);
-        }
-        setLoading(false);
+        dispatch(UpdateCourseAction(id, courseData)).then((response) => {
+            if (response.success) {
+                toast.success(response.message);
+                navigate(`/profile/${storedProfileUserID}`);
+            } else {
+                toast.error(response.message);
+            }
+            setLoading(false);
+        })
     }
 
 

@@ -172,14 +172,15 @@ const PostCourseForm = () => {
         };
 
         console.log(courseData)
-        const response = await dispatch(SetCourse(courseData));
-        if (response.success) {
-            // console.log("This is response.path" + response.path);
-            navigate(`/profile/${storedProfileUserID}`)
-            toast.success(response.message);
-        } else {
-            toast.error(response.message);
-        }
+        dispatch(SetCourse(courseData)).then((response) => {
+            if (response.success) {
+                // console.log("This is response.path" + response.path);
+                navigate(`/profile/${storedProfileUserID}`)
+                toast.success(response.message);
+            } else {
+                toast.error(response.message);
+            }
+        })
     }
 
 
@@ -562,7 +563,8 @@ const PostCourseForm = () => {
 
                     <button
                         type="submit"
-                        className="mt-3 btn btn-success w-100"
+                        className="mt-3 btn w-100"
+                        style={{ backgroundColor: '#E4B49D', color: 'white' }}
                         disabled={loading}
                     >
                         {loading ?

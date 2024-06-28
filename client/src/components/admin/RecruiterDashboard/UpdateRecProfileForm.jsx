@@ -42,149 +42,15 @@ const UpdateRecProfileForm = () => {
     const singleRecruiterData = recruiterProfile?.data?.result[0];
 
 
+
     const industryTypes = [
         "Select Industry Type",
-        "3D Printing",
-        "Accounting",
-        "Advanced Manufacturing",
-        "Airlines/Aviation",
-        "Advertising Technology",
-        "Agriculture",
-        "Animation",
-        "Apparel & Fashion",
-        "Architecture & Planning",
-        "Arts and Crafts",
-        "Automotive",
-        "Banking",
-        "Biotechnology",
-        "Broadcast Media",
-        "Building Materials",
-        "Business Supplies and Equipment",
-        "Capital Markets",
-        "Chemicals",
-        "Civic & Social Organization",
-        "Civil Engineering",
-        "Commercial Real Estate",
-        "Computer & Network Security",
-        "Computer Games",
-        "Computer Hardware",
-        "Computer Networking",
-        "Computer Software",
-        "Construction",
-        "Consumer Electronics",
-        "Consumer Goods",
-        "Consumer Services",
-        "Cosmetics",
-        "Dairy",
-        "Defense & Space",
-        "Design",
-        "Education Management",
-        "E-Learning",
-        "Electrical/Electronic Manufacturing",
-        "Entertainment",
-        "Environmental Services",
-        "Events Services",
-        "Executive Office",
-        "Facilities Services",
-        "Farming",
-        "Financial Services",
-        "Fine Art",
-        "Fishery",
-        "Food & Beverages",
-        "Food Production",
-        "Fund-Raising",
-        "Furniture",
-        "Glass, Ceramics & Concrete",
-        "Government Administration",
-        "Government Relations",
-        "Graphic Design",
-        "Health, Wellness and Fitness",
-        "Higher Education",
-        "Hospital & Health Care",
-        "Hospitality",
-        "Human Resources",
-        "Import and Export",
-        "Individual & Family Services",
-        "Industrial Automation",
-        "Information Services",
-        "Information Technology and Services",
-        "Insurance",
-        "International Trade and Development",
-        "Internet",
-        "Investment Banking",
-        "Investment Management",
-        "Judiciary",
-        "Law",
-        "Legislative Office",
-        "Leisure, Travel & Tourism",
-        "Libraries",
-        "Logistics and Supply Chain",
-        "Luxury Goods & Jewelry",
-        "Machinery",
-        "Management Consulting",
-        "Maritime",
-        "Marketing and Advertising",
-        "Mechanical or Industrial Engineering",
-        "Media Production",
-        "Medical Devices",
-        "Medical Practice",
-        "Mental Health Care",
-        "Military",
-        "Mining & Metals",
-        "Motion Pictures and Film",
-        "Music",
-        "Nanotechnology",
-        "Newspapers",
-        "Non-Profit Organization Management",
-        "Oil & Energy",
-        "Online Media",
-        "Outsourcing/Offshoring",
-        "Package/Freight Delivery",
-        "Packaging and Containers",
-        "Paper & Forest Products",
-        "Performing Arts",
-        "Pharmaceuticals",
-        "Philanthropy",
-        "Photography",
-        "Plastics",
-        "Political Organization",
-        "Primary/Secondary Education",
-        "Printing",
-        "Professional Training & Coaching",
-        "Program Development",
-        "Public Policy",
-        "Public Relations and Communications",
-        "Public Safety",
-        "Publishing",
-        "Railroad Manufacture",
-        "Ranching",
-        "Real Estate",
-        "Recreational Facilities and Services",
-        "Religious Institutions",
-        "Renewables & Environment",
-        "Research",
-        "Restaurants",
-        "Retail",
-        "Security and Investigations",
-        "Semiconductors",
-        "Shipbuilding",
-        "Sporting Goods",
-        "Sports",
-        "Staffing and Recruiting",
-        "Supermarkets",
-        "Telecommunications",
-        "Textiles",
-        "Think Tanks",
-        "Translation and Localization",
-        "Transportation/Trucking/Railroad",
-        "Utilities",
-        "Venture Capital & Private Equity",
-        "Veterinary",
-        "Warehousing",
-        "Wholesale",
-        "Wine and Spirits",
-        "Wireless",
-        "Writing and Editing"
+        "Hotel",
+        "Turismo",
+        "Recursos Humanos",
+        "Marketing",
+        "Dirección",
+        "Empresarial"
     ];
 
     useEffect(() => {
@@ -295,13 +161,22 @@ const UpdateRecProfileForm = () => {
             return toast.error('Please fill all the mandatory fields');
         }
         if (companyWebsite && !isValidUrl(companyWebsite)) {
+            setLoading(false);
             return toast.error('Invalid Company Website');
         }
         if (twitter && !isValidUrl(twitter)) {
+            setLoading(false);
             return toast.error('Invalid Twitter URL');
         }
         if (linkedIn && !isValidUrl(linkedIn)) {
+            setLoading(false);
             return toast.error('Invalid LinkedIn URL');
+        } if (CompanyDescription.length < 50) {
+            setLoading(false);
+            return toast.error('Company Description should be atleast 50 characters long');
+        } if (CompanyDescription.length > 3000) {
+            setLoading(false);
+            return toast.error('Company Description should not exceed 3000 characters');
         }
         const sanitizedAboutCompany = DOMPurify.sanitize(CompanyDescription);
 
@@ -321,22 +196,19 @@ const UpdateRecProfileForm = () => {
             created_by: localUserId
         }
 
-        console.log("This is ProfileData");
-        console.log(profileData);
-
-
-        const response = await dispatch(updateRecProfileAction(localUserId, profileData))
-        if (response.success) {
-            dispatch(getRecProfileAction(localUserId)).then((res) => {
-                if (res.success) {
-                    setLoading(false);
-                    toast.success(response.message);
-                }
-            })
-        } else {
-            toast.error(response.message)
-            setLoading(false);
-        }
+        dispatch(updateRecProfileAction(localUserId, profileData)).then((response) => {
+            if (response.success) {
+                dispatch(getRecProfileAction(localUserId)).then((res) => {
+                    if (res.success) {
+                        setLoading(false);
+                        toast.success(response.message);
+                    }
+                })
+            } else {
+                toast.error(response.message)
+                setLoading(false);
+            }
+        })
 
     }
 
@@ -618,8 +490,6 @@ const UpdateRecProfileForm = () => {
                                 <label htmlFor="CompanyTagline">
                                     {/* Company Tagline */}
                                     Lema de la Empresa
-
-
                                 </label>
                                 <input
                                     type="text"
@@ -685,7 +555,10 @@ const UpdateRecProfileForm = () => {
                                 <ImageCropper />
                             </div> */}
                         </div>
-                        <button className='btn btn-dark w-100 mt-2 mb-2'>
+                        <button
+                            className='btn w-100 mt-2 mb-2'
+                            style={{ background: '#E4B49D', color: 'white' }}
+                        >
                             {loading ? <>
                                 <div className='d-flex '>
                                     <PuffLoader

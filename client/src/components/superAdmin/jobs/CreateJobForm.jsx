@@ -325,8 +325,6 @@ const CreateJobForm = () => {
         return toast.error('Please select Joining Date');
       }
       const sanitizedJobDescription = DOMPurify.sanitize(jobDecription);
-
-
       const jobsData = {
         job_title: jobTitle,
         job_category: jobCategory,
@@ -349,17 +347,17 @@ const CreateJobForm = () => {
         created_by: localUser,
         recruiter_info: recruiter_info_id,
       }
-      console.log(jobsData)
 
       if (jobsData) {
-        const response = await dispatch(CreateJob(jobsData));
-        if (response.success) {
-          toast.success('Job Posted Successfully');
-          navigate('/superadmin/jobs')
-        } else {
-          console.log(response)
-          toast.error(response.message); // err.response.data.message
-        }
+        dispatch(CreateJob(jobsData)).then((response) => {
+          if (response.success) {
+            toast.success('Job Posted Successfully');
+            navigate('/superadmin/jobs')
+          } else {
+            console.log(response)
+            toast.error('something went wrong'); // err.response.data.message
+          }
+        })
       }
     } catch (error) {
       console.log(`this is from console.log ${error}`);

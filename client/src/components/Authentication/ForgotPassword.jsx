@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
-import { IoMdLock } from 'react-icons/io';
+
 import { toast, ToastContainer } from 'react-toastify';
 import { FaArrowLeft, FaUnlockAlt } from "react-icons/fa";
-import { NavLink } from 'react-router-dom';
+
 import {
     Flex,
     Img,
@@ -11,7 +11,6 @@ import {
     Grid,
 } from '@chakra-ui/react';
 
-import Logo from '../../assets/img/Logo1.png'
 import './InputLabelAnimation.css';
 import Carousel from './Carousel';
 import { ForgotPasswordAPI } from '../../api';
@@ -58,6 +57,7 @@ const ForgotPassword = () => {
     return (
         <div>
             <ToastContainer />
+            
             <div
                 className="signup"
                 borderRadius="0px 30px 0px 30px"
@@ -91,13 +91,6 @@ const ForgotPassword = () => {
                                 padding: '1rem',
                             }}
                         >
-                            <Img
-                                className='LogoImg'
-                                src={Logo}
-                                alt="Logo"
-                                width="5%"
-                                height="10%"
-                            />
                             <div
                                 style={{
                                     marginLeft: '1%',
@@ -109,7 +102,7 @@ const ForgotPassword = () => {
                                 Hi, Commando
                             </h6> */}
                                 <h3 style={{ fontSize: "18px" }}>
-                                    
+
                                     {/* Welcome Back to Hotel Journals! */}
                                     Bienvenido/a a Hotel Journals
                                 </h3>
@@ -120,10 +113,11 @@ const ForgotPassword = () => {
                                     />
                                     <h3 className='mt-0 pl-2'>
                                         {/* Forgot Password? */}
-                                        Olvidaste la contraseña? 
+                                        Olvidaste la contraseña?
                                     </h3>
                                 </div>
-                                <p>Create a new password to login your account.</p>
+                                {/* <p>Create a new password to login your account.</p> */}
+                                <p> Crea una nueva contraseña para acceder a tu cuenta .</p>
 
                             </div>
                             <br />
@@ -141,15 +135,21 @@ const ForgotPassword = () => {
                                 </div>
                                 <button
                                     type='submit'
-                                    className='btn btn-dark rounded-pill mt-4 p-2'
+                                    className='btn rounded-pill mt-4 p-2'
+                                    style={{ backgroundColor: '#E4B49D', color: 'white' }}
                                 >
-                                    Reset Password
+                                    {/* Reset Password */}
+                                    Cambiar contraseña
                                 </button>
                                 <button
                                     type='submit'
-                                    className='btn btn-primary rounded-pill mt-2 p-2'
+                                    className='btn rounded-pill mt-2 p-2'
+                                    style={{ backgroundColor: '#FAEFE8', color: 'black' }}
                                     onClick={() => navigate('/login')}
-                                >    Back to Login </button>
+                                >
+                                    {/* Back to Login */}
+                                    Volver al inicio de sesión
+                                </button>
                             </div>
                         </form>
                     </Flex>

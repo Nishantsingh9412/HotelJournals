@@ -34,6 +34,7 @@ function MyVerticallyCenteredModal(props) {
         e.preventDefault();
         setLoading(true);
         if (!title || !additionalDesc) {
+            setLoading(false);
             return toast.error('Please fill all the fields');
         }
 
@@ -43,18 +44,22 @@ function MyVerticallyCenteredModal(props) {
             userId: id
         }
 
-        const response = await dispatch(setAddInfoAction(additionalInfo));
-        if (response.success) {
-            const resp2 = await dispatch(getAddInfoAction(id));
-            if (resp2.success) {
-                props.onHide();
+        dispatch(setAddInfoAction(additionalInfo)).then((response) => {
+            if (response.success) {
+                dispatch(getAddInfoAction(id)).then((resp2) => {
+                    if (resp2.success) {
+                        setLoading(false);
+                        props.onHide();
+                    } else {
+                        setLoading(false);
+                        toast.info('Please Refresh the page to see the changes');
+                    }
+                })
             } else {
-                toast.info('Please Refresh the page to see the changes');
+                setLoading(false);
+                toast.error('Error in adding Additional Information');
             }
-        } else {
-            toast.error('Error in adding Additional Information');
-        }
-        setLoading(false);
+        })
     }
 
     return (

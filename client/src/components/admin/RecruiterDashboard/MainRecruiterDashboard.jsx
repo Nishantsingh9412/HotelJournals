@@ -54,13 +54,10 @@ const MainRecruiterDashboard = () => {
       setOldProfilePic(singleRecruiterData?.company_logo);
       setLoading(false);
     } else {
-      navigate('/login');
+      navigate(`/profile/${localUserId}`);
+      // navigate('/login')
     }
   }, [singleRecruiterData])
-
-  console.log(singleRecruiterData);
-  console.log(43, singleRecruiterData)
-  console.log(44, oldProfilePic)
 
   useEffect(() => {
     // for logout redirect to login page
@@ -107,11 +104,22 @@ const MainRecruiterDashboard = () => {
 
 
               {/* h2 */}
-              <FaEdit
-                size={30}
+              <button
                 onClick={() => setEditProfile(!editProfile)}
-                style={{ color: '#e4b49d', marginLeft: '10px', cursor: 'pointer' }}
-              />
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  backgroundColor: 'transparent',
+                  border: 'none',
+                  cursor: 'pointer',
+                  color: '#e4b49d',
+                  marginLeft: '10px',
+                }}
+              >
+                <FaEdit size={30} style={{ marginRight: '5px' }} />
+                {/* Edit Profile */}
+                Editar perfil
+              </button>
             </div>
             {
               editProfile ?

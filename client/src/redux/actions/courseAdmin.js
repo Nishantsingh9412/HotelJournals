@@ -1,55 +1,55 @@
 import * as api from '../../api/index.js';
 
 
-export const coursePaginateAction = (page,limit) => async (dispatch) => {
-    try{
-        const {data} = await api.paginateCourses(page,limit);
-        return {success:true,message:'Courses paginated successfully',data}
-    }catch(error){
+export const coursePaginateAction = (page, limit) => async (dispatch) => {
+    try {
+        const { data } = await api.paginateCourses(page, limit);
+        return { success: true, message: 'Courses paginated successfully', data }
+    } catch (error) {
         console.log("Error from coursePaginate Action: " + error.message, error.stack);
-        return {success:false,message:'Error paginating Courses'}
+        return { success: false, message: 'Error paginating Courses' }
     }
 }
 
 
-export const courseFilterAction = (filteredData,page,limit) => async (dispatch) => {
-    try{    
-        const {data} = await api.courseFilter(filteredData,page,limit);
-        dispatch({type:'COURSE_FILTER',data});
-        return {success:true,message:'Course filtered successfully',data}
-    }catch(error){
+export const courseFilterAction = (filteredData, page, limit) => async (dispatch) => {
+    try {
+        const { data } = await api.courseFilter(filteredData, page, limit);
+        dispatch({ type: 'COURSE_FILTER', data });
+        return { success: true, message: 'Course filtered successfully', data }
+    } catch (error) {
         console.log("Error from courseFilter Action: " + error.message, error.stack);
-        return {success:false,message:'Error filtering Course'}
+        return { success: false, message: 'Error filtering Course' }
     }
 }
 
-export const courseSearchAction = (courseData,page,limit) => async (dispatch) => {
-    try{
-        const {data} = await api.courseSearch(courseData,page,limit);
-        dispatch({type:'COURSE_SEARCH',data});
-        return {success:true,message:'Course filtered successfully',data}
-    }catch(error){
+export const courseSearchAction = (courseData, page, limit) => async (dispatch) => {
+    try {
+        const { data } = await api.courseSearch(courseData, page, limit);
+        dispatch({ type: 'COURSE_SEARCH', data });
+        return { success: true, message: 'Course filtered successfully', data }
+    } catch (error) {
         console.log("Error from courseFilter Action: " + error.message, error.stack);
-        return {success:false,message:'Error filtering Course'}
+        return { success: false, message: 'Error filtering Course' }
     }
 }
 
 export const SetCourse = (courseData) => async (dispatch) => {
     try {
-        const {data} = await api.CourseAdminData(courseData);
-        dispatch({type: 'COURSE', data});
+        const { data } = await api.CourseAdminData(courseData);
+        dispatch({ type: 'COURSE', data });
         console.log("Course Admin Action : ", data);
-        return {success:true,message:'Course posted successfully'}
+        return { success: true, message: 'Course posted successfully' }
     } catch (error) {
         console.log(" Error from CourseAdmin Action: " + error.message, error.stack);
-        return {success:false,message:'Error posting Course'}
+        return { success: false, message: 'Error posting Course' }
     }
 }
 
 export const GetCourse = () => async (dispatch) => {
     try {
-        const {data} = await api.getCourseData();
-        dispatch({type:'GET_COURSE',data});
+        const { data } = await api.getCourseData();
+        dispatch({ type: 'GET_COURSE', data });
         console.log("GetCourse Action : ", data);
     } catch (error) {
         console.log("Error From GetCourse Action: " + error.message, error.stack);
@@ -58,34 +58,34 @@ export const GetCourse = () => async (dispatch) => {
 
 
 export const GetCourseSingle = (id) => async (dispatch) => {
-    try{
-        const {data} = await api.getCourseDataSingle(id);
-        dispatch({type:'GET_COURSE_SINGLE',data});
-        return {success:true,message:'Course fetched successfully'}
-    }catch(error){
+    try {
+        const { data } = await api.getCourseDataSingle(id);
+        dispatch({ type: 'GET_COURSE_SINGLE', data });
+        return { success: true, message: 'Course fetched successfully' }
+    } catch (error) {
         console.log("Error From GetCourseSingle Action: " + error.message, error.stack);
-        return {success:false,message:'Error fetching Course'}
+        return { success: false, message: 'Error fetching Course' }
     }
 }
 
-export const UpdateCourseAction = (id,courseData) => async(dispatch) => {
-    try{
-        const {data} = await api.UpdateCourseData(id,courseData);
-        dispatch({type:'UPDATE_CURRENT_COURSE',data});
+export const UpdateCourseAction = (id, courseData) => async (dispatch) => {
+    try {
+        const { data } = await api.UpdateCourseData(id, courseData);
+        dispatch({ type: 'UPDATE_CURRENT_COURSE', data });
         console.log("UpdateCourse Action : ", data);
-        return {success:true,message:'Course updated successfully'}
-    }catch(err){
+        return { success: true, message: 'Course updated successfully' }
+    } catch (err) {
         console.log("Error from UpdateCourse Action : " + err.message);
-        return {success:false,message:'Error updating Course'}
+        return { success: false, message: 'Error updating Course' }
 
     }
 }
 
-export const DeleteACourseAction = (id) => async(dispatch) => {
-    try{
-        const {data} = await api.DeleteCourse(id);
+export const DeleteACourseAction = (id) => async (dispatch) => {
+    try {
+        const { data } = await api.DeleteCourse(id);
         dispatch(GetCourse());
-    }catch(err){
+    } catch (err) {
         console.log("Error from DeleteCourse Action : " + err.message);
     }
 }

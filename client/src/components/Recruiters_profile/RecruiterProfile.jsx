@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import ReactQuill from 'react-quill';
 import { useDispatch, useSelector } from 'react-redux';
 // Purify About Company
 import DOMPurify from 'dompurify';
@@ -11,162 +10,22 @@ import 'react-toastify/dist/ReactToastify.css';
 
 // import ImageCropper from './ImageCropper';
 
-import { PiSelectionSlashDuotone } from 'react-icons/pi';
 import { useNavigate } from 'react-router-dom';
-import MainRecruiterDashboard from '../admin/RecruiterDashboard/MainRecruiterDashboard';
 import { getRecProfileAction, setRecProfileAction } from '../../redux/actions/recProfile';
-import Profile from './ImageCropperForRecProfile/Profile';
-import RecruiterFinalDashboard from '../admin/AdminJobs/RecruiterFinalDashboard';
-import ProfilePic from '../User_profile/ProfilePic';
-import RecruiterCSS from './recruiterProfile.module.css';
 
 
 const RecruiterProfile = () => {
 
     const industryTypes = [
         "Select Industry Type",
-        "3D Printing",
-        "Accounting",
-        "Advanced Manufacturing",
-        "Airlines/Aviation",
-        "Advertising Technology",
-        "Agriculture",
-        "Animation",
-        "Apparel & Fashion",
-        "Architecture & Planning",
-        "Arts and Crafts",
-        "Automotive",
-        "Banking",
-        "Biotechnology",
-        "Broadcast Media",
-        "Building Materials",
-        "Business Supplies and Equipment",
-        "Capital Markets",
-        "Chemicals",
-        "Civic & Social Organization",
-        "Civil Engineering",
-        "Commercial Real Estate",
-        "Computer & Network Security",
-        "Computer Games",
-        "Computer Hardware",
-        "Computer Networking",
-        "Computer Software",
-        "Construction",
-        "Consumer Electronics",
-        "Consumer Goods",
-        "Consumer Services",
-        "Cosmetics",
-        "Dairy",
-        "Defense & Space",
-        "Design",
-        "Education Management",
-        "E-Learning",
-        "Electrical/Electronic Manufacturing",
-        "Entertainment",
-        "Environmental Services",
-        "Events Services",
-        "Executive Office",
-        "Facilities Services",
-        "Farming",
-        "Financial Services",
-        "Fine Art",
-        "Fishery",
-        "Food & Beverages",
-        "Food Production",
-        "Fund-Raising",
-        "Furniture",
-        "Glass, Ceramics & Concrete",
-        "Government Administration",
-        "Government Relations",
-        "Graphic Design",
-        "Health, Wellness and Fitness",
-        "Higher Education",
-        "Hospital & Health Care",
-        "Hospitality",
-        "Human Resources",
-        "Import and Export",
-        "Individual & Family Services",
-        "Industrial Automation",
-        "Information Services",
-        "Information Technology and Services",
-        "Insurance",
-        "International Trade and Development",
-        "Internet",
-        "Investment Banking",
-        "Investment Management",
-        "Judiciary",
-        "Law",
-        "Legislative Office",
-        "Leisure, Travel & Tourism",
-        "Libraries",
-        "Logistics and Supply Chain",
-        "Luxury Goods & Jewelry",
-        "Machinery",
-        "Management Consulting",
-        "Maritime",
-        "Marketing and Advertising",
-        "Mechanical or Industrial Engineering",
-        "Media Production",
-        "Medical Devices",
-        "Medical Practice",
-        "Mental Health Care",
-        "Military",
-        "Mining & Metals",
-        "Motion Pictures and Film",
-        "Music",
-        "Nanotechnology",
-        "Newspapers",
-        "Non-Profit Organization Management",
-        "Oil & Energy",
-        "Online Media",
-        "Outsourcing/Offshoring",
-        "Package/Freight Delivery",
-        "Packaging and Containers",
-        "Paper & Forest Products",
-        "Performing Arts",
-        "Pharmaceuticals",
-        "Philanthropy",
-        "Photography",
-        "Plastics",
-        "Political Organization",
-        "Primary/Secondary Education",
-        "Printing",
-        "Professional Training & Coaching",
-        "Program Development",
-        "Public Policy",
-        "Public Relations and Communications",
-        "Public Safety",
-        "Publishing",
-        "Railroad Manufacture",
-        "Ranching",
-        "Real Estate",
-        "Recreational Facilities and Services",
-        "Religious Institutions",
-        "Renewables & Environment",
-        "Research",
-        "Restaurants",
-        "Retail",
-        "Security and Investigations",
-        "Semiconductors",
-        "Shipbuilding",
-        "Sporting Goods",
-        "Sports",
-        "Staffing and Recruiting",
-        "Supermarkets",
-        "Telecommunications",
-        "Textiles",
-        "Think Tanks",
-        "Translation and Localization",
-        "Transportation/Trucking/Railroad",
-        "Utilities",
-        "Venture Capital & Private Equity",
-        "Veterinary",
-        "Warehousing",
-        "Wholesale",
-        "Wine and Spirits",
-        "Wireless",
-        "Writing and Editing"
+        "Hotel",
+        "Turismo",
+        "Recursos Humanos",
+        "Marketing",
+        "Dirección",
+        "Empresarial"
     ];
+
     const modules = {
         toolbar: [
             ['bold', 'italic', 'underline'],
@@ -202,28 +61,28 @@ const RecruiterProfile = () => {
     useEffect(() => {
         dispatch(getRecProfileAction(localuserId))
     }, [])
-    
+
     const currentUserProfileFromDB = useSelector(state => state.getRecProfileReducer);
     console.log(currentUserProfileFromDB);
-    
+
     const currentProfileData = currentUserProfileFromDB?.data?.result[0];
     console.log(currentProfileData);
 
     useEffect(() => {
         if (currentProfileData) {
             setCurrentRecProfile(currentProfileData);
-        } 
+        }
     }, [currentProfileData]);
 
     useEffect(() => {
-        if(currentRecProfile){
+        if (currentRecProfile) {
             navigate('/recruiter');
-        }else{
+        } else {
             setTimeout(() => {
                 setLoadingPage(false);
-            },5000);
+            }, 5000);
         }
-    },[currentRecProfile])
+    }, [currentRecProfile])
 
 
     // const currentRecProfile = currentUserProfileFromDB?.data?.result[0];
@@ -283,16 +142,26 @@ const RecruiterProfile = () => {
             return toast.error('Please fill all the mandatory fields');
         }
         if (companyWebsite && !isValidUrl(companyWebsite)) {
+            setLoading(false);
             return toast.error('Invalid Company Website');
+
         }
         if (twitter && !isValidUrl(twitter)) {
+            setLoading(false);
             return toast.error('Invalid Twitter URL');
         }
         if (linkedIn && !isValidUrl(linkedIn)) {
+            setLoading(false);
             return toast.error('Invalid LinkedIn URL');
+        } if (CompanyDescription.length < 50) {
+            setLoading(false);
+            return toast.error('Company Description should be atleast 50 characters long');
+        }
+        if (CompanyDescription.length > 3000) {
+            setLoading(false);
+            return toast.error('Company Description should not exceed 3000 characters');
         }
         const sanitizedAboutCompany = DOMPurify.sanitize(CompanyDescription);
-
         const profileData = {
             companyName,
             Designation,
@@ -309,21 +178,21 @@ const RecruiterProfile = () => {
             created_by: localuserId
         }
 
-        console.log("This is ProfileData");
-        console.log(profileData);
 
-        const response = await dispatch(setRecProfileAction(profileData))
-        if (response.success) {
-            toast.success(response.message)
-            dispatch(getRecProfileAction(localuserId));
-            setLoading(false);
-            navigate('/recruiter');
-            // onFormSubmit(); // Redirect to RecruiterFinalDashboard
-        } else {
-            toast.error(response.message)
-            setLoading(false);
-        }
+        dispatch(setRecProfileAction(profileData)).then((response => {
+            if (response.success) {
+                toast.success(response.message)
+                dispatch(getRecProfileAction(localuserId));
+                setLoading(false);
+                navigate('/recruiter');
+                // onFormSubmit(); // Redirect to RecruiterFinalDashboard
+            } else {
+                toast.error(response.message)
+                setLoading(false);
+            }
+        }))
     }
+
 
 
     return (
@@ -348,7 +217,13 @@ const RecruiterProfile = () => {
                 >
                     <ToastContainer />
 
-                    <div className='alert alert-primary mt-2 text-center'> Company Information </div>
+                    <div
+                        className='alert mt-2 text-center'
+                        style={{ backgroundColor: '#E4B49D', color: 'white' }}
+                    >
+                        {/* Company Information */}
+                        Información Empresarial
+                    </div>
 
                     <form onSubmit={handleProfileSubmit}
                         onKeyDown={(e) => {
@@ -359,32 +234,47 @@ const RecruiterProfile = () => {
                     >
                         <div className="form-row mt-3">
                             <div className="form-group col-md-6">
-                                <label htmlFor="companyName" className='text-dark'> Company Name  <span className='text-danger'>*</span></label>
+                                <label htmlFor="companyName" className='text-dark'>
+                                    {/* Company Name */}
+                                    Empresa
+                                    <span className='text-danger'>*</span></label>
                                 <input
                                     type="text"
                                     onChange={(e) => setCompanyName(e.target.value)}
                                     className='form-control'
-                                    placeholder='Enter Company Name'
+                                    // placeholder='Enter Company Name'
+                                    placeholder='Nombre de la Empresa'
                                 />
                             </div>
                             <div className="form-group col-md-6">
-                                <label htmlFor="Designation" className='text-dark'> Designation <span className='text-danger'>*</span> </label>
+                                <label htmlFor="Designation" className='text-dark'>
+                                    {/* Designation */}
+                                    Puesto
+                                    <span className='text-danger'>*</span> </label>
                                 <input
                                     type="text"
                                     onChange={(e) => setDesignation(e.target.value)}
                                     className='form-control'
-                                    placeholder='Enter Designation' />
+                                    // placeholder='Enter Designation'
+                                    placeholder='Puesto'
+                                />
                             </div>
                         </div>
 
                         <div className='form-row mt-3'>
                             <div className="form-group col-md-6">
-                                <label htmlFor="NoOfEmployees"> No of Employees </label>
+                                <label htmlFor="NoOfEmployees">
+                                    {/* No of Employees */}
+                                    Selecciona Nº de Empleados
+                                </label>
                                 <select
                                     className='form-control'
                                     onChange={(e) => setNumberOfEmployees(e.target.value)}
                                 >
-                                    <option value=""> Select No of Employees </option>
+                                    <option value="">
+                                        {/* Select No of Employees  */}
+                                        Nº Empleados
+                                    </option>
                                     <option value="1-10"> 1-10 </option>
                                     <option value="11-50"> 11-50 </option>
                                     <option value="51-200"> 51-200 </option>
@@ -396,18 +286,26 @@ const RecruiterProfile = () => {
                             </div>
                             {/* Country API for HeadQuarters */}
                             <div className="form-group col-md-6">
-                                <label htmlFor="HeadQuarters"> HeadQuarters <span className='text-danger'>*</span></label>
+                                <label htmlFor="HeadQuarters">
+                                    {/* HeadQuarters */}
+                                    Sede Central
+
+                                    <span className='text-danger'>*</span></label>
                                 <input
                                     type="text"
                                     onChange={(e) => setHeadQuarters(e.target.value)}
                                     className='form-control'
-                                    placeholder='Enter HeadQuarters'
+                                    // placeholder='Enter HeadQuarters'
+                                    placeholder='Sede Central'
                                 />
                             </div>
                         </div>
                         <div className='form-row mt-3'>
                             <div className='form-group col-md-6'>
-                                <label htmlFor="industryType"> Industry Type <span className='text-danger'>*</span> </label>
+                                <label htmlFor="industryType">
+                                    {/* Industry Type */}
+                                    Tipo de Industria
+                                    <span className='text-danger'>*</span> </label>
                                 <select
                                     className='form-control'
                                     onChange={(e) => setIndustryType(e.target.value)}
@@ -415,7 +313,10 @@ const RecruiterProfile = () => {
                                     {industryTypes.map((type, index) => (
                                         type === 'Select Industry Type' ?
                                             <>
-                                                <option key={index} value="" > Select Industry Type </option>
+                                                <option key={index} value="" >
+                                                    {/* Select Industry Type */}
+                                                    Seleccionar Tipo de Industria
+                                                </option>
                                             </>
                                             :
                                             <>
@@ -427,47 +328,77 @@ const RecruiterProfile = () => {
                                 </select>
                             </div>
                             <div className='form-group col-md-6'>
-                                <label htmlFor="companyType"> Company Type <span className='text-danger'>*</span> </label>
+                                <label htmlFor="companyType">
+                                    {/* Company Type */}
+                                    Tipo de Empresa
+                                    <span className='text-danger'>*</span> </label>
                                 <select
                                     className='form-control'
                                     onChange={(e) => setCompanyType(e.target.value)}
                                 >
-                                    <option value=""> Select Company Type </option>
-                                    <option value="Private"> Private </option>
-                                    <option value="Public"> Public </option>
-                                    <option value="Government"> Government </option>
-                                    <option value="NGO"> NGO </option>
-                                    <option value="Other"> Other </option>
+                                    <option value="">
+                                        {/* Select Company Type */}
+                                        Tipo de Empresa
+                                    </option>
+                                    <option value="Private">
+                                        {/* Private */}
+                                        Privado
+                                    </option>
+                                    <option value="Public">
+                                        {/* Public */}
+                                        Público
+                                    </option>
+                                    <option value="Government">
+                                        {/* Government */}
+                                        Gobierno
+                                    </option>
+                                    <option value="NGO">
+                                        {/* NGO */}
+                                        ONG
+                                    </option>
+                                    <option value="Other">
+                                        {/* Other */}
+                                        Otro
+                                    </option>
                                 </select>
                             </div>
                         </div>
                         <div className='form-row mt-3'>
                             <div className='form-group col-md-6'>
-                                <label htmlFor="companyWebsite"> Company Website </label>
+                                <label htmlFor="companyWebsite">
+                                    {/* Company Website */}
+                                    Website Corporativa
+                                </label>
                                 <input
                                     type="url"
                                     onChange={(e) => setCompanyWebsite(e.target.value)}
                                     className='form-control'
-                                    placeholder='www.yourcompanyname.com'
+                                    // placeholder='www.yourcompanyname.com'
+                                    placeholder='www.nombredetucompañia.com'
                                 />
                             </div>
                             <div className='form-group col-md-6'>
-                                <label htmlFor="CompanyTagline"> Company Tagline </label>
+                                <label htmlFor="CompanyTagline">
+                                    {/* Company Tagline */}
+                                    Lema de la Empresa
+                                </label>
                                 <input
                                     type="text"
                                     onChange={(e) => setCompanysTagline(e.target.value)}
                                     className='form-control'
-                                    placeholder='Enter Company Tagline' />
+                                    // placeholder='Enter Company Tagline' 
+                                    placeholder='Lema de la Empresa'
+                                />
                             </div>
                         </div>
                         <div className='form-row mt-3'>
                             <div className='form-group col-md-6'>
-                                <label htmlFor="twitter"> X (Formerly Twitter) </label>
+                                <label htmlFor="twitter"> X (Antiguo Twitter)</label>
                                 <input
                                     type="url"
                                     onChange={(e) => setTwitter(e.target.value)}
                                     className='form-control'
-                                    placeholder='https://twitter.com/yourusername' />
+                                    placeholder='https://twitter.com/tuusuario' />
                             </div>
                             <div className='form-group col-md-6'>
                                 <label htmlFor="linkedIn"> LinkedIn </label>
@@ -475,13 +406,17 @@ const RecruiterProfile = () => {
                                     type="url"
                                     onChange={(e) => setLinkedIn(e.target.value)}
                                     className='form-control'
-                                    placeholder='https://www.linkedin.com/yourusername'
+                                    placeholder='https://www.linkedin.com/tuusuario'
                                 />
                             </div>
                         </div>
                         <div className='form-row mt-3'>
                             <div className='form-group col-md-12'>
-                                <label htmlFor="companyDescription"> About Company <span className='text-danger'>*</span></label>
+                                <label htmlFor="companyDescription">
+                                    {/* About Company */}
+                                    Sobre la Compañía
+                                    <span className='text-danger'>*</span>
+                                </label>
                                 {/* <ReactQuill
                                     theme="snow"
                                     modules={modules}
@@ -494,7 +429,8 @@ const RecruiterProfile = () => {
                                     rows={5}
                                     cols={10}
                                     onChange={(e) => setCompanyDescription(e.target.value)}
-                                    placeholder='Write something about your company'
+                                    // placeholder='Write something about your company'
+                                    placeholder='Escribe algo sobre tu empresa'
                                 />
                             </div>
                             {/* <div className='form-group col-md-6'>
@@ -507,15 +443,24 @@ const RecruiterProfile = () => {
                                 <ImageCropper />
                             </div> */}
                         </div>
-                        <button className='btn btn-dark w-100 mt-2 mb-2'>
+                        <button
+                            className='btn w-100 mt-2 mb-2'
+                            style={{ backgroundColor: '#E4B49D', color: 'white' }}
+                        >
                             {loading ? <>
-                                <div className='d-flex '>
+                                <div className='d-flex justify-content-center '>
                                     <PuffLoader
                                         size={25}
                                         color="#ffffff"
-                                    /> <span className='pl-2'> Loading ... </span>
+                                    /> <span className='pl-2'>
+                                        {/* Loading ... */}
+                                        Cargando ...
+                                    </span>
                                 </div>
-                            </> : 'Save Details'}
+                            </> :
+                                // 'Save Details'
+                                'Guardar Detalles'
+                            }
                         </button>
                     </form>
                 </div>

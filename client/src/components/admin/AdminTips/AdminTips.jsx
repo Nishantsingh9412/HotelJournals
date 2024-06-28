@@ -42,7 +42,7 @@ const AdminTips = () => {
 
 
     const handleSubmit = async (e) => {
-
+        
         e.preventDefault();
         if(!title || !content || !image){
             return toast.error('Please fill all fields');
